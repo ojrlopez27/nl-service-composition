@@ -1,0 +1,8 @@
+11 this method checks calendar availability on a range of dates
+16 this method looks for different flights
+19 this method makes a flight reservation
+8 this method looks for hotels on a given destination and range of dates
+5 this method makes a hotel reservation given a destination place and a range of dates
+24 this method checks the weather conditions and forecast for a given place and range of dates
+21 this method returns a list of indoor and outdoor activities to do in a new place
+21 this method returns a list of indoor and outdoor activities to do in a new place

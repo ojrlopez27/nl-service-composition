@@ -1,0 +1,17 @@
+group 'edu.cmu.inmind.services'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+    compile group: 'org.jeasy', name: 'easy-rules-core', version: '3.2.0'
+    compile group: 'org.jeasy', name: 'easy-rules-mvel', version: '3.2.0'
+}

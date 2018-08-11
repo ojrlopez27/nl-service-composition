@@ -1,3 +1,15 @@
+# pre-trained model (wikipedia)
+sent2vec/wiki_bigrams.bin
+
+# build files
+composition/build/
+composition/gradle/
+
+.DS_Store
+composition/.DS_Store
+sent2vec/.DS_Store
+
+
 # Compiled class file
 *.class
 
