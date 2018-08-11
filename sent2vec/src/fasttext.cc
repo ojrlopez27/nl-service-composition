@@ -653,7 +653,7 @@ void FastText::nnSent(int32_t k, std::string filename) {
 
 
   // modified by Oscar:
-  std::string inputFilename = "inputText";
+  std::string inputFilename = "io-files/inputText";
   std::vector<std::string> insentences;
   std::vector<std::string> output;
   std::string sentence1;
@@ -689,7 +689,7 @@ void FastText::nnSent(int32_t k, std::string filename) {
   }
   
   std::ofstream outputFile;
-  outputFile.open ("outputSent2Vec.txt");
+  outputFile.open ("io-files/outputSent2Vec.txt");
   for (std::vector<std::string>::iterator it = output.begin() ; it != output.end(); ++it)
     outputFile << *it << "\n";
   outputFile.close();

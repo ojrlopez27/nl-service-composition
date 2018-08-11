@@ -42,14 +42,14 @@ public class Utils {
         }
 
         // store the corpora file
-        printToFile("/Users/oscarr/Development/sent2vec/inputText", inputText);
+        printToFile("/Users/oscarr/Development/semantic-middleware/sent2vec/io-files/inputText", inputText);
     }
 
 
     private static Map<String, ServiceMethod> mapInterfaces, mapImplementations;
     public static Map<String, ServiceMethod> generateCorporaFromMethods(){
         mapInterfaces = extractClassesFromPackage(GenericService.class.getPackage().getName(),
-                "/Users/oscarr/Development/sent2vec/corporaMethods", true);
+                "/Users/oscarr/Development/semantic-middleware/sent2vec/io-files/corporaMethods", true);
         extractImplementationClasses();
         return mapInterfaces;
     }
@@ -150,7 +150,7 @@ public class Utils {
     }
 
     public static List<String> getAbstractServices() {
-        return readFromFile("/Users/oscarr/Development/sent2vec/outputSent2Vec.txt");
+        return readFromFile("/Users/oscarr/Development/semantic-middleware/sent2vec/io-files/outputSent2Vec.txt");
     }
 
 

@@ -1,12 +1,12 @@
 it returns the news feeds about a given topic
 it retrieves news about people
 it retrieves news about places , countries , and cities
-this method allows hotel reservation given a destination place , check-in date , and check-out date
-this method allows to book a hotel given a destination place and a range of dates
-this method makes a hotel reservation given a destination place and a range of dates
 this method searches different hotel alternatives based on a destination place , check-in date , and check-out date
 this method searches for hotels on a given destination and range of dates
 this method looks for hotels on a given destination and range of dates
+this method allows hotel reservation given a destination place , check-in date , and check-out date
+this method allows to book a hotel given a destination place and a range of dates
+this method makes a hotel reservation given a destination place and a range of dates
 this method validates whether there is availability on calendar given a time slot
 this method checks whether there is a conflict on the calendar given a range of dates
 this method checks calendar availability on a range of dates

@@ -4,6 +4,8 @@ sent2vec/wiki_bigrams.bin
 # build files
 composition/build/
 composition/gradle/
+composition/.idea/
+compostion/.gradle/
 
 .DS_Store
 composition/.DS_Store
