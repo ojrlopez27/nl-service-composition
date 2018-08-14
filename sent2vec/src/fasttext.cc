@@ -22,6 +22,16 @@
 #include <algorithm>
 #include <stdio.h>
 
+#include <sys/stat.h>
+#include <unistd.h>
+#include <time.h>
+#include <stdio.h>
+
+#include <zmq.hpp>
+
+struct tm *fileTime;
+struct stat attrib;
+
 
 namespace fasttext {
 
@@ -126,17 +136,17 @@ void FastText::saveModel() {
 }
 
 void FastText::loadModel(const std::string& filename) {
-  std::ifstream ifs(filename, std::ifstream::binary);
-  if (!ifs.is_open()) {
-    std::cerr << "Model file cannot be opened for loading!" << std::endl;
-    exit(EXIT_FAILURE);
-  }
-  if (!checkModel(ifs)) {
-    std::cerr << "Model file has wrong file format!" << std::endl;
-    exit(EXIT_FAILURE);
-  }
-  loadModel(ifs);
-  ifs.close();
+  // std::ifstream ifs(filename, std::ifstream::binary);
+  // if (!ifs.is_open()) {
+  //   std::cerr << "Model file cannot be opened for loading!" << std::endl;
+  //   exit(EXIT_FAILURE);
+  // }
+  // if (!checkModel(ifs)) {
+  //   std::cerr << "Model file has wrong file format!" << std::endl;
+  //   exit(EXIT_FAILURE);
+  // }
+  // loadModel(ifs);
+  // ifs.close();
 }
 
 void FastText::loadModel(std::istream& in) {
@@ -567,17 +577,16 @@ void FastText::findNNSent(const Matrix& sentenceVectors, const Vector& queryVec,
   }
 
   int32_t i = 0;
-  bool added = false;
   while (i < k && heap.size() > 0) {
     auto it = banSet.find(heap.top().second);
     if (!std::isnan(heap.top().first)) {
       std::cout << heap.top().first << " " 
                                     << heap.top().second << " " 
                                     << std::endl;
-      if (!added){
-        output.push_back(heap.top().second);
-        added = true;
-      }
+      std::string str = std::to_string(heap.top().first);
+      str.append("@@");
+      str.append(heap.top().second);
+      output.push_back(str);
       i++;
     }
     heap.pop();
@@ -630,6 +639,36 @@ void FastText::analogies(int32_t k) {
 }
 
 void FastText::nnSent(int32_t k, std::string filename) {  
+  //  Prepare our context and socket
+	std::cout << "*** 1" << std::endl;
+    zmq::context_t context (1);
+    std::cout << "*** 2" << std::endl;
+    zmq::socket_t socket (context, ZMQ_REP);
+    std::cout << "*** 3" << std::endl;
+    socket.bind ("tcp://*:5555");
+    std::cout << "*** 4" << std::endl;
+
+    while (true) {
+        zmq::message_t request;
+
+        //  Wait for next request from client
+        socket.recv (&request);
+        std::cout << "*** 5" << std::endl;
+        std::cout << "Received Hello" << std::endl;
+
+        //  Do some 'work'
+        sleep(1);
+        std::cout << "*** 6" << std::endl;
+
+        //  Send reply back to client
+        zmq::message_t reply (5);
+        std::cout << "*** 7" << std::endl;
+        memcpy (reply.data (), "World", 5);
+        std::cout << "*** 8" << std::endl;
+        socket.send (reply);
+        std::cout << "*** 9" << std::endl;
+    }
+  
   std::string sentence;
   std::ifstream in1(filename);
   int64_t n = 0;
@@ -651,27 +690,33 @@ void FastText::nnSent(int32_t k, std::string filename) {
   precomputeSentenceVectors(sentenceVectors, in1);
   std::set<std::string> banSet;
 
+  // let's wait for java
+  fileChanged();
+
 
   // modified by Oscar:
   std::string inputFilename = "io-files/inputText";
   std::vector<std::string> insentences;
   std::vector<std::string> output;
   std::string sentence1;
-  std::ifstream in3(inputFilename);
-  std::ifstream in4(inputFilename);
-  int64_t m = 0;
-  while (in3.peek() != EOF) {
-    std::getline(in3, sentence1);
-    insentences.push_back(sentence1);
-    m++;
-  }
-  std::cout << "Number of sentences in the input file is " << m << "." << std::endl ;
-
-  // std::cerr << "Query sentence? " << std::endl;
-  int i = 0;
+  std::ifstream in3;
+  std::ifstream in4(inputFilename, std::ifstream::in);
+  
   while (in4.peek() != EOF) {  
+
+    int64_t m = 0;
+    insentences.clear();
+    in3.open (inputFilename, std::ifstream::in);
+    while (in3.peek() != EOF) {
+      std::getline(in3, sentence1);
+      insentences.push_back(sentence1);
+      m++;
+    }
+    std::cout << "Number of sentences in the input file is " << m << "." << std::endl ;
+
+
     query.zero();
-    std::cout << "If user request is: [" << insentences[i] << "] then the most similar descriptions are: " << std::endl ;
+    std::cout << "If user request is: [" << insentences[0] << "] then the most similar descriptions are: " << std::endl ;
     dict_->getLine(in4, line, labels, model_->rng);
     dict_->addNgrams(line, args_->wordNgrams);
     buffer.zero();
@@ -684,7 +729,19 @@ void FastText::nnSent(int32_t k, std::string filename) {
     query.addVector(buffer, 1.0);
     findNNSent(sentenceVectors, query, k, banSet, n, sentences, output);
     std::cout << std::endl;
-    i++;
+
+
+    std::cout<< "Waiting for next sentence... " << '\n';
+    in4.close();
+    in3.close();
+    bool result = fileChanged();
+    in4.open (inputFilename, std::ifstream::in);
+
+    // std::cout<< "1. position: " << in4.tellg();
+    // bool result = fileChanged();
+    // std::cout<< "2. position: " << in4.tellg();
+    // in4.seekg (0, in4.beg);
+    // std::cout<< "3. position: " << in4.tellg();
     // std::cerr << "Query sentence? " << std::endl;
   }
   
@@ -693,6 +750,32 @@ void FastText::nnSent(int32_t k, std::string filename) {
   for (std::vector<std::string>::iterator it = output.begin() ; it != output.end(); ++it)
     outputFile << *it << "\n";
   outputFile.close();
+}
+
+
+bool FastText::fileChanged() {
+  stat("io-files/inputText", &attrib);
+  fileTime = gmtime(&(attrib.st_mtime));
+  int f1_hour = fileTime->tm_hour;
+  int f1_min = fileTime->tm_min;
+  int f1_sec = fileTime->tm_sec;
+
+  while(true){
+    stat("io-files/inputText", &attrib);
+    fileTime = gmtime(&(attrib.st_mtime));
+    int f2_hour = fileTime->tm_hour;
+    int f2_min = fileTime->tm_min;
+    int f2_sec = fileTime->tm_sec;
+
+    if(f1_hour == f2_hour && f1_min == f2_min && f1_sec == f2_sec){
+      // do nothing
+      //std::cout<<"are equal" << '\n';
+    }else{
+      //std::cout<<"are different: " << f1_hour << ":" << f1_min << ":" << f1_sec << "; " << f2_hour << ":" << f2_min << ":" << f2_sec << '\n';
+      return true;
+    }
+    usleep(100000);
+  }
 }
 
 
