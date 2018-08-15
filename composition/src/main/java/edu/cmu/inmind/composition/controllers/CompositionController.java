@@ -96,6 +96,10 @@ public class CompositionController {
         wm.setCommand(Constants.CHECK_BATTERY);
     }
 
+    /**
+     * Heuristic rules for grounding services (given a set of abstract services) based on
+     * non-functional QoS features (i.e., battery consumption, connectivity, availability, etc.)
+     */
     public static void createRulesForGroundingServices() {
         ruleListGS.add(
                 new MVELRule()
@@ -151,15 +155,6 @@ public class CompositionController {
 
 
 
-
-
-
-
-
-    public static CompositeServiceBuilder newComposition(String request){
-        return new CompositeServiceBuilder(request);
-    }
-
     public static void execute(CompositeService compositeService, Map<String, ServiceMethod> serviceMap,
                                List<String> abstractServices) {
 
@@ -192,34 +187,13 @@ public class CompositionController {
             and( request );
         }
 
-        public CompositeServiceBuilder and(String request){
-            nodes.add( new Node(request, Node.NodeType.PLAIN) );
-            return this;
-        }
-
-        public CompositeServiceBuilder iff(String request){
-            nodes.add( new Node(request, Node.NodeType.IF) );
-            return this;
-        }
-
-        public CompositeServiceBuilder then(String request){
-            Node parent = lastNode();
-            parent.addNode( new Node(request, Node.NodeType.THEN) );
-            return this;
-        }
-
-        public CompositeServiceBuilder otherwise(String request){
-            Node parent = lastNode();
-            parent.addNode( new Node(request, Node.NodeType.OTHERWISE) );
+        public CompositeServiceBuilder and(String request) {
+            nodes.add(new Node(request, Node.NodeType.PLAIN));
             return this;
         }
 
         public CompositeService build(){
             return new CompositeService(this);
-        }
-
-        private Node lastNode(){
-            return nodes.get( nodes.size() - 1 );
         }
     }
 

@@ -133,6 +133,7 @@ public class Utils {
 
 
     private static List<String> readFromFile(String filename){
+        isFileModified();
         List<String> lines = new ArrayList<>();
         try {
             File file = new File(filename);
@@ -216,5 +217,26 @@ public class Utils {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+
+    private static long lastModified;
+    private static boolean firstTime = true;
+    public static boolean isFileModified(){
+        try {
+            while (true) {
+                File file = new File("/Users/oscarr/Development/semantic-middleware/sent2vec/io-files/outputSent2Vec.txt");
+                if (file.exists() && firstTime || file.lastModified() != lastModified) {
+                    firstTime = false;
+                    lastModified = file.lastModified();
+                    return true;
+                }
+                Thread.sleep(500);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

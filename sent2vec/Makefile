@@ -8,7 +8,7 @@
 #
 
 CXX = c++
-CXXFLAGS = -pthread -std=c++0x
+CXXFLAGS = -pthread -std=c++0x -I/usr/local/include/ -L/usr/local/lib -lzmq
 OBJS = args.o dictionary.o productquantizer.o matrix.o qmatrix.o  vector.o model.o utils.o fasttext.o
 INCLUDES = -I.
 
