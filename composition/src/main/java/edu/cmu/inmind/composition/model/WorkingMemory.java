@@ -2,6 +2,7 @@ package edu.cmu.inmind.composition.model;
 
 import edu.cmu.inmind.composition.apis.GenericService;
 import edu.cmu.inmind.composition.controllers.ServiceExecutor;
+import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -22,7 +23,10 @@ public class WorkingMemory {
     private Class<? extends GenericService> service;
     private Method serviceMethod;
     private String abstractService;
+    private String concreteAction;
     private Map<String, Object> results = new HashMap<>();
+    private List<List<AbstractServicePOJO>> candidates = new ArrayList<>();
+    private int idxCandidates;
 
     public String getCommand() {
         return command;
@@ -98,5 +102,33 @@ public class WorkingMemory {
 
     public void addResult(String key, Object result) {
         results.put(key, result);
+    }
+
+    public Map<String, Object> getResults() {
+        return results;
+    }
+
+    public void setResults(Map<String, Object> results) {
+        this.results = results;
+    }
+
+    public List<List<AbstractServicePOJO>> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(List<List<AbstractServicePOJO>> candidates) {
+        this.candidates = candidates;
+    }
+
+    public String getConcreteAction() {
+        return concreteAction;
+    }
+
+    public void setConcreteAction(String concreteAction) {
+        this.concreteAction = concreteAction;
+    }
+
+    public List<AbstractServicePOJO> getAbstractServices() {
+        return candidates.get(idxCandidates++);
     }
 }

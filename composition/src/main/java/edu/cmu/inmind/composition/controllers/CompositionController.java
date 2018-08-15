@@ -5,6 +5,7 @@ import edu.cmu.inmind.composition.common.Node;
 import edu.cmu.inmind.composition.common.ServiceMethod;
 import edu.cmu.inmind.composition.common.Utils;
 import edu.cmu.inmind.composition.model.WorkingMemory;
+import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
@@ -12,7 +13,6 @@ import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.mvel.MVELRule;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +38,7 @@ public class CompositionController {
         rulesEngineGS = new DefaultRulesEngine();
         ruleListAS = new ArrayList<>();
         ruleListGS = new ArrayList<>();
+        NERController.init();
     }
 
     public static void addGoal(String goal) {
@@ -53,8 +54,10 @@ public class CompositionController {
      * This is just a simple chaining of rules.
      * @param step
      */
-    public static void addStep(String step) {
+    public static void addStep(String step, String abstracServiceCandidates) {
         String ruleName = Utils.getRuleName(step);
+        List<AbstractServicePOJO> candidates = Utils.extractAbstractServices(abstracServiceCandidates);
+        wm.getCandidates().add(candidates);
         ruleListAS.add(
             new MVELRule()
                 .name(ruleName)
@@ -69,7 +72,6 @@ public class CompositionController {
     }
 
     public static CompositeService generateCompositeServiceRequest() {
-        System.out.println("\n\n======== ABSTRACT SERVICES ===========");
         CompositeServiceBuilder builder = null;
         // create a rule set
         for(Rule rule : ruleListAS){
@@ -89,6 +91,10 @@ public class CompositionController {
     }
 
 
+    /**
+     * We can also simulate here some changing conditions like gradual battery draining, or
+     * weak/strong wifi access changes.
+     */
     public static void addPhoneStatusToWM(){
         wm.setBattery(Constants.PHONE_HIGH_BATTERY);
         wm.setWifi(Constants.WIFI_ON);
@@ -155,21 +161,19 @@ public class CompositionController {
 
 
 
-    public static void execute(CompositeService compositeService, Map<String, ServiceMethod> serviceMap,
-                               List<String> abstractServices) {
-
-        System.out.println("\n\n======== GROUNDED SERVICES ===========");
-        for (String abstractService : abstractServices) {
-            ServiceMethod serviceMethod = serviceMap.get(abstractService);
-            wm.setService(serviceMethod.getServiceClass());
-            wm.setServiceMethod(serviceMethod.getServiceMethod());
-            fireRulesGS();
-        }
+    public static void execute(String concreteAction, Map<String, ServiceMethod> serviceMap) {
+        ServiceMethod serviceMethod = ServiceExecutor.getServiceMethod(wm.getAbstractServices(), serviceMap);
+        wm.setService(serviceMethod.getServiceClass());
+        wm.setServiceMethod(serviceMethod.getServiceMethod());
+        wm.setConcreteAction(concreteAction);
+        // these rules call the ServiceExecutor.pick() method
+        fireRulesGS();
     }
 
 
     public static class CompositeService {
         private List<Node> nodes = new ArrayList();
+        private int idx = 0;
 
         private CompositeService(CompositeServiceBuilder builder){
             this.nodes = builder.nodes;
@@ -177,6 +181,18 @@ public class CompositionController {
 
         public List<Node> getNodes() {
             return nodes;
+        }
+
+        public String getNext() {
+            try {
+                if (idx < nodes.size()) {
+                    return nodes.get(idx++).getName();
+                }
+                throw new IndexOutOfBoundsException("There are not enough abstract services on the composite service.");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 

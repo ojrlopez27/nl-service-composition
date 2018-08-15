@@ -18,7 +18,8 @@ public class WundergroundService implements WeatherService{
     @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
     @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
     public WeatherPOJO checkWeatherConditions(LocationPOJO place, Date from, Date to){
-        System.out.println("Executing WundergroundService.checkWeatherConditions....");
+        System.out.println(String.format("Executing WundergroundService.checkWeatherConditions for: [place: %s, " +
+                "from: %s, to: %s]", place.getPlace(), from, to));
         return null;
     }
 

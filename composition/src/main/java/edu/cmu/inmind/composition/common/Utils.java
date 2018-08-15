@@ -6,9 +6,11 @@ import edu.cmu.inmind.composition.annotations.ConnectivityQoS;
 import edu.cmu.inmind.composition.annotations.Description;
 import edu.cmu.inmind.composition.controllers.CompositionController;
 import edu.cmu.inmind.composition.apis.GenericService;
+import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
 import edu.cmu.inmind.composition.pojos.LocationPOJO;
 import edu.cmu.inmind.composition.pojos.NERPojo;
 import edu.cmu.inmind.composition.services.AirBnBService;
+import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
 import org.reflections.scanners.SubTypesScanner;
@@ -46,14 +48,14 @@ public class Utils {
         }
 
         // store the corpora file
-        printToFile("/Users/oscarr/Development/semantic-middleware/sent2vec/io-files/inputText", inputText);
+        printToFile(CommonUtils.getProperty("sent2vec.input.text.path"), inputText);
     }
 
 
     private static Map<String, ServiceMethod> mapInterfaces, mapImplementations;
     public static Map<String, ServiceMethod> generateCorporaFromMethods(){
         mapInterfaces = extractClassesFromPackage(GenericService.class.getPackage().getName(),
-                "/Users/oscarr/Development/semantic-middleware/sent2vec/io-files/corporaMethods", true);
+                CommonUtils.getProperty("sent2vec.corpora.methods.path"), true);
         extractImplementationClasses();
         return mapInterfaces;
     }
@@ -154,7 +156,7 @@ public class Utils {
     }
 
     public static List<String> getAbstractServices() {
-        return readFromFile("/Users/oscarr/Development/semantic-middleware/sent2vec/io-files/outputSent2Vec");
+        return readFromFile(CommonUtils.getProperty("sent2vec.semantic.similarity.path"));
     }
 
 
@@ -243,8 +245,9 @@ public class Utils {
 
     private static Object getObject(Type param, String value, NERPojo nerPojo) {
         Object arg = null;
-        if(param.equals(Number.class) && (nerPojo == null || (nerPojo.getAnnotation().equals("NUMBER")
-                || nerPojo.getAnnotation().equals("ORDINAL")))){
+        if( (param.equals(Short.class) || param.equals(Integer.class) || param.equals(Long.class) || param.equals(Double.class))
+                && (nerPojo == null || (nerPojo.getAnnotation().equals("NUMBER")
+                || nerPojo.getAnnotation().equals("ORDINAL") || nerPojo.getAnnotation().equals("MONEY")))){
             arg = Double.parseDouble(value);
         }else if(param.equals(Date.class) && (nerPojo == null || (nerPojo.getAnnotation().equals("DATE")
                 || nerPojo.getAnnotation().equals("TIME")))){
@@ -291,5 +294,21 @@ public class Utils {
 
     public static Object getObjectFromAnswer(String answer, Type type) {
         return getObject(type, answer, null);
+    }
+
+    public static List<AbstractServicePOJO> extractAbstractServices(String abstracServiceCandidates) {
+        int begin = 0;
+        for(char charAtPos : abstracServiceCandidates.toCharArray()){
+            if(charAtPos != 65533) break;
+            begin++;
+        }
+        List<AbstractServicePOJO> list = new ArrayList<>();
+        abstracServiceCandidates = abstracServiceCandidates.substring(begin);
+        for(String candidate : abstracServiceCandidates.split("\n")){
+            String[] elements = candidate.split("@@");
+            list.add(new AbstractServicePOJO(Double.parseDouble(elements[0]),
+                    elements[1].substring(elements[1].indexOf(" ")+1) ));
+        }
+        return list;
     }
 }

@@ -9,4 +9,8 @@ public class LocationPOJO extends GenericPOJO {
     public LocationPOJO(String place) {
         this.place = place;
     }
+
+    public String getPlace() {
+        return place;
+    }
 }

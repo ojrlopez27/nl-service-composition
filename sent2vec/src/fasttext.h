@@ -27,6 +27,7 @@
 #include "real.h"
 #include "utils.h"
 #include "vector.h"
+#include <zmq.hpp>
 
 namespace fasttext {
 
@@ -45,10 +46,12 @@ class FastText {
     
     std::atomic<int64_t> tokenCount;
     clock_t start;
+    bool quant_;
+    zmq::context_t context;
+    zmq::socket_t socket;
+
     void signModel(std::ostream&);
     bool checkModel(std::istream&);
-
-    bool quant_;
 
   public:
     FastText();
@@ -86,12 +89,11 @@ class FastText {
     void precomputeSentenceVectors(Matrix&,std::ifstream&);
     void findNN(const Matrix&, const Vector&, int32_t,
                 const std::set<std::string>&);
-    void findNNSent(const Matrix&, const Vector&, int32_t, const std::set<std::string>&, int64_t, 
-        const std::vector<std::string>&, std::vector<std::string>&);
+    std::string findNNSent(const Matrix&, const Vector&, int32_t, const std::set<std::string>&, int64_t, 
+        const std::vector<std::string>&);
     void nn(int32_t);
     void analogies(int32_t);
     void nnSent(int32_t, std::string );
-    bool fileChanged();
     void analogiesSent(int32_t, std::string );
 
     void loadVectors(std::string);

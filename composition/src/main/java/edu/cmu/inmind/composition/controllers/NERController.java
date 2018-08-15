@@ -21,7 +21,7 @@ public class NERController {
     public static final String ISO_8601_24H_SHORT_FORMAT = "yyyy-MM-dd";
 
     private static AbstractSequenceClassifier<CoreLabel> classifier;
-    static{
+    public static void init(){
         try {
             String serializedClassifier = "classifiers/english.all.3class.distsim.crf.ser.gz";
             classifier = new NERClassifierCombiner(serializedClassifier);//CRFClassifier.getClassifier(serializedClassifier);
@@ -38,13 +38,13 @@ public class NERController {
                 if(!coreLabel.ner().equals("O")){
                     NERPojo nerPojo = new NERPojo();
                     nerPojo.setWord(coreLabel.word());
+                    nerPojo.setNormalizedAnnotation(
+                            coreLabel.getString(CoreAnnotations.NormalizedNamedEntityTagAnnotation.class));
                     nerPojo.setPrevious(annotations.size() > 0? annotations.get(annotations.size()-1) : null);
-                    if( checkDate(coreLabel, nerPojo) ) {
+                    if( checkValues(coreLabel, nerPojo) ) {
                         nerPojo.setBegin(coreLabel.beginPosition());
                         nerPojo.setEnd(coreLabel.endPosition());
                         nerPojo.setAnnotation(coreLabel.ner());
-                        nerPojo.setNormalizedAnnotation(
-                                coreLabel.getString(CoreAnnotations.NormalizedNamedEntityTagAnnotation.class));
                         annotations.add(nerPojo);
                     }
                 }
@@ -53,7 +53,7 @@ public class NERController {
         return annotations;
     }
 
-    private static boolean checkDate(CoreLabel coreLabel, NERPojo nerPojo) {
+    private static boolean checkValues(CoreLabel coreLabel, NERPojo nerPojo) {
         try {
             Timex timex = coreLabel.get(TimeAnnotations.TimexAnnotation.class);
             if (timex != null) {
@@ -68,6 +68,15 @@ public class NERController {
                 if( nerPojo.getPrevious() != null && nerPojo.getPrevious().getDate() != null
                         && nerPojo.getPrevious().getDate().compareTo(nerPojo.getDate()) == 0 ){
                     return false;
+                }
+            }else{
+                if(coreLabel.ner().equals("MONEY")){
+                    try {
+                        Double.parseDouble(nerPojo.getWord());
+                        nerPojo.setNormalizedAnnotation(nerPojo.getWord());
+                    }catch (Exception e){
+                        return false;
+                    }
                 }
             }
         }catch (Exception e){

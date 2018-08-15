@@ -1,5 +1,6 @@
 # pre-trained model (wikipedia)
 sent2vec/wiki_bigrams.bin
+sent2vec/torontobooks_unigrams.bin
 
 # build files
 composition/build/

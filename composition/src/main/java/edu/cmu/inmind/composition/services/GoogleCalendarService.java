@@ -17,7 +17,8 @@ public class GoogleCalendarService implements CalendarService{
     @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
     @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
     public Boolean checkAvailability(Date from, Date to){
-        System.out.println("Executing GoogleCalendarService.checkAvailability....");
+        System.out.println(String.format("Executing GoogleCalendarService.checkAvailability for: [from date: %s, " +
+                "to date: %s]", from, to));
         return true;
     }
 
@@ -25,7 +26,8 @@ public class GoogleCalendarService implements CalendarService{
     @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
     @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
     public CalendarPOJO createEvent(String eventName, Date from, Date to){
-        System.out.println("Executing GoogleCalendarService.createEvent....");
+        System.out.println(String.format("Executing GoogleCalendarService.createEvent for: [eventName: %s. " +
+                "from date: %s, to date: %s]", eventName, from, to));
         return null;
     }
 

@@ -20,7 +20,8 @@ public class ExpediaService implements SearchThingsToDoService{
     @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
     @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
     public List<ThingToDoPOJO> whatToDo(LocationPOJO place, Date when, WeatherPOJO weatherConditions){
-        System.out.println("Executing ExpediaService.whatToDo....");
+        System.out.println(String.format("Executing ExpediaService.whatToDo for: [place: %s, " +
+                "when: %s, conditions: %s]", place.getPlace(), when, weatherConditions));
         return null;
     }
 

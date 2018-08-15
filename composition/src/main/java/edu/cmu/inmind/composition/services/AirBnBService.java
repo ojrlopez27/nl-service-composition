@@ -18,7 +18,8 @@ public class AirBnBService implements BookHotelService{
     @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
     @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
     public HotelPOJO searchHotel(LocationPOJO destination, Date checkin, Date checkout, Double maxPrice){
-        System.out.println("Executing AirBnBService.searchHotel....");
+        System.out.println(String.format("Executing AirBnBService.searchHotel for: [destination: %s, " +
+                "checkin: %s, checkout: %s, maxPrice: %s]", destination.getPlace(), checkin, checkout, maxPrice));
         return null;
     }
 
@@ -26,7 +27,8 @@ public class AirBnBService implements BookHotelService{
     @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
     @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
     public HotelPOJO bookHotel(LocationPOJO destination, Date checkin, Date checkout){
-        System.out.println("Executing AirBnBService.bookHotel....");
+        System.out.println(String.format("Executing AirBnBService.bookHotel for: [destination: %s, " +
+                "checkin: %s, checkout: %s]", destination.getPlace(), checkin, checkout));
         return null;
     }
 

@@ -21,9 +21,10 @@ public interface BookFlightService extends GenericService {
             "from : where are you flying from?",
             "destination : what is your destination?",
             "departureDate : when are you leaving (yyyy-mm-dd)?",
-            "returnDate : when are you returning (yyyy-mm-dd)?"
+            "returnDate : when are you returning (yyyy-mm-dd)?",
+            "what is the maximum price you are willing to pay for your flight?"
     })
-    FlightPOJO searchFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate);
+    FlightPOJO searchFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate, Double maxPrice);
 
 
     @Description(capabilities = {

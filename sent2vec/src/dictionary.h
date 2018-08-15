@@ -85,6 +85,7 @@ class Dictionary {
     uint32_t hash(const std::string& str) const;
     void add(const std::string&);
     bool readWord(std::istream&, std::string&) const;
+    int32_t readWord(char*, std::string&, int32_t) const;
     void readFromFile(std::istream&);
     std::string getLabel(int32_t) const;
     void save(std::ostream&) const;
@@ -95,6 +96,10 @@ class Dictionary {
     int32_t getLine(std::istream&, std::vector<int32_t>&, std::vector<int32_t>&,
                     std::vector<int32_t>&, std::minstd_rand&) const;
     int32_t getLine(std::istream&, std::vector<int32_t>&,
+                    std::vector<int32_t>&, std::minstd_rand&) const;
+    int32_t getLine(char*, std::vector<int32_t>&, std::vector<int32_t>&,
+                    std::vector<int32_t>&, std::minstd_rand&) const;
+    int32_t getLine(char*, std::vector<int32_t>&,
                     std::vector<int32_t>&, std::minstd_rand&) const;
     void threshold(int64_t, int64_t);
     void prune(std::vector<int32_t>&);

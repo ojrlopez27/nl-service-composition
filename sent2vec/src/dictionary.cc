@@ -404,6 +404,84 @@ int32_t Dictionary::getLine(std::istream& in,
   return ntokens;
 }
 
+
+// ***** modified by Oscar:
+int32_t Dictionary::getLine(char* message,
+                            std::vector<int32_t>& words,
+                            std::vector<int32_t>& word_hashes,
+                            std::vector<int32_t>& labels,
+                            std::minstd_rand& rng) const {
+  std::uniform_real_distribution<> uniform(0, 1);
+
+  words.clear();
+  labels.clear();
+  word_hashes.clear();
+  int32_t ntokens = 0;
+  std::string token;
+  int32_t pos = 0;
+  while (pos != -1) {
+    pos = readWord(message, token, pos);
+    if (token == EOS && args_-> model == model_name::sent2vec){
+       break;
+    }
+    int32_t h = find(token);
+    int32_t wid = word2int_[h];
+    if (wid < 0) {
+      entry_type type = getType(token);
+      if (type == entry_type::word) word_hashes.push_back(hash(token));
+      continue;
+    }
+    entry_type type = getType(wid);
+    ntokens++;
+    if (type == entry_type::word && !discard(wid, uniform(rng))) {
+      words.push_back(wid);
+      word_hashes.push_back(hash(token));
+    }
+    if (type == entry_type::label) {
+      labels.push_back(wid - nwords_);
+    }
+    if (token == EOS) break;
+    if (ntokens > MAX_LINE_SIZE && args_->model != model_name::sup && args_->model != model_name::sent2vec) break;
+  }
+  return ntokens;
+}
+
+int32_t Dictionary::getLine(char* message,
+                            std::vector<int32_t>& words,
+                            std::vector<int32_t>& labels,
+                            std::minstd_rand& rng) const {
+  std::vector<int32_t> word_hashes;
+  int32_t ntokens = getLine(message, words, word_hashes, labels, rng);
+  if (args_->model == model_name::sup) {
+    addNgrams(words, word_hashes, args_->wordNgrams);
+  }
+  return ntokens;
+}
+
+int32_t Dictionary::readWord(char* message, std::string& word, int32_t pos) const
+{
+  char c;
+  word.clear();
+  for (int i = pos; message[i] != EOF; i++) {
+    c = message[i];  
+    if (c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == '\v' ||
+        c == '\f' || c == '\0') {      
+      if (word.empty()) {      
+        return -1;
+      } else {      
+        // if (c == '\n')
+        //   sb.sungetc();
+        return ++i;
+      }
+    }
+    word.push_back(c);  
+  }
+  return pos;
+}
+// ***** modified by Oscar:
+
+
+
 std::string Dictionary::getLabel(int32_t lid) const {
   assert(lid >= 0);
   assert(lid < nlabels_);

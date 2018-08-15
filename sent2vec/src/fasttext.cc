@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <stdio.h>
+#include <zhelpers.h>
 
 #include <zmq.hpp>
 
@@ -35,7 +36,10 @@ struct stat attrib;
 
 namespace fasttext {
 
-FastText::FastText() : quant_(false) {}
+FastText::FastText() : quant_(false), context (1), socket (context, ZMQ_REP) {
+	socket.bind ("tcp://*:5555"), 
+	std::cout<< "Server running on port 5555..." << std::endl;
+}
 
 void FastText::getVector(Vector& vec, const std::string& word) const {
   const std::vector<int32_t>& ngrams = dict_->getNgrams(word);
@@ -136,17 +140,17 @@ void FastText::saveModel() {
 }
 
 void FastText::loadModel(const std::string& filename) {
-  // std::ifstream ifs(filename, std::ifstream::binary);
-  // if (!ifs.is_open()) {
-  //   std::cerr << "Model file cannot be opened for loading!" << std::endl;
-  //   exit(EXIT_FAILURE);
-  // }
-  // if (!checkModel(ifs)) {
-  //   std::cerr << "Model file has wrong file format!" << std::endl;
-  //   exit(EXIT_FAILURE);
-  // }
-  // loadModel(ifs);
-  // ifs.close();
+  std::ifstream ifs(filename, std::ifstream::binary);
+  if (!ifs.is_open()) {
+    std::cerr << "Model file cannot be opened for loading!" << std::endl;
+    exit(EXIT_FAILURE);
+  }
+  if (!checkModel(ifs)) {
+    std::cerr << "Model file has wrong file format!" << std::endl;
+    exit(EXIT_FAILURE);
+  }
+  loadModel(ifs);
+  ifs.close();
 }
 
 void FastText::loadModel(std::istream& in) {
@@ -559,10 +563,9 @@ void FastText::findNN(const Matrix& wordVectors, const Vector& queryVec,
   }
 }
 
-void FastText::findNNSent(const Matrix& sentenceVectors, const Vector& queryVec,
+std::string FastText::findNNSent(const Matrix& sentenceVectors, const Vector& queryVec,
                           int32_t k, const std::set<std::string>& banSet, int64_t numSent, 
-                          const std::vector<std::string>& sentences, 
-                          std::vector<std::string>& output) {
+                          const std::vector<std::string>& sentences) {
   real queryNorm = queryVec.norm();
   if (std::abs(queryNorm) < 1e-8) {
     queryNorm = 1;
@@ -577,20 +580,22 @@ void FastText::findNNSent(const Matrix& sentenceVectors, const Vector& queryVec,
   }
 
   int32_t i = 0;
+  std::string str = "";
   while (i < k && heap.size() > 0) {
     auto it = banSet.find(heap.top().second);
     if (!std::isnan(heap.top().first)) {
       std::cout << heap.top().first << " " 
                                     << heap.top().second << " " 
                                     << std::endl;
-      std::string str = std::to_string(heap.top().first);
+      str.append(std::to_string(heap.top().first));
       str.append("@@");
       str.append(heap.top().second);
-      output.push_back(str);
+      str.append("\n");        
       i++;
     }
     heap.pop();
   }
+  return str;
 }
 
 
@@ -638,145 +643,60 @@ void FastText::analogies(int32_t k) {
   }
 }
 
+
 void FastText::nnSent(int32_t k, std::string filename) {  
-  //  Prepare our context and socket
-	std::cout << "*** 1" << std::endl;
-    zmq::context_t context (1);
-    std::cout << "*** 2" << std::endl;
-    zmq::socket_t socket (context, ZMQ_REP);
-    std::cout << "*** 3" << std::endl;
-    socket.bind ("tcp://*:5555");
-    std::cout << "*** 4" << std::endl;
 
-    while (true) {
-        zmq::message_t request;
+	// let's load the corpora (method descriptions extracted from services)
+	std::string sentence;
+	std::ifstream in1(filename);
+	int64_t n = 0;
+	std::vector<std::string> sentences;
+	Vector buffer(args_->dim), query(args_->dim);
 
-        //  Wait for next request from client
-        socket.recv (&request);
-        std::cout << "*** 5" << std::endl;
-        std::cout << "Received Hello" << std::endl;
+	std::vector<int32_t> line, labels;
+	std::ifstream in2(filename);
 
-        //  Do some 'work'
-        sleep(1);
-        std::cout << "*** 6" << std::endl;
+	while (in2.peek() != EOF) {
+		std::getline(in2, sentence);
+	    sentences.push_back(sentence);
+	    n++;
+	}
+	std::cout << "Number of sentences in the corpus file is " << n << "." << std::endl ;
+	Matrix sentenceVectors(n+1, args_->dim);
 
-        //  Send reply back to client
-        zmq::message_t reply (5);
-        std::cout << "*** 7" << std::endl;
-        memcpy (reply.data (), "World", 5);
-        std::cout << "*** 8" << std::endl;
-        socket.send (reply);
-        std::cout << "*** 9" << std::endl;
-    }
-  
-  std::string sentence;
-  std::ifstream in1(filename);
-  int64_t n = 0;
+	precomputeSentenceVectors(sentenceVectors, in1);
+	std::set<std::string> banSet;
 
-  Vector buffer(args_->dim), query(args_->dim);
-  std::vector<std::string> sentences;
+	// let's calculate the similarity of user's sentences
+  	while(true){
+  		// let's receive message from java client using ZMQ
+  		char* message = s_recv(socket);	
+  		std::cout<< "Received: " << message << std::endl;
+  	
+    	query.zero();
+    	std::cout << "If user request is: [" << message << "] then the most similar descriptions are: " << std::endl ;
+    	dict_->getLine(message, line, labels, model_->rng);
+    	dict_->addNgrams(line, args_->wordNgrams);
+    	buffer.zero();    
+    	for (auto it = line.cbegin(); it != line.cend(); ++it) {
+   		   	buffer.addRow(*input_, *it);
+    	}
+    	if (!line.empty()) {
+      		buffer.mul(1.0 / line.size());
+    	}
+    	query.addVector(buffer, 1.0);    
 
-  std::vector<int32_t> line, labels;
-  std::ifstream in2(filename);
+    	std::string output = findNNSent(sentenceVectors, query, k, banSet, n, sentences);    
+    	std::cout << std::endl;    
 
-  while (in2.peek() != EOF) {
-    std::getline(in2, sentence);
-    sentences.push_back(sentence);
-    n++;
-  }
-  std::cout << "Number of sentences in the corpus file is " << n << "." << std::endl ;
-  Matrix sentenceVectors(n+1, args_->dim);
-
-  precomputeSentenceVectors(sentenceVectors, in1);
-  std::set<std::string> banSet;
-
-  // let's wait for java
-  fileChanged();
-
-
-  // modified by Oscar:
-  std::string inputFilename = "io-files/inputText";
-  std::vector<std::string> insentences;
-  std::vector<std::string> output;
-  std::string sentence1;
-  std::ifstream in3;
-  std::ifstream in4(inputFilename, std::ifstream::in);
-  
-  while (in4.peek() != EOF) {  
-
-    int64_t m = 0;
-    insentences.clear();
-    in3.open (inputFilename, std::ifstream::in);
-    while (in3.peek() != EOF) {
-      std::getline(in3, sentence1);
-      insentences.push_back(sentence1);
-      m++;
-    }
-    std::cout << "Number of sentences in the input file is " << m << "." << std::endl ;
-
-
-    query.zero();
-    std::cout << "If user request is: [" << insentences[0] << "] then the most similar descriptions are: " << std::endl ;
-    dict_->getLine(in4, line, labels, model_->rng);
-    dict_->addNgrams(line, args_->wordNgrams);
-    buffer.zero();
-    for (auto it = line.cbegin(); it != line.cend(); ++it) {
-      buffer.addRow(*input_, *it);
-    }
-    if (!line.empty()) {
-      buffer.mul(1.0 / line.size());
-    }
-    query.addVector(buffer, 1.0);
-    findNNSent(sentenceVectors, query, k, banSet, n, sentences, output);
-    std::cout << std::endl;
-
-
-    std::cout<< "Waiting for next sentence... " << '\n';
-    in4.close();
-    in3.close();
-    bool result = fileChanged();
-    in4.open (inputFilename, std::ifstream::in);
-
-    // std::cout<< "1. position: " << in4.tellg();
-    // bool result = fileChanged();
-    // std::cout<< "2. position: " << in4.tellg();
-    // in4.seekg (0, in4.beg);
-    // std::cout<< "3. position: " << in4.tellg();
-    // std::cerr << "Query sentence? " << std::endl;
-  }
-  
-  std::ofstream outputFile;
-  outputFile.open ("io-files/outputSent2Vec.txt");
-  for (std::vector<std::string>::iterator it = output.begin() ; it != output.end(); ++it)
-    outputFile << *it << "\n";
-  outputFile.close();
-}
-
-
-bool FastText::fileChanged() {
-  stat("io-files/inputText", &attrib);
-  fileTime = gmtime(&(attrib.st_mtime));
-  int f1_hour = fileTime->tm_hour;
-  int f1_min = fileTime->tm_min;
-  int f1_sec = fileTime->tm_sec;
-
-  while(true){
-    stat("io-files/inputText", &attrib);
-    fileTime = gmtime(&(attrib.st_mtime));
-    int f2_hour = fileTime->tm_hour;
-    int f2_min = fileTime->tm_min;
-    int f2_sec = fileTime->tm_sec;
-
-    if(f1_hour == f2_hour && f1_min == f2_min && f1_sec == f2_sec){
-      // do nothing
-      //std::cout<<"are equal" << '\n';
-    }else{
-      //std::cout<<"are different: " << f1_hour << ":" << f1_min << ":" << f1_sec << "; " << f2_hour << ":" << f2_min << ":" << f2_sec << '\n';
-      return true;
-    }
-    usleep(100000);
+    	// send the response (closest neighbors to the given sentence) back to the java client    
+    	int n = output.length();
+    	char char_array[n+1]; 
+    	std::strcpy(char_array, output.c_str()); 
+  		s_send(socket, char_array);  
   }
 }
+
 
 
 void FastText::analogiesSent(int32_t k, std::string filename) {
@@ -786,7 +706,6 @@ void FastText::analogiesSent(int32_t k, std::string filename) {
   
   Vector buffer(args_->dim), query(args_->dim);
   std::vector<std::string> sentences;
-  std::vector<std::string> output;
   
   std::vector<int32_t> line, labels;
 
@@ -842,7 +761,7 @@ void FastText::analogiesSent(int32_t k, std::string filename) {
 
     query.addVector(buffer, 1.0);
 
-    findNNSent(sentenceVectors, query, k, banSet, n, sentences, output);
+    findNNSent(sentenceVectors, query, k, banSet, n, sentences);
     std::cerr << "Query triplet sentences (A - B + C)? " << std::endl;
   }
 }

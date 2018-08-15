@@ -1,26 +1,26 @@
-it returns the news feeds about a given topic
-it retrieves news about people
-it retrieves news about places , countries , and cities
-this method searches different hotel alternatives based on a destination place , check-in date , and check-out date
-this method searches for hotels on a given destination and range of dates
-this method looks for hotels on a given destination and range of dates
-this method allows hotel reservation given a destination place , check-in date , and check-out date
-this method allows to book a hotel given a destination place and a range of dates
-this method makes a hotel reservation given a destination place and a range of dates
-this method validates whether there is availability on calendar given a time slot
-this method checks whether there is a conflict on the calendar given a range of dates
-this method checks calendar availability on a range of dates
-this method creates a new calendar event given a time slot and an event name
-this method generates a new calendar event given an event name and a range of dates
 this method searches different flight options based on a destination place , departure date , and return date
 this method searches multiple flights
 this method looks for different flights
 this method allows flight reservation given a destination place , departure date , and return date
 this method allows to book a flight given a destination place , departure date , and return date
 this method makes a flight reservation
-this method returns a list of activities to do in a given city or place , date and weather conditions
-this method returns a list of indoor and outdoor activities to do in a new place
-it recommends things to do or visit in a city or place
+this method allows hotel reservation given a destination place , check-in date , and check-out date
+this method allows to book a hotel given a destination place and a range of dates
+this method makes a hotel reservation given a destination place and a range of dates
+this method searches different hotel alternatives based on a destination place , check-in date , and check-out date
+this method searches for hotels on a given destination and range of dates
+this method looks for hotels on a given destination and range of dates
 this method validates the weather conditions of a specific place given a range of dates
 this method checks the weather conditions and forecast for a given place and range of dates
 this method determines good and bad weather conditions for a given place and range of dates
+this method returns a list of activities to do in a given city or place , date and weather conditions
+this method returns a list of indoor and outdoor activities to do in a new place
+it recommends things to do or visit in a city or place
+this method validates whether there is availability on calendar given a time slot
+this method checks whether there is a conflict on the calendar given a range of dates
+this method checks calendar availability on a range of dates
+this method creates a new calendar event given a time slot and an event name
+this method generates a new calendar event given an event name and a range of dates
+it returns the news feeds about a given topic
+it retrieves news about people
+it retrieves news about places , countries , and cities

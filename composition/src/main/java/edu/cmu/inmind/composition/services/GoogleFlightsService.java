@@ -17,8 +17,10 @@ public class GoogleFlightsService implements BookFlightService {
     @Override
     @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
     @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
-    public FlightPOJO searchFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate){
-        System.out.println("Executing GoogleFlightsService.searchFlight....");
+    public FlightPOJO searchFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate, Double maxPrice){
+        System.out.println(String.format("Executing GoogleFlightsService.searchFlight for: [from: %s, destination: %s, " +
+                "departure date: %s, return date: %s, maxPrice: %s]", from.getPlace(), destination.getPlace(),
+                departureDate, returnDate, maxPrice));
         return null;
     }
 
@@ -26,7 +28,8 @@ public class GoogleFlightsService implements BookFlightService {
     @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
     @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
     public FlightPOJO bookFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate){
-        System.out.println("Executing GoogleFlightsService.bookFlight....");
+        System.out.println(String.format("Executing GoogleFlightsService.bookFlight for: [from: %s, destination: %s, " +
+                "departure date: %s, return date: %s]", from.getPlace(), destination.getPlace(), departureDate, returnDate));
         return null;
     }
 

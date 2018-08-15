@@ -17,7 +17,8 @@ public class YahooCalendarService implements CalendarService{
     @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
     @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
     public Boolean checkAvailability(Date from, Date to){
-        System.out.println("Executing YahooCalendarService.checkAvailability....");
+        System.out.println(String.format("Executing YahooCalendarService.checkAvailability for: [from date: %s, " +
+                "to date: %s]", from, to));
         return true;
     }
 
@@ -25,7 +26,8 @@ public class YahooCalendarService implements CalendarService{
     @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
     @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
     public CalendarPOJO createEvent(String eventName, Date from, Date to){
-        System.out.println("Executing YahooCalendarService.createEvent....");
+        System.out.println(String.format("Executing YahooCalendarService.createEvent for: [eventName: %s. " +
+                "from date: %s, to date: %s]", eventName, from, to));
         return null;
     }
 

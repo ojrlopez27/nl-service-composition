@@ -19,7 +19,7 @@ public class YahooNewsService implements NewsService {
     @BatteryQoS( minBatteryLevel = Constants.LOW_BATTERY_SERVICE)
     @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
     public NewsPOJO getNewsFeed(String topic) {
-        System.out.println("Executing YahooNewsService.execute...");
+        System.out.println(String.format("Executing YahooNewsService.getNewsFeed for: [topic: %s]", topic));
         return null;
     }
 }

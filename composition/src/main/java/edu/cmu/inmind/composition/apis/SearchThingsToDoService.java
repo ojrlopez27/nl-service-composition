@@ -1,5 +1,6 @@
 package edu.cmu.inmind.composition.apis;
 
+import edu.cmu.inmind.composition.annotations.ArgDesc;
 import edu.cmu.inmind.composition.annotations.Description;
 import edu.cmu.inmind.composition.pojos.LocationPOJO;
 import edu.cmu.inmind.composition.pojos.ThingToDoPOJO;
@@ -17,6 +18,11 @@ public interface SearchThingsToDoService extends GenericService {
             "This method returns a list of activities to do in a given city or place, date and weather conditions",
             "This method returns a list of indoor and outdoor activities to do in a new place",
             "It recommends things to do or visit in a city or place"
+    })
+    @ArgDesc(args = {
+            "place : which place do you want me to show you activities to do?",
+            "when : when are you planning to do these activities?",
+            "weatherConditions : which weather conditions do you expect (good, bad)?"
     })
     List<ThingToDoPOJO> whatToDo(LocationPOJO place, Date when, WeatherPOJO weatherConditions);
 }
