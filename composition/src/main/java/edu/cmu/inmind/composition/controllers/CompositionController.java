@@ -63,7 +63,7 @@ public class CompositionController {
                 .when( "wm.command == wm.lastRuleName")
                 .then("System.out.println(\"Triggering '" + ruleName + "'...\"); ")
                 .then(String.format("wm.command = \"%s\"; ", ruleName))
-                .then(String.format("wm.abstractServices.add(\"%s\");", step))
+                .then(String.format("wm.abstractService = \"%s\";", step))
                 .then(String.format("wm.lastRuleName = \"%s\"; ", ruleName))
         );
     }

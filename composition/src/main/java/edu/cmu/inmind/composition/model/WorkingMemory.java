@@ -5,7 +5,9 @@ import edu.cmu.inmind.composition.controllers.ServiceExecutor;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by oscarr on 8/10/18.
@@ -19,7 +21,8 @@ public class WorkingMemory {
     private ServiceExecutor executor;
     private Class<? extends GenericService> service;
     private Method serviceMethod;
-    private List<String> abstractServices = new ArrayList();
+    private String abstractService;
+    private Map<String, Object> results = new HashMap<>();
 
     public String getCommand() {
         return command;
@@ -29,12 +32,12 @@ public class WorkingMemory {
         this.command = command;
     }
 
-    public List<String> getAbstractServices() {
-        return abstractServices;
+    public String getAbstractService() {
+        return abstractService;
     }
 
-    public void setAbstractServices(List<String> abstractServices) {
-        this.abstractServices = abstractServices;
+    public void setAbstractService(String abstractService) {
+        this.abstractService = abstractService;
     }
 
     public String getGoal() {
@@ -91,5 +94,9 @@ public class WorkingMemory {
 
     public void setServiceMethod(Method serviceMethod) {
         this.serviceMethod = serviceMethod;
+    }
+
+    public void addResult(String key, Object result) {
+        results.put(key, result);
     }
 }

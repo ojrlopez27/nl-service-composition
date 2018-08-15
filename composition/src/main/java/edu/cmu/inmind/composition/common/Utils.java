@@ -1,10 +1,13 @@
 package edu.cmu.inmind.composition.common;
 
+import edu.cmu.inmind.composition.annotations.ArgDesc;
 import edu.cmu.inmind.composition.annotations.BatteryQoS;
 import edu.cmu.inmind.composition.annotations.ConnectivityQoS;
 import edu.cmu.inmind.composition.annotations.Description;
 import edu.cmu.inmind.composition.controllers.CompositionController;
 import edu.cmu.inmind.composition.apis.GenericService;
+import edu.cmu.inmind.composition.pojos.LocationPOJO;
+import edu.cmu.inmind.composition.pojos.NERPojo;
 import edu.cmu.inmind.composition.services.AirBnBService;
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
@@ -20,6 +23,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -133,7 +137,6 @@ public class Utils {
 
 
     private static List<String> readFromFile(String filename){
-        isFileModified();
         List<String> lines = new ArrayList<>();
         try {
             File file = new File(filename);
@@ -151,7 +154,7 @@ public class Utils {
     }
 
     public static List<String> getAbstractServices() {
-        return readFromFile("/Users/oscarr/Development/semantic-middleware/sent2vec/io-files/outputSent2Vec.txt");
+        return readFromFile("/Users/oscarr/Development/semantic-middleware/sent2vec/io-files/outputSent2Vec");
     }
 
 
@@ -208,35 +211,85 @@ public class Utils {
         return implementations.get(idx);
     }
 
-    public static Object executeMethod(ServiceMethod serviceMethod) {
+    public static Object executeMethod(ServiceMethod serviceMethod, Object[] args) {
         try {
             Constructor<?> constructor = serviceMethod.getServiceClass().getConstructor();
             Object service = constructor.newInstance();
-            return serviceMethod.getServiceMethod().invoke(service, Utils.convertToParams(serviceMethod.getParams()));
+            return args == null? serviceMethod.getServiceMethod().invoke(service) :
+                    serviceMethod.getServiceMethod().invoke(service, args) ; //Utils.convertToParams(serviceMethod.getParams())
         }catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
 
-
-
-    private static long lastModified;
-    private static boolean firstTime = true;
-    public static boolean isFileModified(){
-        try {
-            while (true) {
-                File file = new File("/Users/oscarr/Development/semantic-middleware/sent2vec/io-files/outputSent2Vec.txt");
-                if (file.exists() && firstTime || file.lastModified() != lastModified) {
-                    firstTime = false;
-                    lastModified = file.lastModified();
-                    return true;
+    public static Object[] matchEntitiesToArgs(List<NERPojo> entities, Type[] params) {
+        Object[] args = params == null || params.length == 0? null : new Object[params.length];
+        if(args != null){
+            for(int i = 0; i < args.length; i++){
+                NERPojo toRemove = null;
+                for(NERPojo nerPojo : entities){
+                    args[i] = getObject(params[i], nerPojo.getNormalizedAnnotation(), nerPojo);
+                    if(args[i] != null){
+                        toRemove = nerPojo;
+                        break;
+                    }
                 }
-                Thread.sleep(500);
+                if(args[i] != null) entities.remove(toRemove);
             }
+        }
+        return args;
+    }
+
+    private static Object getObject(Type param, String value, NERPojo nerPojo) {
+        Object arg = null;
+        if(param.equals(Number.class) && (nerPojo == null || (nerPojo.getAnnotation().equals("NUMBER")
+                || nerPojo.getAnnotation().equals("ORDINAL")))){
+            arg = Double.parseDouble(value);
+        }else if(param.equals(Date.class) && (nerPojo == null || (nerPojo.getAnnotation().equals("DATE")
+                || nerPojo.getAnnotation().equals("TIME")))){
+            arg = nerPojo != null? nerPojo.getDate() : getDate(value);
+        }else if(param.equals(String.class) && (nerPojo == null || (nerPojo.getAnnotation().equals("PERSON")
+                || nerPojo.getAnnotation().equals("ORGANIZATION")))){
+            arg = value;
+        }else if(param.equals(LocationPOJO.class) && (nerPojo == null || nerPojo.getAnnotation().equals("LOCATION"))){
+            arg = new LocationPOJO(nerPojo != null? nerPojo.getWord() : value);
+        }
+        return arg;
+    }
+
+    private static Date getDate(String value) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            return format.parse(value);
         }catch (Exception e){
             e.printStackTrace();
         }
-        return false;
+        return null;
+    }
+
+    public static String[] getArgDescAnnotation(Method method, int idx) {
+        Class[] interfaces = method.getDeclaringClass().getInterfaces();
+        Method targetMethod = null;
+        for(Class interfaceClass : interfaces){
+            for(Method interfaceMethod : interfaceClass.getDeclaredMethods()){
+                if(interfaceMethod.getName().equals(method.getName())){
+                    targetMethod = interfaceMethod;
+                    break;
+                }
+            }
+            if(targetMethod != null) break;
+        }
+
+        for (Annotation annotation : targetMethod.getAnnotations()) {
+            if (annotation instanceof ArgDesc) {
+                return ((ArgDesc)annotation).args()[idx].split(" : ");
+            }
+        }
+        return null;
+    }
+
+    public static Object getObjectFromAnswer(String answer, Type type) {
+        return getObject(type, answer, null);
     }
 }

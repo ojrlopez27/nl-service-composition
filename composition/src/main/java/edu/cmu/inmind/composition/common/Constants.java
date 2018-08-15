@@ -21,4 +21,5 @@ public class Constants {
     public static final String PICK_LOCAL_SERVICE = "PICK_LOCAL_SERVICE";
     public static final String LOW_BATTERY_SERVICE = "LOW_BATTERY_SERVICE";
     public static final String HIGH_BATTERY_SERVICE = "HIGH_BATTERY_SERVICE";
+
 }

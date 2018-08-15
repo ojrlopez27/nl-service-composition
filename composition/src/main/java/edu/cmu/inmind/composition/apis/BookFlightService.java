@@ -1,5 +1,6 @@
 package edu.cmu.inmind.composition.apis;
 
+import edu.cmu.inmind.composition.annotations.ArgDesc;
 import edu.cmu.inmind.composition.annotations.Description;
 import edu.cmu.inmind.composition.pojos.FlightPOJO;
 import edu.cmu.inmind.composition.pojos.LocationPOJO;
@@ -16,12 +17,25 @@ public interface BookFlightService extends GenericService {
             "This method searches multiple flights",
             "This method looks for different flights"
     })
-    FlightPOJO searchFlight(LocationPOJO destination, Date departureDate, Date returnDate);
+    @ArgDesc(args = {
+            "from : where are you flying from?",
+            "destination : what is your destination?",
+            "departureDate : when are you leaving (yyyy-mm-dd)?",
+            "returnDate : when are you returning (yyyy-mm-dd)?"
+    })
+    FlightPOJO searchFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate);
+
 
     @Description(capabilities = {
             "This method allows flight reservation given a destination place, departure date, and return date",
             "This method allows to book a flight given a destination place, departure date, and return date",
             "This method makes a flight reservation",
     })
-    FlightPOJO bookFlight(LocationPOJO destination, Date departureDate, Date returnDate);
+    @ArgDesc(args = {
+            "from : where are you flying from?",
+            "destination : what is your destination?",
+            "departureDate : when are you leaving (yyyy-mm-dd)?",
+            "returnDate : when are you returning (yyyy-mm-dd)?"
+    })
+    FlightPOJO bookFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate);
 }

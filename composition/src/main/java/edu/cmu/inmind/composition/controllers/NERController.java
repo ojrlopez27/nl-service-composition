@@ -11,7 +11,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -31,16 +30,15 @@ public class NERController {
         }
     }
 
-    public static List<NERPojo> annotate(String sentence){
+    public static List<NERPojo> extractEntities(String sentence){
         List<NERPojo> annotations = new ArrayList<>();
         List<List<CoreLabel>> labels = classifier.classify(sentence);
         for(List<CoreLabel> innerLabels : labels){
             for(CoreLabel coreLabel : innerLabels){
-                System.out.println(coreLabel);
                 if(!coreLabel.ner().equals("O")){
                     NERPojo nerPojo = new NERPojo();
                     nerPojo.setWord(coreLabel.word());
-                    nerPojo.setPrevious(annotations.size() > 1? annotations.get(annotations.size()-1) : null);
+                    nerPojo.setPrevious(annotations.size() > 0? annotations.get(annotations.size()-1) : null);
                     if( checkDate(coreLabel, nerPojo) ) {
                         nerPojo.setBegin(coreLabel.beginPosition());
                         nerPojo.setEnd(coreLabel.endPosition());
@@ -59,10 +57,8 @@ public class NERController {
         try {
             Timex timex = coreLabel.get(TimeAnnotations.TimexAnnotation.class);
             if (timex != null) {
-
                 String stringDate = timex.value().replace("XXXX", ""
                         + Calendar.getInstance().get(Calendar.YEAR));
-
                 DateTimeFormatter dtf = DateTimeFormat.forPattern(stringDate.contains("T")?
                         ISO_8601_24H_FULL_FORMAT : ISO_8601_24H_SHORT_FORMAT);
                 DateTime dateTime = dtf.parseDateTime(stringDate);
@@ -81,6 +77,6 @@ public class NERController {
     }
 
     public static void main(String args[]){
-        NERController.annotate("First, Check ten times (1, 2, 3, four) the availability on calendar from August 3 to August 10 at 10:30am");
+        NERController.extractEntities("First, Check ten times (1, 2, 3, four) the availability on calendar from August 3 to August 10 at 10:30am");
     }
 }

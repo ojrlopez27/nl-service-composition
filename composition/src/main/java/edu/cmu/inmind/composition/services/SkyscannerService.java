@@ -17,17 +17,17 @@ public class SkyscannerService implements BookFlightService {
     @Override
     @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
     @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
-    public FlightPOJO searchFlight(LocationPOJO destination, Date departureDate, Date returnDate){
+    public FlightPOJO searchFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate){
         System.out.println("Executing SkyscannerService.searchFlight....");
-        return null;
+        return new FlightPOJO();
     }
 
     @Override
     @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
     @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
-    public FlightPOJO bookFlight(LocationPOJO destination, Date departureDate, Date returnDate){
+    public FlightPOJO bookFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate){
         System.out.println("Executing SkyscannerService.bookFlight....");
-        return null;
+        return new FlightPOJO();
     }
 
     @Override

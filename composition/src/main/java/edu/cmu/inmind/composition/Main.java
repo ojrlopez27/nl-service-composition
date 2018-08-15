@@ -20,7 +20,7 @@ public class Main {
         Map<String, ServiceMethod> serviceMap = Utils.generateCorporaFromMethods();
 
         // let's get some inputs from the user and generate rules for abstract services
-        InputController inputController = new InputController(false);
+        InputController inputController = new InputController(true);
         System.out.println("Enter your high level goal/plan:");
         CompositionController.init();
         CompositionController.addGoal( inputController.getNext() );
@@ -58,7 +58,7 @@ public class Main {
         private boolean usePredefinedList = true;
         private List<String> predefinedList = Arrays.asList(new String[]{
                 "plan a trip to Boston",
-                "Check availability on trip dates",
+                "Check availability from Labor day to President day",
                 "Search cheap flights",
                 "Book a flight",
                 "Search nice and affordable hotels",
