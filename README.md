@@ -18,19 +18,19 @@ This project is composed of two sub-projects:
 	      - /usr/local/bin/python2.7 setup.py build_ext
 	      - sudo -H pip install .
     - Download pre-trained models from https://github.com/epfml/sent2vec, more specifically, wiki bigrams (16GB) and toronto unigrams (2GB). Put them under the folder sent2vec
-    - Modify run.sh bash script. If you want more precision (though it will be slower) then use wiki model, otherwise use toronto model
+    - Modify run.sh bash script. If you want more precision (though it will be slower) then use wiki model, otherwise use toronto model which is faster
 2. composition:
     - modify config.properties to your local folders
-    - modify task-def-script to reflect abstract services
-    - modify task-exec-script to reflect concrete services
+    - modify task-def-script to reflect the high level description of a task or plan (e.g., plan a trip to a place on a range of dates)
+    - modify task-exec-script to reflect a contextualization of the high-level description (e.g., plan a trip to Boston from August 29 to September 11)
   
 ## Execution
 - There are two modes of execution:
-    1. Batch: it reads both astract and concrete services from task-def-script and task-exec-script files respectively
-    2. Step-by-step: it waits for user to type each entry on the console
+    1. Batch: it reads both high-level and contextualized descriptions from task-def-script and task-exec-script files respectively
+    2. Step-by-step: it waits for user to type each entry on the console rather than readin them from the files
 - The execution mode can be changed on class CompositionLauncher, when InputController is instantiated
 - First, execute bash script 'run.sh' under sent2vec, wait few minutes (depending on the size of the pre-trained model), and then run the Java project (though, if you run Java first, it will wait until sent2vec has established the connection)
-- Once the sent2vec server is running, the pre-trained model is loaded only once, so you can stop and re-start the Java client as many times as you want without stopping the server (though sometimes the server is blocked, so you have to stopped)
+- Once the sent2vec server is running, the pre-trained model is loaded only once, so you can stop and re-start the Java client as many times as you want without stopping the server (though sometimes the server gets blocked, so you have to stop it)
 
 ## Playing with it
 - QoS features (e.g., Connectivity, Battery Consumption, etc.) are static for now, but you can write a decay function for battery consumption and a random function for connectivity in CompositionController.addPhoneStatusToWM, just to see how different services are grounded
@@ -40,6 +40,16 @@ This project is composed of two sub-projects:
 - Create your own services following the provided ones as templates (using annotations and so on)
 - Add synonyms in SemanticController (it will be helpful when retrieving data from working memory)
 
+## TO-DO
+- There are specific TODO tags in the Java code that you can reference, however, the current state can allow us do some experiments and present it as a demo.
+- Port the Java code to Android
+- Replace SemanticController by a proper semantic relatedness/synonym mechanism (e.g., Word2Vec, WordNet, etc.)
+- Train our own models? why not...
+- Not sure if a cost fucntion based on similarity and QoS features should be included, or just keep using the similarity thresholds and delta
+- Currently composition is linear (pipeline style) but we need to introduce control structures (e.g., loops, conditionals, etc.). It would be interesting to convert natural language commands into rules using MVEL rules (or maybe LIA/Sugilite)
+- Mechanism for mapping entity extraction with parameters is pretty basic, we should improve it
+- Running multiple times the same experiment produces different similarities (sent2vec) so sometimes the service grounding cannot be performed since similarities are really low.... not sure why this happens (is randomly and rarely)
+- etc.
 
 
  
