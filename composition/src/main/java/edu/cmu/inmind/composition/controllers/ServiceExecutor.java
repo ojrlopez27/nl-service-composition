@@ -6,6 +6,7 @@ import edu.cmu.inmind.composition.common.Utils;
 import edu.cmu.inmind.composition.model.WorkingMemory;
 import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
 import edu.cmu.inmind.composition.pojos.NERPojo;
+import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 
 import java.lang.reflect.Type;
@@ -21,9 +22,9 @@ public class ServiceExecutor {
     private WorkingMemory wm;
     private Class candidate;
     private Scanner scanner;
-    private static double highThreshold = 0.5;
-    private static double lowThreshold = 0.2;
-    private static double delta = 0.01;
+    private static double upperThreshold = Double.parseDouble(CommonUtils.getProperty("service.executor.threshold.upper"));
+    private static double lowerThreshold = Double.parseDouble(CommonUtils.getProperty("service.executor.threshold.lower"));
+    private static double delta = Double.parseDouble(CommonUtils.getProperty("service.executor.delta"));
 
     public ServiceExecutor(WorkingMemory wm) {
         this.wm = wm;
@@ -76,7 +77,7 @@ public class ServiceExecutor {
         ServiceMethod smFirst = serviceMap.get(descFirst);
         ServiceMethod smSecond = serviceMap.get(descSecond);
         Scanner scanner = new Scanner(System.in);
-        if(first >= highThreshold){
+        if(first >= upperThreshold){
             if( smFirst.getServiceMethod().getName().equals(smSecond.getServiceMethod().getName())
                     && Math.abs(first - second) <= delta ){
                 Log4J.error(TAG, String.format("I need to disambiguate which service you need. Type '1' " +
@@ -84,11 +85,11 @@ public class ServiceExecutor {
                 return scanner.nextLine().equals("1")? smFirst : smSecond;
             }
             return smFirst;
-        }else if(second >= highThreshold ){
+        }else if(second >= upperThreshold){
             return smSecond;
-        }else if(first >= lowThreshold || second >= lowThreshold){
+        }else if(first >= lowerThreshold || second >= lowerThreshold){
             Log4J.error(TAG, String.format("[similarity = %s] I am not sure if I understood correctly. You need this " +
-                    "service '%s', right? type Y (yes) or simply re-phrase it:", first, first >= lowThreshold?
+                    "service '%s', right? type Y (yes) or simply re-phrase it:", first, first >= lowerThreshold ?
                     descFirst : descSecond));
             //TODO: we need to call again sent2vec for the second desc
             return scanner.nextLine().equalsIgnoreCase("Y")? smFirst : smFirst;

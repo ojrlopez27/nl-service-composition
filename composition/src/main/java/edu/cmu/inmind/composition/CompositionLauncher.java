@@ -28,6 +28,7 @@ public class CompositionLauncher {
         // let's get some descriptions of a plan from the console or a file
         InputController inputController = new InputController(true, InputController.PHASE.ABSTRACT);
 
+        Log4J.debug(TAG, "======== HIGH LEVEL PLAN DESCRIPTION ===========");
         Log4J.info(TAG, "Enter your high level goal/plan:");
         CompositionController.addGoal( inputController.getNext() );
         String step;
