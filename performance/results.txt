@@ -1,5 +1,5 @@
-331
-405
-374
+648
+375
+285
 
-Average time: 370
+Average time: 436
