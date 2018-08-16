@@ -1,8 +1,10 @@
 package edu.cmu.inmind.composition.model;
 
 import edu.cmu.inmind.composition.apis.GenericService;
+import edu.cmu.inmind.composition.controllers.SemanticController;
 import edu.cmu.inmind.composition.controllers.ServiceExecutor;
 import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -130,5 +132,22 @@ public class WorkingMemory {
 
     public List<AbstractServicePOJO> getAbstractServices() {
         return candidates.get(idxCandidates++);
+    }
+
+    public void print(String message){
+        Log4J.trace(this, message);
+    }
+
+    public Object getResult(String key) {
+        Object obj = results.get(key);
+        if(obj != null) return obj;
+        int pos = key.lastIndexOf(".");
+        String pre = key.substring(0, pos);
+        String post = key.substring(pos + 1);
+        for(String synonym : SemanticController.getSynonyms(post)){
+            obj = results.get(pre + "." + synonym);
+            if(obj != null) return obj;
+        }
+        return null;
     }
 }

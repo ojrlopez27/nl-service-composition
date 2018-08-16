@@ -6,6 +6,7 @@ import edu.cmu.inmind.composition.common.ServiceMethod;
 import edu.cmu.inmind.composition.common.Utils;
 import edu.cmu.inmind.composition.model.WorkingMemory;
 import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
@@ -21,6 +22,7 @@ import java.util.Map;
  * Created by oscarr on 8/8/18.
  */
 public class CompositionController {
+    private static final String TAG = CompositionController.class.getSimpleName();
 
     // AS: Abstract Services, GS: Grounded Services
     private static WorkingMemory wm;
@@ -30,6 +32,7 @@ public class CompositionController {
     private static List<Rule> ruleListAS, ruleListGS;
 
     public static void init(){
+        Log4J.debug(TAG, "Initializing CompositionController...");
         wm = new WorkingMemory();
         rulesAS = new Rules();
         rulesGS = new Rules();
@@ -64,7 +67,7 @@ public class CompositionController {
                 .description(step)
                 .priority(1)
                 .when( "wm.command == wm.lastRuleName")
-                .then("System.out.println(\"Triggering '" + ruleName + "'...\"); ")
+                .then("wm.print(\"Triggering '" + ruleName + "'...\"); ")
                 .then(String.format("wm.command = \"%s\"; ", ruleName))
                 .then(String.format("wm.abstractService = \"%s\";", step))
                 .then(String.format("wm.lastRuleName = \"%s\"; ", ruleName))
@@ -184,15 +187,10 @@ public class CompositionController {
         }
 
         public String getNext() {
-            try {
-                if (idx < nodes.size()) {
-                    return nodes.get(idx++).getName();
-                }
-                throw new IndexOutOfBoundsException("There are not enough abstract services on the composite service.");
-            }catch (Exception e){
-                e.printStackTrace();
+            if (idx < nodes.size()) {
+                return nodes.get(idx++).getName();
             }
-            return null;
+            return "No more services to process!";
         }
     }
 

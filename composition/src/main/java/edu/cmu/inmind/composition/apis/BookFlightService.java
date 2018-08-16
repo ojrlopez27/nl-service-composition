@@ -2,6 +2,7 @@ package edu.cmu.inmind.composition.apis;
 
 import edu.cmu.inmind.composition.annotations.ArgDesc;
 import edu.cmu.inmind.composition.annotations.Description;
+import edu.cmu.inmind.composition.annotations.Provided;
 import edu.cmu.inmind.composition.pojos.FlightPOJO;
 import edu.cmu.inmind.composition.pojos.LocationPOJO;
 
@@ -24,7 +25,8 @@ public interface BookFlightService extends GenericService {
             "returnDate : when are you returning (yyyy-mm-dd)?",
             "what is the maximum price you are willing to pay for your flight?"
     })
-    FlightPOJO searchFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate, Double maxPrice);
+    FlightPOJO searchFlight(LocationPOJO from, LocationPOJO destination, Date departureDate, Date returnDate,
+                            Double maxPrice);
 
 
     @Description(capabilities = {

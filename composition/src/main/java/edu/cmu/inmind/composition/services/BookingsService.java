@@ -6,6 +6,7 @@ import edu.cmu.inmind.composition.apis.BookHotelService;
 import edu.cmu.inmind.composition.common.Constants;
 import edu.cmu.inmind.composition.pojos.HotelPOJO;
 import edu.cmu.inmind.composition.pojos.LocationPOJO;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 
 import java.util.Date;
 
@@ -18,8 +19,7 @@ public class BookingsService implements BookHotelService{
     @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
     @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
     public HotelPOJO searchHotel(LocationPOJO destination, Date checkin, Date checkout, Double maxPrice){
-        System.out.println("Executing BookingsService.searchHotel....");
-        System.out.println(String.format("Executing BookingsService.searchHotel for: [destination: %s, " +
+        Log4J.warn(this, String.format("Executing BookingsService.searchHotel for: [destination: %s, " +
                 "checkin: %s, checkout: %s, maxPrice: %s]", destination.getPlace(), checkin, checkout, maxPrice));
         return null;
     }
@@ -28,14 +28,14 @@ public class BookingsService implements BookHotelService{
     @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
     @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
     public HotelPOJO bookHotel(LocationPOJO destination, Date checkin, Date checkout){
-        System.out.println(String.format("Executing BookingsService.bookHotel for: [destination: %s, " +
+        Log4J.warn(this, String.format("Executing BookingsService.bookHotel for: [destination: %s, " +
                 "checkin: %s, checkout: %s]", destination.getPlace(), checkin, checkout));
         return null;
     }
 
     @Override
     public void execute() {
-        System.out.println("Executing BookingsService...");
+        Log4J.warn(this, "Executing BookingsService...");
     }
 
 }

@@ -694,7 +694,9 @@ void FastText::nnSent(int32_t k, std::string filename) {
     	char char_array[n+1]; 
     	std::strcpy(char_array, output.c_str()); 
   		s_send(socket, char_array);  
-  }
+    }
+  zmq_close(socket);
+  // zmq_ctx_destroy(context);
 }
 
 

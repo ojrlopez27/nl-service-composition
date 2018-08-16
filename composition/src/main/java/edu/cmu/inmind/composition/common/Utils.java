@@ -1,9 +1,6 @@
 package edu.cmu.inmind.composition.common;
 
-import edu.cmu.inmind.composition.annotations.ArgDesc;
-import edu.cmu.inmind.composition.annotations.BatteryQoS;
-import edu.cmu.inmind.composition.annotations.ConnectivityQoS;
-import edu.cmu.inmind.composition.annotations.Description;
+import edu.cmu.inmind.composition.annotations.*;
 import edu.cmu.inmind.composition.controllers.CompositionController;
 import edu.cmu.inmind.composition.apis.GenericService;
 import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
@@ -225,22 +222,37 @@ public class Utils {
         return null;
     }
 
-    public static Object[] matchEntitiesToArgs(List<NERPojo> entities, Type[] params) {
+    public static Object[] matchEntitiesToArgs(List<NERPojo> entities, Method method, Type[] params) {
         Object[] args = params == null || params.length == 0? null : new Object[params.length];
         if(args != null){
             for(int i = 0; i < args.length; i++){
                 NERPojo toRemove = null;
-                for(NERPojo nerPojo : entities){
-                    args[i] = getObject(params[i], nerPojo.getNormalizedAnnotation(), nerPojo);
-                    if(args[i] != null){
-                        toRemove = nerPojo;
-                        break;
+                String value = getValueProvidedAnnotation(method, i);
+                if(value != null){
+                    args[i] = getObject(params[i], value, null);
+                }else {
+                    for (NERPojo nerPojo : entities) {
+                        args[i] = getObject(params[i], nerPojo.getNormalizedAnnotation(), nerPojo);
+                        if (args[i] != null) {
+                            toRemove = nerPojo;
+                            break;
+                        }
                     }
+                    if (args[i] != null) entities.remove(toRemove);
                 }
-                if(args[i] != null) entities.remove(toRemove);
             }
         }
         return args;
+    }
+
+
+    private static String getValueProvidedAnnotation(Method method, int idx){
+        for(Annotation annotation : method.getParameterAnnotations()[idx] ){
+            if(annotation instanceof Provided){
+                return ((Provided)annotation).value();
+            }
+        }
+        return null;
     }
 
     private static Object getObject(Type param, String value, NERPojo nerPojo) {

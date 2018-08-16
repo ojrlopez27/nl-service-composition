@@ -80,7 +80,7 @@ public class NERController {
                 }
             }
         }catch (Exception e){
-            e.printStackTrace();
+            return false;
         }
         return true;
     }

@@ -6,6 +6,7 @@ import edu.cmu.inmind.composition.apis.WeatherService;
 import edu.cmu.inmind.composition.common.Constants;
 import edu.cmu.inmind.composition.pojos.LocationPOJO;
 import edu.cmu.inmind.composition.pojos.WeatherPOJO;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 
 import java.util.Date;
 
@@ -18,13 +19,13 @@ public class WundergroundService implements WeatherService{
     @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
     @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
     public WeatherPOJO checkWeatherConditions(LocationPOJO place, Date from, Date to){
-        System.out.println(String.format("Executing WundergroundService.checkWeatherConditions for: [place: %s, " +
+        Log4J.warn(this, String.format("Executing WundergroundService.checkWeatherConditions for: [place: %s, " +
                 "from: %s, to: %s]", place.getPlace(), from, to));
         return null;
     }
 
     @Override
     public void execute() {
-        System.out.println("Executing WundergroundService...");
+        Log4J.warn(this, "Executing WundergroundService...");
     }
 }
