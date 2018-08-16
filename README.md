@@ -26,6 +26,15 @@ This project is composed of three sub-projects (a client and two servers):
     - modify config.properties and point the path variables to your local folders
     - modify task-def-script to reflect the high level description of a task or plan (e.g., plan a trip to a place on a range of dates)
     - modify task-exec-script to reflect a contextualization of the high-level description (e.g., plan a trip to Boston from August 29 to September 11)
+3. performance:
+	- Install GNU parallel: (brew install parallel, or port install parallel)
+	- Modify build.gradle to create a jar
+	- Write a script for running the jar
+	- Modify config.properties so the upper threshold is very low (0.1) andlower (0.01)
+	- Modify task-exec-script file in such a way that all the params are provided in each sentence (date, location, etc).
+	- Write a script using GNU parallel (https://stackoverflow.com/a/21197038) that loads the scripts that runs the jar
+	- Run the performance Java server
+	- Run the parallel script for 10, 100, 1000, 10,000 processes (clients) 
   
 ## Execution
 - There are two modes of execution:
