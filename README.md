@@ -1,6 +1,6 @@
 # <OPTIONAL_NAME> Natural-Language-based Service Composition
 
-This project is composed of two sub-projects (a client and a server):
+This project is composed of three sub-projects (a client and two servers):
 1. sent2vec (server): this sub-project uses sentence embeddings based on an unsupervised version of Facebook FastText, and an extension of word2vec (CBOW) to sentences. It is written in C++ code and provides some Python wrappers (though, we are not using them now)
 2. composition (client): this is a Java sub-project (further portable to Android) that defines:
     - Annotated abstract services (APIS) 
@@ -12,6 +12,7 @@ This project is composed of two sub-projects (a client and a server):
     - easy-rule engine and MVEL rules for composition
     - POJOs
     - Utils
+3. performance (server): this is a Java server that is listening from multiple clients which tell the server how long they took to perform the task. This server, once has collected all the time logs from all the clients, stores the each single time entry and the average on a file.
     
 ## Setup
 1. sent2vec: follow the instructions on the README file under the sent2vec folder, and:
