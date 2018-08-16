@@ -7,11 +7,16 @@ composition/build/
 composition/gradle/
 composition/.idea/
 compostion/.gradle/
+performance/build/
+performance/gradle
+performance/.idea/
+performance/.gradle/
+
 
 .DS_Store
 composition/.DS_Store
 sent2vec/.DS_Store
-
+performance/.DS_Store
 
 # Compiled class file
 *.class
