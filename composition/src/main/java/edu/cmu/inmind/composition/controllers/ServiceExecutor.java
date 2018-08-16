@@ -81,7 +81,8 @@ public class ServiceExecutor {
             if( smFirst.getServiceMethod().getName().equals(smSecond.getServiceMethod().getName())
                     && Math.abs(first - second) <= delta ){
                 Log4J.error(TAG, String.format("I need to disambiguate which service you need. Type '1' " +
-                        "if you need '%s' or type '2' if you need '%s':", descFirst, descSecond));
+                        "if you need '%s' [similarity = %s] or type '2' if you need '%s' [similarity = %s]: ", first,
+                        descFirst, second, descSecond));
                 return scanner.nextLine().equals("1")? smFirst : smSecond;
             }
             return smFirst;

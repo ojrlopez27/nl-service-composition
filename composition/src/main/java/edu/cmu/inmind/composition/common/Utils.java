@@ -1,6 +1,7 @@
 package edu.cmu.inmind.composition.common;
 
 import edu.cmu.inmind.composition.annotations.*;
+import edu.cmu.inmind.composition.controllers.CommunicationController;
 import edu.cmu.inmind.composition.controllers.CompositionController;
 import edu.cmu.inmind.composition.apis.GenericService;
 import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
@@ -8,6 +9,7 @@ import edu.cmu.inmind.composition.pojos.LocationPOJO;
 import edu.cmu.inmind.composition.pojos.NERPojo;
 import edu.cmu.inmind.composition.services.AirBnBService;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
 import org.reflections.scanners.SubTypesScanner;
@@ -322,5 +324,23 @@ public class Utils {
                     elements[1].substring(elements[1].indexOf(" ")+1) ));
         }
         return list;
+    }
+
+    private static long time;
+    public static void startChrono(){
+        time = System.currentTimeMillis();
+        if( Boolean.parseBoolean(CommonUtils.getProperty("performance.test.enable") ) ) {
+            Log4J.turnOn(true);
+        }
+    }
+
+    public static void stopChrono(){
+        long totalTime = (System.currentTimeMillis() - time);
+        System.out.println("Total time: " + totalTime);
+        if( Boolean.parseBoolean(CommonUtils.getProperty("performance.test.enable") ) ) {
+            CommunicationController.sendPer("" + totalTime);
+            CommunicationController.receivePer();
+            CommunicationController.stopPer();
+        }
     }
 }

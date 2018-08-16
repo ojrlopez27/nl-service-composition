@@ -42,8 +42,8 @@ public class CompositionLauncher {
 
             if( !step.equals(Constants.END) ) {
                 // let's get the semantic neighbors provided by sent2vec
-                CommunicationController.send(step);
-                String absServiceCandidates = CommunicationController.receive();
+                CommunicationController.sendS2V(step);
+                String absServiceCandidates = CommunicationController.receiveS2V();
                 CompositionController.addStep(step, absServiceCandidates);
             }else{
                 break;
@@ -51,6 +51,7 @@ public class CompositionLauncher {
         }
 
         // let's create a composite service using the abstract services
+        Utils.startChrono();
         System.out.println("\n\n");
         Log4J.debug(TAG, "======== ABSTRACT SERVICES ===========");
         CompositionController.CompositeService compositeService = CompositionController.generateCompositeServiceRequest();
@@ -87,8 +88,9 @@ public class CompositionLauncher {
                 break;
             }
         }
+        Utils.stopChrono();
 
-        CommunicationController.stop();
+        CommunicationController.stopS2V();
         Log4J.error(TAG, "We are done! Bye bye...");
     }
 
