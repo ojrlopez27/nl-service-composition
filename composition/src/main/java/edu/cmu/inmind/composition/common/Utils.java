@@ -329,18 +329,16 @@ public class Utils {
     private static long time;
     public static void startChrono(){
         time = System.currentTimeMillis();
-        if( Boolean.parseBoolean(CommonUtils.getProperty("performance.test.enable") ) ) {
-            Log4J.turnOn(true);
-        }
     }
 
-    public static void stopChrono(){
+    public static long stopChrono(){
         long totalTime = (System.currentTimeMillis() - time);
-        System.out.println("Total time: " + totalTime);
-        if( Boolean.parseBoolean(CommonUtils.getProperty("performance.test.enable") ) ) {
-            CommunicationController.sendPer("" + totalTime);
-            CommunicationController.receivePer();
-            CommunicationController.stopPer();
-        }
+//        System.out.println("Total time: " + totalTime);
+//        if( Boolean.parseBoolean(CommonUtils.getProperty("performance.test.enable") ) ) {
+//            CommunicationController.sendPer("" + totalTime);
+//            CommunicationController.receivePer();
+//            CommunicationController.stopPer();
+//        }
+        return totalTime;
     }
 }

@@ -6,92 +6,130 @@ import edu.cmu.inmind.composition.common.Utils;
 import edu.cmu.inmind.composition.controllers.CommunicationController;
 import edu.cmu.inmind.composition.controllers.CompositionController;
 import edu.cmu.inmind.composition.controllers.InputController;
+import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
-import org.zeromq.ZMQ;
-
-import java.io.File;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by oscarr on 8/8/18.
  */
 public class CompositionLauncher {
     private static final String TAG = CompositionLauncher.class.getSimpleName();
+    private static int numberOfClients;
+    private static boolean performanceTestMode;
+    private static AtomicInteger clientDone = new AtomicInteger(0);
+    private static AtomicLong averageTime = new AtomicLong(0);
+    private static Map<String, ServiceMethod> serviceMap;
 
     public static void main(String args[]){
-        // let's initialize all the resources
-        CompositionController.init();
+        numberOfClients = Integer.parseInt(CommonUtils.getProperty("performance.test.clients"));
+        performanceTestMode = Boolean.parseBoolean(CommonUtils.getProperty("performance.test.enable"));
+        if( performanceTestMode ) Log4J.turnOn(false);
 
-        // let's generate the corpora using service method descriptions:
-        Map<String, ServiceMethod> serviceMap = Utils.generateCorporaFromMethods();
+        // we need to map services, put them into a file so sent2vec can use them
+        serviceMap = Utils.generateCorporaFromMethods();
 
-        // let's get some descriptions of a plan from the console or a file
-        InputController inputController = new InputController(true, InputController.PHASE.ABSTRACT);
-
-        Log4J.debug(TAG, "======== HIGH LEVEL PLAN DESCRIPTION ===========");
-        Log4J.info(TAG, "Enter your high level goal/plan:");
-        CompositionController.addGoal( inputController.getNext() );
-        String step;
-
-        // PHASE 1: ABSTRACT SERVICES COMPOSITION
-        // assuming that we have a plan (a pipeline of steps) that is provided either by console input or
-        // by the file 'task-def-script', let's create abstract services.
-        while( true ){
-            Log4J.info(TAG, "Enter one by one each step to accomplish the goal (type 'END' to finish):");
-            step = inputController.getNext();
-
-            if( !step.equals(Constants.END) ) {
-                // let's get the semantic neighbors provided by sent2vec
-                CommunicationController.sendS2V(step);
-                String absServiceCandidates = CommunicationController.receiveS2V();
-                CompositionController.addStep(step, absServiceCandidates);
-            }else{
-                break;
-            }
+        for(int i = 0; i < numberOfClients; i++){
+            new Thread( new Agent(serviceMap) ).start();
+            CommonUtils.sleep(200);
         }
 
-        // let's create a composite service using the abstract services
-        Utils.startChrono();
-        System.out.println("\n\n");
-        Log4J.debug(TAG, "======== ABSTRACT SERVICES ===========");
-        CompositionController.CompositeService compositeService = CompositionController.generateCompositeServiceRequest();
-        CompositionController.fireRulesAS();
-
-
-        // PHASE 2: GROUNDING SERVICE COMPOSITION
-        // execute services using the serviceMap:
-        inputController = new InputController(true, InputController.PHASE.GROUNDING);
-        // let's create some rules for grounding specific services based on QoS:
-        CompositionController.createRulesForGroundingServices();
-
-        System.out.println("\n\n");
-        Log4J.debug(TAG, "======== GROUNDED SERVICES ===========");
-        Log4J.trace(TAG, "Let's execute the plan (if not reading from a file, type the concrete action and goal)....");
-        Log4J.info(TAG, "Please type, what is the concrete Goal? ==>   " + inputController.getNext());
-        String concreteAction;
-        int numStep = 1;
-        while( true ){
-            Log4J.trace(TAG, numStep + ". Abstract action (step): " + compositeService.getNext());
-            Log4J.info(TAG, numStep + ". Type Concrete action (step): " + (concreteAction = inputController.getNext()));
-
-            if( !concreteAction.equals(Constants.END ) ){
-                // let's simulate changes on QoS conditions
-                CompositionController.addPhoneStatusToWM();
-
-                // let's execute the grounded service:
-                CompositionController.execute(concreteAction, serviceMap);
-
-                numStep++;
-                System.out.println("\n");
-                Log4J.debug(TAG, "***********************");
-            }else{
-                break;
-            }
+        // let's wait for all clients to terminate
+        while( clientDone.get() < numberOfClients ){
+            CommonUtils.sleep(100);
         }
-        Utils.stopChrono();
-
-        CommunicationController.stopS2V();
+        System.out.println("Total: " + averageTime.get() + ", average: " + (averageTime.get() / numberOfClients) );
         Log4J.error(TAG, "We are done! Bye bye...");
+    }
+
+
+
+
+    static class Agent implements Runnable{
+        private CompositionController compositionController;
+        private CommunicationController communicationController;
+        private Map<String, ServiceMethod> serviceMap;
+
+        public Agent(Map<String, ServiceMethod> serviceMap) {
+            // let's initialize all the resources
+            this.compositionController = new CompositionController();
+            this.communicationController = new CommunicationController();
+            this.serviceMap = serviceMap;
+        }
+
+        @Override
+        public void run() {
+
+            // let's get some descriptions of a plan from the console or a file
+            InputController inputController = new InputController(true, InputController.PHASE.ABSTRACT);
+
+            Log4J.debug(TAG, "======== HIGH LEVEL PLAN DESCRIPTION ===========");
+            Log4J.info(TAG, "Enter your high level goal/plan:");
+            compositionController.addGoal( inputController.getNext() );
+            String step;
+
+            // PHASE 1: ABSTRACT SERVICES COMPOSITION
+            // assuming that we have a plan (a pipeline of steps) that is provided either by console input or
+            // by the file 'task-def-script', let's create abstract services.
+            Utils.startChrono();
+            while( true ){
+                Log4J.info(TAG, "Enter one by one each step to accomplish the goal (type 'END' to finish):");
+                step = inputController.getNext();
+
+                if( !step.equals(Constants.END) ) {
+                    // let's get the semantic neighbors provided by sent2vec
+                    communicationController.sendS2V(step);
+                    String absServiceCandidates = communicationController.receiveS2V();
+                    compositionController.addStep(step, absServiceCandidates);
+                }else{
+                    break;
+                }
+            }
+
+            // let's create a composite service using the abstract services
+            if(!performanceTestMode) System.out.println("\n\n");
+            Log4J.debug(TAG, "======== ABSTRACT SERVICES ===========");
+            CompositionController.CompositeService compositeService = compositionController.generateCompositeServiceRequest();
+            compositionController.fireRulesAS();
+
+
+            // PHASE 2: GROUNDING SERVICE COMPOSITION
+            // execute services using the serviceMap:
+            inputController = new InputController(true, InputController.PHASE.GROUNDING);
+            // let's create some rules for grounding specific services based on QoS:
+            compositionController.createRulesForGroundingServices();
+
+            if(!performanceTestMode) System.out.println("\n\n");
+            Log4J.debug(TAG, "======== GROUNDED SERVICES ===========");
+            Log4J.trace(TAG, "Let's execute the plan (if not reading from a file, type the concrete action and goal)....");
+            Log4J.info(TAG, "Please type, what is the concrete Goal? ==>   " + inputController.getNext());
+            String concreteAction;
+            int numStep = 1;
+            while( true ){
+                Log4J.trace(TAG, numStep + ". Abstract action (step): " + compositeService.getNext());
+                Log4J.info(TAG, numStep + ". Type Concrete action (step): " + (concreteAction = inputController.getNext()));
+
+                if( !concreteAction.equals(Constants.END ) ){
+                    // let's simulate changes on QoS conditions
+                    compositionController.addPhoneStatusToWM();
+
+                    // let's execute the grounded service:
+                    compositionController.execute(concreteAction, serviceMap);
+
+                    numStep++;
+                    if(!performanceTestMode) System.out.println("\n");
+                    Log4J.debug(TAG, "***********************");
+                }else{
+                    break;
+                }
+            }
+            averageTime.addAndGet( Utils.stopChrono() );
+            int done = clientDone.incrementAndGet();
+            if(performanceTestMode) System.out.println("Number of clients done: " + done);
+            communicationController.stopS2V();
+        }
     }
 
 }

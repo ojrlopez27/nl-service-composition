@@ -18,13 +18,13 @@ import java.util.Scanner;
  * Created by oscarr on 8/10/18.
  */
 public class ServiceExecutor {
-    private static final String TAG = ServiceExecutor.class.getSimpleName();
+    private final String TAG = ServiceExecutor.class.getSimpleName();
     private WorkingMemory wm;
     private Class candidate;
     private Scanner scanner;
-    private static double upperThreshold = Double.parseDouble(CommonUtils.getProperty("service.executor.threshold.upper"));
-    private static double lowerThreshold = Double.parseDouble(CommonUtils.getProperty("service.executor.threshold.lower"));
-    private static double delta = Double.parseDouble(CommonUtils.getProperty("service.executor.delta"));
+    private static final double upperThreshold = Double.parseDouble(CommonUtils.getProperty("service.executor.threshold.upper"));
+    private static final double lowerThreshold = Double.parseDouble(CommonUtils.getProperty("service.executor.threshold.lower"));
+    private static final double delta = Double.parseDouble(CommonUtils.getProperty("service.executor.delta"));
 
     public ServiceExecutor(WorkingMemory wm) {
         this.wm = wm;
@@ -68,7 +68,7 @@ public class ServiceExecutor {
      * @param serviceMap
      * @return
      */
-    public static ServiceMethod getServiceMethod(List<AbstractServicePOJO> abstractServices, Map<String, ServiceMethod> serviceMap) {
+    public ServiceMethod getServiceMethod(List<AbstractServicePOJO> abstractServices, Map<String, ServiceMethod> serviceMap) {
         //assumption: we are considering (for now) only 2 candidates:
         double first = abstractServices.get(0).getSimilarity();
         double second = abstractServices.get(1).getSimilarity();

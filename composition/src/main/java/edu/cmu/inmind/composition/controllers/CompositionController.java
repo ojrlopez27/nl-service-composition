@@ -22,16 +22,21 @@ import java.util.Map;
  * Created by oscarr on 8/8/18.
  */
 public class CompositionController {
-    private static final String TAG = CompositionController.class.getSimpleName();
+    private final String TAG = CompositionController.class.getSimpleName();
 
     // AS: Abstract Services, GS: Grounded Services
-    private static WorkingMemory wm;
-    private static Rules rulesAS, rulesGS;
-    private static RulesEngine rulesEngineAS, rulesEngineGS;
-    private static Facts factsAS;
-    private static List<Rule> ruleListAS, ruleListGS;
+    private WorkingMemory wm;
+    private Rules rulesAS, rulesGS;
+    private RulesEngine rulesEngineAS, rulesEngineGS;
+    private Facts factsAS;
+    private List<Rule> ruleListAS, ruleListGS;
+    private ServiceExecutor serviceExecutor;
 
-    public static void init(){
+    static{
+        NERController.init();
+    }
+
+    public CompositionController(){
         Log4J.debug(TAG, "Initializing CompositionController...");
         wm = new WorkingMemory();
         rulesAS = new Rules();
@@ -41,10 +46,10 @@ public class CompositionController {
         rulesEngineGS = new DefaultRulesEngine();
         ruleListAS = new ArrayList<>();
         ruleListGS = new ArrayList<>();
-        NERController.init();
+        serviceExecutor = new ServiceExecutor(wm);
     }
 
-    public static void addGoal(String goal) {
+    public void addGoal(String goal) {
         // create some facts
         wm.setGoal(goal);
         factsAS.put("wm", wm);
@@ -57,7 +62,7 @@ public class CompositionController {
      * This is just a simple chaining of rules.
      * @param step
      */
-    public static void addStep(String step, String abstracServiceCandidates) {
+    public void addStep(String step, String abstracServiceCandidates) {
         String ruleName = Utils.getRuleName(step);
         List<AbstractServicePOJO> candidates = Utils.extractAbstractServices(abstracServiceCandidates);
         wm.getCandidates().add(candidates);
@@ -74,7 +79,7 @@ public class CompositionController {
         );
     }
 
-    public static CompositeService generateCompositeServiceRequest() {
+    public CompositeService generateCompositeServiceRequest() {
         CompositeServiceBuilder builder = null;
         // create a rule set
         for(Rule rule : ruleListAS){
@@ -88,7 +93,7 @@ public class CompositionController {
     /**
      * This method will put in WM the list of abastract services
      */
-    public static void fireRulesAS(){
+    public void fireRulesAS(){
         //create a default rules engine and fire rules on known facts
         rulesEngineAS.fire(rulesAS, factsAS);
     }
@@ -98,7 +103,7 @@ public class CompositionController {
      * We can also simulate here some changing conditions like gradual battery draining, or
      * weak/strong wifi access changes.
      */
-    public static void addPhoneStatusToWM(){
+    public void addPhoneStatusToWM(){
         wm.setBattery(Constants.PHONE_HIGH_BATTERY);
         wm.setWifi(Constants.WIFI_ON);
         wm.setExecutor(new ServiceExecutor(wm));
@@ -109,7 +114,7 @@ public class CompositionController {
      * Heuristic rules for grounding services (given a set of abstract services) based on
      * non-functional QoS features (i.e., battery consumption, connectivity, availability, etc.)
      */
-    public static void createRulesForGroundingServices() {
+    public void createRulesForGroundingServices() {
         ruleListGS.add(
                 new MVELRule()
                         .name("if-battery-low-then-low-consumption-rule")
@@ -156,7 +161,7 @@ public class CompositionController {
         }
     }
 
-    public static void fireRulesGS(){
+    public void fireRulesGS(){
         //create a default rules engine and fire rules on known facts
         rulesEngineGS.fire(rulesGS, factsAS);
     }
@@ -164,8 +169,8 @@ public class CompositionController {
 
 
 
-    public static void execute(String concreteAction, Map<String, ServiceMethod> serviceMap) {
-        ServiceMethod serviceMethod = ServiceExecutor.getServiceMethod(wm.getAbstractServices(), serviceMap);
+    public void execute(String concreteAction, Map<String, ServiceMethod> serviceMap) {
+        ServiceMethod serviceMethod = serviceExecutor.getServiceMethod(wm.getAbstractServices(), serviceMap);
         wm.setService(serviceMethod.getServiceClass());
         wm.setServiceMethod(serviceMethod.getServiceMethod());
         wm.setConcreteAction(concreteAction);
@@ -174,7 +179,7 @@ public class CompositionController {
     }
 
 
-    public static class CompositeService {
+    public class CompositeService {
         private List<Node> nodes = new ArrayList();
         private int idx = 0;
 
@@ -194,7 +199,7 @@ public class CompositionController {
         }
     }
 
-    public static class CompositeServiceBuilder{
+    public class CompositeServiceBuilder{
         private List<Node> nodes = new ArrayList();
 
         private CompositeServiceBuilder(String request){
