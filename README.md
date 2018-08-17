@@ -23,9 +23,10 @@ This project is composed of three sub-projects (a client and two servers):
     - Download pre-trained models from https://github.com/epfml/sent2vec, more specifically, wiki bigrams (16GB) and toronto unigrams (2GB) -- though you can try different models, particularly, we should try twitter model since it is bigger in size and precision may be improved. Put the models under the folder sent2vec
     - Modify run.sh bash script. If you want more precision (though it will be slower) then use wiki model, otherwise use toronto model which is faster
 2. composition:
-    - modify config.properties and point the path variables to your local folders
-    - modify task-def-script to reflect the high level description of a task or plan (e.g., plan a trip to a place on a range of dates)
-    - modify task-exec-script to reflect a contextualization of the high-level description (e.g., plan a trip to Boston from August 29 to September 11)
+    - Modify config.properties and point the path variables to your local folders
+    - Modify task-def-script to reflect the high level description of a task or plan (e.g., plan a trip to a place on a range of dates)
+    - Modify task-exec-script to reflect a contextualization of the high-level description (e.g., plan a trip to Boston from August 29 to September 11)
+    - If you are **NOT** doing performance tests, then you should disable the corresponding option on the confi.properties file (performance.test.enable = false)
 3. performance:
 	- Install GNU parallel: (brew install parallel, or port install parallel)
 	- Modify build.gradle to create a jar
