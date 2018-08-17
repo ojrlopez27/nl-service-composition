@@ -1,4 +1,4 @@
-package edu.cmu.inmind.composition;
+package edu.cmu.inmind.composition.launchers;
 
 import edu.cmu.inmind.composition.common.Constants;
 import edu.cmu.inmind.composition.common.ServiceMethod;
@@ -8,15 +8,16 @@ import edu.cmu.inmind.composition.controllers.CompositionController;
 import edu.cmu.inmind.composition.controllers.InputController;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
-import java.util.*;
+
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by oscarr on 8/8/18.
  */
-public class CompositionLauncher {
-    private static final String TAG = CompositionLauncher.class.getSimpleName();
+public class PerformanceTestLauncher {
+    private static final String TAG = PerformanceTestLauncher.class.getSimpleName();
     private static int numberOfClients;
     private static boolean performanceTestMode;
     private static AtomicInteger clientDone = new AtomicInteger(0);
@@ -32,7 +33,7 @@ public class CompositionLauncher {
         serviceMap = Utils.generateCorporaFromMethods();
 
         for(int i = 0; i < numberOfClients; i++){
-            new Thread( new Agent(serviceMap) ).start();
+            new Thread( new User(serviceMap) ).start();
             CommonUtils.sleep(200);
         }
 
@@ -47,12 +48,12 @@ public class CompositionLauncher {
 
 
 
-    static class Agent implements Runnable{
+    static class User implements Runnable{
         private CompositionController compositionController;
         private CommunicationController communicationController;
         private Map<String, ServiceMethod> serviceMap;
 
-        public Agent(Map<String, ServiceMethod> serviceMap) {
+        public User(Map<String, ServiceMethod> serviceMap) {
             // let's initialize all the resources
             this.compositionController = new CompositionController();
             this.communicationController = new CommunicationController();

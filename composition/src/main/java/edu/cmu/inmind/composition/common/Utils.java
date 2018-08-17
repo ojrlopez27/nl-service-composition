@@ -332,13 +332,6 @@ public class Utils {
     }
 
     public static long stopChrono(){
-        long totalTime = (System.currentTimeMillis() - time);
-//        System.out.println("Total time: " + totalTime);
-//        if( Boolean.parseBoolean(CommonUtils.getProperty("performance.test.enable") ) ) {
-//            CommunicationController.sendPer("" + totalTime);
-//            CommunicationController.receivePer();
-//            CommunicationController.stopPer();
-//        }
-        return totalTime;
+        return (System.currentTimeMillis() - time);
     }
 }

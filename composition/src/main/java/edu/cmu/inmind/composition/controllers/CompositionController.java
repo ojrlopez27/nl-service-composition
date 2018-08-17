@@ -178,6 +178,14 @@ public class CompositionController {
         fireRulesGS();
     }
 
+    public String[] execute(Map<String, ServiceMethod> serviceMap) {
+        ServiceMethod serviceMethod = serviceExecutor.getServiceMethod(wm.getAbstractServices(), serviceMap);
+        String[] result = new String[2];
+        result[0] = serviceMethod.getServiceClass().getSimpleName();
+        result[1] = serviceMethod.getServiceMethod().getName();
+        return result;
+    }
+
 
     public class CompositeService {
         private List<Node> nodes = new ArrayList();

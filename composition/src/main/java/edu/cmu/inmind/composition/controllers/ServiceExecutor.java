@@ -76,6 +76,17 @@ public class ServiceExecutor {
         String descSecond = abstractServices.get(1).getServiceDescription();
         ServiceMethod smFirst = serviceMap.get(descFirst);
         ServiceMethod smSecond = serviceMap.get(descSecond);
+
+        // if service descriptions do not match any service, that means that sent2vec picked probably a wrong service
+        // or at least one that cannot be mapped as an abstract service. We will use this for precision and recall
+        if(smFirst == null && smSecond == null){
+            System.err.println("Service does not exist");
+        }else if(smSecond == null){
+            smSecond = smFirst;
+        }else if(smFirst == null){
+            System.err.println("First match is wrong. Using second match.");
+            smFirst = smSecond;
+        }
         Scanner scanner = new Scanner(System.in);
         if(first >= upperThreshold){
             if( smFirst.getServiceMethod().getName().equals(smSecond.getServiceMethod().getName())
