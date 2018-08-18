@@ -18,7 +18,7 @@ public class CompositionLauncher {
 
     public static void main(String args[]){
         // we need to map services, put them into a file so sent2vec can use them
-        serviceMap = Utils.generateCorporaFromMethods();
+        serviceMap = Utils.generateCorporaFromMethods(false);
 
         // let's initialize all the resources
         CompositionController compositionController = new CompositionController();

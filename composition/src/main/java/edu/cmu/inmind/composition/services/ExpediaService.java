@@ -2,7 +2,7 @@ package edu.cmu.inmind.composition.services;
 
 import edu.cmu.inmind.composition.annotations.BatteryQoS;
 import edu.cmu.inmind.composition.annotations.ConnectivityQoS;
-import edu.cmu.inmind.composition.apis.SearchThingsToDoService;
+import edu.cmu.inmind.composition.apis.LeisureRecommendationService;
 import edu.cmu.inmind.composition.common.Constants;
 import edu.cmu.inmind.composition.pojos.LocationPOJO;
 import edu.cmu.inmind.composition.pojos.ThingToDoPOJO;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by oscarr on 8/8/18.
  */
-public class ExpediaService implements SearchThingsToDoService{
+public class ExpediaService implements LeisureRecommendationService {
 
     @Override
     @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)

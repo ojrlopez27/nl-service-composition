@@ -19,7 +19,7 @@ public class GoogleFlightsService implements BookFlightService {
     @Override
     @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
     @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
-    public FlightPOJO searchFlight(@Provided(value = "Pittsburgh") LocationPOJO from, LocationPOJO destination,
+    public FlightPOJO searchFlight(@Provided(value = "<Your Current Place>") LocationPOJO from, LocationPOJO destination,
                                    Date departureDate, Date returnDate, Double maxPrice){
         Log4J.warn(this, String.format("Executing GoogleFlightsService.searchFlight for: [from: %s, destination: %s, " +
                 "departure date: %s, return date: %s, maxPrice: %s]", from.getPlace(), destination.getPlace(),
@@ -30,7 +30,7 @@ public class GoogleFlightsService implements BookFlightService {
     @Override
     @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
     @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
-    public FlightPOJO bookFlight(@Provided(value = "Pittsburgh") LocationPOJO from, LocationPOJO destination,
+    public FlightPOJO bookFlight(@Provided(value = "<Your Current Place>") LocationPOJO from, LocationPOJO destination,
                                  Date departureDate, Date returnDate){
         Log4J.warn(this, String.format("Executing GoogleFlightsService.bookFlight for: [from: %s, destination: %s, " +
                 "departure date: %s, return date: %s]", from.getPlace(), destination.getPlace(), departureDate, returnDate));

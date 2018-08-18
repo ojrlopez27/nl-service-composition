@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by oscarr on 8/8/18.
  */
-public interface SearchThingsToDoService extends GenericService {
+public interface LeisureRecommendationService extends GenericService {
 
     @Description(capabilities = {
             "This method returns a list of activities to do in a given city or place, date and weather conditions",

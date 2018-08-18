@@ -30,7 +30,7 @@ public class PerformanceTestLauncher {
         if( performanceTestMode ) Log4J.turnOn(false);
 
         // we need to map services, put them into a file so sent2vec can use them
-        serviceMap = Utils.generateCorporaFromMethods();
+        serviceMap = Utils.generateCorporaFromMethods(false);
 
         for(int i = 0; i < numberOfClients; i++){
             new Thread( new User(serviceMap) ).start();

@@ -35,7 +35,14 @@ This project is composed of three sub-projects (a client and two servers):
 	- Modify task-exec-script file in such a way that all the params are provided in each sentence (date, location, etc).
 	- Write a script using GNU parallel (https://stackoverflow.com/a/21197038) that loads the scripts that runs the jar
 	- Run the performance Java server
-	- Run the parallel script for 10, 100, 1000, 10,000 processes (clients) 
+	- Run the parallel script for 10, 100, 1000, 10,000 processes (clients)
+4. Mechanical Turk Experiments:
+	- Make sure you are using wiki pre-trained model (it is more accurate). Modify run.sh script.
+	- If you have added new services or api's (**only**) then:
+		- add words to the blacklist (if needed) in DatasetCleaner
+		- In Java run MechanicalTurkLauncher once to generate corporaMethods
+		- run sent2vece and re-run MechanicalTurkLauncher on Java
+	- otherwise, just run MechanicalTurkLauncher on Java. 
   
 ## Execution
 - There are two modes of execution:

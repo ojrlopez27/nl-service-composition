@@ -19,7 +19,7 @@ public class MechanicalTurkLauncher {
 
     public static void main(String args[]){
         // we need to map services, put them into a file so sent2vec can use them
-        serviceMap = Utils.generateCorporaFromMethods();
+        serviceMap = Utils.generateCorporaFromMethods(true);
 
         // let's initialize all the resources
         CompositionController compositionController = new CompositionController();
@@ -54,7 +54,7 @@ public class MechanicalTurkLauncher {
         // let's create a composite service using the abstract services
         System.out.println("\n\n");
         Log4J.debug(TAG, "======== ABSTRACT SERVICES ===========");
-        CompositionController.CompositeService compositeService = compositionController.generateCompositeServiceRequest();
+        compositionController.generateCompositeServiceRequest();
         compositionController.fireRulesAS();
 
 
@@ -74,8 +74,10 @@ public class MechanicalTurkLauncher {
             if( !concreteAction.equals(Constants.END ) ){
                 // let's execute the grounded service:
                 String[] result = compositionController.execute(serviceMap);
-                Log4J.trace(TAG, numStep + String.format(". The system will open this service: [%s] " +
-                        "and execute this action: [%s]", result[0], result[1] ));
+                Log4J.trace(TAG, numStep + String.format(". The system will open this app: [%s] " +
+                        "and execute this action: [%s]",
+                        Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
+                        Utils.splitByCapitalizedWord(result[1], true)));
                 numStep++;
                 Log4J.debug(TAG, "***********************");
             }else{

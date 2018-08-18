@@ -4,6 +4,7 @@ import edu.cmu.inmind.composition.annotations.*;
 import edu.cmu.inmind.composition.controllers.CommunicationController;
 import edu.cmu.inmind.composition.controllers.CompositionController;
 import edu.cmu.inmind.composition.apis.GenericService;
+import edu.cmu.inmind.composition.controllers.DatasetCleaner;
 import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
 import edu.cmu.inmind.composition.pojos.LocationPOJO;
 import edu.cmu.inmind.composition.pojos.NERPojo;
@@ -52,20 +53,23 @@ public class Utils {
 
 
     private static Map<String, ServiceMethod> mapInterfaces, mapImplementations;
-    public static Map<String, ServiceMethod> generateCorporaFromMethods(){
+    public static Map<String, ServiceMethod> generateCorporaFromMethods(boolean isMechanicalTurkTest){
         mapInterfaces = extractClassesFromPackage(GenericService.class.getPackage().getName(),
-                CommonUtils.getProperty("sent2vec.corpora.methods.path"), true);
+                CommonUtils.getProperty("sent2vec.corpora.methods.path"), true,
+                isMechanicalTurkTest);
         extractImplementationClasses();
         return mapInterfaces;
     }
 
     public static Map<String, ServiceMethod> extractImplementationClasses(){
-        mapImplementations = extractClassesFromPackage(AirBnBService.class.getPackage().getName(),null, false);
+        mapImplementations = extractClassesFromPackage(AirBnBService.class.getPackage().getName(),null,
+                false, false);
         return mapImplementations;
     }
 
     private static Map<String, ServiceMethod> extractClassesFromPackage(String packageName, String path,
-                                                                        boolean checkDescriptionAnnotation){
+                                                                        boolean checkDescriptionAnnotation,
+                                                                        boolean isMechanicalTurkTest){
         // loading all the classes from 'services' package
         List<ClassLoader> classLoadersList = new LinkedList<>();
         classLoadersList.add(ClasspathHelper.contextClassLoader());
@@ -100,6 +104,8 @@ public class Utils {
         }
         // store the corpora file
         if(path != null){
+            if(isMechanicalTurkTest)
+                corpora.append("\n").append(DatasetCleaner.getCleanDataset());
             printToFile(path, corpora);
         }
         return map;
@@ -125,7 +131,7 @@ public class Utils {
         buffer.append(line);
     }
 
-    private static void printToFile(String filename, StringBuffer buffer){
+    public static void printToFile(String filename, StringBuffer buffer){
         try {
             PrintWriter pw = new PrintWriter(new File(filename));
             pw.print(buffer);
@@ -333,5 +339,15 @@ public class Utils {
 
     public static long stopChrono(){
         return (System.currentTimeMillis() - time);
+    }
+
+
+    public static String splitByCapitalizedWord(String word, boolean lowercase){
+        String[] split = word.split("(?=\\p{Upper})");
+        String newWord = "";
+        for(String sp : split){
+            newWord += (!newWord.isEmpty()? "-" + sp : sp);
+        }
+        return lowercase? newWord.toLowerCase() : newWord;
     }
 }

@@ -2,7 +2,6 @@
 clear
 echo "=========== Tokenizing the corpora methods .... ============"
 /usr/local/bin/python3.6-32 wikiTokenize.py io-files/corporaMethods > io-files/corporaMethodsTokenized
-#/usr/local/bin/python3.6-32 wikiTokenize.py io-files/corporaMethods_MT > io-files/corporaMethodsTokenized
 echo "=========== Compiling the library (make) .... =============="
 make
 echo "=========== Sentence similarity for corpora .... ==========="
