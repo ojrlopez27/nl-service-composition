@@ -162,7 +162,7 @@
 
 
       <div id="body">
-          <div id="inbox" style="overflow-y: auto;height:calc(100vh-200px);">
+          <div id="inbox" style="overflow: auto;height:300px;">
           {% for message in messages %}
             {% module Template("message.html", message=message) %}
           {% end %}
@@ -223,8 +223,14 @@
                 exModal.style.display = "none";
             }
         }
-    var inboxDiv = $("#inbox");
-    inboxDiv.scrollTop(inboxDiv.prop('scrollHeight'));
+    function getMessages(letter)
+    {
+        var inboxDiv = $("#inbox");
+        inboxDiv.scrollTop(inboxDiv.prop('scrollHeight'));
+    }
+    $(function() {
+      getMessages();
+      });
       </script> 
   </body>
 </html>
