@@ -182,7 +182,8 @@ public class CompositionController {
         ServiceMethod serviceMethod = serviceExecutor.getServiceMethod(wm.getAbstractServices(), serviceMap);
         String[] result = new String[2];
         result[0] = serviceMethod.getServiceClass().getSimpleName();
-        result[1] = serviceMethod.getServiceMethod().getName();
+        result[1] = serviceMethod.getServiceMethod() == null? serviceMethod.getAlternativeDescription()
+                : serviceMethod.getServiceMethod().getName();
         return result;
     }
 

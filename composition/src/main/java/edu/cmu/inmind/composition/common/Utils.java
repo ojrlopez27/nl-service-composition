@@ -4,6 +4,7 @@ import edu.cmu.inmind.composition.annotations.*;
 import edu.cmu.inmind.composition.controllers.CommunicationController;
 import edu.cmu.inmind.composition.controllers.CompositionController;
 import edu.cmu.inmind.composition.apis.GenericService;
+import edu.cmu.inmind.composition.controllers.DatasetCleaner;
 import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
 import edu.cmu.inmind.composition.pojos.LocationPOJO;
 import edu.cmu.inmind.composition.pojos.NERPojo;
@@ -52,20 +53,23 @@ public class Utils {
 
 
     private static Map<String, ServiceMethod> mapInterfaces, mapImplementations;
-    public static Map<String, ServiceMethod> generateCorporaFromMethods(){
+    public static Map<String, ServiceMethod> generateCorporaFromMethods(boolean isMechanicalTurkTest){
         mapInterfaces = extractClassesFromPackage(GenericService.class.getPackage().getName(),
-                CommonUtils.getProperty("sent2vec.corpora.methods.path"), true);
+                CommonUtils.getProperty("sent2vec.corpora.methods.path"), true,
+                isMechanicalTurkTest);
         extractImplementationClasses();
         return mapInterfaces;
     }
 
     public static Map<String, ServiceMethod> extractImplementationClasses(){
-        mapImplementations = extractClassesFromPackage(AirBnBService.class.getPackage().getName(),null, false);
+        mapImplementations = extractClassesFromPackage(AirBnBService.class.getPackage().getName(),null,
+                false, false);
         return mapImplementations;
     }
 
     private static Map<String, ServiceMethod> extractClassesFromPackage(String packageName, String path,
-                                                                        boolean checkDescriptionAnnotation){
+                                                                        boolean checkDescriptionAnnotation,
+                                                                        boolean isMechanicalTurkTest){
         // loading all the classes from 'services' package
         List<ClassLoader> classLoadersList = new LinkedList<>();
         classLoadersList.add(ClasspathHelper.contextClassLoader());
@@ -100,6 +104,8 @@ public class Utils {
         }
         // store the corpora file
         if(path != null){
+            if(isMechanicalTurkTest)
+                corpora.append("\n").append(DatasetCleaner.getCleanDataset());
             printToFile(path, corpora);
         }
         return map;
@@ -125,7 +131,7 @@ public class Utils {
         buffer.append(line);
     }
 
-    private static void printToFile(String filename, StringBuffer buffer){
+    public static void printToFile(String filename, StringBuffer buffer){
         try {
             PrintWriter pw = new PrintWriter(new File(filename));
             pw.print(buffer);
@@ -333,5 +339,62 @@ public class Utils {
 
     public static long stopChrono(){
         return (System.currentTimeMillis() - time);
+    }
+
+
+    public static String splitByCapitalizedWord(String word, boolean lowercase){
+        String[] split = word.split("(?=\\p{Upper})");
+        String newWord = "";
+        for(String sp : split){
+            newWord += (!newWord.isEmpty()? "-" + sp : sp);
+        }
+        return lowercase? newWord.toLowerCase() : newWord;
+    }
+
+    public static String removeEOS(String original){
+        return original.replace(Constants.EOS, "")
+                .replace("\\u003ceos\\git au003e", "");
+    }
+
+
+    public static String removeExtraQuotes(String payload){
+        payload = payload.trim();
+        if( payload.startsWith("\"") ) payload = payload.substring(1);
+        if( payload.endsWith("\"") ) payload = payload.substring(0, payload.length() - 1);
+        return payload;
+    }
+
+    public static String removeAllQuotes(String payload){
+        return payload.replace("\"", "").replace("\'", "").trim();
+    }
+
+    public static String extractCleanPayload(String msg) {
+        int start = msg.indexOf("\'payload");
+        if( start == -1 ) start = msg.indexOf("\"payload");
+        int end = msg.indexOf("\'messageId");
+        if( end == -1 ) end = msg.indexOf("\"messageId");
+        String payload = msg.substring( start, end );
+        payload = payload.replace("u\"", "\"");
+        if(payload.contains("\'")) {
+            final String token = "@@@@";
+            for (start = payload.indexOf("\""), end = 0; start < payload.length() && end < payload.length(); ) {
+                end = payload.indexOf("\"", start + 1);
+                if (start == -1 || end == -1) break;
+                String substring = payload.substring(start, end + 1);
+                substring = substring.replace("\'", token);
+                //            if(substring.startsWith("\"")) substring = substring.substring(1);
+                //            if(substring.endsWith("\"")) substring = substring.substring(0, substring.length() - 1);
+                payload = payload.replace(payload.substring(start, end + 1), substring);
+                start = end + 1;
+            }
+            payload = payload.replace("\'", "\"");
+            payload = payload.replace(token, "\'");
+        }
+        payload = (payload.substring(0, payload.lastIndexOf(","))
+                .replace("\"{", "{")
+                .replace("}\"", "}"))
+                .replace("\\", "")
+                .replace("\"payload\":", "");
+        return payload;
     }
 }

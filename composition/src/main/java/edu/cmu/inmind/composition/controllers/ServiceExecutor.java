@@ -1,6 +1,7 @@
 package edu.cmu.inmind.composition.controllers;
 
 import edu.cmu.inmind.composition.apis.GenericService;
+import edu.cmu.inmind.composition.apis.UndefinedService;
 import edu.cmu.inmind.composition.common.ServiceMethod;
 import edu.cmu.inmind.composition.common.Utils;
 import edu.cmu.inmind.composition.model.WorkingMemory;
@@ -80,17 +81,16 @@ public class ServiceExecutor {
         // if service descriptions do not match any service, that means that sent2vec picked probably a wrong service
         // or at least one that cannot be mapped as an abstract service. We will use this for precision and recall
         if(smFirst == null && smSecond == null){
-            System.err.println("Service does not exist");
+            return new ServiceMethod(UndefinedService.class, descFirst);
         }else if(smSecond == null){
             smSecond = smFirst;
         }else if(smFirst == null){
-            System.err.println("First match is wrong. Using second match.");
             smFirst = smSecond;
         }
         Scanner scanner = new Scanner(System.in);
         if(first >= upperThreshold){
             if( smFirst.getServiceMethod().getName().equals(smSecond.getServiceMethod().getName())
-                    && Math.abs(first - second) <= delta ){
+                    && Math.abs(first - second) <= delta && !descFirst.equals(descSecond) ){
                 Log4J.error(TAG, String.format("I need to disambiguate which service you need. Type '1' " +
                         "if you need '%s' [similarity = %s] or type '2' if you need '%s' [similarity = %s]: ", first,
                         descFirst, second, descSecond));

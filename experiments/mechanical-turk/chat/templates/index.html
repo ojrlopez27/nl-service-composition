@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>App Composer</title>
+    <link rel="stylesheet" href="{{ static_url("chat.css") }}" type="text/css">
+  </head>
+  <body>
+    <div class="container">
+
+      <div id="instructions">
+        <p><font size="6"><b>App Composer</b></font><br>
+          <br>
+          <b>Instructions:</b><br>
+          Suppose you are using your smartphone or any other preferred mobile device. Assume you only have 15 apps installed on your device as described below. During the task, you will be presented 3 different scenarios, for each scenario, please write down (using high-level descriptions) what kind of actions you would do using the available apps (describe at least 7 actions per scenario, otherwise your work can be <b>rejected</b>). For each of your actions, we will tell you which app would be activated. After that, you will be asked whether the opened app meets your needs. <br><br>
+
+          <b>Available Apps: </b> <button id="apps">Click Here</button><br>
+          <b>Example: </b> <button id="ex">Click Here</button>
+        </p>
+        
+        <!-- The Modal -->
+        <div id="appModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>
+              1. Flight Reservation App <br>
+              2. Hotel Reservation App <br>
+              3. Restaurant Reservation App <br>
+              4. Calendar App <br>
+              5. Buy Flowers App <br>
+              6. Ground Transportation App <br>
+              7. Leisure Recommendation App <br>
+              8. Maps App <br>
+              9. Movie and Cinema Recommendation App <br>
+              10. News Feed App <br>
+              11. Social Network App <br>
+              12. Messaging App <br>
+              13. Traffic App <br>
+              14. Weather App <br>
+              15. Wine and Beer Stores App <br>
+            </p>
+          </div>
+        </div>  
+
+        <!-- The Modal -->
+        <div id="exModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>
+              Below, we present a basic example of this interaction. Suppose you are planning to go out with friends next Friday night:<br>
+              <table>
+                <tr>
+                  <td style="width: 50px">
+                    [App]:
+                  </td>
+                  <td style="width: 400px">
+                    What is on your mind?
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [You]:
+                  </td>
+                  <td style="width: 400px">
+                    I want to have a party this weekend
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [App]:
+                  </td>
+                  <td style="width: 400px">
+                    Please tell me your first action
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [You]:
+                  </td>
+                  <td style="width: 400px">
+                    I would like to buy some food at the supermarket
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [App]:
+                  </td>
+                  <td style="width: 400px">
+                    Opening "FindPlace App"...
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [App]:
+                  </td>
+                  <td style="width: 400px">
+                    Are you looking for organic food?
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [You]:
+                  </td>
+                  <td style="width: 400px">
+                    yes
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [App]:
+                  </td>
+                  <td style="width: 400px">
+                    Do you need a supermarket close to your home or your work?
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [You]:
+                  </td>
+                  <td style="width: 400px">
+                    close to home
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [App]:
+                  </td>
+                  <td style="width: 800px">
+                    Executing: [find] on [FindPlace] app using criteria [place = supermarket, organic = yes, location = near home]. Is that correct?
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [You]:
+                  </td>
+                  <td style="width: 400px">
+                    yes
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    ...
+                  </td>                
+                </tr>
+                <tr>
+                  <td style="width: 50px">
+                    [You]:
+                  </td>
+                  <td style="width: 400px">
+                    DONE
+                  </td>
+                </tr>
+              </table>
+            </p>
+          </div>
+        </div> 
+      </div>   
+
+
+
+      <div id="body">
+          <div id="inbox" style="overflow-y: auto;height:calc(100vh-200px);">
+          {% for message in messages %}
+            {% module Template("message.html", message=message) %}
+          {% end %}
+        </div>
+        <div id="input">
+          <form action="/a/message/new" method="post" id="messageform">
+            <table>
+              <tr>
+                <td><input type="text" name="body" id="message" style="width:700px"></td>
+                <td style="padding-left:5px">
+                  <input type="submit" value="{{ _("Post") }}">
+                  <input type="hidden" name="next" value="{{ request.path }}">
+                  {% module xsrf_form_html() %}
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="{{ static_url("chat.js") }}" type="text/javascript"></script>  
+    <script>
+        // Get the modals
+        var appModal = document.getElementById('appModal');
+        var exModal = document.getElementById('exModal');
+
+        // Get the buttons that open the modals
+        var appBtn = document.getElementById("apps");
+        var exBtn = document.getElementById("ex");
+
+        // Get the <span> elements that close the modals
+        var appSpan = document.getElementsByClassName("close")[0];
+        var exSpan = document.getElementsByClassName("close")[1];
+
+        // When the user clicks the button, open the modal 
+        appBtn.onclick = function() {
+            appModal.style.display = "block";
+        }
+        exBtn.onclick = function() {
+            exModal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        appSpan.onclick = function() {
+            appModal.style.display = "none";
+        }
+        exSpan.onclick = function() {
+            exModal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == appModal) {
+                appModal.style.display = "none";
+            }
+            if (event.target == exModal) {
+                exModal.style.display = "none";
+            }
+        }
+    var inboxDiv = $("#inbox");
+    inboxDiv.scrollTop(inboxDiv.prop('scrollHeight'));
+      </script> 
+  </body>
+</html>

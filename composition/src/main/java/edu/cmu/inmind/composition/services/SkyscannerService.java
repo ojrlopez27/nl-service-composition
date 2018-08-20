@@ -19,7 +19,7 @@ public class SkyscannerService implements BookFlightService {
     @Override
     @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
     @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
-    public FlightPOJO searchFlight(@Provided(value = "Pittsburgh") LocationPOJO from, LocationPOJO destination,
+    public FlightPOJO searchFlight(@Provided(value = "<Your Current Place>") LocationPOJO from, LocationPOJO destination,
                                    Date departureDate, Date returnDate, Double maxPrice){
         Log4J.warn(this, String.format("Executing SkyscannerService.searchFlight for: [from: %s, destination: %s, " +
                 "departure date: %s, return date: %s, maxPrice: %s]", from.getPlace(), destination.getPlace(),
@@ -30,7 +30,7 @@ public class SkyscannerService implements BookFlightService {
     @Override
     @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
     @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
-    public FlightPOJO bookFlight(@Provided(value = "Pittsburgh") LocationPOJO from, LocationPOJO destination,
+    public FlightPOJO bookFlight(@Provided(value = "<Your Current Place>") LocationPOJO from, LocationPOJO destination,
                                  Date departureDate, Date returnDate){
         Log4J.warn(this, String.format("Executing SkyscannerService.bookFlight for: [from: %s, destination: %s, " +
                 "departure date: %s, return date: %s]", from.getPlace(), destination.getPlace(), departureDate, returnDate));
