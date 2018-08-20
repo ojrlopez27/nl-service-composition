@@ -48,13 +48,12 @@ class ClientController(object):
         self.send(self.sessionId, sessionMessage)        
 
     def sendInitMsg(self):
-        sessionMessage = SessionMessage(Constants.MSG_CHECK_USER_ID, self.sessionId, "", "", "").toString()
+        sessionMessage = SessionMessage(Constants.MSG_CHECK_USER_ID, self.sessionId, "", self.sessionId, "").toString()
         return self.send(self.sessionId, sessionMessage)
 
 
     def send(self, service, request):
-        print("Eneter into send")
-        print(request)
+        if self.verbose: print(request)
         service = bytes(service.encode("UTF-8"))
         request = bytes(request.encode("UTF-8"))
 

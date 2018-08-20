@@ -25,6 +25,7 @@ import time
 import threading
 from communication.ClientController import ClientController
 from utils.config import config
+from utils import Constants
 from tornado.options import define, options, parse_command_line
 
 class MessageBuffer(object):
@@ -36,6 +37,7 @@ class MessageBuffer(object):
         self.should_process_input_from_user = False
         self.session_id = None
         self.is_new_session = True
+        self.user_id_validation = None
 
     def get_messages_since(self, cursor):
         """Returns a list of messages newer than the given cursor.
@@ -64,6 +66,7 @@ define("debug", default=True, help="run in debug mode")
 global_message_buffer = MessageBuffer()
 clientController = None
 java_server = config.java_server
+verbose = False
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -75,18 +78,21 @@ class MessageNewHandler(tornado.web.RequestHandler):
 
     """Post a new message to the chat room."""
     def post(self):
-        print("new")
         body = self.get_argument("body")
         if global_message_buffer.is_new_session:
             global_message_buffer.session_id = body
-            global_message_buffer.is_new_session = False
             # connecting to Java code...
-            clientController = ClientController(config.java_server, global_message_buffer.session_id, True)
-            clientController.connect()
+            clientController = ClientController(config.java_server, body, verbose)
+            response = clientController.connect()[0].decode("utf-8")         
+            if response.startswith('Thanks!'):            
+                global_message_buffer.session_id = body
+                global_message_buffer.is_new_session = False
+            global_message_buffer.user_id_validation = "[App]: " + response
+            body = "[You]: " + body
 
         message = {
            "id": str(uuid.uuid4()),
-           "body": "[You]: " + body,
+           "body": body,
         }
 
         # render_string() returns a byte string, which is not supported
@@ -94,7 +100,6 @@ class MessageNewHandler(tornado.web.RequestHandler):
         message["html"] = tornado.escape.to_unicode(
         self.render_string("message.html", message=message)) 
         
-        print(message)
         if self.get_argument("next", None):        
             self.redirect(self.get_argument("next"))
         else:        
@@ -127,11 +132,11 @@ class MessageUpdatesHandler(tornado.web.RequestHandler):
         # let's wait for message from the Java server
         if not messages:
             body = None
-            if global_message_buffer.is_new_session:
-                body = "[App]: Please, type you Amazon Turker id:"
+            if global_message_buffer.is_new_session and not global_message_buffer.user_id_validation:
+                body = "[App]: Please, enter your MKT id to start:"    
             else:
-                body = "[App]: Please, enter the next step:"
-            print("3", body)
+                body = global_message_buffer.user_id_validation
+        
             message = {
                "id": str(uuid.uuid4()),    
                "body": body,

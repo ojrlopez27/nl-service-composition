@@ -350,4 +350,51 @@ public class Utils {
         }
         return lowercase? newWord.toLowerCase() : newWord;
     }
+
+    public static String removeEOS(String original){
+        return original.replace(Constants.EOS, "")
+                .replace("\\u003ceos\\git au003e", "");
+    }
+
+
+    public static String removeExtraQuotes(String payload){
+        payload = payload.trim();
+        if( payload.startsWith("\"") ) payload = payload.substring(1);
+        if( payload.endsWith("\"") ) payload = payload.substring(0, payload.length() - 1);
+        return payload;
+    }
+
+    public static String removeAllQuotes(String payload){
+        return payload.replace("\"", "").replace("\'", "").trim();
+    }
+
+    public static String extractCleanPayload(String msg) {
+        int start = msg.indexOf("\'payload");
+        if( start == -1 ) start = msg.indexOf("\"payload");
+        int end = msg.indexOf("\'messageId");
+        if( end == -1 ) end = msg.indexOf("\"messageId");
+        String payload = msg.substring( start, end );
+        payload = payload.replace("u\"", "\"");
+        if(payload.contains("\'")) {
+            final String token = "@@@@";
+            for (start = payload.indexOf("\""), end = 0; start < payload.length() && end < payload.length(); ) {
+                end = payload.indexOf("\"", start + 1);
+                if (start == -1 || end == -1) break;
+                String substring = payload.substring(start, end + 1);
+                substring = substring.replace("\'", token);
+                //            if(substring.startsWith("\"")) substring = substring.substring(1);
+                //            if(substring.endsWith("\"")) substring = substring.substring(0, substring.length() - 1);
+                payload = payload.replace(payload.substring(start, end + 1), substring);
+                start = end + 1;
+            }
+            payload = payload.replace("\'", "\"");
+            payload = payload.replace(token, "\'");
+        }
+        payload = (payload.substring(0, payload.lastIndexOf(","))
+                .replace("\"{", "{")
+                .replace("}\"", "}"))
+                .replace("\\", "")
+                .replace("\"payload\":", "");
+        return payload;
+    }
 }

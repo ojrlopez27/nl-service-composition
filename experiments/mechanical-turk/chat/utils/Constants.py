@@ -11,6 +11,10 @@ S_DISCONNECT = bytes(5)
 verbose = False
 stop = False
 
+# GO_AHEAD = "GO_AHEAD"
+# USER_ID_NOT_EXISTS = "USER_ID_NOT_EXISTS"
+# TOO_EARLY = "TOO_EARLY"
+# TOO_LATE = "TOO_LATE"
 
 # Messages:
 MSG_CHECK_USER_ID = "MSG_CHECK_USER_ID"

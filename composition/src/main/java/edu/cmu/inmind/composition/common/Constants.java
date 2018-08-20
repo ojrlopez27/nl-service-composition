@@ -22,5 +22,8 @@ public class Constants {
     public static final String LOW_BATTERY_SERVICE = "LOW_BATTERY_SERVICE";
     public static final String HIGH_BATTERY_SERVICE = "HIGH_BATTERY_SERVICE";
 
+    public static final String EOS = "<eos>";
     public static final String END = "END";
+
+    public static final String MSG_CHECK_USER_ID = "MSG_CHECK_USER_ID";
 }
