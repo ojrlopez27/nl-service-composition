@@ -12,11 +12,72 @@
       <div id="instructions">
         <p><font size="6"><b>App Composer</b></font><br>
           <br>
-          <b>Instructions:</b><br>
+          <b>Instructions:</b><br><br>
           Suppose you are using your smartphone or any other preferred mobile device. Assume you only have 15 apps installed on your device as described below. During the task, you will be presented 3 different scenarios, for each scenario, please write down (using high-level descriptions) what kind of actions you would do using the available apps (describe at least 7 actions per scenario, otherwise your work can be <b>rejected</b>). For each of your actions, we will tell you which app would be activated. After that, you will be asked whether the opened app meets your needs. <br><br>
 
-          <b>Available Apps: </b> <button id="apps">Click Here</button><br>
+          <b>Available Apps: </b> 
+          <!-- <button id="apps">Click Here</button><br> -->
+          <table>          
+            <tr>
+              <td>
+                1. Flight Reservation App
+              </td>
+              <td style="width: 300px">
+                6. Hotel Reservation App
+              </td>
+              <td>
+                11. Restaurant Reservation App
+              </td>
+            </tr>
+            <tr>
+              <td>
+                2. Calendar App
+              </td>
+              <td>
+                7. Buy Flowers App
+              </td>
+              <td>
+                12. Ground Transportation App
+              </td>
+            </tr>
+            <tr>
+              <td>
+                3. Leisure Recommendation App
+              </td>
+              <td>
+                8. Maps App
+              </td>
+              <td>
+                13. Wine and Beer Stores App
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 300px">
+                4. Movie/Cinema Recommendation App
+              </td>
+              <td>
+                9. News Feed App
+              </td>
+              <td>
+                14. Social Network App
+              </td>
+            </tr>
+            <tr>
+              <td>
+                5. Messaging App
+              </td>
+              <td>
+                10. Traffic App
+              </td>
+              <td>
+                15. Weather App
+              </td>
+            </tr>  
+          </table>
+          <br>
           <b>Example: </b> <button id="ex">Click Here</button>
+          <br><br>
+          <b>CHAT:</b>
         </p>
         
         <!-- The Modal -->
@@ -33,7 +94,7 @@
               6. Ground Transportation App <br>
               7. Leisure Recommendation App <br>
               8. Maps App <br>
-              9. Movie and Cinema Recommendation App <br>
+              9. Movie/Cinema Recommendation App <br>
               10. News Feed App <br>
               11. Social Network App <br>
               12. Messaging App <br>
@@ -162,7 +223,7 @@
 
 
       <div id="body">
-        <div id="inbox" style="overflow-y: auto; height:300px;" >
+        <div id="inbox" style="overflow-y: auto; height:280px;" >
           {% for message in messages %}
             {% module Template("message.html", message=message) %}
           {% end %}

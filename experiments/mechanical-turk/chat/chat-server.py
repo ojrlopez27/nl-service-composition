@@ -28,6 +28,12 @@ from utils.config import config
 from utils import Constants
 from tornado.options import define, options, parse_command_line
 
+# Global variables
+define("port", default=config.python_server_port, help="run on the given port", type=int)
+define("debug", default=True, help="run in debug mode")
+java_server = config.java_server
+verbose = False
+
 class MessageBuffer(object):
     def __init__(self):
         # cond is notified whenever the message cache is updated
@@ -38,6 +44,9 @@ class MessageBuffer(object):
         self.session_id = None
         self.is_new_session = True
         self.user_id_validation = None
+        self.manager = ClientController(java_server, "manager", verbose)            
+        self.manager.connect()
+        self.client = None
 
     def get_messages_since(self, cursor):
         """Returns a list of messages newer than the given cursor.
@@ -48,7 +57,7 @@ class MessageBuffer(object):
         for msg in reversed(self.cache):
             if msg["id"] == cursor:
                 break
-            print(msg)
+            # print(msg)
             results.append(msg)        
         results.reverse()
         return results
@@ -59,15 +68,8 @@ class MessageBuffer(object):
             self.cache = self.cache[-self.cache_size:]
         self.cond.notify_all()
 
-
-# Global variables
-define("port", default=config.python_server_port, help="run on the given port", type=int)
-define("debug", default=True, help="run in debug mode")
+# global (but it has to be defined here)
 global_message_buffer = MessageBuffer()
-clientController = None
-java_server = config.java_server
-verbose = False
-
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -81,14 +83,18 @@ class MessageNewHandler(tornado.web.RequestHandler):
         body = self.get_argument("body")
         if global_message_buffer.is_new_session:
             global_message_buffer.session_id = body
-            # connecting to Java code...
-            clientController = ClientController(config.java_server, body, verbose)
-            response = clientController.connect()[0].decode("utf-8")         
-            if response.startswith('Thanks!'):            
+            # connecting to Java code...            
+            response = global_message_buffer.manager.checkUser(body)               
+            response = response[0].decode("utf-8")         
+            if response.startswith('Thanks!'):
+                global_message_buffer.client = ClientController(java_server, body, verbose)            
+                global_message_buffer.client.connect()                        
                 global_message_buffer.session_id = body
                 global_message_buffer.is_new_session = False
-            global_message_buffer.user_id_validation = "[App]: " + response
+            global_message_buffer.user_id_validation = "[IPA]: " + response
             body = "[You]: " + body
+        else:    
+            global_message_buffer.client.sendUserAction(body)
 
         message = {
            "id": str(uuid.uuid4()),
@@ -133,7 +139,7 @@ class MessageUpdatesHandler(tornado.web.RequestHandler):
         if not messages:
             body = None
             if global_message_buffer.is_new_session and not global_message_buffer.user_id_validation:
-                body = "[App]: Please, enter your MKT id to start:"    
+                body = "[IPA]: Please, enter your MKT id and press 'Post' button below to start:"    
             else:
                 body = global_message_buffer.user_id_validation
         
@@ -158,6 +164,7 @@ class MessageUpdatesHandler(tornado.web.RequestHandler):
 
 def main():
     parse_command_line()
+
     app = tornado.web.Application(
         [
             (r"/", MainHandler),

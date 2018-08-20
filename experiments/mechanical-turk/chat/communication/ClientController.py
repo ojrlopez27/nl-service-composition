@@ -110,8 +110,17 @@ class ClientController(object):
         self.context.destroy()
 
 
+    def checkUser(self, username):
+        sessionMessage = SessionMessage(Constants.MSG_CHECK_USER_ID, self.sessionId, "", username, "").toString()
+        return self.send(self.sessionId, sessionMessage)
+
+    def sendUserAction(self, action):
+        sessionMessage = SessionMessage(Constants.MSG_PROCESS_USER_ACTION, self.sessionId, "", action, "").toString()
+        return self.send(self.sessionId, sessionMessage)
+
+
     def connect(self):
-        reply = self.send("session-manager", SessionMessage("REQUEST_CONNECT", self.sessionId, "", "", "").toString())        
-        if "SESSION_INITIATED" in str(reply) or "SESSION_RECONNECTED" in str(reply):        
-            return self.sendInitMsg()
+        reply = self.send("session-manager", SessionMessage("REQUEST_CONNECT", self.sessionId, "", "", "").toString())      
+        # if "SESSION_INITIATED" in str(reply) or "SESSION_RECONNECTED" in str(reply):        
+        #     return self.sendInitMsg()
 
