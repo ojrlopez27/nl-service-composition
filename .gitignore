@@ -6,7 +6,7 @@ sent2vec/torontobooks_unigrams.bin
 composition/build/
 composition/gradle/
 composition/.idea/
-compostion/.gradle/
+composition/.gradle/
 performance/build/
 performance/gradle
 performance/.idea/

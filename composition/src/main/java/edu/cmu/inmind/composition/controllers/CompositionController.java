@@ -62,12 +62,11 @@ public class CompositionController {
      * This is just a simple chaining of rules.
      * @param step
      */
-    public void addStep(String step, String abstracServiceCandidates) {
+    public MVELRule addStep(String step, String abstracServiceCandidates) {
         String ruleName = Utils.getRuleName(step);
         List<AbstractServicePOJO> candidates = Utils.extractAbstractServices(abstracServiceCandidates);
         wm.getCandidates().add(candidates);
-        ruleListAS.add(
-            new MVELRule()
+        MVELRule rule = new MVELRule()
                 .name(ruleName)
                 .description(step)
                 .priority(1)
@@ -75,8 +74,13 @@ public class CompositionController {
                 .then("wm.print(\"Triggering '" + ruleName + "'...\"); ")
                 .then(String.format("wm.command = \"%s\"; ", ruleName))
                 .then(String.format("wm.abstractService = \"%s\";", step))
-                .then(String.format("wm.lastRuleName = \"%s\"; ", ruleName))
-        );
+                .then(String.format("wm.lastRuleName = \"%s\"; ", ruleName));
+        ruleListAS.add(rule);
+        return rule;
+    }
+
+    public void addStepAndRegister(String step, String abstracServiceCandidates) {
+        rulesAS.register( addStep(step, abstracServiceCandidates) );
     }
 
     public CompositeService generateCompositeServiceRequest() {
@@ -106,7 +110,7 @@ public class CompositionController {
     public void addPhoneStatusToWM(){
         wm.setBattery(Constants.PHONE_HIGH_BATTERY);
         wm.setWifi(Constants.WIFI_ON);
-        wm.setExecutor(new ServiceExecutor(wm));
+        wm.setExecutor(serviceExecutor);
         wm.setCommand(Constants.CHECK_BATTERY);
     }
 
@@ -167,10 +171,9 @@ public class CompositionController {
     }
 
 
-
-
     public void execute(String concreteAction, Map<String, ServiceMethod> serviceMap) {
-        ServiceMethod serviceMethod = serviceExecutor.getServiceMethod(wm.getAbstractServices(), serviceMap);
+        ServiceMethod serviceMethod = serviceExecutor
+                .getServiceMethod(wm.getAbstractServices(), serviceMap, true);
         wm.setService(serviceMethod.getServiceClass());
         wm.setServiceMethod(serviceMethod.getServiceMethod());
         wm.setConcreteAction(concreteAction);
@@ -178,11 +181,16 @@ public class CompositionController {
         fireRulesGS();
     }
 
+    /**
+     * Use his method for MKT tests only
+     * @param serviceMap
+     * @return
+     */
     public String[] execute(Map<String, ServiceMethod> serviceMap) {
-        ServiceMethod serviceMethod = serviceExecutor.getServiceMethod(wm.getAbstractServices(), serviceMap);
+        ServiceMethod serviceMethod = serviceExecutor.getServiceMethod(wm.getAbstractServices(), serviceMap, false);
         String[] result = new String[2];
         result[0] = serviceMethod.getServiceClass().getSimpleName();
-        result[1] = serviceMethod.getServiceMethod() == null? serviceMethod.getAlternativeDescription()
+        result[1] = serviceMethod.getServiceMethod() == null ? serviceMethod.getAlternativeDescription()
                 : serviceMethod.getServiceMethod().getName();
         return result;
     }

@@ -1,6 +1,7 @@
 package edu.cmu.inmind.composition.launchers;
 
 import edu.cmu.inmind.composition.common.ModuleLoader;
+import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.muf.MUFLifetimeManager;
 import edu.cmu.inmind.multiuser.controller.muf.MultiuserController;
 import edu.cmu.inmind.multiuser.controller.muf.ShutdownHook;
@@ -11,7 +12,7 @@ import edu.cmu.inmind.multiuser.controller.muf.ShutdownHook;
 public class MainExecuter {
 
     public static void main(String args[]) throws Throwable {
-        //System.setProperty("log.folder", CommonUtils.getProperty("log.folder.woz") );
+        System.setProperty("log.folder", CommonUtils.getProperty("logs.mkt.regular.path") );
         MultiuserController multiuserController = MUFLifetimeManager.startFramework(ModuleLoader.createComponents(),
                 ModuleLoader.createConfig());
         multiuserController.addShutDownHook(new ShutdownHook() {
