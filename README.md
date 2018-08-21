@@ -40,9 +40,19 @@ This project is composed of three sub-projects (a client and two servers):
 	- Make sure you are using wiki pre-trained model (it is more accurate). Modify run.sh script.
 	- If you have added new services or api's (**only**) then:
 		- add words to the blacklist (if needed) in DatasetCleaner
-		- In Java run MechanicalTurkLauncher once to generate corporaMethods
-		- run sent2vece and re-run MechanicalTurkLauncher on Java
-	- otherwise, just run MechanicalTurkLauncher on Java. 
+	- Configure the Chat Web App (python):
+		- brew install python
+		- brew upgrade python
+		- check version (should be minimum 3.6): /usr/local/bin/python3.6-32 --version
+		- install tornado globally:
+			- /usr/local/bin/python3.6-32 -m pip install tornado
+		- if you are using DDNS (noip.com):
+			- make sure every time you move to another network (e.g., from home to campus) you will have to update the ip address in noip.com (user inmind.yahoo.2015@gmail)
+			- if working from home, you hill have to open (forward) TCP and UPP ports 5555, 5556 and 8888 (using your admin web console of your router) otherwise, while testing locally, you can just test using localhost (though, during tests with turkers, you will need to make sure app.composer.ddns.net is available)
+	- run sent2vec
+	- change config.properties (paths) on java composition project
+	- run Java composition project (MUF_MKTLauncher.java)
+	- open a web browser and type either app.composer.ddns.net:8888 or localhost:8888
   
 ## Execution
 - There are two modes of execution:
