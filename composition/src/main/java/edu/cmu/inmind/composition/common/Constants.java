@@ -33,4 +33,5 @@ public class Constants {
     // stages:
     public static final String REQUEST_ACTION_STAGE = "REQUEST_ACTION_STAGE";
     public static final String ASK_FOR_APP_CONFIRMATION_STAGE = "ASK_FOR_APP_CONFIRMATION_STAGE";
+    public static final String DONE_STAGE = "DONE_STAGE";
 }

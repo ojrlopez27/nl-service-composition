@@ -1,14 +1,10 @@
 package edu.cmu.inmind.composition.orchestrators;
 
-import edu.cmu.inmind.composition.common.Constants;
-import edu.cmu.inmind.composition.common.Schedule;
-import edu.cmu.inmind.composition.common.ServiceMethod;
-import edu.cmu.inmind.composition.common.Utils;
+import edu.cmu.inmind.composition.common.*;
 import edu.cmu.inmind.composition.controllers.CommunicationController;
 import edu.cmu.inmind.composition.controllers.CompositionController;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
-import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.orchestrator.ProcessOrchestratorImpl;
 import edu.cmu.inmind.multiuser.controller.session.Session;
 
@@ -22,8 +18,8 @@ import java.util.Map;
 public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
 
     private List<String> scenarios = Arrays.asList(
-            "You want to go on a vacation to Europe next month and need to plan your trip.",
-                "Your wedding anniversary is the next weekend and you want to plan a romantic night with your spouse.",
+            "You want to go on a vacation to Europe next month and need to plan your trip",
+                "Your wedding anniversary is the next weekend and you want to plan a romantic night with your spouse",
                 "You are planning to have a party at your home this coning weekend");
     private int scenarioIdx = 0;
     private Map<String, ServiceMethod> serviceMap;
@@ -40,6 +36,7 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
         // let's initialize all the resources
         compositionController = new CompositionController();
         communicationController = new CommunicationController();
+        if( !getSessionId().equals("manager") ) scenarioIdx = 1;
         //compositionController.createRulesForGroundingServices();
     }
 
@@ -59,8 +56,8 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
     }
 
 
-    private void checkUserLogin(String payload){
-        String validate = Schedule.validate(payload);
+    private void checkUserLogin(String username){
+        String validate = Schedule.validate(username);
         if(validate.equals(Schedule.USER_ID_NOT_EXISTS))
             validate = "Wrong MKT id, please try again!";
         else if(validate.equals(Schedule.TOO_EARLY))
@@ -70,24 +67,26 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
         else {
             validate = String.format("Thanks! let's start. Consider this scenario: \"%s\". What is the first thing you " +
                     "would ask your IPA to do?", scenarios.get(scenarioIdx++));
+            IPALog.setFileName(username);
         }
         sendResponse( validate );
     }
 
 
     private void processUserAction(String userAction){
+        IPALog.log(this, "userAction:\t" + userAction);
         if( !userAction.equals(Constants.DONE) ) {
             if( Constants.REQUEST_ACTION_STAGE.equals(stage) ) {
                 // let's get the semantic neighbors provided by sent2vec
                 communicationController.sendS2V(userAction);
                 String absServiceCandidates = communicationController.receiveS2V();
-                Log4J.debug(this, "Received from sent2vec: " + absServiceCandidates);
+                IPALog.debug(this, "Received from sent2vec: " + absServiceCandidates);
                 compositionController.addStepAndRegister(userAction, absServiceCandidates);
                 compositionController.fireRulesAS();
 
                 String[] result = compositionController.execute(serviceMap);
                 String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
-                                "Is that what you would want (Y/N)?",
+                                "Is that what you would want your IPA to do (Y/N)?",
                         Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
                         Utils.splitByCapitalizedWord(result[1], true));
                 stage = Constants.ASK_FOR_APP_CONFIRMATION_STAGE;
@@ -106,9 +105,13 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
             }
         }else{
             if(scenarioIdx < scenarios.size()){
-                sendResponse("Perfect, you are doing really well. This is the next scenario: ");
+                sendResponse(String.format("Perfect, you are doing really well. This is the next scenario: \"%s\". " +
+                                "What is the first action you would ask your IPA to do?", scenarios.get(scenarioIdx++)));
+                stage = Constants.REQUEST_ACTION_STAGE;
             }else{
-
+                sendResponse("Wonderful, we have finished the scenarios. The last step is to answer a short " +
+                        "questionnaire on this link (). Thanks for your collaboration!");
+                stage = Constants.DONE_STAGE;
             }
         }
     }
