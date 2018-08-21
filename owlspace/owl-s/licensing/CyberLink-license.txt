@@ -1,0 +1,1 @@
+CyberLink UPnP package is available under BSD license at the web page http://sourceforge.net/projects/cgupnpjava/.

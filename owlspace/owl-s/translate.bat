@@ -1,0 +1,1 @@
+java -cp lib\owl-s.jar examples.OWLSVersionTranslator %1 %2

@@ -1,0 +1,32 @@
+Change Log
+
+Version 1.1.1 
+-------------
+
+* MODIFIED: Jena jar files to version 2.2
+
+* ADDED: ProcessMonitor class for fine-grained monitoring
+
+* DEPRECATED: ProcessExecutionListener
+
+* ADDED: Example program to show how to use ProcessMonitor for
+         step-by-step execution
+            
+* ADDED: Functions to Profile to retrieve serviceClassification and
+         serviceProduct
+
+* ADDED: Functions to Profile to handle multiple ServiceCategory values
+
+* FIXED: Grounding where same WSDL output is mapped to multiple OWL-S
+         outputs
+
+* ADDED: JavaGrounding support from Michael Dänzer
+
+* FIXED: Repeat-While and Repeat-Until URI's
+
+* FIXED: ControlConstructBag implementation
+
+Version 1.1.0
+-------------
+
+* MODIFIED: Complete restructring of the API

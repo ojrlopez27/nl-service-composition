@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<project name="OWL-S API" default="dist" basedir=".">
+    <description>
+      An API to read, write and execute Web Services described in OWL-S
+    </description>
+
+    <!-- Read user properties -->
+    <property file="build.properties"/>
+    <property file="${user.home}/build.properties"/>
+
+    <!-- Enviroment -->
+    <property environment="env"/>
+
+    <!-- Global Properties -->
+    <property name="src" location="src" />
+    <property name="build" location="bin" />
+    <property name="dist" location="dist" />
+    <property name="project.name" value="owl-s" />
+    <property name="project.version" value="1.1.0-beta" />
+    <property name="catalina.home" value="${env.CATALINA_HOME}" />
+
+   
+    <path id="project.class.path">
+        <fileset dir="lib">
+            <include name="**/*.jar"/>
+            <exclude name="**/${project.name}*.jar"/>
+        </fileset>
+    </path>
+   
+    <target name="init">
+        <pathconvert targetos="unix" property="classpath" refid="project.class.path" />
+        <echo>CLASSPATH=${classpath}</echo>
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
+
+    <target name="compile" depends="init"
+            description="Compile source files." >
+        <javac source="1.4" target="1.4" srcdir="${src}" destdir="${build}" debug="yes">
+            <classpath refid="project.class.path"/>
+        </javac>
+    </target>
+
+    <target name="build" depends="compile"
+            description="Compile sources and copy data files into build directory.">
+        <copy todir="${build}">
+            <fileset dir="${src}">
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="distfiles">
+       <!-- Copy in lib files -->
+        <mkdir dir="${dist}/lib" />
+        <copy todir="${dist}/lib">
+            <fileset dir="lib">
+                <include name="**/*.jar" />
+                <exclude name="**/${project.name}*.jar"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="dist" depends="build,distfiles"
+            description="Generate a distribution" >
+        <!-- Generate relative classpath for jar file -->
+	<property name="lib" location="${basedir}/lib/"/>
+        <pathconvert dirsep="/" pathsep=" " property="Class-Path">
+            <map from="${lib}/" to=""/>
+		    <map from="${lib}\" to=""/>            
+            <path>
+                <fileset dir="lib">
+                    <include name="**/*.jar" />
+                </fileset>
+            </path>
+        </pathconvert>
+        
+        <!-- Make Jar file. --> 
+        <jar jarfile="${dist}/lib/${project.name}.jar"
+             basedir="${build}">
+            <manifest>
+                 <attribute name="Class-Path" value="${Class-Path}" />
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="zipfile" depends="dist,javadoc"
+            description="Build a zipfile containing source and binaries.">
+	<condition property="project.dirname"
+                   value="${project.name}-${DSTAMP}">
+            <not>
+                <isset property="project.dirname"/>
+            </not>
+        </condition>
+        <zip destfile="${dist}/${project.dirname}.zip">
+            <zipfileset dir="dist" prefix="${project.dirname}"
+                        excludes="${project.name}*.zip"/>
+            <zipfileset dir="src" prefix="${project.dirname}/src"/>           
+            <zipfileset dir="doc" prefix="${project.dirname}/doc"/>           
+            <zipfileset dir="licensing" prefix="${project.dirname}/licensing"/>           
+            <zipfileset dir="" prefix="${project.dirname}/"
+                        includes="build.xml LICENSE.txt README.txt validate.* translate.* wsdl2owls.*" />
+        </zip>
+    </target>
+
+    <target name="javadoc" depends="build">
+        <javadoc destdir="doc\javadoc" access="public" use="true" notree="false" nonavbar="false" 
+        noindex="false" splitindex="true" author="true" version="true" nodeprecatedlist="false" source="1.4"
+        nodeprecated="false" 
+        packagenames="examples,org.*" 
+        sourcepath="${src}" 
+        doctitle="${project.name}-${project.version}"
+        bottom="Copyright &#169; 2004 Evren Sirin. All Rights Reserved.">
+            <classpath refid="project.class.path"/>
+        </javadoc>    
+    </target>
+            
+    <target name="release">
+        <property name="project.dirname" 
+                  value="${project.name}-${project.version}" />
+        <antcall target="zipfile"/>
+    </target>
+
+    <target name="nightly-release">
+      <property name="project.dirname"
+		value="${project.name}-nightly" />
+      <antcall target="zipfile"/>
+    </target>
+
+    <target name="clean" description="Clean up build files">
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+        <delete dir="${javadoc.dir}" />    	
+    </target> 
+</project>

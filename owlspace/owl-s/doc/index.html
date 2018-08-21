@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link href="http://www.mindswap.org/css/mindswap.css" type="text/css" rel="stylesheet" />
+<link media="screen" href="http://www.mindswap.org/css/swap.css" type="text/css" rel="stylesheet" title="normal"/><link media="screen" href="http://www.mindswap.org/css/mind.css" type="text/css" rel="alternate stylesheet" title="none"/><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ICBM" content="38.99358387,-76.93262615"/>
+
+
+
+    <title>OWL-S @ MINDSWAP</title>
+    <meta name="DC.Creator" content="Evren Sirin"/>
+    <meta name="DC.Language" content="en"/>
+    <meta name="DC.Date" content="Monday, 05-Apr-2004 04:34:21 EDT"/>
+  </head>
+<body>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--HTML-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Semantic Web Research Group</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/css/mindswap.css" type="text/css" rel="stylesheet" />
+<link media="screen" href="/css/swap.css" type="text/css" rel="stylesheet" title="normal"/><link media="screen" href="/css/mind.css" type="text/css" rel="alternate stylesheet" title="none"/><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ICBM" content="38.99358387,-76.93262615"/>
+
+
+
+</head>
+<body>
+
+<div id="wholePageHeader">
+    <div id="pageHeader">
+        <div id="logo"></div>
+        <h1 class="headingTitle">Mindswap</h2>
+        <h2 class="headingSubtitle">Maryland Information and Network Dynamics Lab Semantic Web Agents Project </h2>
+    </div>
+
+<div class="menu"><ul>
+  <li><a href="http://www.mindswap.org/">Home</a></li>
+  <li><a href="http://www.mindswap.org/people/">People</a></li>
+  <li><a href="http://www.mindswap.org/papers/">Papers</a></li>
+  <li><a href="http://www.mindswap.org/demos/">Demos</a></li>
+  <li><a href="http://www.mindswap.org/downloads/">Downloads</a></li>
+  <li><a href="http://www.mindswap.org/directions/">Directions</a></li>
+  <li><a href="http://www.mindswap.org/wikis/">Wikis</a></li>
+</ul></div>
+</div>
+<div id="mainContent">
+    <div id="floatedLogo"></div>
+    <div id="mainContentInner">
+
+
+
+
+<h2>Contents</h2>
+<ol>
+  <li><h5><a href="#javadocs">API javadocs</a></h5></li>
+  <li><h5><a href="#services">Service examples</a></h5></li>
+  <li><h5><a href="#io">Reading/writing service descriptions</a></h5></li>
+  <li><h5><a href="#translation">Translating older service descriptions</a></h5></li>
+  <li><h5><a href="#validation">OWL-S Validation</a></h5></li>
+  <li><h5><a href="#cache">Loading cached ontologies</a></h5></li>
+  <li><h5><a href="#exec">Executing services</a></h5></li>
+  <li><h5><a href="#monitor">Execution monitoring</a></h5></li>
+  <li><h5><a href="#composite">Creating composite processes</a></h5></li>
+  <li><h5><a href="#owl">Using OWL resources</a></h5></li>
+  <li><h5><a href="#wsdl">WSDL support</a></h5></li>
+</ol>
+
+<h2>Tutorial</h2>
+<ol>
+  <li><h5><a name="javadocs">API javadocs</a></h5>
+  <p>The javadocs of the API is included in the distribution file. You can access the online version
+  <a href="javadoc/index.html">here</a>.
+  </p>
+  </li>
+  <li><h5><a name="#services">Service examples</a></h5>
+  <p>There are couple of example OWL-S files here <a href="http://www.mindswap.org/2004/owl-s/services.shtml">http://www.mindswap.org/2004/owl-s/services.shtml</a>. 
+These services are all grounded in actual WSDL services and can be executed with the API. These are simple service descriptions to show different features in OWL-S such 
+as how to define XSLT transformations in groundings, how to define CompositeProcesses and data flows and so on.</p>
+  <p>The examples directory in the distribution file contains example code that shows how to use these service 
+  descriptions in the API.</p>
+  <p>&nbsp;</p>
+  </li>
+  <li><h5><a name="#io">Reading/writing service descriptions</a></h5>
+  <p>There are two important interfaces in the OWL-S API: 
+  <font face="Courier New">
+  <a href="javadoc/org/mindswap/owl/OWLOntology.html">OWLOntology</a></font> and 
+  <font face="Courier New">
+  <a href="javadoc/org/mindswap/owl/OWLKnowledgeBase.html">OWLKnowledgeBase</a></font>. OWLOntology represents the information stored in a single 
+  file and an OWLKnowledgeBase is a collection of ontologies. RDF data (triples) 
+  can only be added to OWLOntology objects and only OWLOntology objects can be 
+  serialized. There is one base ontology associated with each KB that is used to 
+  store data (for example after execution new instances will be added to this 
+  ontology). </p>
+  <p>
+  <code>
+  <a href="javadoc/org/mindswap/owl/OWLKnowledgeBase.html#read(java.net.URI)">OWLKnowledgeBase.read(URI)</a></code> function reads the file from the 
+  given ontology and loads the generated OWLOntology to the KB. 
+  <a href="javadoc/org/mindswap/owl/OWLOntology.html#getService()">
+  <font face="Courier New">OWLOntology.getService()</font> </a>can be used to get the service instance from the 
+  ontology (<font face="Courier New"><a href="javadoc/org/mindswap/owl/OWLOntology.html#getServices()">OWLOntology.getServices()</a></font> if there are multiple services).
+  <code>
+  <a href="javadoc/org/mindswap/owl/OWLKnowledgeBase.html#readService(java.net.URI)">
+  <font face="Courier New">OWLKnowledgeBase.readService(URI)</font></a><font face="tahoma, arial, sans-serif">
+  </font> </code>(and resp.
+  <code>
+  <a href="javadoc/org/mindswap/owl/OWLKnowledgeBase.html#readServices(java.net.URI)">
+  <font face="Courier New">OWLKnowledgeBase.readServices(URI)</font></a><font face="tahoma, arial, sans-serif">) function will automatically do that.
+  </font> </code>If an error occurs 
+  during parsing these functions will return null value. See next section about
+  <a href="##validation">validation</a> to get more info about catching these 
+  problems.</p>
+  <p>The ontology associated with a service can be serialized using
+  <font face="Courier New">
+  <a href="javadoc/org/mindswap/owl/OWLOntology.html#write(java.io.Writer)">
+  OWLOntology.write(Writer)</a></font> function.</p>
+  <!-- ======================================================== -->
+<!-- = Java Sourcecode to HTML automatically converted code = -->
+<!-- =   Java2Html Converter V4.0 2004 by Markus Gebhard  markus@jave.de   = -->
+<!-- =     Further information: http://www.java2html.de     = -->
+<div align="left" class="java">
+<div align="center">
+
+<center>
+
+<table border="2" cellpadding="3" cellspacing="0" bgcolor="#ffffff" width="60%" style="border-collapse: collapse" bordercolor="#111111">
+   <tr>
+
+  <!-- start source code -->
+   <td nowrap="nowrap" valign="top" align="left">
+    <code>
+<font color="#3f7f5f">&nbsp;&nbsp;&nbsp; // create a URI for the service&nbsp;(note 
+    that this is a 0.9 version file) </font>
+
+<font color="#ffffff">&nbsp;&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">URI&nbsp;uri&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">URI(</font></code><font SIZE="2" COLOR="#2a00ff">&quot;http://www.mindswap.org/2004/owl-s/0.9/ZipCodeFinder.owl&quot;</font><code><font color="#000000">);</font></code><p>
+    <code>
+<font color="#3f7f5f">&nbsp;&nbsp;&nbsp; // create a KB</font><font color="#ffffff">&nbsp;&nbsp;</font><br/>
+
+<font color="#000000">&nbsp;&nbsp;&nbsp; OWLKnowledgeBase kb = 
+OWLFactory.createKB();<br>
+</font><br/>
+
+<font color="#3f7f5f">&nbsp;&nbsp;&nbsp; // create a generic reader and a 1.0 
+writer<br>
+</font>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">OWLOntology&nbsp;ont&nbsp;=&nbsp;kb.read(uri;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br/>
+
+<font color="#3f7f5f">&nbsp;&nbsp;&nbsp; // get the service<br>
+</font>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Service&nbsp;service&nbsp;=&nbsp;ont.getService();<br>
+</font>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br/>
+
+<font color="#3f7f5f">&nbsp;&nbsp;&nbsp; // write the output to console (a file 
+stream can also be used here)<br>
+</font>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ont.write(System.out);</font><br/>
+
+&nbsp;</code></td>
+  <!-- end source code -->
+   </tr>
+
+  <!-- start Java2Html link -->
+  <!-- end Java2Html link -->
+</table>
+</center>
+</div>
+</div>
+<!-- =       END of automatically generated HTML code       = -->
+<!-- ======================================================== -->
+  <p>&nbsp;</p>
+  </li>
+  <li><h5><a name="#translation">Translating older service descriptions</a></h5>
+  <p>There is limited support for older versions of OWL-S. Currently, API 
+  natively supports 1.1 version and provides translators for 1.0 version. 
+  Translation should be enabled with the OWLKnowledgeBase.setAutoTranslate(true) 
+  function call.</p>
+  <p>&nbsp;</p>
+  </li>
+  <li><h5><a name="#validation">OWL-S Validation</a></h5>
+  <p>The validation feature has not yet been implemented.</p>
+  <p>&nbsp;</p>
+  <p>
+  </p>
+  </li>
+  <li><h5><a name="#cache">Loading cached ontologies</a></h5>
+  <p>Sometimes it is desirable to use cached versions of the files rather than 
+  downloading the remote files. The
+  <a href="javadoc/org/mindswap/owl/OWLCache.html">
+  OWLCache</a> class provides the functionality for this purpose.&nbsp;
+  <font face="Courier New">
+  <a href="javadoc/org/mindswap/owl/OWLCache.html#setLocalCacheDirectory(java.lang.String)">
+  OWLCache.setLocalCacheDirectory(String)</a></font> specifies a directory to find the 
+  cached files. The cache dir should include a file named service.idx that has 
+  the mappings from URI&#39;s to local file names. This index file is a text file 
+  where each line is in the format </p>
+  <p>&nbsp;&nbsp;&nbsp; [service description url]=[local filename] </p>
+  <p>The &#39;:&#39; characters in the url&#39;s should be escaped as &quot;\:&quot;. See
+  <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/Properties.html#load(java.io.InputStream)">
+  <code>Properties.load()</code></a> for more details about the file format. You may choose 
+  to add file entries one by one using the
+  <a href="javadoc/org/mindswap/owl/OWLCache.html#getCachedFile(java.lang.String)">
+  <code>OWLCache.addCachedFile()</code></a> function. When there is a cache entry for a file, 
+  the cached version is only used when the original file cannot be found (e.g. 
+  no connection). It is also possible to give more priority to cached files and 
+  try to get the remote file only if there is no cached version. See
+  <a href="javadoc/org/mindswap/owl/OWLCache.html#getCachedFile(java.lang.String)">
+  <code>OWLCache.setForced(boolean)</code></a> for this functionality. Remember to include an 
+  xml:base statement in your cached files so that URIs generated from your local 
+  file will be exactly same as the remote one.</p>
+  <p>There is one OWLCache assocaited with each OWLReader. 
+  OWLKnowledgeBase.getReader().getCache() will return the cache assocaited with 
+  a KB.</p>
+  <p>&nbsp;</p>
+  <p>
+  </p>
+  </li>
+  <li><h5><a name="#exec">Executing services</a></h5>
+  <p>Executing a service means executing the process it has. The process should 
+  have a valid grounding specification in order to invoke the service 
+  successfully. The WSDL and UPnP groundings are supported by the API. A process 
+  is executed by the <font color="#000000">
+    <code>
+  <a href="javadoc/org/mindswap/owls/process/execution/ProcessExecutionEngine.html">ProcessExecutionEngine.execute(Process, 
+  ValueMap)</a> </code><font face="Tahoma">
+    
+  function where second parameter specifies the values for 
+  input parameters.&nbsp; This function returns another
+  <code><a href="javadoc/org/mindswap/owls/process/ValueMap.html">
+  ValueMap</a></code> which contains the output value bindings. The following 
+  code segment shows an example of executing a service:</font></font></p>
+<div align="left" class="java">
+<div align="center">
+
+<center>
+
+<table border="2" cellpadding="3" cellspacing="0" bgcolor="#ffffff" width="60%" style="border-collapse: collapse" bordercolor="#111111">
+   <tr>
+
+   <td nowrap="nowrap" valign="top" align="left">
+    <code>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;create&nbsp;an&nbsp;execution&nbsp;engine&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ProcessExecutionEngine&nbsp;exec&nbsp;=&nbsp;OWLSFactory.createExecutionEngine();</font></code><p>
+    <code>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;</font><font color="#3F7F5F">load 
+    the service description</font><font color="#ffffff"><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Service service&nbsp;=&nbsp;kb.readService(</font><font color="#2a00ff">&quot;http://www.mindswap.org/2004/owl-s/1.0/Dictionary.owl&#34;</font><font color="#000000">);<br>
+    </font>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;get 
+    the process of the service</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Process process&nbsp;=&nbsp;service.getProcess();</font><br/>
+
+<br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;create 
+an empty value map</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">ValueMap values&nbsp;=&nbsp;new 
+ValueMap();</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;set 
+the value of input parameter</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">values.setDataValue(process.getInput(</font><font color="#2a00ff">&#34;InputString&#34;</font><font color="#000000">),&nbsp;</font><font color="#2a00ff">&#34;computer&#34;</font><font color="#000000">);&nbsp;&nbsp;&nbsp;&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;execute 
+the process with the given input bindings</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">values&nbsp;=&nbsp;exec.execute(process,&nbsp;values);&nbsp;&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;get&nbsp;the&nbsp;output&nbsp;value 
+as a string</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String outValue&nbsp;=&nbsp;values.getStringValue(process.getOutput());</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;display&nbsp;the&nbsp;result</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">System.out.println(</font><font color="#2a00ff">&#34;Output&nbsp;=&nbsp;&#34;&nbsp;</font><font color="#000000">+&nbsp;outValue);</font></code></td>
+  <!-- end source code -->
+   </tr>
+
+  <!-- start Java2Html link -->
+  <!-- end Java2Html link -->
+</table>
+</center>
+</div>
+</div>
+<!-- =       END of automatically generated HTML code       = -->
+<!-- ======================================================== -->
+  <p><br>
+  The above is a simple example where the input is a simple XML Schema string. 
+  However, some services will have complex input types that are represented by 
+  OWL classes. In this case, the value of input parameter can be set to an 
+  OWLIndividual. See
+  <a href="http://svn.mindswap.org/owl-s/trunk/src/examples/RunService.java">
+  <code>RunService.java</code></a> in the examples directory 
+  for more examples of this kind.<br>
+&nbsp;</p>
+  <p>
+  </p>
+  </li>
+  <li><h5><a name="#monitor">Execution monitoring</a></h5>
+  <p>It is possible to see the progress of execution when a complex service is 
+  being executed.
+  <a href="javadoc/org/mindswap/owls/process/execution/ProcessExecutionListener.html">
+  ProcessExecutionListener</a> defines a set of minimal functions for this 
+  purpose. simply use the <font color="#000000">
+    <code>
+  <a href="javadoc/org/mindswap/owls/process/execution/ProcessExecutionEngine.html">ProcessExecutionEngine.addExecutionListener(ProcessExecutionListener)</a> </code>
+  to set a listener on the execution engine. </font>See
+  <a href="http://svn.mindswap.org/owl-s/trunk/src/org/mindswap/owls/examples/RunService.java">
+  <code>RunService.java</code></a> in the examples directory 
+  for  examples of how to use the listener.<br>
+&nbsp;</p>
+  <p>
+  </p>
+  </li>
+  <li><h5><a name="#composite">Creating composite processes</a></h5>
+  <p>It is possible to create service descriptions, profiles or processes 
+  programmatically.
+  <code>
+  <a href="javadoc/org/mindswap/owl/OWLOntology.html">OWLOntology</a></code> provides functions to create any of these structures.
+  <code>
+  <a href="http://svn.mindswap.org/owl-s/trunk/src/examples/CreateSequence.java">
+  CreateSequence.java</a></code> in the examples directory 
+  shows an example of how to do this. The following code snippet shows the main 
+  idea:</p>
+<div align="left" class="java">
+<div align="center">
+
+<center>
+
+<table border="2" cellpadding="3" cellspacing="0" bgcolor="#ffffff" width="60%" style="border-collapse: collapse" bordercolor="#111111">
+   <tr>
+
+   <td nowrap="nowrap" valign="top" align="left">
+    <code>
+
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f5fbf">/**</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Create&nbsp;a&nbsp;new&nbsp;Sequence&nbsp;from&nbsp;the&nbsp;processes&nbsp;of&nbsp;the&nbsp;given&nbsp;services&nbsp;and&nbsp;put&nbsp;them&nbsp;in&nbsp;a&nbsp;new</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;Service.</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">services&nbsp;List&nbsp;of&nbsp;Service</font><font color="#3F5FBF">s</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@param&nbsp;</font><font color="#3f5fbf">baseURI&nbsp;The&nbsp;base&nbsp;URI&nbsp;for&nbsp;the&nbsp;generated&nbsp;service</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*&nbsp;</font><font color="#7f9fbf">@return&nbsp;</font><font color="#3f5fbf">The&nbsp;Service&nbsp;which&nbsp;is&nbsp;a&nbsp;Sequence&nbsp;of&nbsp;the&nbsp;given&nbsp;services&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><font color="#3f5fbf">*/</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">Service&nbsp;createSequenceService(List&nbsp;services,&nbsp;String&nbsp;baseURI)&nbsp;{</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;create&nbsp;an empty ontology</font><br/>
+
+&nbsp;&nbsp;&nbsp; OWLOntology ont = OWLFactory.createOntology();<br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;create&nbsp;a 
+n</font><font color="#3F7F5F">ew service</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Service&nbsp;service&nbsp;=&nbsp;ont.createService(URI.create(baseURI&nbsp;+&nbsp;</font><font color="#2a00ff">&#34;Service&#34;</font><font color="#000000">));</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;create&nbsp;a new 
+composite process&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">CompositeProcess&nbsp;process&nbsp;=&nbsp;ont.createCompositeProcess(URI.create(baseURI&nbsp;+&nbsp;</font><font color="#2a00ff">&#34;Process&#34;</font><font color="#000000">));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br/>
+
+<font color="#ffffff"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;create&nbsp;a new sequence 
+construct</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Sequence&nbsp;sequence&nbsp;=&nbsp;ont.createSequence();</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;put 
+the sequence into composite process&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">compositeProcess.setComposedOf(sequence);</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i&nbsp;=&nbsp;</font><font color="#990000">0</font><font color="#000000">;&nbsp;i&nbsp;&lt;&nbsp;services.size();&nbsp;i++)&nbsp;{&nbsp;&nbsp;</font><br/>
+
+<font color="#ffffff">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;get 
+the service from the list</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Service&nbsp;s&nbsp;=&nbsp;(Service)&nbsp;services.get(i);</font><br/>
+
+<font color="#ffffff">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;get 
+the process fron the service<br>
+</font>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Process&nbsp;p&nbsp;=&nbsp;s.getProcess();</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;create a perform 
+construct<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>Perform perform = ont.createPreform();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; perform.setProcess(p);<br/>
+
+<font color="#ffffff">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;put 
+the process&nbsp;into the sequence</font><br/>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">sequence.addComponent(p);</font><br/>
+
+<font color="#ffffff"><br>
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;create&nbsp;data flow if 
+necessary...&nbsp;</font><br/>
+
+<font color="#ffffff"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}<br>
+</font>
+
+<font color="#ffffff"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;create&nbsp;profile...<br>
+</font>
+
+<font color="#ffffff"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;create&nbsp;grounding&nbsp;</font><br/>
+
+<font color="#3f7f5f"><br>
+</font>
+
+<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">service;</font><font color="#3f7f5f"><br>
+</font><font color="#000000">&nbsp; }</font></code></td>
+  <!-- end source code -->
+   </tr>
+
+  <!-- start Java2Html link -->
+  <!-- end Java2Html link -->
+   <tr>
+
+   <td nowrap="nowrap" valign="top" align="left">
+    &nbsp;</td>
+   </tr>
+
+  </table>
+</center>
+</div>
+</div>
+<!-- =       END of automatically generated HTML code       = -->
+<!-- ======================================================== -->
+  <p><br>
+&nbsp;</p>
+  <p>
+  </p>
+  </li>
+  <li><h5><a name="#owl">Using OWL resources</a></h5>
+  <p>
+  Every resource in the API (<code><a href="javadoc/org/mindswap/owls/service/Service.html">Service</a>,</code>
+  <code>
+  <a href="javadoc/org/mindswap/owls/profile/Profile.html">
+  Profile</a>,</code>
+  <code>
+  <a href="javadoc/org/mindswap/owls/process/Process.html">
+  Process</a>,</code> etc.) extends
+  <code>
+  <a href="javadoc/org/mindswap/owl/OWLIndividual.html">
+  OWLIndividual</a></code> which provides the basic functionalities to get and set 
+  object and data properties for any OWL individual. If additional information is 
+  required about the resources then the underlying RDF model can be queried. 
+  OWLIndividual.getImplementation() returns the implementation specific object. Right now, API is built on top of Jena so the function will return the corresponding 
+  Resource in the Jena model.</p>
+  <p>
+  In the future releases it is planned to add support for
+  <a href="http://sourceforge.net/projects/owlapi">OWL API</a>.<br>
+&nbsp;</p>
+  <p>
+  </p>
+  </li>
+
+  <li><h5><a name="#wsdl">WSDL Support</a></h5>
+  <p>The API contains a package
+  <a href="javadoc/org/mindswap/wsdl/package-summary.html">
+  org.mindswap.owls.wsdl</a> that provides support for reading and executing 
+  WSDL services. Execution of OWL-S services is achieved through this package. 
+  The WSDL functionality is based on <a href="http://ws.apache.org/axis/">Axis</a> 
+  package version 1.1. The main functionality added to Axis is the ability to 
+  execute services with complex inputs dynamically without a need to create 
+  stubs or extra code. The SOAP messages are created from the string 
+  representation of XML Schema complex type. This invocation method is not 
+  robust but works for most of the cases.<br>
+&nbsp;</p>
+  <p>
+  </p>
+  </li>
+</ol>
+
+
+    </div>
+</div>
+
+
+</body>
+</html>

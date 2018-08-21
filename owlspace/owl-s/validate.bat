@@ -1,0 +1,1 @@
+java -cp lib\owl-s.jar examples.OWLSValidator %1
