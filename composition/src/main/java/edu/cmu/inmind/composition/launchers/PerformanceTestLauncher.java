@@ -9,6 +9,14 @@ import edu.cmu.inmind.composition.controllers.InputController;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -42,6 +50,22 @@ public class PerformanceTestLauncher {
             CommonUtils.sleep(100);
         }
         System.out.println("Total: " + averageTime.get() + ", average: " + (averageTime.get() / numberOfClients) );
+        BufferedWriter output = null;
+        try {
+            File file = new File("output.txt");
+            Files.write(Paths.get(file.getPath()), ("," + averageTime.toString()).getBytes(),
+                    StandardOpenOption.APPEND);
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( output != null ) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         Log4J.error(TAG, "We are done! Bye bye...");
     }
 

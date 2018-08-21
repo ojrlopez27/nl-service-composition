@@ -8,7 +8,7 @@ connect_client()
 read numOfClients
 echo "Testing for ${numOfClients} client..."
 export -f connect_client
-#seq ${numOfClients} | parallel --eta -j100% connect_client -joblog
+seq ${numOfClients} | parallel --eta -j100% connect_client -joblog
 #seq 100|parallel --eta -j100% connect_client
 #seq 100|parallel --eta -j100% connect_client
 #seq 100|parallel --eta -j100% connect_client
@@ -19,14 +19,14 @@ export -f connect_client
 #seq 100|parallel --eta -j100% connect_client
 #seq 100|parallel --eta -j100% connect_client
 #seq 100|parallel --eta -j100% connect_client
-N=4
-for i in {1..1000}; do
-(
-    connect_client
-)
-#&if [[$(jobs -r -p|wc -l) -gt ${N}]] ; then
-#wait -n
-#fi
-done
-wait
+#N=4
+#for i in {1..1000}; do
+#(
+#    connect_client
+#)
+##&if [[$(jobs -r -p|wc -l) -gt ${N}]] ; then
+##wait -n
+##fi
+#done
+#wait
 echo "all done"

@@ -18,6 +18,7 @@ This method determines good and bad weather conditions for a given place and ran
 This method returns a list of activities to do in a given city or place, date and weather conditions
 This method returns a list of indoor and outdoor activities to do in a new place
 It recommends things to do or visit in a city or place
+<<<<<<< HEAD
 This method creates a new calendar event given a time slot and an event name
 This method generates a new calendar event given an event name and a range of dates
 This method validates whether there is availability on calendar given a time slot
@@ -26,3 +27,11 @@ This method checks calendar availability on a range of dates
 It returns the news feeds about a given topic
 It retrieves news about people
 It retrieves news about places, countries, and cities
+=======
+This method allows flight reservation given a destination place, departure date, and return date
+This method allows to book a flight given a destination place, departure date, and return date
+This method makes a flight reservation
+This method searches different flight options based on a destination place, departure date, and return date
+This method searches multiple flights
+This method looks for different flights
+>>>>>>> 875ef6ac89da197bcfcf78fb372bfe9169ad6f1e

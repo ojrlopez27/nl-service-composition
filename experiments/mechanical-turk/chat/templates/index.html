@@ -246,6 +246,15 @@
                 exModal.style.display = "none";
             }
         }
+    //fix for scrollbar using jquery, since this page uses jquery.
+    function getMessages(letter)
+    {
+        var inboxDiv = $("#inbox");
+        inboxDiv.scrollTop(inboxDiv.prop('scrollHeight'));
+    }
+    $(function() {
+      getMessages();
+      });
       </script> 
   </body>
 </html>
