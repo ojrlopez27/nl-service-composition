@@ -197,7 +197,7 @@
 
 
       <div id="body">
-        <div id="inbox" style="overflow-y: auto; height:280px;" >
+        <div id="inbox" style="overflow: auto; height:280px;" >
           {% for message in messages %}
             {% module Template("message.html", message=message) %}
           {% end %}
