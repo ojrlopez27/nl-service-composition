@@ -46,4 +46,16 @@ public interface SocialNetworkService extends GenericService {
             "upload type : what is the mode of upload? (upload as a status or post or as a review, or to a person)"
     })
     SocialNetworkPOJO uploadPhoto(String typeOfSn, String filePath , String typeOfUpload);
+
+    @Description(capabilities = {
+            "This method allows to upload a photo on a given social network site",
+            "This method allows to send a photo on a social network site",
+            "This method uploads a photo on a given social network site"
+    })
+    @ArgDesc(args = {
+            "type of social network : which social network site?(facebook, instagram, snapchat, yelp)",
+            "country : which location are you looking for friends ? (Italy, Spain, Brazil)",
+            "city : what is the mode of upload? (upload as a status or post or as a review, or to a person)"
+    })
+    SocialNetworkPOJO findFriends(String typeOfSn, String country , String city);
 }
