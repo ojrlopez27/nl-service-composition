@@ -8,7 +8,7 @@ import edu.cmu.inmind.multiuser.controller.muf.ShutdownHook;
 /**
  * Created by oscarr on 8/19/18.
  */
-public class MainExecuter {
+public class MUF_MKTLauncher {
 
     public static void main(String args[]) throws Throwable {
 //        System.setProperty("log.folder", CommonUtils.getProperty("logs.mkt.regular.path") );
