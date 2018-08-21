@@ -9,9 +9,11 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.mindswap.owl.OWLFactory;
 import org.mindswap.owl.OWLKnowledgeBase;
+import org.mindswap.owl.OWLOntology;
 import org.mindswap.owl.OWLType;
 import org.mindswap.owls.process.Input;
 import org.mindswap.owls.process.Output;
@@ -91,6 +93,17 @@ public class Matchmaker {
             "USING " +
             "      process FOR <http://www.daml.org/services/owl-s/1.1/Process.owl#>";
  
+        Set ontologySet = kb.getOntologies();
+        for (Object ontology : ontologySet) {
+        	OWLOntology owlOntology = (OWLOntology) ontology;
+        	System.out.println("Ontology: " + owlOntology);
+        	System.out.println("Onto Processes: " + owlOntology.getProcesses());
+        	System.out.println("Onto Individuals: " + owlOntology.getIndividuals());
+        }
+        System.out.println("Ontologies: " + kb.getOntologies());
+        System.out.println("Profiles: " + kb.getProfiles());
+        System.out.println("Processes: " + kb.getProcesses());
+        
         return kb.query( queryString );
     }
 
@@ -120,6 +133,9 @@ public class Matchmaker {
 		
 		List producers = findOutputs();
 		List consumers = findInputs();
+		
+		System.out.println("Producers: " + producers);
+		System.out.println("Consumers: " + consumers);
 		
 		Iterator i = producers.iterator();
 		while( i.hasNext() ) {
@@ -164,7 +180,8 @@ public class Matchmaker {
 	
     public void run() throws FileNotFoundException, URISyntaxException {
         Matchmaker matchmaker = new Matchmaker();
-        
+     
+        /*
         matchmaker.addOntology("http://www.mindswap.org/2004/owl-s/1.1/BNPrice.owl");
         matchmaker.addOntology("http://www.mindswap.org/2004/owl-s/1.1/BookFinder.owl");
         matchmaker.addOntology("http://www.mindswap.org/2004/owl-s/1.1/CurrencyConverter.owl");
@@ -172,7 +189,17 @@ public class Matchmaker {
         matchmaker.addOntology("http://www.mindswap.org/2004/owl-s/1.1/ZipCodeFinder.owl");
         matchmaker.addOntology("http://www.mindswap.org/2004/owl-s/1.1/FindLatLong.owl");
         matchmaker.addOntology("http://www.mindswap.org/2004/owl-s/1.1/BabelFishTranslator.owl#");
+        */
         
+        final String baseLoc = "file:///Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/owls/";
+        matchmaker.addOntology(baseLoc + "WeatherChannelService/checkWeatherConditions.owl");
+        matchmaker.addOntology(baseLoc + "GoogleCalendarService/checkAvailability.owl");
+        matchmaker.addOntology(baseLoc + "GoogleCalendarService/createEvent.owl");
+        matchmaker.addOntology(baseLoc + "GoogleFlightsService/bookFlight.owl");
+        matchmaker.addOntology(baseLoc + "GoogleFlightsService/searchFlight.owl");
+        matchmaker.addOntology(baseLoc + "SkyScannerService/bookFlight.owl");
+        matchmaker.addOntology(baseLoc + "SkyScannerService/searchFlight.owl");
+       
         List matches = matchmaker.displayAllMatches();
         System.out.println();
         System.out.println("Matches:");        
