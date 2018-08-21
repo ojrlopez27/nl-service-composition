@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:list="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+    xmlns:expression="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#"
+    xmlns:profile="http://www.daml.org/services/owl-s/1.1/Profile.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:process="http://www.daml.org/services/owl-s/1.1/Process.owl#"
+    xmlns:grounding="http://www.daml.org/services/owl-s/1.1/Grounding.owl#"
+    xmlns="http://www.example.org/service.owl"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:service="http://www.daml.org/services/owl-s/1.1/Service.owl#"
+    xmlns:daml="http://www.daml.org/2001/03/daml+oil#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xml:base="http://www.example.org/service.owl">
+  <service:Service rdf:ID="getNewsFeedService">
+    <service:presents>
+      <profile:Profile rdf:ID="getNewsFeedProfile"/>
+    </service:presents>
+    <service:describedBy>
+      <process:AtomicProcess rdf:ID="getNewsFeedProcess"/>
+    </service:describedBy>
+    <service:supports>
+      <grounding:WsdlGrounding rdf:ID="getNewsFeedGrounding"/>
+    </service:supports>
+  </service:Service>
+  <profile:Profile rdf:about="#getNewsFeedProfile">
+    <profile:textDescription>Auto generated from file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/YahooNewsService.wsdl</profile:textDescription>
+    <profile:hasInput>
+      <process:Input rdf:ID="topic">
+        <rdfs:label>topic</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <profile:hasOutput>
+      <process:Output rdf:ID="return">
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2002/07/owl#Thing</process:parameterType>
+        <rdfs:label>return</rdfs:label>
+      </process:Output>
+    </profile:hasOutput>
+    <service:presentedBy rdf:resource="#getNewsFeedService"/>
+    <profile:serviceName>getNewsFeed</profile:serviceName>
+  </profile:Profile>
+  <process:AtomicProcess rdf:about="#getNewsFeedProcess">
+    <rdfs:label>getNewsFeedProcess</rdfs:label>
+    <service:describes rdf:resource="#getNewsFeedService"/>
+    <process:hasOutput rdf:resource="#return"/>
+    <process:hasInput rdf:resource="#topic"/>
+  </process:AtomicProcess>
+  <grounding:WsdlGrounding rdf:about="#getNewsFeedGrounding">
+    <service:supportedBy rdf:resource="#getNewsFeedService"/>
+    <grounding:hasAtomicProcessGrounding>
+      <grounding:WsdlAtomicProcessGrounding rdf:ID="getNewsFeedAtomicProcessGrounding"/>
+    </grounding:hasAtomicProcessGrounding>
+  </grounding:WsdlGrounding>
+  <grounding:WsdlAtomicProcessGrounding rdf:about="#getNewsFeedAtomicProcessGrounding">
+    <grounding:wsdlOperation>
+      <grounding:WsdlOperationRef>
+        <grounding:operation rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/YahooNewsService.wsdl#getNewsFeed</grounding:operation>
+        <grounding:portType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/YahooNewsService.wsdl#YahooNewsServiceHttpSoap11Endpoint</grounding:portType>
+      </grounding:WsdlOperationRef>
+    </grounding:wsdlOperation>
+    <grounding:wsdlOutput>
+      <grounding:WsdlOutputMessageMap>
+        <grounding:owlsParameter rdf:resource="#return"/>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/YahooNewsService.wsdl#return</grounding:wsdlMessagePart>
+      </grounding:WsdlOutputMessageMap>
+    </grounding:wsdlOutput>
+    <grounding:wsdlOutputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://services.composition.inmind.cmu.edu#getNewsFeedResponse</grounding:wsdlOutputMessage>
+    <grounding:wsdlInputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://services.composition.inmind.cmu.edu#getNewsFeedRequest</grounding:wsdlInputMessage>
+    <grounding:wsdlDocument rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/YahooNewsService.wsdl</grounding:wsdlDocument>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#topic"/>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/YahooNewsService.wsdl#topic</grounding:wsdlMessagePart>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:owlsProcess rdf:resource="#getNewsFeedProcess"/>
+  </grounding:WsdlAtomicProcessGrounding>
+</rdf:RDF>

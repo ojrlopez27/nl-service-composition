@@ -1,0 +1,57 @@
+<!-- TOOLBAR_EXEMPT -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:rddl="http://www.rddl.org/" xml:lang="en" lang="en">
+<head>
+    <title>WSDL 1.1 Binding Extension for SOAP 1.2</title>
+    <link href="http://www.rddl.org/xrd.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <h1>
+        WSDL 1.1 Binding Extension for SOAP 1.2</h1>
+    <p>
+        March 2006</p>
+    <h2>
+        Introduction</h2>
+    <p>
+        This document describes a directory of links to resources related to the WSDL 1.1 Binding Extension
+        for SOAP 1.2.</p>
+    <h2>
+        WSDL Binding Extension for SOAP 1.2 Schema document:</h2>
+    <rddl:resource id='Wsdl11Soap12_Schema' xlink:title='WSDL 1.1 Binding for SOAP 1.2 schema document'
+        xlink:role='http://www.w3.org/2001/XMLSchema' xlink:arcrole='http://www.rddl.org/purposes#schema-validation'
+        xlink:href='.xsd' xlink:type='simple' xlink:show='none' xlink:actuate='none'>
+        <p>Latest version:
+            <a href="http://schemas.xmlsoap.org/wsdl/soap12/wsdl11soap12.xsd">http://schemas.xmlsoap.org/wsdl/soap12/wsdl11soap12.xsd</a></p>
+    </rddl:resource>
+    <rddl:resource id='Wsdl11Soap12_Schema' xlink:title='WSDL 1.1 Binding for SOAP 1.2 schema document'
+        xlink:role='http://www.w3.org/2001/XMLSchema' xlink:arcrole='http://www.rddl.org/purposes#schema-validation'
+        xlink:href='.xsd' xlink:type='simple' xlink:show='none' xlink:actuate='none'>
+        <p>Dated version (2 March 2006):
+            <a href="http://schemas.xmlsoap.org/wsdl/soap12/wsdl11soap12-20060302.xsd">http://schemas.xmlsoap.org/wsdl/soap12/wsdl11soap12-20060302.xsd</a></p>
+    </rddl:resource>
+    <rddl:resource id='Wsdl11Soap12_Schema' xlink:title='WSDL 1.1 Binding for SOAP 1.2 schema document'
+        xlink:role='http://www.w3.org/2001/XMLSchema' xlink:arcrole='http://www.rddl.org/purposes#schema-validation'
+        xlink:href='.xsd' xlink:type='simple' xlink:show='none' xlink:actuate='none'>
+        <p>Dated version (26 October 2005):
+            <a href="http://schemas.xmlsoap.org/wsdl/soap12/wsdl11soap12-20051026.xsd">http://schemas.xmlsoap.org/wsdl/soap12/wsdl11soap12-20051026.xsd</a></p>
+    </rddl:resource>
+    <h2>
+        Specification:</h2>
+    <p>
+        <a href="http://schemas.xmlsoap.org/wsdl/soap12/WSDL11SOAP12.pdf">WSDL Binding Extension for SOAP 1.2 specification</a>.
+    </p>
+    <p>
+        Previous version: <a href="http://schemas.xmlsoap.org/wsdl/soap12/soap12WSDL.htm">WSDL Binding for SOAP 1.2 specification</a>.
+        Also available from 
+        <a href="http://groups.yahoo.com/group/soapbuilders/files/soap12WSDL.htm">SOAP Builders</a>.
+    </p>
+    <blockquote>
+        Note: The example uses a preliminary value for the
+        <a href="http://www.w3.org/TR/2003/REC-soap12-part1-20030624/#soapencattr">encodingStyle attribute</a>.
+        The final value is 
+        "<a href="http://www.w3.org/2003/05/soap-encoding">http://www.w3.org/2003/05/soap-encoding</a>"
+        per        
+        <a href="http://www.w3.org/TR/2003/REC-soap12-part2-20030624/#soapenc">SOAP Version 1.2 Part 2: Adjuncts</a>.
+    </blockquote>
+</body>
+</html>

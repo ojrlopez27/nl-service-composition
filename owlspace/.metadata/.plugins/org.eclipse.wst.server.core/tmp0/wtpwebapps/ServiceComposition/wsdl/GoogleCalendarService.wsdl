@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://services.composition.inmind.cmu.edu" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ax21="http://pojos.composition.inmind.cmu.edu/xsd" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://services.composition.inmind.cmu.edu">
+    <wsdl:documentation>
+		The Google Calendar Service.
+	</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://pojos.composition.inmind.cmu.edu/xsd">
+            <xs:complexType name="GenericPOJO">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="CalendarPOJO">
+                <xs:complexContent>
+                    <xs:extension base="ax21:GenericPOJO">
+                        <xs:sequence/>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ax22="http://pojos.composition.inmind.cmu.edu/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.composition.inmind.cmu.edu">
+            <xs:import namespace="http://pojos.composition.inmind.cmu.edu/xsd"/>
+            <xs:element name="execute">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="createEvent">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="eventName" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="from" nillable="true" type="xs:date"/>
+                        <xs:element minOccurs="0" name="to" nillable="true" type="xs:date"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="createEventResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax22:CalendarPOJO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="checkAvailability">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="from" nillable="true" type="xs:date"/>
+                        <xs:element minOccurs="0" name="to" nillable="true" type="xs:date"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="checkAvailabilityResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="createEventRequest">
+        <wsdl:part name="parameters" element="ns:createEvent"/>
+    </wsdl:message>
+    <wsdl:message name="createEventResponse">
+        <wsdl:part name="parameters" element="ns:createEventResponse"/>
+    </wsdl:message>
+    <wsdl:message name="checkAvailabilityRequest">
+        <wsdl:part name="parameters" element="ns:checkAvailability"/>
+    </wsdl:message>
+    <wsdl:message name="checkAvailabilityResponse">
+        <wsdl:part name="parameters" element="ns:checkAvailabilityResponse"/>
+    </wsdl:message>
+    <wsdl:message name="executeRequest">
+        <wsdl:part name="parameters" element="ns:execute"/>
+    </wsdl:message>
+    <wsdl:portType name="GoogleCalendarServicePortType">
+        <wsdl:operation name="createEvent">
+            <wsdl:input message="ns:createEventRequest" wsaw:Action="urn:createEvent"/>
+            <wsdl:output message="ns:createEventResponse" wsaw:Action="urn:createEventResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="checkAvailability">
+            <wsdl:input message="ns:checkAvailabilityRequest" wsaw:Action="urn:checkAvailability"/>
+            <wsdl:output message="ns:checkAvailabilityResponse" wsaw:Action="urn:checkAvailabilityResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="execute">
+            <wsdl:input message="ns:executeRequest" wsaw:Action="urn:execute"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="GoogleCalendarServiceSoap11Binding" type="ns:GoogleCalendarServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="createEvent">
+            <soap:operation soapAction="urn:createEvent" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="checkAvailability">
+            <soap:operation soapAction="urn:checkAvailability" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="execute">
+            <soap:operation soapAction="urn:execute" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="GoogleCalendarServiceSoap12Binding" type="ns:GoogleCalendarServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="createEvent">
+            <soap12:operation soapAction="urn:createEvent" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="checkAvailability">
+            <soap12:operation soapAction="urn:checkAvailability" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="execute">
+            <soap12:operation soapAction="urn:execute" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="GoogleCalendarServiceHttpBinding" type="ns:GoogleCalendarServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="createEvent">
+            <http:operation location="createEvent"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="checkAvailability">
+            <http:operation location="checkAvailability"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="execute">
+            <http:operation location="execute"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="GoogleCalendarService">
+        <wsdl:port name="GoogleCalendarServiceHttpSoap11Endpoint" binding="ns:GoogleCalendarServiceSoap11Binding">
+            <soap:address location="http://127.0.0.1:8080/axis2/services/GoogleCalendarService.GoogleCalendarServiceHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="GoogleCalendarServiceHttpSoap12Endpoint" binding="ns:GoogleCalendarServiceSoap12Binding">
+            <soap12:address location="http://127.0.0.1:8080/axis2/services/GoogleCalendarService.GoogleCalendarServiceHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="GoogleCalendarServiceHttpEndpoint" binding="ns:GoogleCalendarServiceHttpBinding">
+            <http:address location="http://127.0.0.1:8080/axis2/services/GoogleCalendarService.GoogleCalendarServiceHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

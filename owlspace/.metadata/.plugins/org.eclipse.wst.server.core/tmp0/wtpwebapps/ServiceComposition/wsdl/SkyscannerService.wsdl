@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://services.composition.inmind.cmu.edu" xmlns:ax25="http://pojos.composition.inmind.cmu.edu/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://services.composition.inmind.cmu.edu">
+    <wsdl:documentation>
+		The Skyscanner Service. 
+	</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://pojos.composition.inmind.cmu.edu/xsd">
+            <xs:complexType name="GenericPOJO">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="LocationPOJO">
+                <xs:complexContent>
+                    <xs:extension base="ax25:GenericPOJO">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="place" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="FlightPOJO">
+                <xs:complexContent>
+                    <xs:extension base="ax25:GenericPOJO">
+                        <xs:sequence/>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ax26="http://pojos.composition.inmind.cmu.edu/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.composition.inmind.cmu.edu">
+            <xs:import namespace="http://pojos.composition.inmind.cmu.edu/xsd"/>
+            <xs:element name="searchFlight">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="from" nillable="true" type="ax26:LocationPOJO"/>
+                        <xs:element minOccurs="0" name="destination" nillable="true" type="ax26:LocationPOJO"/>
+                        <xs:element minOccurs="0" name="departureDate" nillable="true" type="xs:date"/>
+                        <xs:element minOccurs="0" name="returnDate" nillable="true" type="xs:date"/>
+                        <xs:element name="maxPrice" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="searchFlightResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax26:FlightPOJO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="execute">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="bookFlight">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="from" nillable="true" type="ax26:LocationPOJO"/>
+                        <xs:element minOccurs="0" name="destination" nillable="true" type="ax26:LocationPOJO"/>
+                        <xs:element minOccurs="0" name="departureDate" nillable="true" type="xs:date"/>
+                        <xs:element minOccurs="0" name="returnDate" nillable="true" type="xs:date"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="bookFlightResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax26:FlightPOJO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="bookFlightRequest">
+        <wsdl:part name="parameters" element="ns:bookFlight"/>
+    </wsdl:message>
+    <wsdl:message name="bookFlightResponse">
+        <wsdl:part name="parameters" element="ns:bookFlightResponse"/>
+    </wsdl:message>
+    <wsdl:message name="executeRequest">
+        <wsdl:part name="parameters" element="ns:execute"/>
+    </wsdl:message>
+    <wsdl:message name="searchFlightRequest">
+        <wsdl:part name="parameters" element="ns:searchFlight"/>
+    </wsdl:message>
+    <wsdl:message name="searchFlightResponse">
+        <wsdl:part name="parameters" element="ns:searchFlightResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="SkyscannerServicePortType">
+        <wsdl:operation name="bookFlight">
+            <wsdl:input message="ns:bookFlightRequest" wsaw:Action="urn:bookFlight"/>
+            <wsdl:output message="ns:bookFlightResponse" wsaw:Action="urn:bookFlightResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="execute">
+            <wsdl:input message="ns:executeRequest" wsaw:Action="urn:execute"/>
+        </wsdl:operation>
+        <wsdl:operation name="searchFlight">
+            <wsdl:input message="ns:searchFlightRequest" wsaw:Action="urn:searchFlight"/>
+            <wsdl:output message="ns:searchFlightResponse" wsaw:Action="urn:searchFlightResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SkyscannerServiceSoap11Binding" type="ns:SkyscannerServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="bookFlight">
+            <soap:operation soapAction="urn:bookFlight" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="execute">
+            <soap:operation soapAction="urn:execute" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="searchFlight">
+            <soap:operation soapAction="urn:searchFlight" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="SkyscannerServiceSoap12Binding" type="ns:SkyscannerServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="bookFlight">
+            <soap12:operation soapAction="urn:bookFlight" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="execute">
+            <soap12:operation soapAction="urn:execute" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="searchFlight">
+            <soap12:operation soapAction="urn:searchFlight" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="SkyscannerServiceHttpBinding" type="ns:SkyscannerServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="bookFlight">
+            <http:operation location="bookFlight"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="execute">
+            <http:operation location="execute"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="searchFlight">
+            <http:operation location="searchFlight"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SkyscannerService">
+        <wsdl:port name="SkyscannerServiceHttpSoap11Endpoint" binding="ns:SkyscannerServiceSoap11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/SkyscannerService.SkyscannerServiceHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SkyscannerServiceHttpSoap12Endpoint" binding="ns:SkyscannerServiceSoap12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/SkyscannerService.SkyscannerServiceHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SkyscannerServiceHttpEndpoint" binding="ns:SkyscannerServiceHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/SkyscannerService.SkyscannerServiceHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:list="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+    xmlns:expression="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#"
+    xmlns:profile="http://www.daml.org/services/owl-s/1.1/Profile.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:process="http://www.daml.org/services/owl-s/1.1/Process.owl#"
+    xmlns:grounding="http://www.daml.org/services/owl-s/1.1/Grounding.owl#"
+    xmlns="http://www.example.org/service.owl"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:service="http://www.daml.org/services/owl-s/1.1/Service.owl#"
+    xmlns:daml="http://www.daml.org/2001/03/daml+oil#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xml:base="http://www.example.org/service.owl">
+  <service:Service rdf:ID="searchFlightService">
+    <service:presents>
+      <profile:Profile rdf:ID="searchFlightProfile"/>
+    </service:presents>
+    <service:supports>
+      <grounding:WsdlGrounding rdf:ID="searchFlightGrounding"/>
+    </service:supports>
+    <service:describedBy>
+      <process:AtomicProcess rdf:ID="searchFlightProcess"/>
+    </service:describedBy>
+  </service:Service>
+  <profile:Profile rdf:about="#searchFlightProfile">
+    <profile:hasInput>
+      <process:Input rdf:ID="departureDate">
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#date</process:parameterType>
+        <rdfs:label>departureDate</rdfs:label>
+      </process:Input>
+    </profile:hasInput>
+    <profile:hasOutput>
+      <process:Output rdf:ID="return">
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2002/07/owl#Thing</process:parameterType>
+        <rdfs:label>return</rdfs:label>
+      </process:Output>
+    </profile:hasOutput>
+    <profile:serviceName>searchFlight</profile:serviceName>
+    <profile:hasInput>
+      <process:Input rdf:ID="maxPrice">
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#double</process:parameterType>
+        <rdfs:label>maxPrice</rdfs:label>
+      </process:Input>
+    </profile:hasInput>
+    <profile:hasInput>
+      <process:Input rdf:ID="destination">
+        <rdfs:label>destination</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2002/07/owl#Thing</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <profile:hasInput>
+      <process:Input rdf:ID="returnDate">
+        <rdfs:label>returnDate</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#date</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <service:presentedBy rdf:resource="#searchFlightService"/>
+    <profile:textDescription>Auto generated from file:/Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/wsdl/SkyscannerService.wsdl</profile:textDescription>
+    <profile:hasInput>
+      <process:Input rdf:ID="from">
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2002/07/owl#Thing</process:parameterType>
+        <rdfs:label>from</rdfs:label>
+      </process:Input>
+    </profile:hasInput>
+  </profile:Profile>
+  <process:AtomicProcess rdf:about="#searchFlightProcess">
+    <service:describes rdf:resource="#searchFlightService"/>
+    <process:hasInput rdf:resource="#maxPrice"/>
+    <process:hasInput rdf:resource="#departureDate"/>
+    <process:hasOutput rdf:resource="#return"/>
+    <rdfs:label>searchFlightProcess</rdfs:label>
+    <process:hasInput rdf:resource="#from"/>
+    <process:hasInput rdf:resource="#destination"/>
+    <process:hasInput rdf:resource="#returnDate"/>
+  </process:AtomicProcess>
+  <grounding:WsdlGrounding rdf:about="#searchFlightGrounding">
+    <grounding:hasAtomicProcessGrounding>
+      <grounding:WsdlAtomicProcessGrounding rdf:ID="searchFlightAtomicProcessGrounding"/>
+    </grounding:hasAtomicProcessGrounding>
+    <service:supportedBy rdf:resource="#searchFlightService"/>
+  </grounding:WsdlGrounding>
+  <grounding:WsdlAtomicProcessGrounding rdf:about="#searchFlightAtomicProcessGrounding">
+    <grounding:wsdlDocument rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >file:/Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/wsdl/SkyscannerService.wsdl</grounding:wsdlDocument>
+    <grounding:wsdlOperation>
+      <grounding:WsdlOperationRef>
+        <grounding:operation rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/wsdl/SkyscannerService.wsdl#searchFlight</grounding:operation>
+        <grounding:portType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/wsdl/SkyscannerService.wsdl#SkyscannerServiceHttpSoap11Endpoint</grounding:portType>
+      </grounding:WsdlOperationRef>
+    </grounding:wsdlOperation>
+    <grounding:wsdlInputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://services.composition.inmind.cmu.edu#searchFlightRequest</grounding:wsdlInputMessage>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/wsdl/SkyscannerService.wsdl#from</grounding:wsdlMessagePart>
+        <grounding:owlsParameter rdf:resource="#from"/>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/wsdl/SkyscannerService.wsdl#destination</grounding:wsdlMessagePart>
+        <grounding:owlsParameter rdf:resource="#destination"/>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlOutput>
+      <grounding:WsdlOutputMessageMap>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/wsdl/SkyscannerService.wsdl#return</grounding:wsdlMessagePart>
+        <grounding:owlsParameter rdf:resource="#return"/>
+      </grounding:WsdlOutputMessageMap>
+    </grounding:wsdlOutput>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/wsdl/SkyscannerService.wsdl#departureDate</grounding:wsdlMessagePart>
+        <grounding:owlsParameter rdf:resource="#departureDate"/>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#returnDate"/>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/wsdl/SkyscannerService.wsdl#returnDate</grounding:wsdlMessagePart>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:owlsProcess rdf:resource="#searchFlightProcess"/>
+    <grounding:wsdlOutputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://services.composition.inmind.cmu.edu#searchFlightResponse</grounding:wsdlOutputMessage>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/wsdl/SkyscannerService.wsdl#maxPrice</grounding:wsdlMessagePart>
+        <grounding:owlsParameter rdf:resource="#maxPrice"/>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+  </grounding:WsdlAtomicProcessGrounding>
+</rdf:RDF>

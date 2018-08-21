@@ -199,6 +199,9 @@ public class Matchmaker {
         matchmaker.addOntology(baseLoc + "GoogleFlightsService/searchFlight.owl");
         matchmaker.addOntology(baseLoc + "SkyScannerService/bookFlight.owl");
         matchmaker.addOntology(baseLoc + "SkyScannerService/searchFlight.owl");
+
+        final String servicesLoc = "file:///Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/owls/";
+        matchmaker.addOntology(servicesLoc + "YahooNewsService/getNewsFeed.owl");
        
         List matches = matchmaker.displayAllMatches();
         System.out.println();

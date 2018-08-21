@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>WS-Addressing 1.0 WSDL Binding Namespace</title>
+    <link type="text/css" rel="stylesheet" href="/StyleSheets/TR/base.css"/>
+  </head>
+
+  <body>
+
+    <div class="head">
+      <p>
+	<a href="http://www.w3.org/">
+	  <img width="72" height="48" alt="W3C" src="http://www.w3.org/Icons/w3c_home"/>
+	</a>
+      </p>
+
+      <h1>WS-Addressing 1.0 WSDL Binding Namespace</h1>
+    </div>
+
+    <p>This is a URI defined in the
+
+    <a href="http://www.w3.org/TR/2006/CR-ws-addr-wsdl-20060529/">Web
+    Services Addressing 1.0 - WSDL Binding</a>
+
+    2006-05-29 specification.</p>
+
+    <p>This document describes the WS-Addressing 1.0 WSDL Binding namespace. A <a
+    href='ws-addr-wsdl.xhtml'>RDDL version</a> of this document is
+    available.</p>
+
+    <h2>Latest XML Schema:</h2>
+
+    <p>This URI always points to the latest schema
+    (including errata) for the WS-Addressing 1.0 WSDL Binding namespace.  The resource at this location may change as new errata are incorporated.</p>
+      <p>
+	<a title="Latest WS-Addressing 1.0 WSDL Binding schema document"
+	    href="http://www.w3.org/2002/ws/addr/ns/ws-addr-wsdl">http://www.w3.org/2002/ws/addr/ns/ws-addr-wsdl</a>
+      </p>
+
+    <h2>This dated version of the XML Schema:</h2>
+
+    <p>This URI points to the schema for the WS-Addressing 1.0 WSDL Binding namespace
+    corresponding to the 2006-05-29 specifications.</p>
+
+      <p>
+	<a title="2006-05-29 WS-Addressing 1.0 WSDL Binding schema document"
+	   href="ws-addr-wsdl.xsd">http://www.w3.org/2006/05/addressing/wsdl/ws-addr-wsdl.xsd</a>
+      </p>
+
+    <h2>Stability of this namespace URI</h2>
+
+    <p>This namespace URI will be updated only if changes are made to
+    the document are significant and impact the implementation of the
+    specifications.</p>
+
+    <p>The <a href='http://www.w3.org/2002/ws/addr/'>Web Services
+    Addressing Working Group</a> will assess, when publishing
+    subsequent versions of the WS-Addressing 1.0 WSDL Binding
+    specification on the Recommendation track (<a
+    href="http://www.w3.org/2005/10/Process-20051014/tr.html#RecsPR">Proposed
+    Recommendation</a> and <a
+    href="http://www.w3.org/2005/10/Process-20051014/tr.html#RecsW3C">W3C
+    Recommendation</a>), the suitability of retaining the namespace
+    URIs defined in the previous version of the specification.</p>
+
+    <hr/>
+    <p>Comments on this document may be sent to the public <a href="mailto:public-ws-addressing-comments@w3.org">public-ws-addressing-comments@w3.org</a> mailing list (<a href="http://lists.w3.org/Archives/Public/public-ws-addressing-comments/">public
+    archive</a>).
+    </p>
+  </body>
+</html>

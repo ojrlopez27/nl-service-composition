@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+/Users/dangiankit/rejuv/semantic-middleware/owlspace/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+4222780713.index
+835128149.index
+4046282811.index
+3635101421.index
+1256414957.index
+2907793372.index

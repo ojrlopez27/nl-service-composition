@@ -1,0 +1,4 @@
+browser-choice=0
+browsers=<?xml version\="1.0" encoding\="UTF-8"?>\n<web-browsers current\="0">\n<system/>\n<external location\="/Applications/Firefox.app" name\="Firefox"/>\n</web-browsers>
+eclipse.preferences.version=1
+internalWebBrowserHistory=http\://127.0.0.1\:9090/ServiceComposition/services/listServices|*|http\://127.0.0.1\:9090/ServiceComposition/services/GoogleCalendarService?wsdl|*|http\://127.0.0.1\:9090/ServiceComposition/services/WeatherChannelService?wsdl|*|http\://127.0.0.1\:9090/ServiceComposition/services/Version?wsdl|*|http\://127.0.0.1\:9090/ServiceComposition/axis2-web/index.jsp|*|http\://127.0.0.1\:9090/ServiceComposition/axis2-web/HappyAxis.jsp|*|http\://127.0.0.1\:9090/ServiceComposition/|*|http\://127.0.0.1\:9090/axis2/|*|
