@@ -1,9 +1,9 @@
 <Configuration status="WARN">
     <CustomLevels>
-        <CustomLevel name="E2E" intLevel="2" />
+        <CustomLevel name="IPA" intLevel="2" />
     </CustomLevels>
     <Appenders>
-        <File name="file-log" fileName="./${sys:log.folder}/${sys:log.name}-interaction.log" append="true"
+        <File name="file-log" fileName="./logExperiments/${sys:log.name}-interaction.log" append="true"
               immediateFlush="true" createOnDemand="true">
             <PatternLayout>
                 <pattern>%d %-7level %-30logger{36} ==>   %msg%n</pattern>
@@ -14,12 +14,12 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="sogo" level="E2E" additivity="true">
-            <AppenderRef ref="file-log" level="E2E" />
+        <Logger name="ipa" level="IPA" additivity="true">
+            <AppenderRef ref="file-log" level="IPA" />
         </Logger>
         <Root level="trace">
             <AppenderRef ref="Console" level="trace" />
-            <AppenderRef ref="file-log" level="E2E" />
+            <AppenderRef ref="file-log" level="IPA" />
         </Root>
     </Loggers>
 </Configuration>
