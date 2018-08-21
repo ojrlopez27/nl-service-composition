@@ -79,7 +79,7 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
 
     private void processUserAction(String userAction){
         IPALog.log(this, String.format("%s%s\t%s", USER, LEVEL0, userAction));
-        if( !userAction.equals(Constants.DONE) ) {
+        if( !userAction.equalsIgnoreCase(Constants.DONE) ) {
             if( Constants.REQUEST_ACTION_STAGE.equals(stage) ) {
                 // let's get the semantic neighbors provided by sent2vec
                 communicationController.sendS2V(userAction);
@@ -98,7 +98,9 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                 sendResponse(response);
             }
             else if( Constants.ASK_FOR_APP_CONFIRMATION_STAGE.equals(stage) ) {
-                if(userAction.equalsIgnoreCase("Y") || userAction.equalsIgnoreCase("Yes")){
+                if(userAction.equalsIgnoreCase("Y") || userAction.equalsIgnoreCase("Yes")
+                        || userAction.contains("Yes ") || userAction.equalsIgnoreCase("yes ")
+                        || userAction.equalsIgnoreCase("YES ")){
                     compositionController.fireRulesGS();
                     String response = "Great, let's continue. What is the next thing you would ask your IPA to do? " +
                             "(type 'DONE' if you are done for this scenario -- but at least 7 actions/steps are required)";
