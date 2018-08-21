@@ -36,7 +36,7 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
     public void initialize(Session session) throws Throwable{
         super.initialize( session );
         // we need to map services, put them into a file so sent2vec can use them
-        serviceMap = Utils.generateCorporaFromMethods(true);
+        serviceMap = Utils.generateCorporaFromMethods(false);
         // let's initialize all the resources
         compositionController = new CompositionController();
         communicationController = new CommunicationController();
@@ -68,15 +68,15 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
         else if(validate.equals(Schedule.TOO_LATE))
             validate = "Sorry, you have connected too late, please request another time slot through the doodle!";
         else {
-            validate = String.format("Thanks! let's start. Consider this scenario: \"%s\". What is the first action you " +
-                    "would do on your phone apps?", scenarios.get(scenarioIdx++));
+            validate = String.format("Thanks! let's start. Consider this scenario: \"%s\". What is the first thing you " +
+                    "would ask your IPA to do?", scenarios.get(scenarioIdx++));
         }
         sendResponse( validate );
     }
 
 
     private void processUserAction(String userAction){
-        if( !userAction.equals(Constants.END) ) {
+        if( !userAction.equals(Constants.DONE) ) {
             if( Constants.REQUEST_ACTION_STAGE.equals(stage) ) {
                 // let's get the semantic neighbors provided by sent2vec
                 communicationController.sendS2V(userAction);
@@ -86,8 +86,8 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                 compositionController.fireRulesAS();
 
                 String[] result = compositionController.execute(serviceMap);
-                String response = String.format("The phone would open this app: [%s] and execute this action: [%s]. " +
-                                "Is that what you want (Y/N)?",
+                String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
+                                "Is that what you would want (Y/N)?",
                         Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
                         Utils.splitByCapitalizedWord(result[1], true));
                 stage = Constants.ASK_FOR_APP_CONFIRMATION_STAGE;
@@ -96,15 +96,17 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
             else if( Constants.ASK_FOR_APP_CONFIRMATION_STAGE.equals(stage) ) {
                 if(userAction.equalsIgnoreCase("Y") || userAction.equalsIgnoreCase("Yes")){
                     compositionController.fireRulesGS();
-                    // now we wait for Service Executor to invoke the callback
+                    sendResponse("Great, let's continue. What is the next thing you would ask your IPA to do? " +
+                            "(type 'DONE' if you are done for this scenario)");
+                    stage = Constants.REQUEST_ACTION_STAGE;
                 }else{
-                    sendResponse("Ok, can you re-phrase the action so I would try to do it better this time?");
+                    sendResponse("Ok, can you re-phrase your command? your IPA will try to do it better this time...");
                     stage = Constants.REQUEST_ACTION_STAGE;
                 }
             }
         }else{
             if(scenarioIdx < scenarios.size()){
-
+                sendResponse("Perfect, you are doing really well. This is the next scenario: ");
             }else{
 
             }

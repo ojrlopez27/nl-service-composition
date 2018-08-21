@@ -43,7 +43,7 @@ class MessageBuffer(object):
         self.should_process_input_from_user = False
         self.session_id = None
         self.is_new_session = True
-        self.user_id_validation = None
+        self.user_utterance = None
         self.manager = ClientController(java_server, "manager", verbose)            
         self.manager.connect()
         self.client = None
@@ -57,7 +57,7 @@ class MessageBuffer(object):
         for msg in reversed(self.cache):
             if msg["id"] == cursor:
                 break
-            # print(msg)
+            print(msg)
             results.append(msg)        
         results.reverse()
         return results
@@ -70,6 +70,7 @@ class MessageBuffer(object):
 
 # global (but it has to be defined here)
 global_message_buffer = MessageBuffer()
+
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -84,21 +85,21 @@ class MessageNewHandler(tornado.web.RequestHandler):
         if global_message_buffer.is_new_session:
             global_message_buffer.session_id = body
             # connecting to Java code...            
-            response = global_message_buffer.manager.checkUser(body)               
-            response = response[0].decode("utf-8")         
+            response = global_message_buffer.manager.checkUser(body)                           
             if response.startswith('Thanks!'):
                 global_message_buffer.client = ClientController(java_server, body, verbose)            
                 global_message_buffer.client.connect()                        
                 global_message_buffer.session_id = body
                 global_message_buffer.is_new_session = False
-            global_message_buffer.user_id_validation = "[IPA]: " + response
-            body = "[You]: " + body
+            global_message_buffer.user_utterance = response
         else:    
-            global_message_buffer.client.sendUserAction(body)
+            global_message_buffer.user_utterance = global_message_buffer.client.sendUserAction(body)
 
+        body = "[You]: " + body
         message = {
            "id": str(uuid.uuid4()),
            "body": body,
+           "color": "color:blue;",
         }
 
         # render_string() returns a byte string, which is not supported
@@ -138,14 +139,16 @@ class MessageUpdatesHandler(tornado.web.RequestHandler):
         # let's wait for message from the Java server
         if not messages:
             body = None
-            if global_message_buffer.is_new_session and not global_message_buffer.user_id_validation:
+            if global_message_buffer.is_new_session and not global_message_buffer.user_utterance:
                 body = "[IPA]: Please, enter your MKT id and press 'Post' button below to start:"    
-            else:
-                body = global_message_buffer.user_id_validation
+            else:            
+                body = "[IPA]: " + global_message_buffer.user_utterance
+                print("**** update.body: ", body)
         
             message = {
                "id": str(uuid.uuid4()),    
                "body": body,
+               "color": str("color:red;"),
             }
             message["html"] = tornado.escape.to_unicode(
             self.render_string("message.html", message=message))

@@ -24,6 +24,7 @@ public class Constants {
 
     public static final String EOS = "<eos>";
     public static final String END = "END";
+    public static final String DONE = "DONE";
 
     public static final String MSG_CHECK_USER_ID = "MSG_CHECK_USER_ID";
     public static final String MSG_PROCESS_USER_ACTION = "MSG_PROCESS_USER_ACTION";

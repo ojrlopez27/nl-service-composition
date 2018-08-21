@@ -43,14 +43,6 @@ class ClientController(object):
             logging.info("I: connecting to broker at %s", self.broker)
 
      
-    def sendMsg(self, request):
-        sessionMessage = SessionMessage(Constants.MSG_SEND_USER_UTTERANCE, self.sessionId, "", request.toString(), "").toString()
-        self.send(self.sessionId, sessionMessage)        
-
-    def sendInitMsg(self):
-        sessionMessage = SessionMessage(Constants.MSG_CHECK_USER_ID, self.sessionId, "", self.sessionId, "").toString()
-        return self.send(self.sessionId, sessionMessage)
-
 
     def send(self, service, request):
         if self.verbose: print(request)
@@ -112,11 +104,11 @@ class ClientController(object):
 
     def checkUser(self, username):
         sessionMessage = SessionMessage(Constants.MSG_CHECK_USER_ID, self.sessionId, "", username, "").toString()
-        return self.send(self.sessionId, sessionMessage)
+        return self.send(self.sessionId, sessionMessage)[0].decode("utf-8") 
 
     def sendUserAction(self, action):
         sessionMessage = SessionMessage(Constants.MSG_PROCESS_USER_ACTION, self.sessionId, "", action, "").toString()
-        return self.send(self.sessionId, sessionMessage)
+        return self.send(self.sessionId, sessionMessage)[0].decode("utf-8")
 
 
     def connect(self):
