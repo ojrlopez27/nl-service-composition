@@ -31,7 +31,6 @@ public interface MapsService extends GenericService {
             "This method allows to get directions from one location to destination location",
             "This method allows to look up directions from one location to destination location",
             "This method gets directions between two locations, given a mode of transport",
-            "This method calculates distance between two locations"
     })
     @ArgDesc(args = {
             "from : what is your from location?",
