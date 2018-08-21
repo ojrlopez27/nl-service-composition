@@ -1,0 +1,3 @@
+[submodule "owlspace/owlspace/owl-s"]
+	path = owlspace/owlspace/owl-s
+	url = https://github.com/spechub/owl-s
