@@ -96,9 +96,8 @@ public class Matchmaker {
         Set ontologySet = kb.getOntologies();
         for (Object ontology : ontologySet) {
         	OWLOntology owlOntology = (OWLOntology) ontology;
-        	System.out.println("Ontology: " + owlOntology);
-        	System.out.println("Onto Processes: " + owlOntology.getProcesses());
-        	System.out.println("Onto Individuals: " + owlOntology.getIndividuals());
+        	//System.out.println("Onto: " + owlOntology);
+        	//System.out.println("Onto Individuals: " + owlOntology.getIndividuals());
         }
         System.out.println("Ontologies: " + kb.getOntologies());
         System.out.println("Profiles: " + kb.getProfiles());
@@ -191,6 +190,7 @@ public class Matchmaker {
         matchmaker.addOntology("http://www.mindswap.org/2004/owl-s/1.1/BabelFishTranslator.owl#");
         */
         
+        /*
         final String baseLoc = "file:///Users/dangiankit/eclipse-workspace/ServiceComposition/WebContent/owls/";
         matchmaker.addOntology(baseLoc + "WeatherChannelService/checkWeatherConditions.owl");
         matchmaker.addOntology(baseLoc + "GoogleCalendarService/checkAvailability.owl");
@@ -202,7 +202,18 @@ public class Matchmaker {
 
         final String servicesLoc = "file:///Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/owls/";
         matchmaker.addOntology(servicesLoc + "YahooNewsService/getNewsFeed.owl");
-       
+      
+        */
+
+		matchmaker.addOntology(ExampleURIs.AMAZON_BOOK_PRICE_OWLS11);
+		matchmaker.addOntology(ExampleURIs.BN_BOOK_PRICE_OWLS11);
+		matchmaker.addOntology(ExampleURIs.BOOK_FINDER_OWLS11);
+		//matchmaker.addOntology(ExampleURIs.CURRENCY_CONVERTER_OWLS11);
+		//matchmaker.addOntology(ExampleURIs.DICTIONARY_OWLS11);
+		//matchmaker.addOntology(ExampleURIs.ZIP_CODE_FINDER_OWLS12);
+		//matchmaker.addOntology(ExampleURIs.FIND_LAT_LONG_OWLS11);
+		//matchmaker.addOntology(ExampleURIs.BABELFISH_TRANSLATOR_OWLS11);
+		
         List matches = matchmaker.displayAllMatches();
         System.out.println();
         System.out.println("Matches:");        

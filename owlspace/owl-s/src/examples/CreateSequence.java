@@ -242,14 +242,14 @@ public class CreateSequence {
         ProcessExecutionEngine exec = OWLSFactory.createExecutionEngine();
 
         // load two services
-        Service s1 = kb.readService("http://www.mindswap.org/2004/owl-s/1.1/BookFinder.owl#");
-        Service s2 = kb.readService("http://www.mindswap.org/2004/owl-s/1.1/BNPrice.owl#");
-
+        Service s1 = kb.readService(ExampleURIs.BOOK_FINDER_OWLS11);
+        Service s2 = kb.readService(ExampleURIs.BN_BOOK_PRICE_OWLS11);
+        
         // put the services in a list
         List services = new ArrayList();
         services.add(s1);
         services.add(s2);
-
+        
         // create a new service as a sequence of the list
         Service s = createSequenceService(services);
 
