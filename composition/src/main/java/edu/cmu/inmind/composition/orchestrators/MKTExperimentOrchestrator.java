@@ -30,6 +30,7 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
     private String stage = Constants.REQUEST_ACTION_STAGE;
     private int actionCounter = 0;
     private final int maxActions = 7;
+    private final int minLength = 20;
 
 
     @Override
@@ -80,24 +81,7 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
     private void processUserAction(String userAction){
         IPALog.log(this, String.format("%s%s\t%s", USER, LEVEL0, userAction));
         if( !userAction.equalsIgnoreCase(Constants.DONE) ) {
-            if( Constants.REQUEST_ACTION_STAGE.equals(stage) ) {
-                // let's get the semantic neighbors provided by sent2vec
-                communicationController.sendS2V(userAction);
-                String absServiceCandidates = communicationController.receiveS2V();
-                IPALog.log(this, String.format("%s%s\t%s", S2V, LEVEL0, absServiceCandidates));
-                compositionController.addStepAndRegister(userAction, absServiceCandidates);
-                compositionController.fireRulesAS();
-
-                String[] result = compositionController.execute(serviceMap);
-                String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
-                                "Is that what you would want your IPA to do (Y/N)?",
-                        Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
-                        Utils.splitByCapitalizedWord(result[1], true));
-                IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL0, response));
-                stage = Constants.ASK_FOR_APP_CONFIRMATION_STAGE;
-                sendResponse(response);
-            }
-            else if( Constants.ASK_FOR_APP_CONFIRMATION_STAGE.equals(stage) ) {
+            if( Constants.ASK_FOR_APP_CONFIRMATION_STAGE.equals(stage) ) {
                 if(userAction.equalsIgnoreCase("Y") || userAction.equalsIgnoreCase("Yes")
                         || userAction.contains("Yes ") || userAction.equalsIgnoreCase("yes ")
                         || userAction.equalsIgnoreCase("YES ")){
@@ -113,6 +97,29 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                     sendResponse(response);
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL2, response));
                     stage = Constants.REQUEST_ACTION_STAGE;
+                }
+            }else if( Constants.REQUEST_ACTION_STAGE.equals(stage) ) {
+                if( userAction.length() < minLength ){
+                    String response = String.format("Your sentence is empty or too short (only %s characters). " +
+                            "Please re-enter a sentence with at least %s-characters length", userAction.length(), minLength);
+                    IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL5, response));
+                    sendResponse( response );
+                }else {
+                    // let's get the semantic neighbors provided by sent2vec
+                    communicationController.sendS2V(userAction);
+                    String absServiceCandidates = communicationController.receiveS2V();
+                    IPALog.log(this, String.format("%s%s\t%s", S2V, LEVEL0, absServiceCandidates));
+                    compositionController.addStepAndRegister(userAction, absServiceCandidates);
+                    compositionController.fireRulesAS();
+
+                    String[] result = compositionController.execute(serviceMap);
+                    String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
+                                    "Is that what you would want your IPA to do (Y/N)?",
+                            Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
+                            Utils.splitByCapitalizedWord(result[1], true));
+                    IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL0, response));
+                    stage = Constants.ASK_FOR_APP_CONFIRMATION_STAGE;
+                    sendResponse(response);
                 }
             }
         }else{
