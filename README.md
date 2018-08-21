@@ -20,6 +20,7 @@ This project is composed of three sub-projects (a client and two servers):
     - Install module globally:
 	      - /usr/local/bin/python2.7 setup.py build_ext
 	      - sudo -H pip install .
+	      - pip3 install nltk
     - Download pre-trained models from https://github.com/epfml/sent2vec, more specifically, wiki bigrams (16GB) and toronto unigrams (2GB) -- though you can try different models, particularly, we should try twitter model since it is bigger in size and precision may be improved. Put the models under the folder sent2vec
     - Modify run.sh bash script. If you want more precision (though it will be slower) then use wiki model, otherwise use toronto model which is faster
 2. composition:
