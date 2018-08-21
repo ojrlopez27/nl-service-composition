@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static edu.cmu.inmind.composition.common.Constants.*;
+
 /**
  * Created by oscarr on 8/19/18.
  */
@@ -26,6 +28,8 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
     private CompositionController compositionController;
     private CommunicationController communicationController;
     private String stage = Constants.REQUEST_ACTION_STAGE;
+    private int actionCounter = 0;
+    private final int maxActions = 7;
 
 
     @Override
@@ -74,13 +78,13 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
 
 
     private void processUserAction(String userAction){
-        IPALog.log(this, "userAction:\t" + userAction);
+        IPALog.log(this, String.format("%s%s\t%s", USER, LEVEL0, userAction));
         if( !userAction.equals(Constants.DONE) ) {
             if( Constants.REQUEST_ACTION_STAGE.equals(stage) ) {
                 // let's get the semantic neighbors provided by sent2vec
                 communicationController.sendS2V(userAction);
                 String absServiceCandidates = communicationController.receiveS2V();
-                IPALog.debug(this, "Received from sent2vec: " + absServiceCandidates);
+                IPALog.log(this, String.format("%s%s\t%s", S2V, LEVEL0, absServiceCandidates));
                 compositionController.addStepAndRegister(userAction, absServiceCandidates);
                 compositionController.fireRulesAS();
 
@@ -89,28 +93,46 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                                 "Is that what you would want your IPA to do (Y/N)?",
                         Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
                         Utils.splitByCapitalizedWord(result[1], true));
+                IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL0, response));
                 stage = Constants.ASK_FOR_APP_CONFIRMATION_STAGE;
                 sendResponse(response);
             }
             else if( Constants.ASK_FOR_APP_CONFIRMATION_STAGE.equals(stage) ) {
                 if(userAction.equalsIgnoreCase("Y") || userAction.equalsIgnoreCase("Yes")){
                     compositionController.fireRulesGS();
-                    sendResponse("Great, let's continue. What is the next thing you would ask your IPA to do? " +
-                            "(type 'DONE' if you are done for this scenario)");
+                    String response = "Great, let's continue. What is the next thing you would ask your IPA to do? " +
+                            "(type 'DONE' if you are done for this scenario -- but at least 7 actions/steps are required)";
+                    sendResponse(response);
+                    IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL1, response));
                     stage = Constants.REQUEST_ACTION_STAGE;
+                    actionCounter++;
                 }else{
-                    sendResponse("Ok, can you re-phrase your command? your IPA will try to do it better this time...");
+                    String response = "Ok, can you re-phrase your command? your IPA will try to do it better this time...";
+                    sendResponse(response);
+                    IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL2, response));
                     stage = Constants.REQUEST_ACTION_STAGE;
                 }
             }
         }else{
             if(scenarioIdx < scenarios.size()){
-                sendResponse(String.format("Perfect, you are doing really well. This is the next scenario: \"%s\". " +
-                                "What is the first action you would ask your IPA to do?", scenarios.get(scenarioIdx++)));
+                if( actionCounter < maxActions){
+                    String response = String.format("You have identified %s actions/steps so far, please identify %s " +
+                                    "more....", actionCounter, (maxActions - actionCounter));
+                    sendResponse(response);
+                    IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL3, response));
+                }else {
+                    String response = String.format("Perfect, you are doing really well. This is the next scenario: \"%s\". " +
+                            "What is the first action you would ask your IPA to do?", scenarios.get(scenarioIdx++));
+                    sendResponse(response);
+                    actionCounter = 0;
+                    IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL4, response));
+                }
                 stage = Constants.REQUEST_ACTION_STAGE;
             }else{
-                sendResponse("Wonderful, we have finished the scenarios. The last step is to answer a short " +
-                        "questionnaire on this link (). Thanks for your collaboration!");
+                String response = "Wonderful, we have finished the scenarios. The last step is to answer a short " +
+                        "questionnaire on this link (). Thanks for your collaboration!";
+                sendResponse(response);
+                IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL5, response));
                 stage = Constants.DONE_STAGE;
             }
         }
