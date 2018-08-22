@@ -21,8 +21,8 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
 
     private List<String> scenarios = Arrays.asList(
             "You want to go on a vacation to Europe next month and need to plan your trip",
-                "Your wedding anniversary is the next weekend and you want to plan a romantic night with your spouse",
-                "You are planning to have a party at your home this coning weekend");
+            "Your wedding anniversary is the next weekend and you want to plan a romantic night with your spouse",
+            "You are planning to have a party at your home this coning weekend");
     private int scenarioIdx = 0;
     private Map<String, ServiceMethod> serviceMap;
     private CompositionController compositionController;
@@ -30,6 +30,7 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
     private String stage = Constants.REQUEST_ACTION_STAGE;
     private int actionCounter = 0;
     private final int maxActions = 7;
+    private final int minLength = 20;
 
 
     @Override
@@ -79,26 +80,11 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
 
     private void processUserAction(String userAction){
         IPALog.log(this, String.format("%s%s\t%s", USER, LEVEL0, userAction));
-        if( !userAction.equals(Constants.DONE) ) {
-            if( Constants.REQUEST_ACTION_STAGE.equals(stage) ) {
-                // let's get the semantic neighbors provided by sent2vec
-                communicationController.sendS2V(userAction);
-                String absServiceCandidates = communicationController.receiveS2V();
-                IPALog.log(this, String.format("%s%s\t%s", S2V, LEVEL0, absServiceCandidates));
-                compositionController.addStepAndRegister(userAction, absServiceCandidates);
-                compositionController.fireRulesAS();
-
-                String[] result = compositionController.execute(serviceMap);
-                String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
-                                "Is that what you would want your IPA to do (Y/N)?",
-                        Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
-                        Utils.splitByCapitalizedWord(result[1], true));
-                IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL0, response));
-                stage = Constants.ASK_FOR_APP_CONFIRMATION_STAGE;
-                sendResponse(response);
-            }
-            else if( Constants.ASK_FOR_APP_CONFIRMATION_STAGE.equals(stage) ) {
-                if(userAction.equalsIgnoreCase("Y") || userAction.equalsIgnoreCase("Yes")){
+        if( !userAction.equalsIgnoreCase(Constants.DONE) ) {
+            if( Constants.ASK_FOR_APP_CONFIRMATION_STAGE.equals(stage) ) {
+                if(userAction.equalsIgnoreCase("Y") || userAction.equalsIgnoreCase("Yes")
+                        || userAction.contains("Yes ") || userAction.equalsIgnoreCase("yes ")
+                        || userAction.equalsIgnoreCase("YES ")){
                     compositionController.fireRulesGS();
                     String response = "Great, let's continue. What is the next thing you would ask your IPA to do? " +
                             "(type 'DONE' if you are done for this scenario -- but at least 7 actions/steps are required)";
@@ -112,12 +98,35 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL2, response));
                     stage = Constants.REQUEST_ACTION_STAGE;
                 }
+            }else if( Constants.REQUEST_ACTION_STAGE.equals(stage) ) {
+                if( userAction.length() < minLength ){
+                    String response = String.format("Your sentence is empty or too short (only %s characters). " +
+                            "Please re-enter a sentence with at least %s-characters length", userAction.length(), minLength);
+                    IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL5, response));
+                    sendResponse( response );
+                }else {
+                    // let's get the semantic neighbors provided by sent2vec
+                    communicationController.sendS2V(userAction);
+                    String absServiceCandidates = communicationController.receiveS2V();
+                    IPALog.log(this, String.format("%s%s\t%s", S2V, LEVEL0, absServiceCandidates));
+                    compositionController.addStepAndRegister(userAction, absServiceCandidates);
+                    compositionController.fireRulesAS();
+
+                    String[] result = compositionController.execute(serviceMap);
+                    String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
+                                    "Is that what you would want your IPA to do (Y/N)?",
+                            Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
+                            Utils.splitByCapitalizedWord(result[1], true));
+                    IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL0, response));
+                    stage = Constants.ASK_FOR_APP_CONFIRMATION_STAGE;
+                    sendResponse(response);
+                }
             }
         }else{
             if(scenarioIdx < scenarios.size()){
                 if( actionCounter < maxActions){
                     String response = String.format("You have identified %s actions/steps so far, please identify %s " +
-                                    "more....", actionCounter, (maxActions - actionCounter));
+                            "more....", actionCounter, (maxActions - actionCounter));
                     sendResponse(response);
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL3, response));
                 }else {

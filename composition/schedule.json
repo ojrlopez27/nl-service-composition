@@ -1,106 +1,100 @@
 {
   "map": {
-    "A1GPLSAFPS5YKW": {
-      "start": "Aug 21, 2018 9:30:00 AM",
-      "end": "Aug 21, 2018 10:00:00 AM"
+    "user1": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A3PZFH5OCGESG3": {
-    "start": "Aug 21, 2018 10:00:00 AM",
-    "end": "Aug 21, 2018 10:30:00 AM"
-  },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user3": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user4": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user5": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user6": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user7": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user8": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user9": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user10": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user11": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user12": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user13": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user14": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user15": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user16": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2B8L88BUHVOO6": {
-      "start": "Aug 21, 2018 10:00:00 AM",
-      "end": "Aug 21, 2018 10:30:00 AM"
+    "user17": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "ALF9AAZGlMTT3": {
-      "start": "Aug 19, 2018 09:30:00 PM",
-      "end": "Aug 19, 2018 10:00:00 PM"
+    "user18": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "AM2KK02JXXW48": {
-      "start": "Aug 19, 2018 10:00:00 PM",
-      "end": "Aug 19, 2018 10:30:00 PM"
+    "user19": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A1UHNDB2EQ8TK0": {
-      "start": "Aug 19, 2018 10:30:00 PM",
-      "end": "Aug 19, 2018 11:00:00 PM"
+    "user20": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A1PF01FF85HUY4": {
-      "start": "Aug 19, 2018 11:00:00 PM",
-      "end": "Aug 19, 2018 11:30:00 PM"
+    "user21": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A1HIQZEC2ER7GS": {
-      "start": "Aug 19, 2018 11:30:00 PM",
-      "end": "Aug 20, 2018 12:00:00 AM"
+    "user22": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A31MUX0WVEC6XU": {
-      "start": "Aug 20, 2018 12:00:00 AM",
-      "end": "Aug 20, 2018 12:30:00 AM"
+    "user23": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A4MW34PMEETNCI2": {
-      "start": "Aug 20, 2018 12:30:00 AM",
-      "end": "Aug 20, 2018 01:00:00 AM"
+    "user24": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     },
-    "A2VQ1WGHLLLNJ1": {
-      "start": "Aug 20, 2018 01:00:00 AM",
-      "end": "Aug 20, 2018 01:30:00 AM"
+    "user25": {
+      "start": "Aug 21, 2018 9:00:00 AM",
+      "end": "Aug 23, 2018 13:00:00 PM"
     }
-
-    
   }
 }
