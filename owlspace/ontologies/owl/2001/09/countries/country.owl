@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<rdf:RDF
+  xmlns:rdf ="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns     ="http://on.cs.unibas.ch/owl/2001/09/countries/country.owl#"
+  xml:base="http://on.cs.unibas.ch/owl/2001/09/countries/country.owl">
+
+<owl:Ontology rdf:about="">
+  <owl:versionInfo>$Id: country.owl 2246 2009-07-12 10:35:57Z thorsten $</owl:versionInfo>
+  <rdfs:comment>Base Country Ontology</rdfs:comment>
+</owl:Ontology>
+
+<owl:Class rdf:ID="Country"/>
+
+</rdf:RDF>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: price.owl 2259 2009-07-22 15:57:58Z thorsten $ -->
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:c="http://dangiankit.ddns.net/~dangiankit/owl/concepts.owl#"
+    xml:base="http://dangiankit.ddns.net/~dangiankit/owl/price.owl">
+    <c:Price rdf:ID="OneHundredTwentyDollar">
+        <c:currency rdf:resource="http://dangiankit.ddns.net/~dangiankit/owl/currency.owl#USD"/>
+        <c:amount>120</c:amount>
+    </c:Price>
+</rdf:RDF>

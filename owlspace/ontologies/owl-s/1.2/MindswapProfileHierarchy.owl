@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.2/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.2/Profile.owl">
+  <!ENTITY sparam "http://www.daml.org/services/owl-s/1.2/ServiceParameter.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.2/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.2/Grounding.owl">
+  <!ENTITY this "http://on.cs.unibas.ch/owl-s/1.2/MindswapProfileHierarchy.owl">
+]>
+<rdf:RDF
+  xmlns:owl="&owl;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:rdf="&rdf;#"
+  xmlns:service="&service;#"
+  xmlns:process="&process;#"
+  xmlns:profile="&profile;#"
+  xmlns:sparam="&sparam;#"
+  xmlns:grounding="&grounding;#"
+  xmlns="&this;#"
+  xml:base="&this;">
+
+<owl:Ontology rdf:about="">
+  <owl:imports rdf:resource="&profile;"/>
+  <owl:imports rdf:resource="&sparam;"/>
+  <owl:versionInfo>$Id: MindswapProfileHierarchy.owl 2260 2009-07-22 16:10:49Z thorsten $</owl:versionInfo>
+</owl:Ontology>
+
+<owl:Class rdf:ID="MyRating">
+  <owl:oneOf rdf:parseType="Collection">
+    <MyRating rdf:ID="Excellent" />
+    <MyRating rdf:ID="Good" />
+    <MyRating rdf:ID="Average" />
+    <MyRating rdf:ID="Poor" />
+  </owl:oneOf>
+</owl:Class>
+
+<owl:Class rdf:ID="WebService">
+    <owl:equivalentClass rdf:resource="&profile;#Profile" />
+</owl:Class>
+
+<owl:ObjectProperty rdf:ID="Rating">
+  <rdfs:subPropertyOf rdf:resource="&sparam;#serviceParameter" />
+  <rdfs:domain rdf:resource="#InformationService" />
+  <rdfs:range rdf:resource="#RatingParam" />
+</owl:ObjectProperty>
+
+<owl:Class rdf:ID="RatingParam">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="&sparam;#serviceParameterName" />
+      <owl:hasValue rdf:datatype="&xsd;#string">Quality Rating</owl:hasValue>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="&sparam;#sParameter" />
+      <owl:allValuesFrom rdf:resource="#MyRating" />
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="BookInformationService">
+    <rdfs:label>Book Information Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#InformationService" />
+</owl:Class>
+
+<owl:Class rdf:ID="PresentationService">
+    <rdfs:label>Presentation Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="&profile;#Profile" />
+</owl:Class>
+
+<owl:Class rdf:ID="OutputService">
+    <rdfs:label>Output Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="&profile;#Profile" />
+</owl:Class>
+
+<owl:Class rdf:ID="DisplayService">
+    <rdfs:label>Display Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#OutputService" />
+</owl:Class>
+
+<owl:ObjectProperty rdf:ID="ResolutionParam">
+  <rdfs:subPropertyOf rdf:resource="&sparam;#serviceParameter" />
+  <rdfs:domain rdf:resource="#DisplayService" />
+  <rdfs:range rdf:resource="#Resolution" />
+</owl:ObjectProperty>
+
+<owl:Class rdf:ID="ResolutionProperty">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="&sparam;#serviceParameterName" />
+      <owl:hasValue rdf:datatype="&xsd;#string">Resolution</owl:hasValue>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="&sparam;#sParameter" />
+      <owl:allValuesFrom rdf:resource="#ResolutionType" />
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="Resolution">
+  <owl:oneOf rdf:parseType="Collection">
+    <Resolution rdf:ID="High" />
+    <Resolution rdf:ID="Medium" />
+    <Resolution rdf:ID="Low" />
+  </owl:oneOf>
+</owl:Class>
+
+<owl:Class rdf:ID="PrinterService">
+    <rdfs:label>Printer Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#OutputService" />
+</owl:Class>
+
+<owl:Class rdf:ID="WeatherService">
+    <rdfs:label>Weather Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#WebService" />
+</owl:Class>
+
+<owl:Class rdf:ID="HealthService">
+    <rdfs:label>Health Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#WebService" />
+</owl:Class>
+
+<owl:Class rdf:ID="E_CommerceService">
+    <rdfs:label>E-Commerce Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#WebService" />
+</owl:Class>
+
+<owl:Class rdf:ID="InformationService">
+    <rdfs:label>Information Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#WebService" />
+</owl:Class>
+
+<owl:Class rdf:ID="MapService">
+    <rdfs:label>Map Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#WebService" />
+</owl:Class>
+
+<owl:Class rdf:ID="CurrencyService">
+    <rdfs:label>Currency Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#WebService" />
+</owl:Class>
+
+<owl:Class rdf:ID="LanguageService">
+    <rdfs:label>Language Service</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#WebService" />
+</owl:Class>
+
+
+</rdf:RDF>

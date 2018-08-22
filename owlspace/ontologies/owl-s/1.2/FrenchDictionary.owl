@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.2/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.2/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.2/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.2/Grounding.owl">
+  <!ENTITY expr "http://www.daml.org/services/owl-s/1.2/generic/Expression.owl">
+  <!ENTITY list "http://www.daml.org/services/owl-s/1.2/generic/ObjectList.owl">
+  <!ENTITY factbook "http://on.cs.unibas.ch/owl/2003/09/factbook/factbook-ont.owl">
+  <!ENTITY languages "http://on.cs.unibas.ch/owl/2003/09/factbook/languages.rdf">
+  <!ENTITY mind "http://on.cs.unibas.ch/owl-s/1.2/MindswapProfileHierarchy.owl">
+  <!ENTITY babelfish "http://on.cs.unibas.ch/owl-s/1.2/BabelFishTranslator.owl">
+  <!ENTITY dictionary "http://on.cs.unibas.ch/owl-s/1.2/Dictionary.owl">
+  <!ENTITY this "http://on.cs.unibas.ch/owl-s/1.2/FrenchDictionary.owl">
+]>
+<rdf:RDF
+  xmlns:expression="&expr;#"
+  xmlns:process="&process;#"
+  xmlns:service="&service;#"
+  xmlns:list="&list;#"
+  xmlns:grounding="&grounding;#"
+  xmlns:owl="&owl;#"
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:factbook="&factbook;#"
+  xmlns:profile="&profile;#"
+  xmlns:mind="&mind;#"
+  xmlns="&this;#"
+  xml:base="&this;">
+
+  <owl:Ontology rdf:about="">
+	  <owl:imports rdf:resource="&dictionary;" />
+	  <owl:imports rdf:resource="&babelfish;" />
+     <owl:imports rdf:resource="&mind;"/>
+     <owl:versionInfo>$Id: FrenchDictionary.owl 2260 2009-07-22 16:10:49Z thorsten $</owl:versionInfo>
+  </owl:Ontology>
+
+  <service:Service rdf:ID="FrenchDictionaryService">
+    <service:describedBy>
+      <process:CompositeProcess rdf:ID="FrenchDictionaryProcess"/>
+    </service:describedBy>
+    <service:supports>
+      <grounding:WsdlGrounding rdf:ID="FrenchDictionaryGrounding"/>
+    </service:supports>
+    <service:presents>
+      <profile:Profile rdf:ID="FrenchDictionaryProfile"/>
+    </service:presents>
+  </service:Service>
+
+  <mind:LanguageService rdf:about="#FrenchDictionaryProfile">
+    <profile:hasInput>
+      <process:Input rdf:ID="InputString">
+        <rdfs:label>Input String</rdfs:label>
+        <process:parameterType rdf:datatype="&xsd;#anyURI">http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <rdfs:label>French Dictionary</rdfs:label>
+    <service:presentedBy rdf:resource="#FrenchDictionaryService"/>
+    <profile:textDescription>Combines a translator and English dictionary to provide a French dictionary service</profile:textDescription>
+    <profile:hasOutput>
+      <process:Output rdf:ID="OutputString">
+        <rdfs:label>Output String</rdfs:label>
+        <process:parameterType rdf:datatype="&xsd;#anyURI">http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+      </process:Output>
+    </profile:hasOutput>
+  </mind:LanguageService>
+
+  <process:CompositeProcess rdf:about="#FrenchDictionaryProcess">
+    <service:describes rdf:resource="#FrenchDictionaryService"/>
+    <process:hasInput rdf:resource="#InputString"/>
+    <process:hasOutput rdf:resource="#OutputString"/>
+    <process:hasResult>
+      <process:Result>
+        <process:withOutput>
+          <process:OutputBinding>
+            <process:valueSource>
+              <process:ValueOf>
+                <process:fromProcess rdf:resource="#PerformTranslateEnglishToFrench"/>
+                <process:theVar rdf:resource="&babelfish;#OutputString"/>
+              </process:ValueOf>
+            </process:valueSource>
+            <process:toVar rdf:resource="#OutputString"/>
+          </process:OutputBinding>
+        </process:withOutput>
+      </process:Result>
+    </process:hasResult>
+    <process:composedOf>
+      <process:Sequence>
+        <process:components>
+          <process:ControlConstructList>
+            <list:first rdf:resource="#PerformTranslateFrenchToEnglish"/>
+            <list:rest>
+              <process:ControlConstructList>
+                <list:first rdf:resource="#PerformEnglishDictionary"/>
+	            <list:rest>
+	              <process:ControlConstructList>
+	                <list:first rdf:resource="#PerformTranslateEnglishToFrench"/>
+	                <list:rest rdf:resource="&list;#nil"/>
+	              </process:ControlConstructList>
+	            </list:rest>
+              </process:ControlConstructList>
+            </list:rest>
+          </process:ControlConstructList>
+        </process:components>
+      </process:Sequence>
+    </process:composedOf>
+  </process:CompositeProcess>
+
+  <process:Perform rdf:ID="PerformTranslateFrenchToEnglish">
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:theVar rdf:resource="#InputString"/>
+            <process:fromProcess rdf:resource="&process;#ThisPerform"/>
+          </process:ValueOf>
+        </process:valueSource>
+        <process:toVar rdf:resource="&babelfish;#InputString"/>
+      </process:InputBinding>
+    </process:hasDataFrom>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:valueObject>
+			<factbook:Language rdf:about="&languages;#French" />
+        </process:valueObject>
+        <process:toVar rdf:resource="&babelfish;#InputLanguage"/>
+      </process:InputBinding>
+    </process:hasDataFrom>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:valueObject>
+			<factbook:Language rdf:about="&languages;#English" />
+        </process:valueObject>
+        <process:toVar rdf:resource="&babelfish;#OutputLanguage"/>
+      </process:InputBinding>
+    </process:hasDataFrom>
+    <process:process rdf:resource="&babelfish;#BabelFishTranslatorProcess"/>
+  </process:Perform>
+
+  <process:Perform rdf:ID="PerformEnglishDictionary">
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="#PerformTranslateFrenchToEnglish"/>
+            <process:theVar rdf:resource="&babelfish;#OutputString"/>
+          </process:ValueOf>
+        </process:valueSource>
+        <process:toVar rdf:resource="&dictionary;#InputString"/>
+      </process:InputBinding>
+    </process:hasDataFrom>
+    <process:process rdf:resource="&dictionary;#DictionaryProcess"/>
+  </process:Perform>
+
+  <process:Perform rdf:ID="PerformTranslateEnglishToFrench">
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="#PerformEnglishDictionary"/>
+            <process:theVar rdf:resource="&dictionary;#OutputString"/>
+          </process:ValueOf>
+        </process:valueSource>
+        <process:toVar rdf:resource="&babelfish;#InputString"/>
+      </process:InputBinding>
+    </process:hasDataFrom>
+        <process:hasDataFrom>
+      <process:InputBinding>
+        <process:valueObject>
+			<factbook:Language rdf:about="&languages;#English" />
+        </process:valueObject>
+        <process:toVar rdf:resource="&babelfish;#InputLanguage"/>
+      </process:InputBinding>
+    </process:hasDataFrom>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:valueObject>
+			<factbook:Language rdf:about="&languages;#French" />
+        </process:valueObject>
+        <process:toVar rdf:resource="&babelfish;#OutputLanguage"/>
+      </process:InputBinding>
+    </process:hasDataFrom>
+    <process:process rdf:resource="&babelfish;#BabelFishTranslatorProcess"/>
+  </process:Perform>
+
+  <grounding:WsdlGrounding rdf:about="#FrenchDictionaryGrounding">
+    <grounding:hasAtomicProcessGrounding rdf:resource="&babelfish;#BabelFishTranslatorProcessGrounding"/>
+    <grounding:hasAtomicProcessGrounding rdf:resource="&dictionary;#DictionaryProcessGrounding"/>
+    <service:supportedBy rdf:resource="#FrenchDictionaryService"/>
+  </grounding:WsdlGrounding>
+</rdf:RDF>

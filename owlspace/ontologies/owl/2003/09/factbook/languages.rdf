@@ -1,0 +1,1479 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE uridef [
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY factbook "http://on.cs.unibas.ch/owl/2003/09/factbook/factbook-ont.owl">
+  <!ENTITY this "http://on.cs.unibas.ch/owl/2003/09/factbook/languages.rdf">
+]>
+<rdf:RDF
+  xmlns:rdf='&rdf;#'
+  xmlns:NS0='&factbook;#'
+  xml:base="&this;">
+
+  <rdf:Description rdf:about='&this;#Bangla'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bangla</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Hindi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Hindi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Melanesian_pidgin_in_much_of_the_country_is_lingua_franca;_English_is_official_but_spoken_by_only_1%-2%_of_the_population'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Melanesian pidgin in much of the country is lingua franca; English is official but spoken by only 1%-2% of the population</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Cebuano'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Cebuano</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#ethnic_and_regional_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>ethnic and regional dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Mahorian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Mahorian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kurdish'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kurdish</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#pidgin_English_widespread'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>pidgin English widespread</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Romansch'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Romansch</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Welsh'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Welsh</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#government'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>government</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#used_for_most_government_and_commercial_purposes'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>used for most government and commercial purposes</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tobi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tobi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bantu_and_other_African_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bantu and other African languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Turkish'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Turkish</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Norfolk_a_mixture_of_18th_century_English_and_ancient_Tahitian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Norfolk a mixture of 18th century English and ancient Tahitian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Malayalam'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Malayalam</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tshiluba'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tshiluba</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Dzongkha'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Dzongkha</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Castilian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Castilian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Circassian_widely_understood;_French'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Circassian widely understood; French</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Lozi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Lozi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nyanja'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nyanja</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kiribati'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kiribati</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nilo-Hamitic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nilo-Hamitic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#the_largest_are_Iban_and_Kadazan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>the largest are Iban and Kadazan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Chamorro'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Chamorro</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Papiamento_predominates'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Papiamento predominates</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#indigenous_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>indigenous dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#11_official_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>11 official languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#tribal_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>tribal languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Afghan_Persian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Afghan Persian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nepalese_speak_various_Nepalese_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nepalese speak various Nepalese dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#a_Polynesian_language_closely_related_to_Tongan_and_Samoan;_English'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>a Polynesian language closely related to Tongan and Samoan; English</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Lingala_and_Monokutuba'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Lingala and Monokutuba</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#siSwati'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>siSwati</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Russian_-_official_language'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Russian - official language</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#of_which_a_few_can_be_written_and_are_used_in_correspondence'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>of which a few can be written and are used in correspondence</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Italian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Italian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Wolof'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Wolof</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Sinhala'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Sinhala</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Faroese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Faroese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#I-Kiribati'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>I-Kiribati</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Siraiki'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Siraiki</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Pulaar'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Pulaar</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Armenian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Armenian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Portunol'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Portunol</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#33_Melanesian-Polynesian_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>33 Melanesian-Polynesian dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Norman-French_dialect_spoken_in_country_districts'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Norman-French dialect spoken in country districts</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Guaragigna'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Guaragigna</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Yoruba'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Yoruba</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_spoken_by'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English spoken by</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Russian_95%_(2001_est.)'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Russian 95% (2001 est.)</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Swazi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Swazi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Guarani'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Guarani</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tigrinya'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tigrinya</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Serbian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Serbian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kingwana'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kingwana</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Romanian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Romanian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Taiwanese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Taiwanese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Temne'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Temne</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Chinese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Chinese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#French_often_the_language_of_business'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>French often the language of business</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Afar'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Afar</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Korean'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Korean</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Telugu'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Telugu</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_spoken_by_most_government_officials'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English spoken by most government officials</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Manx_Gaelic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Manx Gaelic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#numerous_African_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>numerous African languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#patois_English'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>patois English</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Burushaski'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Burushaski</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#spoken'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>spoken</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Russian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Russian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bahasa_Indonesia'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bahasa Indonesia</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#minority_ethnic_groups_have_their_own_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>minority ethnic groups have their own languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#various_Mayan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>various Mayan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#numerous_indigenous_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>numerous indigenous dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#rapidly_declining_regional_dialects_and_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>rapidly declining regional dialects and languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#French_spoken_by_35%_of_the_population'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>French spoken by 35% of the population</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Persian_and_Persian_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Persian and Persian dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Khmer'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Khmer</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Maori'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Maori</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Pangasinense'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Pangasinense</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Ewe_and_Mina'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Ewe and Mina</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Arabic_used_officially_for_Arab_minority'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Arabic used officially for Arab minority</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Spanish'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Spanish</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Yapese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Yapese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kiswahili_or_Swahili'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kiswahili or Swahili</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_widely_understood'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English widely understood</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#French'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>French</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#other_languages_important_regionally'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>other languages important regionally</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Krio'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Krio</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kirundi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kirundi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Zulu'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Zulu</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#local_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>local dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tswana'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tswana</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Balochi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Balochi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Latin'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Latin</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#in_East_Malaysia_several_indigenous_languages_are_spoken'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>in East Malaysia several indigenous languages are spoken</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Punjabi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Punjabi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Marathi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Marathi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_somewhat_understood'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English somewhat understood</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tonga'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tonga</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#native_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>native languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Sara'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Sara</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kiunguju'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kiunguju</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#German'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>German</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#some_20_ethnic_group_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>some 20 ethnic group languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Castilian_Spanish'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Castilian Spanish</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Luxembourgish'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Luxembourgish</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Ganda_or_Luganda'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Ganda or Luganda</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Arabic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Arabic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nahuatl'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nahuatl</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Somali'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Somali</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Gagauz'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Gagauz</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Azerbaijani'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Azerbaijani</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Latvian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Latvian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bicol'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bicol</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Burmese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Burmese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#three_official_languages:_English'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>three official languages: English</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Azeri'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Azeri</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_and_French_widely_understood_by_educated_classes'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English and French widely understood by educated classes</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#numerous_but_minor_tribal_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>numerous but minor tribal dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Fulani'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Fulani</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Chinese_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Chinese dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kikongo'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kikongo</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Setswana'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Setswana</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#political'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>political</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Shikomoro'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Shikomoro</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nukuoro'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nukuoro</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#more_than_120_different_languages_and_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>more than 120 different languages and dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Aramaic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Aramaic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Luvale'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Luvale</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Georgian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Georgian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#other_Niger-Congo_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>other Niger-Congo languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Arabic_;_Kurdish'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Arabic ; Kurdish</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English;_both_are_official'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English; both are official</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Standard_Chinese_or_Mandarin'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Standard Chinese or Mandarin</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Malay'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Malay</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Portuguese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Portuguese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Wallisian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Wallisian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nilo-Saharan_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nilo-Saharan languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Mandinka'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Mandinka</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Polish'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Polish</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Hakka'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Hakka</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kannada'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kannada</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Trukese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Trukese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Fula'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Fula</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Hiligaynon_or_Ilonggo'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Hiligaynon or Ilonggo</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Oromigna'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Oromigna</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Swedish'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Swedish</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bhotes_speak_various_Tibetan_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bhotes speak various Tibetan dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Estonian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Estonian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Motu_spoken_in_Papua_region'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Motu spoken in Papua region</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Farsi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Farsi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#the_most_widely_spoken_of_which_is_Javanese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>the most widely spoken of which is Javanese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Jola'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Jola</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#many_local_languages_and_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>many local languages and dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Thai;_note_-_in_addition'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Thai; note - in addition</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Garifuna'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Garifuna</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Irish_spoken_mainly_in_areas_located_along_the_western_seaboard'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Irish spoken mainly in areas located along the western seaboard</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#other_Cushitic_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>other Cushitic languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Albanian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Albanian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Woleaian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Woleaian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Thai'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Thai</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Croatian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Croatian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Czech'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Czech</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bahasa_Melayu'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bahasa Melayu</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nordic_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nordic languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#French_patois'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>French patois</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tahitian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tahitian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Gan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Gan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Gujarati'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Gujarati</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Djerma'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Djerma</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Sangho'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Sangho</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Fon_and_Yoruba'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Fon and Yoruba</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tigre_and_Kunama'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tigre and Kunama</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Lingala'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Lingala</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Khalkha_Mongol'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Khalkha Mongol</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Niuean'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Niuean</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Fang'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Fang</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#diplomacy'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>diplomacy</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Pampango'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Pampango</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tokelauan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tokelauan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_enjoys_associate_status_but_is_the_most_important_language_for_national'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English enjoys associate status but is the most important language for national</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#secondary_languages_closely_correspond_to_ethnic_breakdown'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>secondary languages closely correspond to ethnic breakdown</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Mayan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Mayan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Persian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Persian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#some_French'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>some French</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Baluchi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Baluchi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tamil'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tamil</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_most_commonly_used_foreign_language'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English most commonly used foreign language</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kosrean'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kosrean</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Icelandic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Icelandic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Mandarin_Chinese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Mandarin Chinese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_spoken_around_Puerto_Limon'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English spoken around Puerto Limon</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Ndebele'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Ndebele</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Indian_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Indian dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#major_vernaculars_-_Bemba'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>major vernaculars - Bemba</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#or_Brazilero'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>or Brazilero</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Serbo-Croatian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Serbo-Croatian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nama'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nama</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#small_Sami-_and_Russian-speaking_minorities'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>small Sami- and Russian-speaking minorities</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#minority_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>minority languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Turkic_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Turkic languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Minbei'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Minbei</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tuvaluan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tuvaluan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Moldovan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Moldovan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Sudanic_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Sudanic languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#about_70_other_indigenous_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>about 70 other indigenous languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bubi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bubi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Moroccan_Arabic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Moroccan Arabic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Lao'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Lao</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Sranang_Tongo'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Sranang Tongo</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Hindko'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Hindko</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Monegasque'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Monegasque</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#various_other_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>various other languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#many_local_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>many local languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Turkic_and_Turkic_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Turkic and Turkic dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Carolinian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Carolinian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kiswahili_used_in_commercial_centers'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kiswahili used in commercial centers</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_and_Palauan_official_in_all_states_except_Sonsoral'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English and Palauan official in all states except Sonsoral</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Fijian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Fijian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nahua'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nahua</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Papiamento'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Papiamento</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Russian_widely_used_in_government_and_business'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Russian widely used in government and business</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Wu'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Wu</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Berber_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Berber dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Lithuanian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Lithuanian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#30_minor_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>30 minor languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Hungarian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Hungarian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#various_ethnic_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>various ethnic languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Turkic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Turkic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Oriya'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Oriya</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Malagasy'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Malagasy</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Ukrainian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Ukrainian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Dutch'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Dutch</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Amharic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Amharic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Igbo'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Igbo</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Swahili'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Swahili</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Uzbek'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Uzbek</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Slovene'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Slovene</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#African_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>African languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Aymara'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Aymara</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Sanskrit;_Hindustani_is_a_popular_variant_of_Hindi_Urdu_spoken_widely_throughout_northern_India_but_is_not_an_official_language'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Sanskrit; Hindustani is a popular variant of Hindi/Urdu spoken widely throughout northern India but is not an official language</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Maltese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Maltese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Lunda'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Lunda</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kapingamarangi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kapingamarangi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Mende'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Mende</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bulgarian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bulgarian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Samoan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Samoan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Waray'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Waray</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#each_ethnic_group_has_its_own_language'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>each ethnic group has its own language</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Sindebele'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Sindebele</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Vietnamese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Vietnamese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Basque'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Basque</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#about_a_dozen_other_languages_and_about_30_major_dialects;_note_-_many_in_government_and_business_also_speak_English'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>about a dozen other languages and about 30 major dialects; note - many in government and business also speak English</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Ibo'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Ibo</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#native_African_languages_belonging_to_Sudanic_family_spoken_by_90%_of_the_population'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>native African languages belonging to Sudanic family spoken by 90% of the population</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Panjabi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Panjabi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Angaur'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Angaur</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Finnish'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Finnish</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Danish'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Danish</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Herero'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Herero</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bosnian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bosnian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Ulithian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Ulithian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kabye_and_Dagomba_(the_two_major_African_languages_in_the_north)'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kabye and Dagomba (the two major African languages in the north)</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Amerindian_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Amerindian languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Belarusian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Belarusian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tajik'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tajik</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Macedonian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Macedonian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_is_the_language_generally_used'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English is the language generally used</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Creole_patois'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Creole patois</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Pedi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Pedi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Hakka_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Hakka dialects</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kyrgyz_-_official_language'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kyrgyz - official language</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Afrikaans_common_language_of_most_of_the_population_and_about_60%_of_the_white_population'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Afrikaans common language of most of the population and about 60% of the white population</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#legally_bilingual'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>legally bilingual</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Creole_widely_used'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Creole widely used</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#German_widely_spoken'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>German widely spoken</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Catalan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Catalan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tongan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tongan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Xiang'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Xiang</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Ta_Bedawie'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Ta Bedawie</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kaonda'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kaonda</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Creole'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Creole</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Minnan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Minnan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#diverse_dialects_of_Nilotic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>diverse dialects of Nilotic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#60_native_dialects_with_Dioula_the_most_widely_spoken'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>60 native dialects with Dioula the most widely spoken</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tetum'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tetum</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_widely_understood_among_upper_and_middle_classes'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English widely understood among upper and middle classes</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Khmer;_mountain_area_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Khmer; mountain area languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nauruan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nauruan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#all_are_widely_understood_in_the_major_cities'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>all are widely understood in the major cities</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Sindhi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Sindhi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kiswahili'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kiswahili</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kinyarwanda_universal_Bantu_vernacular'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kinyarwanda universal Bantu vernacular</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Hausa'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Hausa</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Urdu'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Urdu</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Norwegian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Norwegian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Indonesian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Indonesian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Pohnpeian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Pohnpeian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bhojpuri'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bhojpuri</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Hebrew'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Hebrew</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Hassaniya_Arabic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Hassaniya Arabic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Shona'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Shona</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#including_Afrikaans'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>including Afrikaans</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nepali'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nepali</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#two_major_Marshallese_dialects_from_the_Malayo-Polynesian_family'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>two major Marshallese dialects from the Malayo-Polynesian family</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_widely_taught_in_junior_high_and_high_school'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English widely taught in junior high and high school</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Myene'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Myene</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#other_indigenous_vernaculars'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>other indigenous vernaculars</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Soninke'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Soninke</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#pidgin'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>pidgin</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Javanese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Javanese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Luri'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Luri</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Assamese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Assamese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Sotho'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Sotho</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#German_less_than'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>German less than</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#pidgin_English'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>pidgin English</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Brahui'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Brahui</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Galician'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Galician</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Slovenian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Slovenian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Pitcairnese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Pitcairnese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Sesotho'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Sesotho</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Alemannic_dialect'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Alemannic dialect</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Tsonga'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Tsonga</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Scottish_form_of_Gaelic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Scottish form of Gaelic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nzebi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nzebi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#other_regional_indigenous_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>other regional indigenous languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#indigenous_languages:_Oshivambo'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>indigenous languages: Oshivambo</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#other'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>other</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#24_major_African_language_groups'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>24 major African language groups</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#other_local_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>other local languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Maldivian_Dhivehi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Maldivian Dhivehi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Greenlandic'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Greenlandic</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Quechua'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Quechua</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Slovak'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Slovak</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Assyrian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Assyrian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Chichewa'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Chichewa</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Xhosa'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Xhosa</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kazakh'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kazakh</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Frisian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Frisian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Ilocan'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Ilocan</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_widely_spoken'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English widely spoken</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bapounou_Eschira'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bapounou/Eschira</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Hindustani'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Hindustani</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#two_official_languages_-_Filipino_and_English;_eight_major_dialects_-_Tagalog'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>two official languages - Filipino and English; eight major dialects - Tagalog</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Turkmen'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Turkmen</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#plus_more_than_100_local_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>plus more than 100 local languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#commercial_communication;_Hindi_is_the_national_language_and_primary_tongue_of_30%_of_the_people;_there_are_14_other_official_languages:_Bengali'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>commercial communication; Hindi is the national language and primary tongue of 30% of the people; there are 14 other official languages: Bengali</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bandjabi'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bandjabi</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Kashmiri'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Kashmiri</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Nubian'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Nubian</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Japanese'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Japanese</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#much_bilingualism'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>much bilingualism</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Pashtu'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Pashtu</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Yue'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Yue</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Crioulo'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Crioulo</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#numerous_indigenous_languages'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>numerous indigenous languages</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Venda'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Venda</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#English_commonly_used_as_a_second_language'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>English commonly used as a second language</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Bambara'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Bambara</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Greek'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Greek</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='&this;#Amerindian_dialects'>
+    <rdf:type rdf:resource='&factbook;#Language'/>
+    <NS0:name>Amerindian dialects</NS0:name>
+  </rdf:Description>
+</rdf:RDF>

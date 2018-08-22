@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.2/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.2/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.2/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.2/Grounding.owl">
+  <!ENTITY mind "http://dangiankit.ddns.net/~dangiankit/owl-s/1.2/MindswapProfileHierarchy.owl">
+  <!ENTITY zip "http://www.daml.org/2001/10/html/zipcode-ont">
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xmlns:mind="&mind;#"
+  xml:base="http://dangiankit.ddns.net/~dangiankit/owl-s/1.2/ZipCodeFinder.owl">
+
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="&profile;"/>
+	<owl:imports rdf:resource="&grounding;"/>
+	<owl:imports rdf:resource="&zip;"/>
+	<owl:imports rdf:resource="&mind;"/>
+	<owl:versionInfo>$Id: ZipCodeFinder.owl 2262 2009-08-18 12:03:24Z thorsten $</owl:versionInfo>
+</owl:Ontology>
+
+<!-- Service description -->
+<service:Service rdf:ID="ZipCodeFinderService">
+	<service:presents rdf:resource="#ZipCodeFinderProfile"/>
+
+	<service:describedBy rdf:resource="#ZipCodeFinderProcess"/>
+
+	<service:supports rdf:resource="#ZipCodeFinderGrounding"/>
+</service:Service>
+
+<!-- Profile description -->
+<mind:MapService rdf:ID="ZipCodeFinderProfile">
+	<service:presentedBy rdf:resource="#ZipCodeFinderService"/>
+
+	<profile:serviceName xml:lang="en">Find ZipCode</profile:serviceName>
+	<profile:textDescription xml:lang="en">Returns the zip code for the given city/state. If there are more than one zip codes associated with that city only the first one is returned.</profile:textDescription>
+
+	<profile:hasInput rdf:resource="#City"/>
+	<profile:hasInput rdf:resource="#State"/>
+
+	<profile:hasOutput rdf:resource="#ZipCode"/>
+</mind:MapService>
+
+<!-- Process description -->
+<process:AtomicProcess rdf:ID="ZipCodeFinderProcess">
+	<service:describes rdf:resource="#ZipCodeFinderService"/>
+
+	<process:hasInput rdf:resource="#City"/>
+	<process:hasInput rdf:resource="#State"/>
+
+	<process:hasOutput rdf:resource="#ZipCode"/>
+</process:AtomicProcess>
+
+<process:Input rdf:ID="City">
+	<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#string</process:parameterType>
+	<rdfs:label>0:City</rdfs:label>
+</process:Input>
+
+<process:Input rdf:ID="State">
+	<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#string</process:parameterType>
+	<rdfs:label>1:State</rdfs:label>
+</process:Input>
+
+<process:Output rdf:ID="ZipCode">
+	<process:parameterType rdf:datatype="&xsd;#anyURI">&zip;#ZipCode</process:parameterType>
+	<rdfs:label>ZipCode</rdfs:label>
+</process:Output>
+
+<!-- Grounding description -->
+<grounding:WsdlGrounding rdf:ID="ZipCodeFinderGrounding">
+	<service:supportedBy rdf:resource="#ZipCodeFinderService"/>
+	<grounding:hasAtomicProcessGrounding rdf:resource="#ZipCodeFinderProcessGrounding"/>
+</grounding:WsdlGrounding>
+
+<grounding:WsdlAtomicProcessGrounding rdf:ID="ZipCodeFinderProcessGrounding">
+	<grounding:owlsProcess rdf:resource="#ZipCodeFinderProcess"/>
+	<grounding:wsdlDocument rdf:datatype="&xsd;#anyURI">http://www.tilisoft.com/ws/LocInfo/ZipCode.asmx?WSDL</grounding:wsdlDocument>
+	<grounding:wsdlOperation>
+		<grounding:WsdlOperationRef>
+			<grounding:portType rdf:datatype="&xsd;#anyURI">http://www.tilisoft.com/ws/LocInfo/ZipCodeSoap</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;#anyURI">http://www.tilisoft.com/ws/LocInfo/ListByCity</grounding:operation>
+		</grounding:WsdlOperationRef>
+	</grounding:wsdlOperation>
+
+	<grounding:wsdlInputMessage rdf:datatype="&xsd;#anyURI">http://www.tilisoft.com/ws/LocInfo/ListByCitySoapIn</grounding:wsdlInputMessage>
+	<grounding:wsdlInput>
+		<grounding:WsdlInputMessageMap>
+			<grounding:owlsParameter rdf:resource="#City"/>
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">http://www.tilisoft.com/ws/LocInfo/City</grounding:wsdlMessagePart>
+		</grounding:WsdlInputMessageMap>
+	</grounding:wsdlInput>
+	<grounding:wsdlInput>
+		<grounding:WsdlInputMessageMap>
+			<grounding:owlsParameter rdf:resource="#State"/>
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">http://www.tilisoft.com/ws/LocInfo/StateAbbr</grounding:wsdlMessagePart>
+		</grounding:WsdlInputMessageMap>
+	</grounding:wsdlInput>
+
+	<grounding:wsdlOutputMessage rdf:datatype="&xsd;#anyURI">http://www.tilisoft.com/ws/LocInfo/ListByCitySoapOut</grounding:wsdlOutputMessage>
+	<grounding:wsdlOutput>
+		<grounding:WsdlOutputMessageMap>
+			<grounding:owlsParameter rdf:resource="#ZipCode"/>
+			<!-- As of OWL-S 1.2 wsdlMessagePart must not be used for XSLTOutputMessageMap; the
+			     cardinality of the property is 0. The XSLT transformation is supposed to select
+			     the desired WSDL message part(s). In this example this is achieved by
+			     selecting "//ListByCityResult", cf. XSLT template match.
+			  grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">http://www.tilisoft.com/ws/LocInfo/ListByCityResult</grounding:wsdlMessagePart-->
+			<grounding:xsltTransformationString>
+			  <![CDATA[
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tilisoft.com/ws/LocInfo/DataObjects/ZipCodeData.xsd">
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+	<xsl:template match="//ListByCityResult">
+		<xsl:variable name="X1" select="//ns:ZipCodeData/ns:ZipCodeInfo /ns:ZIPCODE"/>
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:zipcode-ont="http://www.daml.org/2001/10/html/zipcode-ont#">
+			<zipcode-ont:ZipCode>
+				<zipcode-ont:zip><xsl:value-of select="$X1"/></zipcode-ont:zip>
+			</zipcode-ont:ZipCode>
+		</rdf:RDF>
+	</xsl:template>
+</xsl:stylesheet>
+			  ]]>
+			</grounding:xsltTransformationString>
+		</grounding:WsdlOutputMessageMap>
+	</grounding:wsdlOutput>
+</grounding:WsdlAtomicProcessGrounding>
+
+</rdf:RDF>

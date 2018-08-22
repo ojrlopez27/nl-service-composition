@@ -1,0 +1,1218 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!-- $Id: iso.owl 2246 2009-07-12 10:35:57Z thorsten $ -->
+<!DOCTYPE uridef[
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY iso-ont "http://on.cs.unibas.ch/owl/2001/09/countries/iso-3166.owl">
+  <!ENTITY DEFAULT "http://on.cs.unibas.ch/owl/2001/09/countries/iso.owl">
+  <!ENTITY THIS "http://on.cs.unibas.ch/owl/2001/09/countries/iso.owl">
+]>
+
+<rdf:RDF
+  xmlns:rdf=    "&rdf;#"
+  xmlns:NS0=    "&iso-ont;#"
+  xmlns=        "&DEFAULT;#"
+  xml:base=     "&DEFAULT;">
+
+  <rdf:Description rdf:about='#VG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>VG</NS0:code>
+    <NS0:name>VIRGIN ISLANDS, BRITISH</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KE</NS0:code>
+    <NS0:name>KENYA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MQ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MQ</NS0:code>
+    <NS0:name>MARTINIQUE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GA</NS0:code>
+    <NS0:name>GABON</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KM</NS0:code>
+    <NS0:name>COMOROS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#FK'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>FK</NS0:code>
+    <NS0:name>FALKLAND ISLANDS (MALVINAS)</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GU'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GU</NS0:code>
+    <NS0:name>GUAM</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SM</NS0:code>
+    <NS0:name>SAN MARINO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#UG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>UG</NS0:code>
+    <NS0:name>UGANDA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#DE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>DE</NS0:code>
+    <NS0:name>GERMANY</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BF'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BF</NS0:code>
+    <NS0:name>BURKINA FASO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LA</NS0:code>
+    <NS0:name>LAO PEOPLE&apos;S DEMOCRATIC REPUBLIC</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#ES'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>ES</NS0:code>
+    <NS0:name>SPAIN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#FM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>FM</NS0:code>
+    <NS0:name>MICRONESIA, FEDERATED STATES OF</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GW'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GW</NS0:code>
+    <NS0:name>GUINEA-BISSAU</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#FJ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>FJ</NS0:code>
+    <NS0:name>FIJI</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BA</NS0:code>
+    <NS0:name>BOSNIA AND HERZEGOVINA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SN</NS0:code>
+    <NS0:name>SENEGAL</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SI'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SI</NS0:code>
+    <NS0:name>SLOVENIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CI'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CI</NS0:code>
+    <NS0:name>COTE D&apos;IVOIRE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BB'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BB</NS0:code>
+    <NS0:name>BARBADOS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BE</NS0:code>
+    <NS0:name>BELGIUM</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#IQ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>IQ</NS0:code>
+    <NS0:name>IRAQ</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#ER'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>ER</NS0:code>
+    <NS0:name>ERITREA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SY'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SY</NS0:code>
+    <NS0:name>SYRIAN ARAB REPUBLIC</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MP'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MP</NS0:code>
+    <NS0:name>NORTHERN MARIANA ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KN</NS0:code>
+    <NS0:name>SAINT KITTS AND NEVIS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GB'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GB</NS0:code>
+    <NS0:name>UNITED KINGDOM</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AI'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AI</NS0:code>
+    <NS0:name>ANGUILLA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GR</NS0:code>
+    <NS0:name>GREECE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#IL'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>IL</NS0:code>
+    <NS0:name>ISRAEL</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GS'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GS</NS0:code>
+    <NS0:name>SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PG</NS0:code>
+    <NS0:name>PAPUA NEW GUINEA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SJ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SJ</NS0:code>
+    <NS0:name>SVALBARD AND JAN MAYEN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NU'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NU</NS0:code>
+    <NS0:name>NIUE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#HM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>HM</NS0:code>
+    <NS0:name>HEARD ISLAND AND MCDONALD ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GT'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GT</NS0:code>
+    <NS0:name>GUATEMALA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PF'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PF</NS0:code>
+    <NS0:name>FRENCH POLYNESIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CM</NS0:code>
+    <NS0:name>CAMEROON</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MY'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MY</NS0:code>
+    <NS0:name>MALAYSIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LI'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LI</NS0:code>
+    <NS0:name>LIECHTENSTEIN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#VE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>VE</NS0:code>
+    <NS0:name>VENEZUELA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#RW'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>RW</NS0:code>
+    <NS0:name>RWANDA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SD'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SD</NS0:code>
+    <NS0:name>SUDAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#RU'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>RU</NS0:code>
+    <NS0:name>RUSSIAN FEDERATION</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PH'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PH</NS0:code>
+    <NS0:name>PHILIPPINES</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SC'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SC</NS0:code>
+    <NS0:name>SEYCHELLES</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#DZ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>DZ</NS0:code>
+    <NS0:name>ALGERIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BS'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BS</NS0:code>
+    <NS0:name>BAHAMAS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BZ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BZ</NS0:code>
+    <NS0:name>BELIZE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#VI'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>VI</NS0:code>
+    <NS0:name>VIRGIN ISLANDS, U.S.</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BD'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BD</NS0:code>
+    <NS0:name>BANGLADESH</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BY'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BY</NS0:code>
+    <NS0:name>BELARUS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#IN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>IN</NS0:code>
+    <NS0:name>INDIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#ET'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>ET</NS0:code>
+    <NS0:name>ETHIOPIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BG</NS0:code>
+    <NS0:name>BULGARIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BW'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BW</NS0:code>
+    <NS0:name>BOTSWANA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CY'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CY</NS0:code>
+    <NS0:name>CYPRUS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MD'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MD</NS0:code>
+    <NS0:name>MOLDOVA, REPUBLIC OF</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#EE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>EE</NS0:code>
+    <NS0:name>ESTONIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BH'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BH</NS0:code>
+    <NS0:name>BAHRAIN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#HU'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>HU</NS0:code>
+    <NS0:name>HUNGARY</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MN</NS0:code>
+    <NS0:name>MONGOLIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NE</NS0:code>
+    <NS0:name>NIGER</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TW'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TW</NS0:code>
+    <NS0:name>TAIWAN, PROVINCE OF CHINA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NC'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NC</NS0:code>
+    <NS0:name>NEW CALEDONIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#ML'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>ML</NS0:code>
+    <NS0:name>MALI</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AO</NS0:code>
+    <NS0:name>ANGOLA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#OM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>OM</NS0:code>
+    <NS0:name>OMAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CZ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CZ</NS0:code>
+    <NS0:name>CZECH REPUBLIC</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#IS'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>IS</NS0:code>
+    <NS0:name>ICELAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#UM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>UM</NS0:code>
+    <NS0:name>UNITED STATES MINOR OUTLYING ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BV'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BV</NS0:code>
+    <NS0:name>BOUVET ISLAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#ZA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>ZA</NS0:code>
+    <NS0:name>SOUTH AFRICA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#EC'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>EC</NS0:code>
+    <NS0:name>ECUADOR</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MC'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MC</NS0:code>
+    <NS0:name>MONACO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PK'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PK</NS0:code>
+    <NS0:name>PAKISTAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#IT'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>IT</NS0:code>
+    <NS0:name>ITALY</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TO</NS0:code>
+    <NS0:name>TONGA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BR</NS0:code>
+    <NS0:name>BRAZIL</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AZ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AZ</NS0:code>
+    <NS0:name>AZERBAIJAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TN</NS0:code>
+    <NS0:name>TUNISIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PT'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PT</NS0:code>
+    <NS0:name>PORTUGAL</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#VA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>VA</NS0:code>
+    <NS0:name>HOLY SEE (VATICAN CITY STATE)</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GD'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GD</NS0:code>
+    <NS0:name>GRENADA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BO</NS0:code>
+    <NS0:name>BOLIVIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#HN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>HN</NS0:code>
+    <NS0:name>HONDURAS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MM</NS0:code>
+    <NS0:name>MYANMAR</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TV'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TV</NS0:code>
+    <NS0:name>TUVALU</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SO</NS0:code>
+    <NS0:name>SOMALIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#VC'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>VC</NS0:code>
+    <NS0:name>SAINT VINCENT AND THE GRENADINES</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#IO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>IO</NS0:code>
+    <NS0:name>BRITISH INDIAN OCEAN TERRITORY</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TT'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TT</NS0:code>
+    <NS0:name>TRINIDAD AND TOBAGO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KW'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KW</NS0:code>
+    <NS0:name>KUWAIT</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MO</NS0:code>
+    <NS0:name>MACAO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BI'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BI</NS0:code>
+    <NS0:name>BURUNDI</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GF'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GF</NS0:code>
+    <NS0:name>FRENCH GUIANA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KR</NS0:code>
+    <NS0:name>KOREA, REPUBLIC OF</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AW'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AW</NS0:code>
+    <NS0:name>ARUBA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PL'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PL</NS0:code>
+    <NS0:name>POLAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MG</NS0:code>
+    <NS0:name>MADAGASCAR</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SE</NS0:code>
+    <NS0:name>SWEDEN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#DJ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>DJ</NS0:code>
+    <NS0:name>DJIBOUTI</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#ZW'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>ZW</NS0:code>
+    <NS0:name>ZIMBABWE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TR</NS0:code>
+    <NS0:name>TURKEY</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#DM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>DM</NS0:code>
+    <NS0:name>DOMINICA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#HR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>HR</NS0:code>
+    <NS0:name>CROATIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#WS'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>WS</NS0:code>
+    <NS0:name>SAMOA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MK'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MK</NS0:code>
+    <NS0:name>MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GE</NS0:code>
+    <NS0:name>GEORGIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PM</NS0:code>
+    <NS0:name>SAINT PIERRE AND MIQUELON</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#UA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>UA</NS0:code>
+    <NS0:name>UKRAINE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#UY'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>UY</NS0:code>
+    <NS0:name>URUGUAY</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#DO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>DO</NS0:code>
+    <NS0:name>DOMINICAN REPUBLIC</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#IR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>IR</NS0:code>
+    <NS0:name>IRAN, ISLAMIC REPUBLIC OF</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GY'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GY</NS0:code>
+    <NS0:name>GUYANA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#IE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>IE</NS0:code>
+    <NS0:name>IRELAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BT'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BT</NS0:code>
+    <NS0:name>BHUTAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#US'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>US</NS0:code>
+    <NS0:name>UNITED STATES</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SG</NS0:code>
+    <NS0:name>SINGAPORE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PA</NS0:code>
+    <NS0:name>PANAMA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BJ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BJ</NS0:code>
+    <NS0:name>BENIN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MR</NS0:code>
+    <NS0:name>MAURITANIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#UZ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>UZ</NS0:code>
+    <NS0:name>UZBEKISTAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SH'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SH</NS0:code>
+    <NS0:name>SAINT HELENA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LK'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LK</NS0:code>
+    <NS0:name>SRI LANKA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#DK'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>DK</NS0:code>
+    <NS0:name>DENMARK</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LS'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LS</NS0:code>
+    <NS0:name>LESOTHO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CX'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CX</NS0:code>
+    <NS0:name>CHRISTMAS ISLAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MT'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MT</NS0:code>
+    <NS0:name>MALTA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LT'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LT</NS0:code>
+    <NS0:name>LITHUANIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GH'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GH</NS0:code>
+    <NS0:name>GHANA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AE</NS0:code>
+    <NS0:name>UNITED ARAB EMIRATES</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PE</NS0:code>
+    <NS0:name>PERU</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AF'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AF</NS0:code>
+    <NS0:name>AFGHANISTAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#YT'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>YT</NS0:code>
+    <NS0:name>MAYOTTE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MH'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MH</NS0:code>
+    <NS0:name>MARSHALL ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NZ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NZ</NS0:code>
+    <NS0:name>NEW ZEALAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NP'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NP</NS0:code>
+    <NS0:name>NEPAL</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#EH'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>EH</NS0:code>
+    <NS0:name>WESTERN SAHARA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#ID'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>ID</NS0:code>
+    <NS0:name>INDONESIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CU'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CU</NS0:code>
+    <NS0:name>CUBA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NI'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NI</NS0:code>
+    <NS0:name>NICARAGUA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TH'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TH</NS0:code>
+    <NS0:name>THAILAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TZ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TZ</NS0:code>
+    <NS0:name>TANZANIA, UNITED REPUBLIC OF</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SV'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SV</NS0:code>
+    <NS0:name>EL SALVADOR</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LR</NS0:code>
+    <NS0:name>LIBERIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MA</NS0:code>
+    <NS0:name>MOROCCO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MS'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MS</NS0:code>
+    <NS0:name>MONTSERRAT</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#EG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>EG</NS0:code>
+    <NS0:name>EGYPT</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GI'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GI</NS0:code>
+    <NS0:name>GIBRALTAR</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CS'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CS</NS0:code>
+    <NS0:name>SERBIA AND MONTENEGRO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LB'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LB</NS0:code>
+    <NS0:name>LEBANON</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TK'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TK</NS0:code>
+    <NS0:name>TOKELAU</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LC'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LC</NS0:code>
+    <NS0:name>SAINT LUCIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TJ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TJ</NS0:code>
+    <NS0:name>TAJIKISTAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NF'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NF</NS0:code>
+    <NS0:name>NORFOLK ISLAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LV'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LV</NS0:code>
+    <NS0:name>LATVIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CR</NS0:code>
+    <NS0:name>COSTA RICA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AX'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AX</NS0:code>
+    <NS0:name>�LAND ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BN</NS0:code>
+    <NS0:name>BRUNEI DARUSSALAM</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TL'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TL</NS0:code>
+    <NS0:name>TIMOR-LESTE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#JO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>JO</NS0:code>
+    <NS0:name>JORDAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#JM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>JM</NS0:code>
+    <NS0:name>JAMAICA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#YE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>YE</NS0:code>
+    <NS0:name>YEMEN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#HT'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>HT</NS0:code>
+    <NS0:name>HAITI</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#BM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>BM</NS0:code>
+    <NS0:name>BERMUDA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NA</NS0:code>
+    <NS0:name>NAMIBIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AD'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AD</NS0:code>
+    <NS0:name>ANDORRA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SA</NS0:code>
+    <NS0:name>SAUDI ARABIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TF'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TF</NS0:code>
+    <NS0:name>FRENCH SOUTHERN TERRITORIES</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AR</NS0:code>
+    <NS0:name>ARGENTINA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CV'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CV</NS0:code>
+    <NS0:name>CAPE VERDE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#WF'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>WF</NS0:code>
+    <NS0:name>WALLIS AND FUTUNA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TG</NS0:code>
+    <NS0:name>TOGO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SB'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SB</NS0:code>
+    <NS0:name>SOLOMON ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NG</NS0:code>
+    <NS0:name>NIGERIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AQ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AQ</NS0:code>
+    <NS0:name>ANTARCTICA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CC'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CC</NS0:code>
+    <NS0:name>COCOS (KEELING) ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#ST'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>ST</NS0:code>
+    <NS0:name>SAO TOME AND PRINCIPE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KZ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KZ</NS0:code>
+    <NS0:name>KAZAKHSTAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GL'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GL</NS0:code>
+    <NS0:name>GREENLAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LY'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LY</NS0:code>
+    <NS0:name>LIBYAN ARAB JAMAHIRIYA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PW'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PW</NS0:code>
+    <NS0:name>PALAU</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KY'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KY</NS0:code>
+    <NS0:name>CAYMAN ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TC'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TC</NS0:code>
+    <NS0:name>TURKS AND CAICOS ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CG</NS0:code>
+    <NS0:name>CONGO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SL'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SL</NS0:code>
+    <NS0:name>SIERRA LEONE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TD'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TD</NS0:code>
+    <NS0:name>CHAD</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PS'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PS</NS0:code>
+    <NS0:name>PALESTINIAN TERRITORY, OCCUPIED</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NL'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NL</NS0:code>
+    <NS0:name>NETHERLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SK'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SK</NS0:code>
+    <NS0:name>SLOVAKIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CH'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CH</NS0:code>
+    <NS0:name>SWITZERLAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#HK'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>HK</NS0:code>
+    <NS0:name>HONG KONG</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MW'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MW</NS0:code>
+    <NS0:name>MALAWI</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AL'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AL</NS0:code>
+    <NS0:name>ALBANIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MX'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MX</NS0:code>
+    <NS0:name>MEXICO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CN</NS0:code>
+    <NS0:name>CHINA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GP'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GP</NS0:code>
+    <NS0:name>GUADELOUPE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MU'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MU</NS0:code>
+    <NS0:name>MAURITIUS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AG</NS0:code>
+    <NS0:name>ANTIGUA AND BARBUDA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KG'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KG</NS0:code>
+    <NS0:name>KYRGYZSTAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PR</NS0:code>
+    <NS0:name>PUERTO RICO</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AS'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AS</NS0:code>
+    <NS0:name>AMERICAN SAMOA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#VN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>VN</NS0:code>
+    <NS0:name>VIET NAM</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#TM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>TM</NS0:code>
+    <NS0:name>TURKMENISTAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KH'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KH</NS0:code>
+    <NS0:name>CAMBODIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MZ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MZ</NS0:code>
+    <NS0:name>MOZAMBIQUE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CD'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CD</NS0:code>
+    <NS0:name>CONGO, THE DEMOCRATIC REPUBLIC OF THE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KP'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KP</NS0:code>
+    <NS0:name>KOREA, DEMOCRATIC PEOPLE&apos;S REPUBLIC OF</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#JP'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>JP</NS0:code>
+    <NS0:name>JAPAN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GM</NS0:code>
+    <NS0:name>GAMBIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PN</NS0:code>
+    <NS0:name>PITCAIRN</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SZ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SZ</NS0:code>
+    <NS0:name>SWAZILAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NO</NS0:code>
+    <NS0:name>NORWAY</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#RO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>RO</NS0:code>
+    <NS0:name>ROMANIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#MV'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>MV</NS0:code>
+    <NS0:name>MALDIVES</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AN</NS0:code>
+    <NS0:name>NETHERLANDS ANTILLES</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#QA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>QA</NS0:code>
+    <NS0:name>QATAR</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GQ'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GQ</NS0:code>
+    <NS0:name>EQUATORIAL GUINEA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#GN'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>GN</NS0:code>
+    <NS0:name>GUINEA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#FR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>FR</NS0:code>
+    <NS0:name>FRANCE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AM</NS0:code>
+    <NS0:name>ARMENIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CA'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CA</NS0:code>
+    <NS0:name>CANADA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CO</NS0:code>
+    <NS0:name>COLOMBIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AU'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AU</NS0:code>
+    <NS0:name>AUSTRALIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#SR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>SR</NS0:code>
+    <NS0:name>SURINAME</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#KI'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>KI</NS0:code>
+    <NS0:name>KIRIBATI</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#NR'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>NR</NS0:code>
+    <NS0:name>NAURU</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#FI'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>FI</NS0:code>
+    <NS0:name>FINLAND</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CF'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CF</NS0:code>
+    <NS0:name>CENTRAL AFRICAN REPUBLIC</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#ZM'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>ZM</NS0:code>
+    <NS0:name>ZAMBIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#LU'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>LU</NS0:code>
+    <NS0:name>LUXEMBOURG</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#RE'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>RE</NS0:code>
+    <NS0:name>REUNION</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CL'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CL</NS0:code>
+    <NS0:name>CHILE</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#AT'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>AT</NS0:code>
+    <NS0:name>AUSTRIA</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#FO'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>FO</NS0:code>
+    <NS0:name>FAROE ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#CK'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>CK</NS0:code>
+    <NS0:name>COOK ISLANDS</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#VU'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>VU</NS0:code>
+    <NS0:name>VANUATU</NS0:name>
+  </rdf:Description>
+  <rdf:Description rdf:about='#PY'>
+    <rdf:type rdf:resource='&iso-ont;#Country'/>
+    <NS0:code>PY</NS0:code>
+    <NS0:name>PARAGUAY</NS0:name>
+  </rdf:Description>
+</rdf:RDF>

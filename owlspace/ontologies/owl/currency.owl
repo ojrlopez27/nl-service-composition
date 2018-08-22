@@ -1,0 +1,818 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE uridef[
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY iso "http://dangiankit.ddns.net/~dangiankit/owl/2001/09/countries/iso.owl">
+  <!ENTITY iso-ont "http://dangiankit.ddns.net/~dangiankit/owl/2001/09/countries/iso-3166.owl">
+  <!ENTITY THIS "http://dangiankit.ddns.net/~dangiankit/owl/currency.owl">
+]>
+
+<rdf:RDF
+  xmlns:rdf=    "&rdf;#"
+  xmlns:rdfs=   "&rdfs;#"
+  xmlns:owl=    "&owl;#"
+  xmlns=        "&THIS;#"
+  xml:base=     "&THIS;">
+
+	<owl:Ontology rdf:about="">
+		<owl:versionInfo>$Id: currency.owl 2246 2009-07-12 10:35:57Z thorsten $</owl:versionInfo>
+		<rdfs:comment>
+			Currency Ontology
+			NOTE:   THIS IS NOT INTENDED TO BE A DEFINITIVE LIST OF ALL
+			        CURRENCIES, BUT IS AS COMPLETE AS POSSIBLE.
+
+			*** Thanks to Mike Dean for providing the links to the country codes!  Good Work! ***
+		</rdfs:comment>
+	</owl:Ontology>
+
+  <owl:Class rdf:ID="Currency">
+    <rdfs:label>Currency Code</rdfs:label>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:ID="country">
+    <rdfs:domain rdf:resource="#Currency" />
+    <rdfs:range rdf:resource="&iso-ont;#Country" />
+  </owl:ObjectProperty>
+
+  <owl:DatatypeProperty rdf:ID="code">
+    <rdfs:domain rdf:resource="#Currency" />
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:ID="name">
+    <rdfs:domain rdf:resource="#Currency" />
+  </owl:DatatypeProperty>
+
+  <!-- Now to instantiate the codes -->
+
+  <Currency rdf:ID="AFA">
+    <code>AFA</code>
+    <name>Afghanis</name>
+    <country rdf:resource="&iso;#AF"/> <!-- Afghanistan -->
+  </Currency>
+
+  <Currency rdf:ID="DZD">
+    <code>DZD</code>
+    <name>Dinars</name>
+    <country rdf:resource="&iso;#DZ"/> <!-- Algeria -->
+  </Currency>
+
+  <Currency rdf:ID="USD">
+    <code>USD</code>
+    <name>United States Dollars</name>
+    <country rdf:resource="&iso;#AS"/> <!-- AmericanSamoa -->
+  </Currency>
+
+  <Currency rdf:ID="EUR">
+    <code>EUR</code>
+    <name>Euro</name>
+    <country rdf:resource="&iso;#AD"/> <!-- Andorra -->
+  </Currency>
+
+  <Currency rdf:ID="XCD">
+    <code>XCD</code>
+    <name>East Caribbean Dollars</name>
+    <country rdf:resource="&iso;#AI"/> <!-- Anguilla -->
+  </Currency>
+
+  <Currency rdf:ID="ARS">
+    <code>ARS</code>
+    <name>Pesos</name>
+    <country rdf:resource="&iso;#AR"/> <!-- Argentina -->
+  </Currency>
+
+  <Currency rdf:ID="AWG">
+    <code>AWG</code>
+    <name>Guilders</name>
+    <country rdf:resource="&iso;#AW"/> <!-- Aruba -->
+  </Currency>
+
+  <Currency rdf:ID="AUD">
+    <code>AUD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#AU"/> <!-- Australia -->
+  </Currency>
+
+  <Currency rdf:ID="AZM">
+    <code>AZM</code>
+    <name>Manats</name>
+    <country rdf:resource="&iso;#AZ"/> <!-- Azerbaijan -->
+  </Currency>
+
+  <Currency rdf:ID="BSD">
+    <code>BSD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#BS"/> <!-- Bahamas -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <!-- <country rdf:resource="&iso;#"/> BalearesBalearicIslands -->
+  </Currency>
+
+  <Currency rdf:ID="BBD">
+    <code>BBD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#BB"/> <!-- Barbados -->
+  </Currency>
+
+  <Currency rdf:ID="BYR">
+    <code>BYR</code>
+    <name>Rubles</name>
+    <country rdf:resource="&iso;#BY"/> <!-- Belarus -->
+  </Currency>
+
+  <Currency rdf:ID="BZD">
+    <code>BZD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#BZ"/> <!-- Belize -->
+  </Currency>
+
+  <Currency rdf:ID="BMD">
+    <code>BMD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#BM"/> <!-- Bermuda -->
+  </Currency>
+
+  <Currency rdf:ID="INR">
+    <code>INR</code>
+    <name>India Rupeess</name>
+    <country rdf:resource="&iso;#BT"/> <!-- Bhutan -->
+  </Currency>
+
+  <Currency rdf:ID="ANG">
+    <code>ANG</code>
+    <name>Netherlands Antilles Guilders</name>
+    <!-- <country rdf:resource="&iso;#"/> Bonaire -->
+  </Currency>
+
+  <Currency rdf:ID="BWP">
+    <code>BWP</code>
+    <name>Pulas</name>
+    <country rdf:resource="&iso;#BW"/> <!-- Botswana -->
+  </Currency>
+
+  <Currency rdf:ID="BRL">
+    <code>BRL</code>
+    <name>Real</name>
+    <country rdf:resource="&iso;#BR"/> <!-- Brazil -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <country rdf:resource="&iso;#IO"/> <!-- BritishIndianOceanTerritory -->
+  </Currency>
+
+  <Currency rdf:ID="BND">
+    <code>BND</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#BN"/> <!-- BruneiDarussalam -->
+  </Currency>
+
+  <Currency rdf:ID="BIF">
+    <code>BIF</code>
+    <name>Francs</name>
+    <country rdf:resource="&iso;#BI"/> <!-- Burundi -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <country rdf:resource="&iso;#TC"/> <!-- CaicosandTurksIslands -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <!-- <country rdf:resource="&iso;#"/> CanaryIslands -->
+  </Currency>
+
+  <Currency rdf:ID="KYD">
+    <code>KYD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#KY"/> <!-- CaymanIslands -->
+  </Currency>
+
+  <Currency rdf:ID="CNY">
+    <code>CNY</code>
+    <name>Yuan Renminbi</name>
+    <country rdf:resource="&iso;#CN"/> <!-- China -->
+  </Currency>
+
+  <Currency rdf:about="#AUD">
+    <country rdf:resource="&iso;#CC"/> <!-- CocosKeelingIslands -->
+  </Currency>
+
+  <Currency rdf:ID="XAF">
+    <code>XAF</code>
+    <name>Francs</name>
+    <!-- <country rdf:resource="&iso;#"/> CommunautFinancireAfricaineCFA -->
+  </Currency>
+
+  <Currency rdf:ID="XPF">
+    <code>XPF</code>
+    <name>Francs</name>
+    <!-- <country rdf:resource="&iso;#"/> ComptoirsFranaisduPacifiqueCFP -->
+  </Currency>
+
+  <Currency rdf:ID="CDF">
+    <code>CDF</code>
+    <name>Francs</name>
+    <!-- <country rdf:resource="&iso;#"/> CongoKinshasa -->
+  </Currency>
+
+  <Currency rdf:ID="CRC">
+    <code>CRC</code>
+    <name>Colones</name>
+    <country rdf:resource="&iso;#CR"/> <!-- CostaRica -->
+  </Currency>
+
+  <Currency rdf:ID="CUP">
+    <code>CUP</code>
+    <name>Pesos</name>
+    <country rdf:resource="&iso;#CU"/> <!-- Cuba -->
+  </Currency>
+
+  <Currency rdf:ID="CYP">
+    <code>CYP</code>
+    <name>Pounds</name>
+    <country rdf:resource="&iso;#CY"/> <!-- Cyprus -->
+  </Currency>
+
+  <Currency rdf:ID="DKK">
+    <code>DKK</code>
+    <name>Kroner</name>
+    <country rdf:resource="&iso;#DK"/> <!-- Denmark -->
+  </Currency>
+
+  <Currency rdf:about="#XCD">
+    <country rdf:resource="&iso;#DM"/> <!-- Dominica -->
+  </Currency>
+
+  <Currency rdf:ID="IDR">
+    <code>IDR</code>
+    <name>Indonesia Rupiahs</name>
+    <!-- <country rdf:resource="&iso;#"/> EastTimor -->
+  </Currency>
+
+  <Currency rdf:ID="EGP">
+    <code>EGP</code>
+    <name>Pounds</name>
+    <country rdf:resource="&iso;#EG"/> <!-- Egypt -->
+  </Currency>
+
+  <Currency rdf:ID="SVC">
+    <code>SVC</code>
+    <name>Colones</name>
+    <country rdf:resource="&iso;#SV"/> <!-- ElSalvador -->
+  </Currency>
+
+  <Currency rdf:ID="ERN">
+    <code>ERN</code>
+    <name>Nakfa</name>
+    <country rdf:resource="&iso;#SV"/> <!-- Eritrea -->
+  </Currency>
+
+  <Currency rdf:ID="ETB">
+    <code>ETB</code>
+    <name>Birr</name>
+    <country rdf:resource="&iso;#ET"/> <!-- Ethiopia -->
+  </Currency>
+
+  <Currency rdf:ID="FKP">
+    <code>FKP</code>
+    <name>Pounds</name>
+    <country rdf:resource="&iso;#FK"/> <!-- FalklandIslandsMalvinas -->
+  </Currency>
+
+  <Currency rdf:ID="FJD">
+    <code>FJD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#FJ"/> <!-- Fiji -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <country rdf:resource="&iso;#FR"/> <!-- France -->
+  </Currency>
+
+  <Currency rdf:about="#XPF">
+    <country rdf:resource="&iso;#PF"/> <!-- FrenchPacificIslandsFrenchPolynesia -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <country rdf:resource="&iso;#TF"/> <!-- FrenchSouthernTerritories -->
+  </Currency>
+
+  <Currency rdf:ID="GEL">
+    <code>GEL</code>
+    <name>Lari</name>
+    <country rdf:resource="&iso;#GE"/> <!-- Georgia -->
+  </Currency>
+
+  <Currency rdf:ID="GHC">
+    <code>GHC</code>
+    <name>Cedis</name>
+    <country rdf:resource="&iso;#GH"/> <!-- Ghana -->
+  </Currency>
+
+  <Currency rdf:ID="XAU">
+    <code>XAU</code>
+    <name>Ounces</name>
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <country rdf:resource="&iso;#GR"/> <!-- Greece -->
+  </Currency>
+
+  <Currency rdf:about="#XCD">
+    <country rdf:resource="&iso;#GD"/> <!-- Grenada -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <country rdf:resource="&iso;#GP"/> <!-- Guadeloupe -->
+  </Currency>
+
+  <Currency rdf:ID="GTQ">
+    <code>GTQ</code>
+    <name>Quetzales</name>
+    <country rdf:resource="&iso;#GT"/> <!-- Guatemala -->
+  </Currency>
+
+  <Currency rdf:ID="GNF">
+    <code>GNF</code>
+    <name>Francs</name>
+    <country rdf:resource="&iso;#GN"/> <!-- Guinea -->
+  </Currency>
+
+  <Currency rdf:ID="GYD">
+    <code>GYD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#GY"/> <!-- Guyana -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <country rdf:resource="&iso;#HT"/> <!-- Haiti -->
+  </Currency>
+
+  <Currency rdf:ID="BAM">
+    <code>BAM</code>
+    <name>Convertible Marka</name>
+    <country rdf:resource="&iso;#BA"/> <!-- HerzegovinaandBosnia -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <country rdf:resource="&iso;#VA"/> <!-- VaticanCity -->
+  </Currency>
+
+  <Currency rdf:ID="HKD">
+    <code>HKD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#HK"/> <!-- HongKong -->
+  </Currency>
+
+  <Currency rdf:ID="ISK">
+    <code>ISK</code>
+    <name>Kronur</name>
+    <country rdf:resource="&iso;#IS"/> <!-- Iceland -->
+  </Currency>
+
+  <Currency rdf:about="#IDR">
+    <country rdf:resource="&iso;#ID"/> <!-- Indonesia -->
+  </Currency>
+
+  <Currency rdf:ID="IRR">
+    <code>IRR</code>
+    <name>Rials</name>
+    <country rdf:resource="&iso;#IR"/> <!-- Iran -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <country rdf:resource="&iso;#IE"/> <!-- IrelandEire -->
+  </Currency>
+
+  <Currency rdf:ID="ILS">
+    <code>ILS</code>
+    <name>New Shekels</name>
+    <country rdf:resource="&iso;#IL"/> <!-- Israel -->
+  </Currency>
+
+  <Currency rdf:ID="JMD">
+    <code>JMD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#JM"/> <!-- Jamaica -->
+  </Currency>
+
+  <Currency rdf:ID="JPY">
+    <code>JPY</code>
+    <name>Yen</name>
+    <country rdf:resource="&iso;#JP"/> <!-- Japan -->
+  </Currency>
+
+  <Currency rdf:ID="JOD">
+    <code>JOD</code>
+    <name>Dinars</name>
+    <country rdf:resource="&iso;#JO"/> <!-- Jordan -->
+  </Currency>
+
+  <Currency rdf:about="#AUD">
+    <country rdf:resource="&iso;#CC"/> <!-- KeelingCocosIslands -->
+  </Currency>
+
+  <Currency rdf:about="#AUD">
+    <country rdf:resource="&iso;#KI"/> <!-- Kiribati -->
+  </Currency>
+
+  <Currency rdf:ID="KRW">
+    <code>KRW</code>
+    <name>Won</name>
+    <country rdf:resource="&iso;#KR"/> <!-- KoreaSouth -->
+  </Currency>
+
+  <Currency rdf:ID="KGS">
+    <code>KGS</code>
+    <name>Soms</name>
+    <country rdf:resource="&iso;#KG"/> <!-- Kyrgyzstan -->
+  </Currency>
+
+  <Currency rdf:ID="LVL">
+    <code>LVL</code>
+    <name>Lati</name>
+    <country rdf:resource="&iso;#LV"/> <!-- Latvia -->
+  </Currency>
+
+  <Currency rdf:ID="LSL">
+    <code>LSL</code>
+    <name>Maloti</name>
+    <country rdf:resource="&iso;#LS"/> <!-- Lesotho -->
+  </Currency>
+
+  <Currency rdf:ID="LRD">
+    <code>LRD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#LR"/> <!-- Liberia -->
+  </Currency>
+
+  <Currency rdf:ID="CHF">
+    <code>CHF</code>
+    <name>Switzerland Francs</name>
+    <country rdf:resource="&iso;#LI"/> <!-- Liechtenstein -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <country rdf:resource="&iso;#LU"/> <!-- Luxembourg -->
+  </Currency>
+
+  <Currency rdf:ID="MKD">
+    <code>MKD</code>
+    <name>Denars</name>
+    <country rdf:resource="&iso;#MK"/> <!-- Macedonia -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <!-- <country rdf:resource="&iso;#"/> MadeiraIslands -->
+  </Currency>
+
+  <Currency rdf:ID="MYR">
+    <code>MYR</code>
+    <name>Ringgits</name>
+    <country rdf:resource="&iso;#MY"/> <!-- Malaysia -->
+  </Currency>
+
+  <Currency rdf:about="#FKP">
+    <country rdf:resource="&iso;#FK"/> <!-- MalvinasFalklandIslands -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <country rdf:resource="&iso;#MH"/> <!-- MarshallIslands -->
+  </Currency>
+
+  <Currency rdf:ID="MRO">
+    <code>MRO</code>
+    <name>Ouguiyas</name>
+    <country rdf:resource="&iso;#MR"/> <!-- Mauritania -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <country rdf:resource="&iso;#YT"/> <!-- Mayotte -->
+  </Currency>
+
+  <Currency rdf:ID="MXN">
+    <code>MXN</code>
+    <name>Pesos</name>
+    <country rdf:resource="&iso;#MX"/> <!-- Mexico -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <!-- <country rdf:resource="&iso;#"/> MidwayIslands -->
+  </Currency>
+
+  <Currency rdf:ID="MDL">
+    <code>MDL</code>
+    <name>Lei</name>
+    <country rdf:resource="&iso;#MD"/> <!-- Moldova -->
+  </Currency>
+
+  <Currency rdf:ID="MNT">
+    <code>MNT</code>
+    <name>Tugriks</name>
+    <country rdf:resource="&iso;#MN"/> <!-- Mongolia -->
+  </Currency>
+
+  <Currency rdf:about="#XCD">
+    <country rdf:resource="&iso;#MS"/> <!-- Montserrat -->
+  </Currency>
+
+  <Currency rdf:ID="MZM">
+    <code>MZM</code>
+    <name>Meticais</name>
+    <country rdf:resource="&iso;#MZ"/> <!-- Mozambique -->
+  </Currency>
+
+  <Currency rdf:ID="NAD">
+    <code>NAD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#NA"/> <!-- Namibia -->
+  </Currency>
+
+  <Currency rdf:about="#AUD">
+    <country rdf:resource="&iso;#NR"/> <!-- Nauru -->
+  </Currency>
+
+  <Currency rdf:about="#ANG">
+    <country rdf:resource="&iso;#AN"/> <!-- NetherlandsAntilles -->
+  </Currency>
+
+  <Currency rdf:about="#XCD">
+    <country rdf:resource="&iso;#KN"/> <!-- NevisandSaintKitts -->
+  </Currency>
+
+  <Currency rdf:ID="NZD">
+    <code>NZD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#NZ"/> <!-- NewZealand -->
+  </Currency>
+
+  <Currency rdf:about="#NZD">
+    <country rdf:resource="&iso;#NU"/> <!-- Niue -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <country rdf:resource="&iso;#MP"/> <!-- NorthernMarianaIslands -->
+  </Currency>
+
+  <Currency rdf:ID="OMR">
+    <code>OMR</code>
+    <name>Rials</name>
+    <country rdf:resource="&iso;#OM"/> <!-- Oman -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <country rdf:resource="&iso;#PW"/> <!-- Palau -->
+  </Currency>
+
+  <Currency rdf:ID="PAB">
+    <code>PAB</code>
+    <name>Balboa</name>
+    <country rdf:resource="&iso;#PA"/> <!-- Panama -->
+  </Currency>
+
+  <Currency rdf:ID="PGK">
+    <code>PGK</code>
+    <name>Kina</name>
+    <country rdf:resource="&iso;#PG"/> <!-- PapuaNewGuinea -->
+  </Currency>
+
+  <Currency rdf:ID="PEN">
+    <code>PEN</code>
+    <name>Nuevos Soles</name>
+    <country rdf:resource="&iso;#PE"/> <!-- Peru -->
+  </Currency>
+
+  <Currency rdf:about="#NZD">
+    <country rdf:resource="&iso;#PN"/> <!-- PitcairnIslands -->
+  </Currency>
+
+  <Currency rdf:ID="PLN">
+    <code>PLN</code>
+    <name>Zlotych</name>
+    <country rdf:resource="&iso;#PL"/> <!-- Poland -->
+  </Currency>
+
+  <Currency rdf:ID="STD">
+    <code>STD</code>
+    <name>Dobras</name>
+    <country rdf:resource="&iso;#ST"/> <!-- PrincipeandSoTome -->
+  </Currency>
+
+  <Currency rdf:ID="QAR">
+    <code>QAR</code>
+    <name>Rials</name>
+    <country rdf:resource="&iso;#QA"/> <!-- Qatar -->
+  </Currency>
+
+  <Currency rdf:ID="ROL">
+    <code>ROL</code>
+    <name>Lei</name>
+    <country rdf:resource="&iso;#RO"/> <!-- Romania -->
+  </Currency>
+
+  <Currency rdf:ID="RWF">
+    <code>RWF</code>
+    <name>Francs</name>
+    <country rdf:resource="&iso;#RW"/> <!-- Rwanda -->
+  </Currency>
+
+  <Currency rdf:about="#ANG">
+    <!-- <country rdf:resource="&iso;#"/> Saba -->
+  </Currency>
+
+  <Currency rdf:about="#XCD">
+    <!-- <country rdf:resource="&iso;#"/> SaintChristopher -->
+  </Currency>
+
+  <Currency rdf:about="#XCD">
+    <country rdf:resource="&iso;#KN"/> <!-- SaintKittsandNevis -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <country rdf:resource="&iso;#PM"/> <!-- SaintPierreandMiquelon -->
+  </Currency>
+
+  <Currency rdf:about="#EUR">
+    <!-- <country rdf:resource="&iso;#"/> Saint-Martin -->
+  </Currency>
+
+  <Currency rdf:ID="WST">
+    <code>WST</code>
+    <name>Tala</name>
+    <country rdf:resource="&iso;#WS"/> <!-- Samoa -->
+  </Currency>
+
+  <Currency rdf:ID="SAR">
+    <code>SAR</code>
+    <name>Riyals</name>
+    <country rdf:resource="&iso;#SA"/> <!-- SaudiArabia -->
+  </Currency>
+
+  <Currency rdf:ID="SCR">
+    <code>SCR</code>
+    <name>Rupees</name>
+    <country rdf:resource="&iso;#SC"/> <!-- Seychelles -->
+  </Currency>
+
+  <Currency rdf:ID="XAG">
+    <code>XAG</code>
+    <name>Ounces</name>
+  </Currency>
+
+  <Currency rdf:about="#ANG">
+    <!-- <country rdf:resource="&iso;#"/> SintEustatius -->
+  </Currency>
+
+  <Currency rdf:ID="SKK">
+    <code>SKK</code>
+    <name>Koruny</name>
+    <country rdf:resource="&iso;#SK"/> <!-- Slovakia -->
+  </Currency>
+
+  <Currency rdf:ID="SBD">
+    <code>SBD</code>
+    <name>Dollars</name>
+    <country rdf:resource="&iso;#SB"/> <!-- SolomonIslands -->
+  </Currency>
+
+  <Currency rdf:ID="ZAR">
+    <code>ZAR</code>
+    <name>Rand</name>
+    <country rdf:resource="&iso;#ZA"/> <!-- SouthAfrica -->
+  </Currency>
+
+  <Currency rdf:ID="GBP">
+    <code>GBP</code>
+    <name>United Kingdom Pounds</name>
+    <country rdf:resource="&iso;#GB"/> <!-- SouthSandwichIslands -->
+  </Currency>
+
+  <Currency rdf:ID="SDD">
+    <code>SDD</code>
+    <name>Dinars</name>
+    <country rdf:resource="&iso;#SD"/> <!-- Sudan -->
+  </Currency>
+
+  <Currency rdf:ID="NOK">
+    <code>NOK</code>
+    <name>Norway Kroner</name>
+    <country rdf:resource="&iso;#SJ"/> <!-- SvalbardandJanMayen -->
+  </Currency>
+
+  <Currency rdf:ID="SEK">
+    <code>SEK</code>
+    <name>Kronor</name>
+    <country rdf:resource="&iso;#SE"/> <!-- Sweden -->
+  </Currency>
+
+  <Currency rdf:ID="SYP">
+    <code>SYP</code>
+    <name>Pounds</name>
+    <country rdf:resource="&iso;#SY"/> <!-- Syria -->
+  </Currency>
+
+  <Currency rdf:ID="RUR">
+    <code>RUR</code>
+    <name>Russia Rubles</name>
+    <country rdf:resource="&iso;#TJ"/> <!-- Tajikistan -->
+  </Currency>
+
+  <Currency rdf:ID="TZS">
+    <code>TZS</code>
+    <name>Shillings</name>
+    <country rdf:resource="&iso;#TZ"/> <!-- Tanzania -->
+  </Currency>
+
+  <Currency rdf:about="#IDR">
+    <!-- <country rdf:resource="&iso;#"/> TimorEast -->
+  </Currency>
+
+  <Currency rdf:ID="TOP">
+    <code>TOP</code>
+    <name>Pa'anga</name>
+    <country rdf:resource="&iso;#TO"/> <!-- Tonga -->
+  </Currency>
+
+  <Currency rdf:ID="TND">
+    <code>TND</code>
+    <name>Dinars</name>
+    <country rdf:resource="&iso;#TN"/> <!-- Tunisia -->
+  </Currency>
+
+  <Currency rdf:ID="TMM">
+    <code>TMM</code>
+    <name>Manats</name>
+    <country rdf:resource="&iso;#TM"/> <!-- Turkmenistan -->
+  </Currency>
+
+  <Currency rdf:ID="TRL">
+    <code>TRL</code>
+    <name>Turkish Liras</name>
+    <country rdf:resource="&iso;#TR"/> <!-- Turkey -->
+  </Currency>
+
+  <Currency rdf:ID="TVD">
+    <code>TVD</code>
+    <name>Tuvalu Dollars</name>
+    <country rdf:resource="&iso;#TV"/> <!-- Tuvalu -->
+  </Currency>
+
+  <Currency rdf:ID="UAH">
+    <code>UAH</code>
+    <name>Hryvnia</name>
+    <country rdf:resource="&iso;#UA"/> <!-- Ukraine -->
+  </Currency>
+
+  <Currency rdf:about="#GBP">
+    <country rdf:resource="&iso;#GB"/> <!-- UnitedKingdom -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <country rdf:resource="&iso;#US"/> <!-- UnitedStatesofAmerica -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <country rdf:resource="&iso;#VI"/> <!-- USVirginIslands -->
+  </Currency>
+
+  <Currency rdf:ID="VUV">
+    <code>VUV</code>
+    <name>Vatu</name>
+    <country rdf:resource="&iso;#VU"/> <!-- Vanuatu -->
+  </Currency>
+
+  <Currency rdf:ID="VEB">
+    <code>VEB</code>
+    <name>Bolivares</name>
+    <country rdf:resource="&iso;#VE"/> <!-- Venezuela -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <country rdf:resource="&iso;#VI"/> <!-- VirginIslandsAmerican -->
+  </Currency>
+
+  <Currency rdf:about="#USD">
+    <!-- <country rdf:resource="&iso;#"/> WakeIsland -->
+  </Currency>
+
+  <Currency rdf:about="#WST">
+    <country rdf:resource="&iso;#WS"/> <!-- WestSamoaSamoa -->
+  </Currency>
+
+  <Currency rdf:about="#WST">
+    <country rdf:resource="&iso;#WS"/> <!-- WesternSamoaSamoa -->
+  </Currency>
+
+  <Currency rdf:ID="YUM">
+    <code>YUM</code>
+    <name>New Dinars</name>
+    <country rdf:resource="&iso;#YU"/> <!-- Yugoslavia -->
+  </Currency>
+
+  <Currency rdf:ID="ZWD">
+    <code>ZWD</code>
+    <name>Zimbabwe Dollars</name>
+    <country rdf:resource="&iso;#ZW"/> <!-- Zimbabwe -->
+  </Currency>
+
+</rdf:RDF>

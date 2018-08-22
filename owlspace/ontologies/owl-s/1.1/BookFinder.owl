@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.1/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.1/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.1/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.1/Grounding.owl">
+  <!ENTITY groundingWSDL "http://cheeso.members.winisp.net/books/books.asmx?WSDL">
+  <!ENTITY mind "http://www.mindswap.org/2004/owl-s/1.1/MindswapProfileHierarchy.owl">
+  <!ENTITY bibtex "http://purl.org/net/nknouf/ns/bibtex">
+  <!ENTITY THIS "http://dangiankit.ddns.net/~dangiankit/owl-s/1.1/BookFinder.owl">
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xmlns:bibtex="&bibtex;#"
+  xmlns:mind="&mind;#"
+  xmlns="&THIS;#"
+  xml:base="&THIS;">
+
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="&service;"/>
+	<owl:imports rdf:resource="&profile;"/>
+	<owl:imports rdf:resource="&process;"/>
+	<owl:imports rdf:resource="&grounding;"/>
+   <!-- use the cached version for bibtex ontology -->
+   <owl:imports rdf:resource="http://dangiankit.ddns.net/~dangiankit/owl/2003/12/bibtex.owl"/>
+   <owl:versionInfo>$Id: BookFinder.owl 2578 2011-02-04 16:58:17Z thorsten $</owl:versionInfo>
+</owl:Ontology>
+
+<!-- Service description -->
+<service:Service rdf:ID="BookFinderService">
+	<service:presents rdf:resource="#BookFinderProfile"/>
+
+	<service:describedBy rdf:resource="#BookFinderProcess"/>
+
+	<service:supports rdf:resource="#BookFinderGrounding"/>
+</service:Service>
+
+<!-- Profile description -->
+<mind:BookInformationService rdf:ID="BookFinderProfile">
+	<service:presentedBy rdf:resource="#BookFinderService"/>
+
+	<profile:serviceName xml:lang="en">Book Finder</profile:serviceName>
+	<profile:textDescription xml:lang="en">This service returns the information of a book whose title best matches the given string.</profile:textDescription>
+
+	<profile:hasInput rdf:resource="#BookName"/>
+
+	<profile:hasOutput rdf:resource="#BookInfo"/>
+</mind:BookInformationService>
+
+<!-- Process description -->
+
+<process:AtomicProcess rdf:ID="BookFinderProcess">
+	<service:describes rdf:resource="#BookFinderService"/>
+
+	<process:hasInput rdf:resource="#BookName"/>
+	<process:hasOutput rdf:resource="#BookInfo"/>
+</process:AtomicProcess>
+
+<process:Input rdf:ID="BookName">
+	<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#string</process:parameterType>
+	<rdfs:label>Book Name</rdfs:label>
+</process:Input>
+
+<process:Output rdf:ID="BookInfo">
+	<process:parameterType rdf:datatype="&xsd;#anyURI">&bibtex;#Book</process:parameterType>
+	<rdfs:label>Book Info</rdfs:label>
+</process:Output>
+
+<!-- Grounding description -->
+<grounding:WsdlGrounding rdf:ID="BookFinderGrounding">
+	<service:supportedBy rdf:resource="#BookFinderService"/>
+	<grounding:hasAtomicProcessGrounding rdf:resource="#BookFinderProcessGrounding"/>
+</grounding:WsdlGrounding>
+
+<grounding:WsdlAtomicProcessGrounding rdf:ID="BookFinderProcessGrounding">
+	<grounding:owlsProcess rdf:resource="#BookFinderProcess"/>
+	<grounding:wsdlDocument rdf:datatype="&xsd;#anyURI">http://cheeso.members.winisp.net/books/books.asmx?WSDL</grounding:wsdlDocument>
+	<grounding:wsdlOperation>
+		<grounding:WsdlOperationRef>
+			<grounding:portType rdf:datatype="&xsd;#anyURI">http://cheeso.members.winisp.net/books/LookyBookServiceSoap</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;#anyURI">http://cheeso.members.winisp.net/books/DoKeywordSearch</grounding:operation>
+		</grounding:WsdlOperationRef>
+	</grounding:wsdlOperation>
+
+	<grounding:wsdlInputMessage rdf:datatype="&xsd;#anyURI">http://cheeso.members.winisp.net/books/DoKeywordSearchSoapIn</grounding:wsdlInputMessage>
+	<grounding:wsdlInput>
+		<grounding:WsdlInputMessageMap>
+			<grounding:owlsParameter rdf:resource="#BookName"/>
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">http://cheeso.members.winisp.net/books/keyword</grounding:wsdlMessagePart>
+		</grounding:WsdlInputMessageMap>
+	</grounding:wsdlInput>
+
+	<grounding:wsdlOutputMessage rdf:datatype="&xsd;#anyURI">http://cheeso.members.winisp.net/books/DoKeywordSearchSoapOut</grounding:wsdlOutputMessage>
+	<grounding:wsdlOutput>
+		<grounding:WsdlOutputMessageMap>
+			<grounding:owlsParameter rdf:resource="#BookInfo"/>
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">http://cheeso.members.winisp.net/books/DoKeywordSearchResult</grounding:wsdlMessagePart>
+			<grounding:xsltTransformationString>
+			  <![CDATA[
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://dinoch.dyndns.org/webservices/books">
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+	<xsl:template match="/ ">
+		<xsl:variable name="pubdate" select="ns1:DoKeywordSearchResult/ns1:bookInfo/ns1:pubdate"/>
+		<xsl:variable name="month_day" select="substring-before($pubdate,', ')"/>
+		<xsl:variable name="year" select="substring-after($pubdate,', ')"/>
+		<rdf:RDF
+			xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+			xmlns:bibtex="http://purl.org/net/nknouf/ns/bibtex#">
+			<bibtex:Book>
+				<bibtex:hasISBN>
+					<xsl:value-of select="ns1:DoKeywordSearchResult/ns1:bookInfo/ns1:isbn"/>
+				</bibtex:hasISBN>
+				<bibtex:hasTitle>
+					<xsl:value-of select="ns1:DoKeywordSearchResult/ns1:bookInfo/ns1:title"/>
+				</bibtex:hasTitle>
+				<bibtex:hasAuthor>
+					<xsl:value-of select="ns1:DoKeywordSearchResult/ns1:bookInfo/ns1:author"/>
+				</bibtex:hasAuthor>
+				<bibtex:hasPublisher>
+					<xsl:value-of select="ns1:DoKeywordSearchResult/ns1:bookInfo/ns1:publisher"/>
+				</bibtex:hasPublisher>
+				<bibtex:hasMonth>
+					<xsl:choose>
+						<xsl:when test="contains($month_day,' ')">
+							<xsl:value-of select="substring-after($month_day,' ')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="$month_day"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</bibtex:hasMonth>
+				<bibtex:hasYear rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">
+					<xsl:value-of select="$year"/>
+				</bibtex:hasYear>
+			</bibtex:Book>
+		</rdf:RDF>
+	</xsl:template>
+</xsl:stylesheet>
+			  ]]>
+			</grounding:xsltTransformationString>
+		</grounding:WsdlOutputMessageMap>
+	</grounding:wsdlOutput>
+</grounding:WsdlAtomicProcessGrounding>
+
+</rdf:RDF>

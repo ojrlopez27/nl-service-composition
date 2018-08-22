@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.1/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.1/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.1/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.1/Grounding.owl">
+  <!ENTITY concepts "http://dangiankit.ddns.net/~dangiankit/owl/concepts.owl">
+  <!ENTITY currency "http://dangiankit.ddns.net/~dangiankit/owl/currency.owl">
+  <!ENTITY mind "http://www.mindswap.org/2004/owl-s/1.1/MindswapProfileHierarchy.owl">
+  <!ENTITY wsdl "http://xibalba234.cs.unibas.ch:8080/axis/services/CurrencyConverter?wsdl">
+]>
+
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xmlns:mind="&mind;#"
+  xml:base="http://dangiankit.ddns.net/~dangiankit/owl-s/1.1/CurrencyConverter.owl" >
+
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="&profile;"/>
+	<owl:imports rdf:resource="&grounding;"/>
+	<owl:imports rdf:resource="&concepts;"/>
+	<owl:imports rdf:resource="&currency;"/>
+   <owl:imports rdf:resource="&mind;"/>
+   <owl:versionInfo>$Id: CurrencyConverter.owl 2399 2010-01-27 15:13:56Z thorsten $</owl:versionInfo>
+</owl:Ontology>
+
+<!-- Service description -->
+<service:Service rdf:ID="CurrencyConverterService">
+	<service:presents rdf:resource="#CurrencyConverterProfile"/>
+
+	<service:describedBy rdf:resource="#CurrencyConverterProcess"/>
+
+	<service:supports rdf:resource="#CurrencyConverterGrounding"/>
+</service:Service>
+
+<!-- Profile description -->
+<mind:CurrencyService rdf:ID="CurrencyConverterProfile">
+	<service:presentedBy rdf:resource="#CurrencyConverterService"/>
+
+	<profile:serviceName xml:lang="en">Price Converter</profile:serviceName>
+	<profile:textDescription xml:lang="en">Converts the given price to another currency.</profile:textDescription>
+
+	<profile:hasInput rdf:resource="#InputPrice"/>
+	<profile:hasInput rdf:resource="#OutputCurrency"/>
+
+	<profile:hasOutput rdf:resource="#OutputPrice"/>
+</mind:CurrencyService>
+
+<!-- Process description -->
+<process:AtomicProcess rdf:ID="CurrencyConverterProcess">
+	<service:describes rdf:resource="#CurrencyConverterService"/>
+
+	<process:hasInput rdf:resource="#InputPrice"/>
+	<process:hasInput rdf:resource="#OutputCurrency"/>
+
+	<process:hasOutput rdf:resource="#OutputPrice"/>
+</process:AtomicProcess>
+
+<process:Input rdf:ID="InputPrice">
+	<process:parameterType rdf:datatype="&xsd;#anyURI">&concepts;#Price</process:parameterType>
+	<rdfs:label>Input Price</rdfs:label>
+</process:Input>
+
+<process:Input rdf:ID="OutputCurrency">
+	<process:parameterType rdf:datatype="&xsd;#anyURI">&currency;#Currency</process:parameterType>
+	<rdfs:label>Output Currency</rdfs:label>
+</process:Input>
+
+<process:Output rdf:ID="OutputPrice">
+	<process:parameterType rdf:datatype="&xsd;#anyURI">&concepts;#Price</process:parameterType>
+	<rdfs:label>Output Price</rdfs:label>
+</process:Output>
+
+<!-- Grounding description -->
+<grounding:WsdlGrounding rdf:ID="CurrencyConverterGrounding">
+	<service:supportedBy rdf:resource="#CurrencyConverterService"/>
+	<grounding:hasAtomicProcessGrounding rdf:resource="#CurrencyConverterProcessGrounding"/>
+</grounding:WsdlGrounding>
+
+<grounding:WsdlAtomicProcessGrounding rdf:ID="CurrencyConverterProcessGrounding">
+	<grounding:owlsProcess rdf:resource="#CurrencyConverterProcess"/>
+	<grounding:wsdlDocument rdf:datatype="&xsd;#anyURI">&wsdl;</grounding:wsdlDocument>
+	<grounding:wsdlOperation>
+		<grounding:WsdlOperationRef>
+			<grounding:portType rdf:datatype="&xsd;#anyURI">&wsdl;#CurrencyConverter</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;#anyURI">&wsdl;#convertPrice</grounding:operation>
+		</grounding:WsdlOperationRef>
+	</grounding:wsdlOperation>
+
+	<grounding:wsdlInputMessage rdf:datatype="&xsd;#anyURI">&wsdl;#convertPriceRequest</grounding:wsdlInputMessage>
+	<grounding:wsdlInput>
+		<grounding:WsdlInputMessageMap>
+			<grounding:owlsParameter rdf:resource="#InputPrice"/>
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&wsdl;#price</grounding:wsdlMessagePart>
+			<grounding:xsltTransformationString>
+			  <![CDATA[
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:concepts="http://dangiankit.ddns.net/~dangiankit/owl/concepts.owl#" xmlns="urn:ch:unibas:dbis:services">
+	<xsl:template match="//concepts:Price">
+		<xsl:variable name="X1" select="concepts:currency/@rdf:resource"/>
+		<Price>
+			<amount rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+				<xsl:value-of select="concepts:amount"/>
+			</amount>
+			<currency>
+				<xsl:value-of select="substring-after($X1,'#')"/>
+			</currency>
+		</Price>
+	</xsl:template>
+</xsl:stylesheet>
+			  ]]>
+			</grounding:xsltTransformationString>
+		</grounding:WsdlInputMessageMap>
+	</grounding:wsdlInput>
+	<grounding:wsdlInput>
+		<grounding:WsdlInputMessageMap>
+			<grounding:owlsParameter rdf:resource="#OutputCurrency"/>
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&wsdl;#targetCurrency</grounding:wsdlMessagePart>
+			<grounding:xsltTransformationString>
+			  <![CDATA[
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:lang="http://dangiankit.ddns.net/~dangiankit/owl/currency.owl#" xmlns="urn:ch:unibas:dbis:services">
+	<xsl:template match="/ ">
+		<xsl:value-of select="//lang:code"/>
+	</xsl:template>
+</xsl:stylesheet>
+			  ]]>
+			</grounding:xsltTransformationString>
+		</grounding:WsdlInputMessageMap>
+	</grounding:wsdlInput>
+
+	<grounding:wsdlOutputMessage rdf:datatype="&xsd;#anyURI">&wsdl;#convertPriceResponse</grounding:wsdlOutputMessage>
+	<grounding:wsdlOutput>
+		<grounding:WsdlOutputMessageMap>
+			<grounding:owlsParameter rdf:resource="#OutputPrice"/>
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&wsdl;#return</grounding:wsdlMessagePart>
+			<grounding:xsltTransformationString>
+			  <![CDATA[
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:template match="/return">
+		<xsl:variable name="X1" select="currency"/>
+		<xsl:variable name="X2" select="amount"/>
+		<xsl:variable name="X3" select="concat('http://dangiankit.ddns.net/~dangiankit/owl/currency.owl#',$X1)"/>
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:concepts="http://dangiankit.ddns.net/~dangiankit/owl/concepts.owl#">
+			<concepts:Price>
+				<concepts:currency>
+					<xsl:attribute name="rdf:resource"><xsl:value-of select="$X3"/></xsl:attribute>
+				</concepts:currency>
+				<concepts:amount>
+					<xsl:value-of select="$X2"/>
+				</concepts:amount>
+			</concepts:Price>
+		</rdf:RDF>
+	</xsl:template>
+</xsl:stylesheet>
+			  ]]>
+			</grounding:xsltTransformationString>
+		</grounding:WsdlOutputMessageMap>
+	</grounding:wsdlOutput>
+</grounding:WsdlAtomicProcessGrounding>
+
+</rdf:RDF>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: BookMedicalTransport2.owl 2399 2010-01-27 15:13:56Z thorsten $ -->
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.1/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.1/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.1/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.1/Grounding.owl">
+  <!ENTITY groundingWSDL "http://www.we-b-mind.org/www/phpws/cascom/BookMedicalTransport2_ws.php?wsdl">
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xml:base="http://www.we-b-mind.org/www/phpws/cascom/BookMedicalTransport2.owl"
+>
+
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="&service;"/>
+	<owl:imports rdf:resource="&profile;"/>
+	<owl:imports rdf:resource="&process;"/>
+	<owl:imports rdf:resource="&grounding;"/>
+</owl:Ontology>
+
+<!-- Service description -->
+<service:Service rdf:ID="BookMedicalTransport2">
+	<service:presents rdf:resource="#BookMedicalTransport2_Profile"/>
+	<service:describedBy rdf:resource="#BookMedicalTransport2_Model"/>
+	<service:supports rdf:resource="#BookMedicalTransport2_Grounding"/>
+</service:Service>
+
+<!-- Profile description -->
+<profile:Profile rdf:ID="BookMedicalTransport2_Profile">
+	<service:presentedBy rdf:resource="#BookMedicalTransport2"/>
+
+	<profile:serviceName xml:lang="en">BookMedicalTransport2</profile:serviceName>
+	<profile:textDescription xml:lang="en">books a transport (taxi, bus, train) with a given transaction number</profile:textDescription>
+
+	<profile:hasInput rdf:resource="#Costumer"/>
+	<profile:hasInput rdf:resource="#Transport"/>
+	<profile:hasInput rdf:resource="#TransportCompany"/>
+	<profile:hasInput rdf:resource="#Account"/>
+	<profile:hasInput rdf:resource="#DestinationGPSPosition"/>
+	<profile:hasInput rdf:resource="#DepartureGPSPosition"/>
+	<profile:hasInput rdf:resource="#TransportNumber"/>
+
+	<profile:hasOutput rdf:resource="#SeatNumber"/>
+	<profile:hasOutput rdf:resource="#BookingAck"/>
+	<profile:hasOutput rdf:resource="#BookingNumber"/>
+</profile:Profile>
+
+<!-- Process Model description -->
+
+<process:AtomicProcess rdf:ID="BookMedicalTransport2_Model">
+	<service:describes rdf:resource="#BookMedicalTransport2"/>
+
+	<process:hasInput rdf:resource="#Costumer"/>
+	<process:hasInput rdf:resource="#Transport"/>
+	<process:hasInput rdf:resource="#TransportCompany"/>
+	<process:hasInput rdf:resource="#Account"/>
+	<process:hasInput rdf:resource="#DestinationGPSPosition"/>
+	<process:hasInput rdf:resource="#DepartureGPSPosition"/>
+	<process:hasInput rdf:resource="#TransportNumber"/>
+
+	<process:hasOutput rdf:resource="#SeatNumber"/>
+	<process:hasOutput rdf:resource="#BookingAck"/>
+	<process:hasOutput rdf:resource="#BookingNumber"/>
+</process:AtomicProcess>
+
+<process:Input rdf:ID="Costumer">
+	<process:parameterType rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<rdfs:label>Costumer</rdfs:label>
+</process:Input>
+
+<process:Input rdf:ID="Transport">
+	<process:parameterType rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<rdfs:label>Transport</rdfs:label>
+</process:Input>
+
+<process:Input rdf:ID="TransportCompany">
+	<process:parameterType rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<rdfs:label>TransportCompany</rdfs:label>
+</process:Input>
+
+<process:Input rdf:ID="Account">
+	<process:parameterType rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<rdfs:label>Account</rdfs:label>
+</process:Input>
+
+<process:Input rdf:ID="DestinationGPSPosition">
+	<process:parameterType rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<rdfs:label>DestinationGPSPosition</rdfs:label>
+</process:Input>
+
+<process:Input rdf:ID="DepartureGPSPosition">
+	<process:parameterType rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<rdfs:label>DepartureGPSPosition</rdfs:label>
+</process:Input>
+
+<process:Input rdf:ID="TransportNumber">
+	<process:parameterType rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<rdfs:label>TransportNumber</rdfs:label>
+</process:Input>
+
+<process:Output rdf:ID="SeatNumber">
+	<process:parameterType rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<rdfs:label>SeatNumber</rdfs:label>
+</process:Output>
+
+<process:Output rdf:ID="BookingAck">
+	<process:parameterType rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<rdfs:label>BookingAck</rdfs:label>
+</process:Output>
+
+<process:Output rdf:ID="BookingNumber">
+	<process:parameterType rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<rdfs:label>BookingNumber</rdfs:label>
+</process:Output>
+
+<!-- Grounding description -->
+<grounding:WsdlGrounding rdf:ID="BookMedicalTransport2_Grounding">
+	<service:supportedBy rdf:resource="#BookMedicalTransport2"/>
+	<grounding:hasAtomicProcessGrounding rdf:resource="#BookMedicalTransport2_AtomicProcessGrounding"/>
+</grounding:WsdlGrounding>
+
+<grounding:WsdlAtomicProcessGrounding rdf:ID="BookMedicalTransport2_AtomicProcessGrounding">
+	<grounding:owlsProcess rdf:resource="#BookMedicalTransport2_Model"/>
+	<grounding:wsdlDocument rdf:datatype="&xsd;#anyURI">&groundingWSDL;</grounding:wsdlDocument>
+	<grounding:wsdlOperation>
+		<grounding:WsdlOperationRef>
+			<grounding:portType rdf:datatype="&xsd;#anyURI">&groundingWSDL;#BookMedicalTransport2PortType</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;#anyURI">&groundingWSDL;#BookMedicalTransport2_Operation</grounding:operation>
+		</grounding:WsdlOperationRef>
+	</grounding:wsdlOperation>
+
+	<grounding:wsdlInputMessage rdf:datatype="&xsd;#anyURI">&groundingWSDL;#BookMedicalTransport2_OperationRequest</grounding:wsdlInputMessage>
+	<grounding:wsdlInputMessageParts rdf:parseType="Collection">
+		<grounding:WsdlMessageMap>
+			<grounding:owlsParameter rdf:resource="#Costumer"/>
+			<grounding:wsdlMessagePart>&grounding;WSDL#Costumer</grounding:wsdlMessagePart>
+		</grounding:WsdlMessageMap>
+		<grounding:WsdlMessageMap>
+			<grounding:owlsParameter rdf:resource="#Transport"/>
+			<grounding:wsdlMessagePart>&grounding;WSDL#Transport</grounding:wsdlMessagePart>
+		</grounding:WsdlMessageMap>
+		<grounding:WsdlMessageMap>
+			<grounding:owlsParameter rdf:resource="#TransportCompany"/>
+			<grounding:wsdlMessagePart>&grounding;WSDL#TransportCompany</grounding:wsdlMessagePart>
+		</grounding:WsdlMessageMap>
+		<grounding:WsdlMessageMap>
+			<grounding:owlsParameter rdf:resource="#Account"/>
+			<grounding:wsdlMessagePart>&grounding;WSDL#Account</grounding:wsdlMessagePart>
+		</grounding:WsdlMessageMap>
+		<grounding:WsdlMessageMap>
+			<grounding:owlsParameter rdf:resource="#DestinationGPSPosition"/>
+			<grounding:wsdlMessagePart>&grounding;WSDL#DestinationGPSPosition</grounding:wsdlMessagePart>
+		</grounding:WsdlMessageMap>
+		<grounding:WsdlMessageMap>
+			<grounding:owlsParameter rdf:resource="#DepartureGPSPosition"/>
+			<grounding:wsdlMessagePart>&grounding;WSDL#DepartureGPSPosition</grounding:wsdlMessagePart>
+		</grounding:WsdlMessageMap>
+		<grounding:WsdlMessageMap>
+			<grounding:owlsParameter rdf:resource="#TransportNumber"/>
+			<grounding:wsdlMessagePart>&grounding;WSDL#TransportNumber</grounding:wsdlMessagePart>
+		</grounding:WsdlMessageMap>
+	</grounding:wsdlInputMessageParts>
+
+	<grounding:wsdlOutputMessage rdf:datatype="&xsd;#anyURI">&grounding;WSDL#BookMedicalTransport2_OperationResponse</grounding:wsdlOutputMessage>
+	<grounding:wsdlOutputMessageParts rdf:parseType="Collection">
+		<grounding:WsdlMessageMap>
+			<grounding:owlsParameter rdf:resource="#SeatNumber"/>
+			<grounding:wsdlMessagePart>&grounding;WSDL#SeatNumber</grounding:wsdlMessagePart>
+		</grounding:WsdlMessageMap>
+		<grounding:WsdlMessageMap>
+			<grounding:owlsParameter rdf:resource="#BookingAck"/>
+			<grounding:wsdlMessagePart>&grounding;WSDL#BookingAck</grounding:wsdlMessagePart>
+		</grounding:WsdlMessageMap>
+		<grounding:WsdlMessageMap>
+			<grounding:owlsParameter rdf:resource="#BookingNumber"/>
+			<grounding:wsdlMessagePart>&grounding;WSDL#BookingNumber</grounding:wsdlMessagePart>
+		</grounding:WsdlMessageMap>
+	</grounding:wsdlOutputMessageParts>
+</grounding:WsdlAtomicProcessGrounding>
+
+</rdf:RDF>

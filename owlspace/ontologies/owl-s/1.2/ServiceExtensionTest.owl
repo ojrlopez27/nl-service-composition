@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.2/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.2/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.2/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.2/Grounding.owl">
+  <!ENTITY this "http://on.cs.unibas.ch/owl-s/1.2/ServiceExtensionTest.owl">
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xmlns="&this;#"
+  xml:base="&this;">
+
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="&profile;"/>
+	<owl:imports rdf:resource="&grounding;"/>
+   <owl:versionInfo>$Id: ServiceExtensionTest.owl 2264 2009-08-18 12:27:51Z thorsten $</owl:versionInfo>
+</owl:Ontology>
+
+<!-- Define subclass of Service -->
+<owl:Class rdf:ID="ExtendedService">
+	<rdfs:comment>A subclass of service:Service</rdfs:comment>
+	<rdfs:subClassOf rdf:resource="&service;#Service"/>
+	<rdfs:subClassOf>
+	    <owl:Restriction>
+		    <owl:onProperty rdf:resource="#additionalProperty"/>
+		    <owl:cardinality rdf:datatype="&xsd;#nonNegativeInteger">1</owl:cardinality>
+		</owl:Restriction>
+	</rdfs:subClassOf>
+</owl:Class>
+
+<owl:DatatypeProperty rdf:ID="additionalProperty">
+	<rdfs:comment>Just an additional property for demonstration purposes.</rdfs:comment>
+	<rdfs:domain rdf:resource="#ExtendedService"/>
+	<rdfs:range rdf:resource="&xsd;#string"/>
+</owl:DatatypeProperty>
+
+<!-- Service description -->
+<ExtendedService rdf:ID="ExtendedServiceInstance">
+	<service:presents rdf:resource="#ExtendedServiceProfile"/>
+
+	<service:describedBy rdf:resource="#ExtendedServiceProcess"/>
+
+	<service:supports rdf:resource="#ExtendedServiceGrounding"/>
+
+	<additionalProperty>Test</additionalProperty>
+</ExtendedService>
+
+<profile:Profile rdf:ID="ExtendedServiceProfile">
+	<service:presentedBy rdf:resource="#ExtendedServiceInstance"/>
+</profile:Profile>
+
+<process:AtomicProcess rdf:ID="ExtendedServiceProcess">
+	<service:describes rdf:resource="#ExtendedServiceInstance"/>
+</process:AtomicProcess>
+
+<grounding:WsdlGrounding rdf:ID="ExtendedServiceGrounding">
+	<service:supportedBy rdf:resource="#ExtendedServiceInstance"/>
+</grounding:WsdlGrounding>
+
+</rdf:RDF>

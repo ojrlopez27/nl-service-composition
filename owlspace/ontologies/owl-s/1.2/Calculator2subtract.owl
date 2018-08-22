@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.2/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.2/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.2/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.2/Grounding.owl">
+  <!ENTITY wsdl "http://localhost/www/wsdl/localCalculator/Calculator2.wsdl">
+]>
+
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xml:base="http://on.cs.unibas.ch/owl-s/1.2/Calculator2subtract.owl">
+
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="&profile;"/>
+   <owl:versionInfo>$Id: Calculator2subtract.owl 2399 2010-01-27 15:13:56Z thorsten $</owl:versionInfo>
+</owl:Ontology>
+
+	<!-- Service description -->
+	<service:Service rdf:ID="Calculator2subtractService">
+		<service:presents rdf:resource="#Calculator2subtractProfile"/>
+
+		<service:describedBy rdf:resource="#Calculator2subtractProcess"/>
+
+		<service:supports rdf:resource="#Calculator2subtractGrounding"/>
+	</service:Service>
+
+	<!-- Profile description -->
+	<profile:Profile rdf:ID="Calculator2subtractProfile">
+		<service:presentedBy rdf:resource="#Calculator2subtractService"/>
+
+
+		<profile:serviceName xml:lang="en">Calculator subtract Service</profile:serviceName>
+		<profile:textDescription xml:lang="en">Performs basic difference operation.</profile:textDescription>
+
+		<profile:hasInput rdf:resource="#Parameter1"/>
+		<profile:hasInput rdf:resource="#Parameter2"/>
+		<profile:hasOutput rdf:resource="#Result"/>
+	</profile:Profile>
+
+	<process:AtomicProcess rdf:ID="Calculator2subtractProcess">
+		<service:describes rdf:resource="#Calculator2subtractService"/>
+		<process:hasInput rdf:resource="#Parameter1"/>
+		<process:hasInput rdf:resource="#Parameter2"/>
+		<process:hasOutput rdf:resource="#Result"/>
+	</process:AtomicProcess>
+
+	<process:Input rdf:ID="Parameter1">
+		<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#int</process:parameterType>
+		<rdfs:label>First Parameter</rdfs:label>
+	</process:Input>
+
+	<process:Input rdf:ID="Parameter2">
+		<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#int</process:parameterType>
+		<rdfs:label>Second Parameter</rdfs:label>
+	</process:Input>
+
+	<process:Output rdf:ID="Result">
+		<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#Sring</process:parameterType>
+		<rdfs:label>Result</rdfs:label>
+	</process:Output>
+
+	<!-- Grounding description -->
+
+	<grounding:WsdlGrounding rdf:ID="Calculator2subtractGrounding">
+		<service:supportedBy rdf:resource="#Calculator2subtractService"/>
+		<grounding:hasAtomicProcessGrounding rdf:resource="#Calculator2subtractProcessGrounding"/>
+	</grounding:WsdlGrounding>
+
+	<grounding:WsdlAtomicProcessGrounding rdf:ID="Calculator2subtractProcessGrounding">
+		<grounding:owlsProcess rdf:resource="#Calculator2subtractProcess"/>
+		<grounding:wsdlDocument>&wsdl;</grounding:wsdlDocument>
+		<grounding:wsdlOperation>
+         <grounding:WsdlOperationRef>
+           <grounding:portType>&wsdl;#Calculator2</grounding:portType>
+           <grounding:operation>&wsdl;#subtract</grounding:operation>
+         </grounding:WsdlOperationRef>
+		</grounding:wsdlOperation>
+
+		<grounding:wsdlInputMessage>&wsdl;#subtractRequest</grounding:wsdlInputMessage>
+		<grounding:wsdlInput>
+			<grounding:WsdlInputMessageMap>
+				<grounding:owlsParameter rdf:resource="#Parameter1"/>
+				<grounding:wsdlMessagePart>&wsdl;#parameter1</grounding:wsdlMessagePart>
+			</grounding:WsdlInputMessageMap>
+		</grounding:wsdlInput>
+		<grounding:wsdlInput>
+			<grounding:WsdlInputMessageMap>
+				<grounding:owlsParameter rdf:resource="#Parameter2"/>
+				<grounding:wsdlMessagePart>&wsdl;#parameter2</grounding:wsdlMessagePart>
+			</grounding:WsdlInputMessageMap>
+		</grounding:wsdlInput>
+
+		<grounding:wsdlOutputMessage>&wsdl;#subtractResponse</grounding:wsdlOutputMessage>
+		<grounding:wsdlOutput>
+			<grounding:WsdlOutputMessageMap>
+				<grounding:owlsParameter rdf:resource="#Result"/>
+				<grounding:wsdlMessagePart>&wsdl;#subtractReturn</grounding:wsdlMessagePart>
+			</grounding:WsdlOutputMessageMap>
+		</grounding:wsdlOutput>
+	</grounding:WsdlAtomicProcessGrounding>
+
+</rdf:RDF>

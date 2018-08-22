@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:list="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+    xmlns:expression="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#"
+    xmlns:profile="http://www.daml.org/services/owl-s/1.1/Profile.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:process="http://www.daml.org/services/owl-s/1.1/Process.owl#"
+    xmlns:grounding="http://www.daml.org/services/owl-s/1.1/Grounding.owl#"
+    xmlns="http://www.example.org/service.owl"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:service="http://www.daml.org/services/owl-s/1.1/Service.owl#"
+    xmlns:daml="http://www.daml.org/2001/03/daml+oil#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xml:base="http://www.example.org/service.owl">
+  <service:Service rdf:ID="checkWeatherConditionsService"/>
+  <profile:Profile rdf:ID="checkWeatherConditionsProfile"/>
+  <process:AtomicProcess rdf:ID="checkWeatherConditionsProcess">
+    <rdfs:label>checkWeatherConditionsProcess</rdfs:label>
+  </process:AtomicProcess>
+  <grounding:WsdlGrounding rdf:ID="checkWeatherConditionsGrounding">
+    <grounding:hasAtomicProcessGrounding>
+      <grounding:WsdlAtomicProcessGrounding rdf:ID="checkWeatherConditionsAtomicProcessGrounding"/>
+    </grounding:hasAtomicProcessGrounding>
+  </grounding:WsdlGrounding>
+  <grounding:WsdlAtomicProcessGrounding rdf:about="#checkWeatherConditionsAtomicProcessGrounding">
+    <grounding:wsdlDocument rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://127.0.0.1:8080/axis2/services/WeatherChannelService?wsdl</grounding:wsdlDocument>
+    <grounding:wsdlInputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://services.composition.inmind.cmu.edu#checkWeatherConditionsRequest</grounding:wsdlInputMessage>
+    <grounding:wsdlOutputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://services.composition.inmind.cmu.edu#checkWeatherConditionsResponse</grounding:wsdlOutputMessage>
+  </grounding:WsdlAtomicProcessGrounding>
+  <process:Input rdf:ID="to">
+    <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://www.w3.org/2001/XMLSchema#date</process:parameterType>
+    <rdfs:label>to</rdfs:label>
+  </process:Input>
+  <process:Input rdf:ID="place">
+    <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://www.w3.org/2002/07/owl#Thing</process:parameterType>
+    <rdfs:label>place</rdfs:label>
+  </process:Input>
+  <process:Input rdf:ID="from">
+    <rdfs:label>from</rdfs:label>
+    <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://www.w3.org/2001/XMLSchema#date</process:parameterType>
+  </process:Input>
+  <process:Output rdf:ID="return">
+    <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://www.w3.org/2002/07/owl#Thing</process:parameterType>
+    <rdfs:label>return</rdfs:label>
+  </process:Output>
+</rdf:RDF>

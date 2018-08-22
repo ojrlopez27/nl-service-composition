@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.1/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.1/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.1/Process.owl">
+  <!ENTITY fla "http://www.flacp.fujitsulabs.com/tce/ontologies/2005/01/service.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.1/Grounding.owl">
+  <!ENTITY mind "http://www.mindswap.org/2004/owl-s/1.1/MindswapProfileHierarchy.owl">
+  <!ENTITY wsdl "http://www.mindswap.org/axis/services/DictionaryService?WSDL">
+  <!ENTITY this "http://dangiankit.ddns.net/~dangiankit/owl-s/1.1/Dictionary.owl">
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xmlns:fla="&fla;#"
+  xmlns:mind="&mind;#"
+  xmlns="&this;#"
+  xml:base="&this;">
+
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="&fla;"/>
+	<owl:imports rdf:resource="&mind;"/>
+	<owl:versionInfo>$Id: Dictionary.owl 2399 2010-01-27 15:13:56Z thorsten $</owl:versionInfo>
+</owl:Ontology>
+
+	<!-- Service description -->
+	<service:Service rdf:ID="DictionaryService">
+		<service:presents rdf:resource="#DictionaryProfile"/>
+
+		<service:describedBy rdf:resource="#DictionaryProcess"/>
+
+		<service:supports rdf:resource="#DictionaryGrounding"/>
+	</service:Service>
+
+	<!-- Profile description -->
+	<mind:LanguageService rdf:ID="DictionaryProfile">
+		<service:presentedBy rdf:resource="#DictionaryService"/>
+
+
+		<profile:serviceName xml:lang="en">English Dictionary</profile:serviceName>
+		<profile:textDescription xml:lang="en">Returns the meaning of a word from the dictionary. The service uses OPTED v.03 (Online Plain Text English Dictionary). The service returns one string where different meanings og the word is seperated as numbered items.</profile:textDescription>
+
+		<profile:hasInput rdf:resource="#InputString"/>
+		<profile:hasOutput rdf:resource="#OutputString"/>
+
+		<fla:ownedBy>
+		   <fla:Owner>
+		      <profile:serviceParameterName>FLA Owner Info</profile:serviceParameterName>
+		      <profile:sParameter>
+			  <fla:OwnerEntity rdf:ID="Owner">
+				<rdfs:label>Evren Sirin</rdfs:label>
+				<fla:ownerEntityID>evrensirin</fla:ownerEntityID>
+			  </fla:OwnerEntity>
+		       </profile:sParameter>
+		   </fla:Owner>
+		</fla:ownedBy>
+	</mind:LanguageService>
+
+	<!-- Process description -->
+	<process:AtomicProcess rdf:ID="DictionaryProcess">
+		<service:describes rdf:resource="#DictionaryService"/>
+
+		<process:hasInput rdf:resource="#InputString"/>
+		<process:hasOutput rdf:resource="#OutputString"/>
+	</process:AtomicProcess>
+
+	<process:Input rdf:ID="InputString">
+		<process:parameterType rdf:datatype="&xsd;#anyURI">http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+		<rdfs:label>Input String</rdfs:label>
+	</process:Input>
+
+	<process:Output rdf:ID="OutputString">
+		<process:parameterType rdf:datatype="&xsd;#anyURI">http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+		<rdfs:label>Output String</rdfs:label>
+	</process:Output>
+
+	<!-- Grounding description -->
+	<grounding:WsdlGrounding rdf:ID="DictionaryGrounding">
+		<service:supportedBy rdf:resource="#DictionaryService"/>
+		<grounding:hasAtomicProcessGrounding rdf:resource="#DictionaryProcessGrounding"/>
+	</grounding:WsdlGrounding>
+
+	<grounding:WsdlAtomicProcessGrounding rdf:ID="DictionaryProcessGrounding">
+		<grounding:owlsProcess rdf:resource="#DictionaryProcess"/>
+		<grounding:wsdlDocument rdf:datatype="&xsd;#anyURI">&wsdl;</grounding:wsdlDocument>
+		<grounding:wsdlOperation>
+			<grounding:WsdlOperationRef>
+				<grounding:portType rdf:datatype="&xsd;#anyURI">&wsdl;#DictionaryService</grounding:portType>
+				<grounding:operation rdf:datatype="&xsd;#anyURI">&wsdl;#getMeaning</grounding:operation>
+			</grounding:WsdlOperationRef>
+		</grounding:wsdlOperation>
+
+		<grounding:wsdlInputMessage rdf:datatype="&xsd;#anyURI">&wsdl;#getMeaningRequest</grounding:wsdlInputMessage>
+		<grounding:wsdlInput>
+			<grounding:WsdlInputMessageMap>
+				<grounding:owlsParameter rdf:resource="#InputString"/>
+				<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&wsdl;#in0</grounding:wsdlMessagePart>
+			</grounding:WsdlInputMessageMap>
+		</grounding:wsdlInput>
+
+		<grounding:wsdlOutputMessage rdf:datatype="&xsd;#anyURI">&wsdl;#getMeaningResponse</grounding:wsdlOutputMessage>
+		<grounding:wsdlOutput>
+			<grounding:WsdlOutputMessageMap>
+				<grounding:owlsParameter rdf:resource="#OutputString"/>
+				<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&wsdl;#getMeaningReturn</grounding:wsdlMessagePart>
+			</grounding:WsdlOutputMessageMap>
+		</grounding:wsdlOutput>
+	</grounding:WsdlAtomicProcessGrounding>
+
+</rdf:RDF>

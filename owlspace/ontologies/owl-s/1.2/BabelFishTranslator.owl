@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.2/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.2/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.2/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.2/Grounding.owl">
+  <!ENTITY expr "http://www.daml.org/services/owl-s/1.2/generic/Expression.owl">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl">
+  <!ENTITY factbook "http://on.cs.unibas.ch/owl/2003/09/factbook/languages.rdf">
+  <!ENTITY mind "http://on.cs.unibas.ch/owl-s/1.2/MindswapProfileHierarchy.owl">
+  <!ENTITY groundingWSDL "http://xibalba234.cs.unibas.ch:8080/axis/services/Translator?wsdl">
+  <!ENTITY this "http://on.cs.unibas.ch/owl-s/1.2/BabelFishTranslator.owl">
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xmlns:expr="&expr;#"
+  xmlns:swrl="&swrl;#"
+  xmlns:factbook="&factbook;#"
+  xmlns:mind="&mind;#"
+  xml:base="&this;"
+  xmlns="&this;#"
+>
+
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="&service;"/>
+	<owl:imports rdf:resource="&profile;"/>
+	<owl:imports rdf:resource="&process;"/>
+	<owl:imports rdf:resource="&grounding;"/>
+	<owl:imports rdf:resource="http://on.cs.unibas.ch/owl/concepts.owl"/>
+	<owl:versionInfo>$Id: BabelFishTranslator.owl 2260 2009-07-22 16:10:49Z thorsten $</owl:versionInfo>
+</owl:Ontology>
+
+
+<owl:Class rdf:ID="SupportedLanguage">
+   <rdfs:comment>Languages supported by the BabelFish translator is an enumerated set of the foll\
+owing languages</rdfs:comment>
+   <owl:oneOf rdf:parseType="Collection">
+                <factbook:Language rdf:about="&factbook;#English"/>
+                <factbook:Language rdf:about="&factbook;#Dutch"/>
+                <factbook:Language rdf:about="&factbook;#French"/>
+                <factbook:Language rdf:about="&factbook;#German"/>
+                <factbook:Language rdf:about="&factbook;#Greek"/>
+                <factbook:Language rdf:about="&factbook;#Italian"/>
+                <factbook:Language rdf:about="&factbook;#Japanese"/>
+                <factbook:Language rdf:about="&factbook;#Korean"/>
+                <factbook:Language rdf:about="&factbook;#Portuguese"/>
+                <factbook:Language rdf:about="&factbook;#Russian"/>
+                <factbook:Language rdf:about="&factbook;#Spanish"/>
+   </owl:oneOf>
+</owl:Class>
+
+<owl:ObjectProperty rdf:ID="canBeTranslatedTo">
+	<rdfs:comment>The relation that tells which language can be translated to which language</rdfs:comment>
+	<rdfs:domain rdf:resource="#SupportedLanaguage"/>
+	<rdfs:range rdf:resource="#SupportedLanaguage"/>
+</owl:ObjectProperty>
+
+<rdf:Description rdf:about="&factbook;#English"><canBeTranslatedTo rdf:resource="&factbook;#Dutch"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#English"><canBeTranslatedTo rdf:resource="&factbook;#French"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#English"><canBeTranslatedTo rdf:resource="&factbook;#German"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#English"><canBeTranslatedTo rdf:resource="&factbook;#Greek"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#English"><canBeTranslatedTo rdf:resource="&factbook;#Italian"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#English"><canBeTranslatedTo rdf:resource="&factbook;#Japanese"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#English"><canBeTranslatedTo rdf:resource="&factbook;#Korean"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#English"><canBeTranslatedTo rdf:resource="&factbook;#Portuguese"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#English"><canBeTranslatedTo rdf:resource="&factbook;#Russian"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#English"><canBeTranslatedTo rdf:resource="&factbook;#Spanish"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Dutch"><canBeTranslatedTo rdf:resource="&factbook;#English"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Dutch"><canBeTranslatedTo rdf:resource="&factbook;#French"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#French"><canBeTranslatedTo rdf:resource="&factbook;#English"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#French"><canBeTranslatedTo rdf:resource="&factbook;#German"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#French"><canBeTranslatedTo rdf:resource="&factbook;#Greek"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#French"><canBeTranslatedTo rdf:resource="&factbook;#Italian"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#French"><canBeTranslatedTo rdf:resource="&factbook;#Portuguese"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#French"><canBeTranslatedTo rdf:resource="&factbook;#Dutch"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#French"><canBeTranslatedTo rdf:resource="&factbook;#Spanish"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#German"><canBeTranslatedTo rdf:resource="&factbook;#English"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#German"><canBeTranslatedTo rdf:resource="&factbook;#French"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Greek"><canBeTranslatedTo rdf:resource="&factbook;#English"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Greek"><canBeTranslatedTo rdf:resource="&factbook;#French"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Italian"><canBeTranslatedTo rdf:resource="&factbook;#English"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Italian"><canBeTranslatedTo rdf:resource="&factbook;#French"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Japanese"><canBeTranslatedTo rdf:resource="&factbook;#English"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Korean"><canBeTranslatedTo rdf:resource="&factbook;#English"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Portuguese"><canBeTranslatedTo rdf:resource="&factbook;#English"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Portuguese"><canBeTranslatedTo rdf:resource="&factbook;#French"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Russian"><canBeTranslatedTo rdf:resource="&factbook;#English"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Spanish"><canBeTranslatedTo rdf:resource="&factbook;#English"/></rdf:Description>
+<rdf:Description rdf:about="&factbook;#Spanish"><canBeTranslatedTo rdf:resource="&factbook;#French"/></rdf:Description>
+
+
+
+
+	<!-- Service description -->
+	<service:Service rdf:ID="BabelFishTranslatorService">
+		<service:presents rdf:resource="#BabelFishTranslatorProfile"/>
+
+		<service:describedBy rdf:resource="#BabelFishTranslatorProcess"/>
+
+		<service:supports rdf:resource="#BabelFishTranslatorGrounding"/>
+	</service:Service>
+
+	<!-- Profile description -->
+	<mind:LanguageService rdf:ID="BabelFishTranslatorProfile">
+		<service:presentedBy rdf:resource="#BabelFishTranslatorService"/>
+
+		<profile:serviceName xml:lang="en">BabelFish Translator</profile:serviceName>
+		<profile:textDescription xml:lang="en">Convert text from one language to another language. Supported languages are Dutch, English, French, German, Italian, Japanese, Korean, Portuguese, Spanish, and Russian. The valid input output pairs is given by the property canBeTranslatedTo.</profile:textDescription>
+
+		<profile:hasInput rdf:resource="#InputString"/>
+		<profile:hasInput rdf:resource="#InputLanguage"/>
+		<profile:hasInput rdf:resource="#OutputLanguage"/>
+		<profile:hasOutput rdf:resource="#OutputString"/>
+
+		<profile:hasPrecondition rdf:resource="#SupportedLanguagePair"/>
+	</mind:LanguageService>
+
+	<!-- Process description -->
+	<process:AtomicProcess rdf:ID="BabelFishTranslatorProcess">
+		<service:describes rdf:resource="#BabelFishTranslatorService"/>
+
+		<process:hasInput rdf:resource="#InputString"/>
+		<process:hasInput rdf:resource="#InputLanguage"/>
+		<process:hasInput rdf:resource="#OutputLanguage"/>
+		<process:hasOutput rdf:resource="#OutputString"/>
+
+		<process:hasPrecondition rdf:resource="#SupportedLanguagePair"/>
+	</process:AtomicProcess>
+
+	<expr:SWRL-Condition rdf:ID="SupportedLanguagePair">
+		<rdfs:label>canBeTranslatedTo(InputLanguage, OutputLanguage)</rdfs:label>
+		<expr:expressionLanguage rdf:resource="&expr;#SWRL"/>
+		<expr:expressionObject>
+          <swrl:AtomList>
+            <rdf:first>
+              <swrl:IndividualPropertyAtom>
+                <swrl:propertyPredicate rdf:resource="#canBeTranslatedTo"/>
+                <swrl:argument1 rdf:resource="#InputLanguage"/>
+                <swrl:argument2 rdf:resource="#OutputLanguage"/>
+              </swrl:IndividualPropertyAtom>
+            </rdf:first>
+            <rdf:rest rdf:resource="&rdf;#nil"/>
+          </swrl:AtomList>
+		</expr:expressionObject>
+	</expr:SWRL-Condition>
+
+	<process:Input rdf:ID="InputString">
+		<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#string</process:parameterType>
+		<rdfs:label>Input String</rdfs:label>
+	</process:Input>
+
+	<process:Input rdf:ID="InputLanguage">
+		<process:parameterType  rdf:datatype="&xsd;#anyURI">&this;#SupportedLanguage</process:parameterType>
+		<rdfs:label>Input Language</rdfs:label>
+	</process:Input>
+
+	<process:Input rdf:ID="OutputLanguage">
+		<process:parameterType  rdf:datatype="&xsd;#anyURI">&this;#SupportedLanguage</process:parameterType>
+		<rdfs:label>Output Language</rdfs:label>
+	</process:Input>
+
+	<process:Output rdf:ID="OutputString">
+		<process:parameterType  rdf:datatype="&xsd;#anyURI">&xsd;#string</process:parameterType>
+		<rdfs:label>Output String</rdfs:label>
+	</process:Output>
+
+	<!-- Grounding description -->
+	<grounding:WsdlGrounding rdf:ID="BabelFishTranslatorGrounding">
+		<service:supportedBy rdf:resource="#BabelFishTranslatorService"/>
+		<grounding:hasAtomicProcessGrounding rdf:resource="#BabelFishTranslatorProcessGrounding"/>
+	</grounding:WsdlGrounding>
+
+	<grounding:WsdlAtomicProcessGrounding rdf:ID="BabelFishTranslatorProcessGrounding">
+		<grounding:owlsProcess rdf:resource="#BabelFishTranslatorProcess"/>
+		<grounding:wsdlDocument rdf:datatype="&xsd;#anyURI">&groundingWSDL;</grounding:wsdlDocument>
+		<grounding:wsdlOperation>
+			<grounding:WsdlOperationRef>
+				<grounding:portType rdf:datatype="&xsd;#anyURI">&groundingWSDL;#Translator</grounding:portType>
+				<grounding:operation rdf:datatype="&xsd;#anyURI">&groundingWSDL;#getTranslation</grounding:operation>
+			</grounding:WsdlOperationRef>
+		</grounding:wsdlOperation>
+
+		<grounding:wsdlInputMessage rdf:datatype="&xsd;#anyURI">&groundingWSDL;#getTranslationRequest</grounding:wsdlInputMessage>
+		<grounding:wsdlInput>
+			<grounding:WsdlInputMessageMap>
+				<grounding:owlsParameter rdf:resource="#InputString"/>
+				<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&groundingWSDL;#inputString</grounding:wsdlMessagePart>
+			</grounding:WsdlInputMessageMap>
+		</grounding:wsdlInput>
+		<grounding:wsdlInput>
+			<grounding:WsdlInputMessageMap>
+				<grounding:owlsParameter rdf:resource="#InputLanguage"/>
+				<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&groundingWSDL;#inputLanguage</grounding:wsdlMessagePart>
+			</grounding:WsdlInputMessageMap>
+		</grounding:wsdlInput>
+		<grounding:wsdlInput>
+			<grounding:WsdlInputMessageMap>
+				<grounding:owlsParameter rdf:resource="#OutputLanguage"/>
+            <grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&groundingWSDL;#outputLanguage</grounding:wsdlMessagePart>
+			</grounding:WsdlInputMessageMap>
+		</grounding:wsdlInput>
+
+		<grounding:wsdlOutputMessage rdf:datatype="&xsd;#anyURI">&groundingWSDL;#getTranslationResponse</grounding:wsdlOutputMessage>
+		<grounding:wsdlOutput>
+			<grounding:WsdlOutputMessageMap>
+				<grounding:owlsParameter rdf:resource="#OutputString"/>
+				<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&groundingWSDL;#getTranslationReturn</grounding:wsdlMessagePart>
+			</grounding:WsdlOutputMessageMap>
+		</grounding:wsdlOutput>
+	</grounding:WsdlAtomicProcessGrounding>
+
+</rdf:RDF>

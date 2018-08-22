@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE uridef[
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.2/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.2/Profile.owl">
+  <!ENTITY actor "http://www.daml.org/services/owl-s/1.2/ActorDefault.owl">
+  <!ENTITY addParam "http://www.daml.org/services/owl-s/1.2/ProfileAdditionalParameters.owl">
+  <!ENTITY profileHierarchy "http://www.daml.org/services/owl-s/1.2/ProfileHierarchy.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.2/Process.owl">
+  <!ENTITY service-param "http://www.daml.org/services/owl-s/1.2/ServiceParameter.owl">
+  <!ENTITY service-cat "http://www.daml.org/services/owl-s/1.2/ServiceCategory.owl">
+  <!ENTITY ba_service "http://on.cs.unibas.ch/owl-s/1.2/BravoAirService.owl">
+  <!ENTITY ba_process "http://on.cs.unibas.ch/owl-s/1.2/BravoAirProcess.owl">
+  <!ENTITY country "http://www.daml.org/services/owl-s/1.2/Country.owl">
+  <!ENTITY concepts "http://www.daml.org/services/owl-s/1.2/Concepts.owl">
+  <!ENTITY DEFAULT "http://on.cs.unibas.ch/owl-s/1.2/BravoAirProfile.owl">
+]>
+
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:service="&service;#"
+  xmlns:process="&process;#"
+  xmlns:profile="&profile;#"
+  xmlns:actor="&actor;#"
+  xmlns:addParam="&addParam;#"
+  xmlns:profileHierarchy="&profileHierarchy;#"
+  xmlns:service-param="&service-param;#"
+  xmlns:service-cat="&service-cat;#"
+  xmlns:country="&country;#"
+  xmlns:concepts="&concepts;#"
+  xmlns:ba_process="&ba_process;#"
+  xmlns:ba_service="&ba_service;#"
+  xmlns="&DEFAULT;#"
+  xml:base="&DEFAULT;">
+
+  <owl:Ontology rdf:about="">
+    <owl:versionInfo>$Id: BravoAirProfile.owl 2260 2009-07-22 16:10:49Z thorsten $</owl:versionInfo>
+    <rdfs:comment>DAML-S Coalition: BravoAir Example for OWL-S Profile description</rdfs:comment>
+    <owl:imports rdf:resource="&service;" />
+    <owl:imports rdf:resource="&profile;" />
+    <owl:imports rdf:resource="&actor;" />
+    <owl:imports rdf:resource="&addParam;" />
+    <owl:imports rdf:resource="&process;" />
+    <owl:imports rdf:resource="&service-param;" />
+    <owl:imports rdf:resource="&service-cat;" />
+    <owl:imports rdf:resource="&ba_service;" />
+    <owl:imports rdf:resource="&ba_process;" />
+    <owl:imports rdf:resource="&concepts;" />
+    <owl:imports rdf:resource="&country;" />
+    <owl:imports rdf:resource="&profileHierarchy;" />
+  </owl:Ontology>
+
+  <!-- ################################################################### -->
+  <!-- # Instance Definition of BravoAir Reservation Agent Advertisement # -->
+  <!-- ################################################################### -->
+
+  <!--
+
+    BraviAur is defined as a AirlineTicketing service.  It inherits from
+    the ontology of services that is an eCommerce service, and that
+    the product it sells products that are restricted to be
+    CommercialAirlineTravel.
+
+    The same service could be specified outside the hierarchy of
+    services by declaring it an instance of Profile, and by adjusting
+    the relevant properties accordingly.
+
+      -->
+
+
+  <profileHierarchy:AirlineTicketing rdf:ID="Profile_BravoAir_ReservationAgent">
+    <!-- reference to the service specification -->
+    <service:presentedBy rdf:resource="&ba_service;#BravoAir_ReservationAgent"/>
+    <!-- reference to the process model specification -->
+    <profile:has_process rdf:resource="&ba_process;#BravoAir_Process"/>
+
+
+    <profile:serviceName>BravoAir_ReservationAgent</profile:serviceName>
+    <profile:textDescription>
+	This  service provide flight reservations based on the
+	specification of a flight request.  This typically involves a departure
+	airport, an arrival airport, a departure date, and if a return trip is
+	required, a return date.
+        If the desired flight is available, an itinerary and reservation number
+	will be returned.
+    </profile:textDescription>
+
+
+    <!-- specification of contact information.
+      There are two contacts specified here:
+      1. to a reservation department
+      2. to John Doe that is a sale representative
+
+      The two conctacs are related to the profile through different
+      instances of the contactInfo relation
+      -->
+    <profile:contactInformation>
+
+      <actor:Actor rdf:ID="BravoAir-reservation">
+        <actor:name>BravoAir Reservation department</actor:name>
+	<actor:title>
+	  Reservation Representative
+	</actor:title>
+	<actor:phone>412 268 8780 </actor:phone>
+	<actor:fax>412 268 5569 </actor:fax>
+	<actor:email>Bravo@Bravoair.com</actor:email>
+	<actor:physicalAddress>
+	      Airstrip 2,
+	      Teetering Cliff Hights,
+	      Florida 12321,
+	      USA
+	</actor:physicalAddress>
+	<actor:webURL>http://www.daml.org/services/daml-s/2001/05/BravoAir.html</actor:webURL>
+      </actor:Actor>
+
+    </profile:contactInformation>
+
+    <!-- other contact -->
+    <profile:contactInformation>
+      <actor:Actor rdf:ID="BravoAir-information">
+        <actor:name>John Doe</actor:name>
+        <actor:title>Sale Representative</actor:title>
+	<actor:phone>412 268 8789 </actor:phone>
+	<actor:fax>412 268 5569 </actor:fax>
+	<actor:email>John_Doe@Bravoair.com</actor:email>
+	<actor:physicalAddress>
+	      Airstrip 2,
+	      Teetering Cliff Hights,
+	      Florida 12321,
+	      USA
+	</actor:physicalAddress>
+	<actor:webURL>
+            http://www.daml.org/services/daml-s/2001/05/BravoAir.html
+        </actor:webURL>
+      </actor:Actor>
+    </profile:contactInformation>
+
+    <!-- description of Geographic radius as a service parameter.
+      rather than a direct property of profile as in version 0.6
+      -->
+    <service-param:serviceParameter>
+      <addParam:GeographicRadius rdf:ID="BravoAir-geographicRadius">
+	<service-param:serviceParameterName>BravoAir Geographic Radius</service-param:serviceParameterName>
+	<service-param:sParameter rdf:resource="&country;#UnitedStates"/>
+      </addParam:GeographicRadius>
+    </service-param:serviceParameter>
+
+
+    <!-- specification of quality rating for profile -->
+    <service-param:serviceParameter>
+      <service-param:ServiceParameter>
+	<service-param:serviceParameterName rdf:datatype="&xsd;#string">SomeRating</service-param:serviceParameterName>
+	<service-param:sParameter rdf:resource="&concepts;#qualityRating_Good"/>
+      </service-param:ServiceParameter>
+    </service-param:serviceParameter>
+
+<!--
+    <profile:qualityRating>
+      <profile:QualityRating rdf:ID="BravoAir-goodRating">
+	<profile:ratingName>
+	  SomeRating
+	</profile:ratingName>
+	<profile:rating rdf:resource="&concepts;#GoodRating"/>
+      </profile:QualityRating>
+    </profile:qualityRating>
+    -->
+
+    <!-- Specification of the service category using NAICS -->
+    <service-cat:serviceCategory>
+      <addParam:NAICS rdf:ID="NAICS-category">
+	<service-cat:value>
+	  Airline reservation services
+	</service-cat:value>
+	<service-cat:code>
+	  561599
+	</service-cat:code>
+      </addParam:NAICS>
+    </service-cat:serviceCategory>
+
+
+    <!-- Specification of the service category using UN-SPSC -->
+    <service-cat:serviceCategory>
+      <addParam:UNSPSC rdf:ID="UNSPSC-category">
+	<service-cat:value>
+	  Travel Agent
+	</service-cat:value>
+	<service-cat:code>
+	  90121500
+	</service-cat:code>
+      </addParam:UNSPSC>
+    </service-cat:serviceCategory>
+
+
+    <!-- Descriptions of IOPEs -->
+
+    <profile:hasInput rdf:resource="&ba_process;#DepartureAirport"/>
+    <profile:hasInput rdf:resource="&ba_process;#ArrivalAirport"/>
+    <profile:hasInput rdf:resource="&ba_process;#OutboundDate"/>
+    <profile:hasInput rdf:resource="&ba_process;#InboundDate"/>
+    <profile:hasInput rdf:resource="&ba_process;#RoundTrip"/>
+    <profile:hasInput rdf:resource="&ba_process;#AcctName"/>
+    <profile:hasInput rdf:resource="&ba_process;#Password"/>
+    <profile:hasInput rdf:resource="&ba_process;#Confirm"/>
+     <!-- <profile:hasInput rdf:resource="&ba_process;#PreferredFlightItinerary_In"/> -->
+    <profile:hasOutput rdf:resource="&ba_process;#FlightsFound"/>
+    <!-- <profile:hasInput rdf:resource="&ba_process;#ReservationID_In"/> -->
+    <profile:hasOutput rdf:resource="&ba_process;#PreferredFlightItinerary"/>
+    <!-- <profile:hasOutput rdf:resource="&ba_process;#AcctName_Out"/> -->
+    <profile:hasOutput rdf:resource="&ba_process;#ReservationID"/>
+    <profile:hasResult rdf:resource="&ba_process;#HaveSeatResult"/>
+
+  </profileHierarchy:AirlineTicketing>
+</rdf:RDF>

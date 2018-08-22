@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.2/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.2/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.2/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.2/Grounding.owl">
+  <!ENTITY zipcode "http://www.daml.org/2001/10/html/zipcode-ont">
+  <!ENTITY factbook "http://dangiankit.ddns.net/~dangiankit/owl/2003/09/factbook/factbook-ont.owl">
+  <!ENTITY groundingWSDL "http://cheeso.members.winisp.net/zips/ZipService.asmx?WSDL">
+  <!ENTITY groundingNS "http://dinoch.dyndns.org/webservices/">
+  <!ENTITY mind "http://dangiankit.ddns.net/~dangiankit/owl-s/1.2/MindswapProfileHierarchy.owl">
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xmlns:factbook="&factbook;#"
+  xmlns:zipcode="&zipcode;#"
+  xmlns:mind="&mind;#"
+  xml:base="http://dangiankit.ddns.net/~dangiankit/owl-s/1.1/FindLatLong.owl">
+
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="&service;"/>
+	<owl:imports rdf:resource="&profile;"/>
+	<owl:imports rdf:resource="&process;"/>
+	<owl:imports rdf:resource="&grounding;"/>
+	<owl:imports rdf:resource="&factbook;"/>
+	<owl:imports rdf:resource="&zipcode;"/>
+	<owl:imports rdf:resource="&mind;"/>
+	<owl:versionInfo>$Id: FindLatLong.owl 2399 2010-01-27 15:13:56Z thorsten $</owl:versionInfo>
+</owl:Ontology>
+
+<!-- Service description -->
+<service:Service rdf:ID="FindLatLongService">
+	<service:presents rdf:resource="#FindLatLongProfile"/>
+
+	<service:describedBy rdf:resource="#FindLatLongProcess"/>
+
+	<service:supports rdf:resource="#FindLatLongGrounding"/>
+</service:Service>
+
+<!-- Profile description -->
+<mind:MapService rdf:ID="FindLatLongProfile">
+	<service:presentedBy rdf:resource="#FindLatLongService"/>
+
+	<profile:serviceName xml:lang="en">Find Latitude &amp; Longitude</profile:serviceName>
+	<profile:textDescription xml:lang="en">Find the latitude and longitude of the given US zip code.</profile:textDescription>
+
+	<profile:hasInput rdf:resource="#ZipCode"/>
+	<profile:hasOutput rdf:resource="#LatLong"/>
+</mind:MapService>
+
+<!-- Process description -->
+<process:AtomicProcess rdf:ID="FindLatLongProcess">
+	<service:describes rdf:resource="#FindLatLongService"/>
+
+	<process:hasInput rdf:resource="#ZipCode"/>
+
+	<process:hasOutput rdf:resource="#LatLong"/>
+</process:AtomicProcess>
+
+<process:Input rdf:ID="ZipCode">
+	<process:parameterType rdf:datatype="&xsd;#anyURI">&zipcode;#ZipCode</process:parameterType>
+	<rdfs:label>ZipCode</rdfs:label>
+</process:Input>
+
+<process:Output rdf:ID="LatLong">
+	<process:parameterType rdf:datatype="&xsd;#anyURI">&factbook;#LatLon</process:parameterType>
+	<rdfs:label>Latitude &amp; Longitude</rdfs:label>
+</process:Output>
+
+<!-- Grounding description -->
+<grounding:WsdlGrounding rdf:ID="FindLatLongGrounding">
+	<service:supportedBy rdf:resource="#FindLatLongService"/>
+	<grounding:hasAtomicProcessGrounding rdf:resource="#FindLatLongProcessGrounding"/>
+</grounding:WsdlGrounding>
+
+<grounding:WsdlAtomicProcessGrounding rdf:ID="FindLatLongProcessGrounding">
+	<grounding:owlsProcess rdf:resource="#FindLatLongProcess"/>
+	<grounding:wsdlDocument rdf:datatype="&xsd;#anyURI">&groundingWSDL;</grounding:wsdlDocument>
+	<grounding:wsdlOperation>
+		<grounding:WsdlOperationRef>
+			<grounding:portType rdf:datatype="&xsd;#anyURI">&groundingWSDL;#ZipcodeLookupServiceSoap</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;#anyURI">&groundingWSDL;#ZipToLatLong</grounding:operation>
+		</grounding:WsdlOperationRef>
+	</grounding:wsdlOperation>
+
+	<grounding:wsdlInputMessage rdf:datatype="&xsd;#anyURI">&groundingNS;#ZipToLatLongSoapIn</grounding:wsdlInputMessage>
+	<grounding:wsdlInput>
+		<grounding:WsdlInputMessageMap>
+			<grounding:owlsParameter rdf:resource="#ZipCode"/>
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&groundingWSDL;#zip</grounding:wsdlMessagePart>
+			<grounding:xsltTransformationString>
+			  <![CDATA[
+<xsl:stylesheet version="1.0"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:zipcode="http://www.daml.org/2001/10/html/zipcode-ont#"
+   rdf:keepNamespace=""
+   zipcode:keepNamespace="">
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+	<xsl:template match="/ ">
+		<xsl:value-of select="rdf:RDF/zipcode:ZipCode/zipcode:zip"/>
+	</xsl:template>
+</xsl:stylesheet>
+			  ]]>
+			</grounding:xsltTransformationString>
+		</grounding:WsdlInputMessageMap>
+	</grounding:wsdlInput>
+
+	<grounding:wsdlOutputMessage rdf:datatype="&xsd;#anyURI">&groundingNS;#ZipToLatLongSoapOut</grounding:wsdlOutputMessage>
+	<grounding:wsdlOutput>
+		<grounding:WsdlOutputMessageMap>
+			<grounding:owlsParameter rdf:resource="#LatLong"/>
+			<!-- As of OWL-S 1.2 wsdlMessagePart must not be used for XSLTOutputMessageMap; the
+			     cardinality of the property is 0. The XSLT transformation is supposed to select
+			     the desired WSDL message part(s). In this example this is achieved by
+			     selecting "//ns:ZipToLatLongResult", cf. XSLT template match.
+			  grounding:wsdlMessagePart rdf:datatype="&xsd;#anyURI">&groundingWSDL;#ZipToLatLongResult</grounding:wsdlMessagePart-->
+			<grounding:xsltTransformationString>
+			  <![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://dinoch.dyndns.org/webservices/">
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+	<xsl:template match="//ns:ZipToLatLongResult">
+		<xsl:variable name="latDegrees"    select="ns:Latitude/ns:Degrees"/>
+		<xsl:variable name="latNorthSouth" select="ns:Latitude/ns:NorthSouth"/>
+		<xsl:variable name="lonDegrees"    select="ns:Longitude/ns:Degrees"/>
+		<xsl:variable name="lonWestEast"   select="ns:Longitude/ns:WestEast"/>
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		         xmlns:factbook="http://dangiankit.ddns.net/~dangiankit/owl/2003/09/factbook/factbook-ont.owl#">
+			<factbook:LatLon>
+				<xsl:choose>
+					<xsl:when test="contains($latNorthSouth, 'N')">
+						<factbook:latitude><xsl:value-of select="$latDegrees"/></factbook:latitude>
+					</xsl:when>
+					<xsl:otherwise>
+						<factbook:latitude>-<xsl:value-of select="$latDegrees"/></factbook:latitude>
+					</xsl:otherwise>
+				</xsl:choose>
+				<xsl:choose>
+					<xsl:when test="contains($lonWestEast, 'W')">
+						<factbook:longitude><xsl:value-of select="$lonDegrees"/></factbook:longitude>
+					</xsl:when>
+					<xsl:otherwise>
+						<factbook:longitude>-<xsl:value-of select="$lonDegrees"/></factbook:longitude>
+					</xsl:otherwise>
+				</xsl:choose>
+			</factbook:LatLon>
+		</rdf:RDF>
+	</xsl:template>
+</xsl:stylesheet>
+			  ]]>
+			</grounding:xsltTransformationString>
+		</grounding:WsdlOutputMessageMap>
+	</grounding:wsdlOutput>
+</grounding:WsdlAtomicProcessGrounding>
+
+</rdf:RDF>

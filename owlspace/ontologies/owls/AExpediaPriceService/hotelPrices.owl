@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:list="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+    xmlns:expression="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#"
+    xmlns:profile="http://www.daml.org/services/owl-s/1.1/Profile.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:process="http://www.daml.org/services/owl-s/1.1/Process.owl#"
+    xmlns:grounding="http://www.daml.org/services/owl-s/1.1/Grounding.owl#"
+    xmlns="http://dangiankit.ddns.net/~dangiankit/owls/AExpediaPriceService/hotelPrices.owl"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:service="http://www.daml.org/services/owl-s/1.1/Service.owl#"
+    xmlns:daml="http://www.daml.org/2001/03/daml+oil#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xml:base="http://dangiankit.ddns.net/~dangiankit/owls/AExpediaPriceService/hotelPrices.owl">
+
+<owl:Ontology rdf:about="">
+<owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Service.owl"/>
+<owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Profile.owl"/>
+<owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Process.owl"/>
+<owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Grounding.owl"/>
+<owl:versionInfo>
+$Id: hotelPrices.owl 2578 2018-08-11 adangi $
+</owl:versionInfo>
+</owl:Ontology>
+
+  <service:Service rdf:ID="hotelPriceService">
+    <service:presents>
+      <profile:Profile rdf:ID="hotelPriceProfile"/>
+    </service:presents>
+    <service:supports>
+      <grounding:WsdlGrounding rdf:ID="hotelPriceGrounding"/>
+    </service:supports>
+    <service:describedBy>
+      <process:AtomicProcess rdf:ID="hotelPriceProcess"/>
+    </service:describedBy>
+  </service:Service>
+  <profile:Profile rdf:about="#hotelPriceProfile">
+    <profile:hasOutput>
+      <process:Output rdf:ID="return">
+        <rdfs:label>return</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#long</process:parameterType>
+      </process:Output>
+    </profile:hasOutput>
+    <service:presentedBy rdf:resource="#hotelPriceService"/>
+    <profile:hasInput>
+      <process:Input rdf:ID="hotelName">
+        <rdfs:label>hotelName</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <profile:textDescription>Auto generated from file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/AExpediaPriceService.wsdl</profile:textDescription>
+    <profile:serviceName>hotelPrice</profile:serviceName>
+  </profile:Profile>
+  <process:AtomicProcess rdf:about="#hotelPriceProcess">
+    <rdfs:label>hotelPriceProcess</rdfs:label>
+    <process:hasInput rdf:resource="#hotelName"/>
+    <process:hasOutput rdf:resource="#return"/>
+    <service:describes rdf:resource="#hotelPriceService"/>
+  </process:AtomicProcess>
+  <grounding:WsdlGrounding rdf:about="#hotelPriceGrounding">
+    <grounding:hasAtomicProcessGrounding>
+      <grounding:WsdlAtomicProcessGrounding rdf:ID="hotelPriceAtomicProcessGrounding"/>
+    </grounding:hasAtomicProcessGrounding>
+    <service:supportedBy rdf:resource="#hotelPriceService"/>
+  </grounding:WsdlGrounding>
+  <grounding:WsdlAtomicProcessGrounding rdf:about="#hotelPriceAtomicProcessGrounding">
+    <grounding:wsdlInputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://aserv.composition.inmind.cmu.edu#hotelPriceRequest</grounding:wsdlInputMessage>
+    <grounding:owlsProcess rdf:resource="#hotelPriceProcess"/>
+    <grounding:wsdlDocument rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/AExpediaPriceService.wsdl</grounding:wsdlDocument>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#hotelName"/>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/AExpediaPriceService.wsdl#hotelName</grounding:wsdlMessagePart>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlOperation>
+      <grounding:WsdlOperationRef>
+        <grounding:operation rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/AExpediaPriceService.wsdl#hotelPrice</grounding:operation>
+        <grounding:portType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/AExpediaPriceService.wsdl#AExpediaPriceServiceHttpSoap11Endpoint</grounding:portType>
+      </grounding:WsdlOperationRef>
+    </grounding:wsdlOperation>
+    <grounding:wsdlOutputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://aserv.composition.inmind.cmu.edu#hotelPriceResponse</grounding:wsdlOutputMessage>
+    <grounding:wsdlOutput>
+      <grounding:WsdlOutputMessageMap>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/AExpediaPriceService.wsdl#return</grounding:wsdlMessagePart>
+        <grounding:owlsParameter rdf:resource="#return"/>
+      </grounding:WsdlOutputMessageMap>
+    </grounding:wsdlOutput>
+  </grounding:WsdlAtomicProcessGrounding>
+</rdf:RDF>

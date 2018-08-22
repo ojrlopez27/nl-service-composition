@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<rdf:RDF
+  xmlns:rdf ="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xml:base="http://on.cs.unibas.ch/owl/2001/09/countries/fips-10-4-ont.owl">
+
+<owl:Ontology rdf:about="">
+  <owl:versionInfo>$Id: fips-10-4-ont.owl 2246 2009-07-12 10:35:57Z thorsten $</owl:versionInfo>
+  <rdfs:comment>US Federal Information Processing Standard (FIPS) 10-4 Country Codes</rdfs:comment>
+  <owl:imports rdf:resource="http://on.cs.unibas.ch/owl/2001/09/countries/country.owl"/>
+</owl:Ontology>
+
+<owl:Class rdf:ID="Country">
+  <rdfs:subClassOf rdf:resource="http://on.cs.unibas.ch/owl/2001/09/countries/country.owl#Country"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#code"/>
+      <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#code"/>
+      <owl:cardinality>1</owl:cardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#name"/>
+      <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#name"/>
+      <owl:cardinality>1</owl:cardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:DatatypeProperty rdf:ID="code"/>
+<owl:DatatypeProperty rdf:ID="name"/>
+
+</rdf:RDF>

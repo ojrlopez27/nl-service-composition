@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:list="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+    xmlns:expression="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#"
+    xmlns:profile="http://www.daml.org/services/owl-s/1.1/Profile.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:process="http://www.daml.org/services/owl-s/1.1/Process.owl#"
+    xmlns:grounding="http://www.daml.org/services/owl-s/1.1/Grounding.owl#"
+    xmlns="http://dangiankit.ddns.net/~dangiankit/owls/ABookingsService/bookHotels.owl"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:service="http://www.daml.org/services/owl-s/1.1/Service.owl#"
+    xmlns:daml="http://www.daml.org/2001/03/daml+oil#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xml:base="http://dangiankit.ddns.net/~dangiankit/owls/ABookingsService/bookHotels.owl">
+
+    <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Service.owl"/>
+    <owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Profile.owl"/>
+    <owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Process.owl"/>
+    <owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Grounding.owl"/>
+    <owl:versionInfo>
+    $Id: bookHotels.owl 2578 2018-08-11 adangi $
+    </owl:versionInfo>
+    </owl:Ontology>
+
+  <service:Service rdf:ID="bookHotelService">
+    <service:presents>
+      <profile:Profile rdf:ID="bookHotelProfile"/>
+    </service:presents>
+    <service:describedBy>
+      <process:AtomicProcess rdf:ID="bookHotelProcess"/>
+    </service:describedBy>
+    <service:supports>
+      <grounding:WsdlGrounding rdf:ID="bookHotelGrounding"/>
+    </service:supports>
+  </service:Service>
+  <profile:Profile rdf:about="#bookHotelProfile">
+    <profile:serviceName>bookHotel</profile:serviceName>
+    <profile:hasInput>
+      <process:Input rdf:ID="destination">
+        <rdfs:label>destination</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <profile:hasInput>
+      <process:Input rdf:ID="checkout">
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#date</process:parameterType>
+        <rdfs:label>checkout</rdfs:label>
+      </process:Input>
+    </profile:hasInput>
+    <profile:hasOutput>
+      <process:Output rdf:ID="return">
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+        <rdfs:label>return</rdfs:label>
+      </process:Output>
+    </profile:hasOutput>
+    <profile:textDescription>Auto generated from file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ABookingsService.wsdl</profile:textDescription>
+    <service:presentedBy rdf:resource="#bookHotelService"/>
+    <profile:hasInput>
+      <process:Input rdf:ID="checkin">
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#date</process:parameterType>
+        <rdfs:label>checkin</rdfs:label>
+      </process:Input>
+    </profile:hasInput>
+  </profile:Profile>
+  <process:AtomicProcess rdf:about="#bookHotelProcess">
+    <process:hasInput rdf:resource="#checkin"/>
+    <process:hasInput rdf:resource="#destination"/>
+    <service:describes rdf:resource="#bookHotelService"/>
+    <rdfs:label>bookHotelProcess</rdfs:label>
+    <process:hasInput rdf:resource="#checkout"/>
+    <process:hasOutput rdf:resource="#return"/>
+  </process:AtomicProcess>
+  <grounding:WsdlGrounding rdf:about="#bookHotelGrounding">
+    <service:supportedBy rdf:resource="#bookHotelService"/>
+    <grounding:hasAtomicProcessGrounding>
+      <grounding:WsdlAtomicProcessGrounding rdf:ID="bookHotelAtomicProcessGrounding"/>
+    </grounding:hasAtomicProcessGrounding>
+  </grounding:WsdlGrounding>
+  <grounding:WsdlAtomicProcessGrounding rdf:about="#bookHotelAtomicProcessGrounding">
+    <grounding:wsdlOutputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://aserv.composition.inmind.cmu.edu#bookHotelResponse</grounding:wsdlOutputMessage>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ABookingsService.wsdl#destination</grounding:wsdlMessagePart>
+        <grounding:owlsParameter rdf:resource="#destination"/>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlOperation>
+      <grounding:WsdlOperationRef>
+        <grounding:portType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ABookingsService.wsdl#ABookingsServiceHttpSoap11Endpoint</grounding:portType>
+        <grounding:operation rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ABookingsService.wsdl#bookHotel</grounding:operation>
+      </grounding:WsdlOperationRef>
+    </grounding:wsdlOperation>
+    <grounding:owlsProcess rdf:resource="#bookHotelProcess"/>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#checkin"/>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ABookingsService.wsdl#checkin</grounding:wsdlMessagePart>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlOutput>
+      <grounding:WsdlOutputMessageMap>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ABookingsService.wsdl#return</grounding:wsdlMessagePart>
+        <grounding:owlsParameter rdf:resource="#return"/>
+      </grounding:WsdlOutputMessageMap>
+    </grounding:wsdlOutput>
+    <grounding:wsdlDocument rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ABookingsService.wsdl</grounding:wsdlDocument>
+    <grounding:wsdlInputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://aserv.composition.inmind.cmu.edu#bookHotelRequest</grounding:wsdlInputMessage>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#checkout"/>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ABookingsService.wsdl#checkout</grounding:wsdlMessagePart>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+  </grounding:WsdlAtomicProcessGrounding>
+</rdf:RDF>

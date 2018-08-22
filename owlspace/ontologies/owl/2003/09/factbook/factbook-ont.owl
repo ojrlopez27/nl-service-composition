@@ -1,0 +1,1511 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY fips-countries-ont "http://on.cs.unibas.ch/owl/2001/09/countries/fips-10-4-ont.owl">
+  <!ENTITY factbook "http://on.cs.unibas.ch/owl/2003/09/factbook/factbook-ont.owl#">
+]>
+
+<rdf:RDF
+  xmlns:rdf = "&rdf;"
+  xmlns:rdfs ="&rdfs;"
+  xmlns:owl ="&owl;"
+  xmlns:factbook="&factbook;"
+  xml:base="http://on.cs.unibas.ch/owl/2003/09/factbook/factbook-ont.owl">
+
+<owl:Ontology rdf:about="">
+  <owl:versionInfo>$Id: factbook-ont.owl 2261 2009-08-18 11:59:12Z thorsten $</owl:versionInfo>
+  <owl:imports rdf:resource="&fips-countries-ont;"/>
+  <rdfs:comment>CIA World Fact Book (2003) Ontology</rdfs:comment>
+  <rdfs:comment>see http://www.cia.gov/cia/publications/factbook/</rdfs:comment>
+</owl:Ontology>
+
+<rdf:Description rdf:about="&fips-countries-ont;#Country">
+  <rdfs:comment>we add properties to existing Country objects rather than creating new ones</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#background"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#location"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#geographicCoordinates"/>
+      <owl:allValuesFrom rdf:resource="#LatLon"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mapReferences"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#totalArea"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>sq km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#landArea"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>sq km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#waterArea"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>sq km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#comparativeArea"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#landBoundaries"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#border"/>
+      <owl:allValuesFrom rdf:resource="#Border"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#coastline"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#maritimeClaim"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>nautical miles</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#climate"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#terrain"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#highestPoint"/>
+      <owl:allValuesFrom rdf:resource="#ElevationExtreme"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#lowestPoint"/>
+      <owl:allValuesFrom rdf:resource="#ElevationExtreme"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#naturalResource"/>
+      <owl:allValuesFrom rdf:resource="#NaturalResource"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#landUse"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#irrigatedLand"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>sq km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#naturalHazard"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#environmentalIssue"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment>environment - international agreements</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#population"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>people</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment>age structure</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#medianAgeTotal"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>years</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#medianAgeMale"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>years</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#medianAgeFemale"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>years</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#populationGrowthRate"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent/year</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#birthRate"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>births/1000 population</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#deathRate"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>deaths/1000 population</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#netMigrationRate"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>migrants/1000 population</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#sexRatio"/>
+      <owl:allValuesFrom rdf:resource="#SexRatioBreakdown"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#infantMortalityRateTotal"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>deaths/1000 live births</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#infantMortalityRateFemale"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>deaths/1000 live births</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#infantMortalityRateMale"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>deaths/1000 live births</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment>life expectancy at birth</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#totalFertilityRate"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>children born/woman</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment>HIV/AIDS</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#nationalityNoun"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#nationalityAdjective"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#ethnicGroup"/>
+      <owl:allValuesFrom rdf:resource="#EthnicGroupPercent"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#religion"/>
+      <owl:allValuesFrom rdf:resource="#ReligionPercent"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#language"/>
+      <owl:allValuesFrom rdf:resource="#LanguagePercent"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#literacyDefinition"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#literacyTotal"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#literacyMale"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#literacyFemale"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#conventionalLongCountryName"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#conventionalShortCountryName"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#localLongCountryName"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#localShortCountryName"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#formerCountryName"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#countryAbbreviation"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#dependencyStatus"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#governmentType"/>
+      <owl:allValuesFrom rdf:resource="#GovernmentType"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#capital"/>
+      <owl:allValuesFrom rdf:resource="#CapitalCity"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#administrativeDivision"/>
+      <owl:allValuesFrom rdf:resource="#AdministrativeDivision"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#dependentArea"/>
+      <owl:allValuesFrom rdf:resource="&fips-countries-ont;#Country"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#independence"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment>national holiday</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#constitution"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#legalSystem"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#suffrage"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment>executive branch</rdfs:comment>
+  <rdfs:comment>legislative branch</rdfs:comment>
+  <rdfs:comment>judicial branch</rdfs:comment>
+  <rdfs:comment>political parties</rdfs:comment>
+  <rdfs:comment>political pressure groups</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#participatesIn"/>
+      <owl:allValuesFrom rdf:resource="#InternationalOrganization"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment>diplomatic representation in/from US</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#flagDescription"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#economyOverview"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#grossDomesticProduct"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#grossDomesticProductRealGrowth"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#grossDomesticProductPerCapita"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#grossDomesticProductComposition"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#populationBelowPovertyLine"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#householdIncomeByPercentageShare"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#distributionOfFamilyIncomeGiniIndex"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>index</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#inflationRate"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#laborForce"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#occupation"/>
+      <owl:allValuesFrom rdf:resource="#OccupationPercent"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#unemploymentRate"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#budgetRevenues"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#budgetExpenditures"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#budgetCapitalExpenditures"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#industry"/>
+      <owl:allValuesFrom rdf:resource="#Industry"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#industrialProductionGrowthRate"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#electricityProduction"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>kWh</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#electricityProductionPercent"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#electricityConsumption"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>kWh</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#electricityExports"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>kWh</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#electricityImports"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>kWh</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#oilProduction"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>bbl/day</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#oilConsumption"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>bbl/day</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#oilExports"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>bbl/day</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#oilImports"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>bbl/day</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#oilProvedReserves"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>bbl</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#naturalGasProvedReserves"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>cu m</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#agricultureProduct"/>
+      <owl:allValuesFrom rdf:resource="#AgricultureProduct"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exports"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exportsCommodity"/>
+      <owl:allValuesFrom rdf:resource="#CommodityPercent"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#exportPartner"/>
+      <owl:allValuesFrom rdf:resource="#CountryPercent"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#imports"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#importsCommodity"/>
+      <owl:allValuesFrom rdf:resource="#CommodityPercent"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#importPartner"/>
+      <owl:allValuesFrom rdf:resource="#CountryPercent"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#externalDebt"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#economicAidDonor"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#economicAidRecipient"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#currency"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#currencyCode"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment>exchange rates</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#fiscalYear"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mainTelephoneLines"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mobileTelephoneLines"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#telephoneSystemGeneralAssessment"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#telephoneSystemDomestic"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#telephoneSystemInternational"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#radioStations"/>
+      <owl:allValuesFrom rdf:resource="#RadioBandBreakdown"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#radios"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#televisionBroadcastStations"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#televisions"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#internetCountryCode"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#internetServiceProviders"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#internetUsers"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#railwaysTotal"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#railwaysStandardGauge"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#railwaysNarrowGauge"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#railwaysBroadGauge"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#railwaysDualGauge"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#highwaysPaved"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#highwaysUnpaved"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#waterways"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#pipelines"/>
+      <owl:allValuesFrom rdf:resource="#PipelineDistance"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#port"/>
+      <owl:allValuesFrom rdf:resource="#Port"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment>merchant marine</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#airports"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#airportBreakdown"/>
+      <owl:allValuesFrom rdf:resource="#AirportBreakdown"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#heliports"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment>military branches</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#militaryAge"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#malesOfMilitaryAge"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#femalesOfMilitaryAge"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#malesFitForMilitaryService"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#femalesFitForMilitaryService"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#malesReachingMilitaryAgeAnnually"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#femalesReachingMilitaryAgeAnnually"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#militaryExpenditures"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>US dollars</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#militaryExpendituresPercentGDP"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#internationalDispute"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#illicitDrugs"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#smallFlag"/>
+      <owl:allValuesFrom rdf:resource="&xsd;anyURI"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#largeFlag"/>
+      <owl:allValuesFrom rdf:resource="&xsd;anyURI"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#map"/>
+      <owl:allValuesFrom rdf:resource="&xsd;anyURI"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</rdf:Description>
+
+<owl:Class rdf:ID="LatLon">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#latitude"/>
+      <owl:allValuesFrom rdf:resource="&xsd;double"/>
+      <factbook:units>degrees</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#longitude"/>
+      <owl:allValuesFrom rdf:resource="&xsd;double"/>
+      <factbook:units>degrees</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="Border">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#country"/>
+      <owl:allValuesFrom rdf:resource="&fips-countries-ont;#Country"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#distance"/>
+      <owl:allValuesFrom rdf:resource="&xsd;decimal"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:DatatypeProperty rdf:ID="maritimeClaim"/>
+<owl:DatatypeProperty rdf:ID="exclusiveEconomicZone">
+  <rdfs:subPropertyOf rdf:resource="#maritimeClaim"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="territorialSea">
+  <rdfs:subPropertyOf rdf:resource="#maritimeClaim"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="contiguousZone">
+  <rdfs:subPropertyOf rdf:resource="#maritimeClaim"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="continentalShelf">
+  <rdfs:subPropertyOf rdf:resource="#maritimeClaim"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="exclusiveFishingZone">
+  <rdfs:subPropertyOf rdf:resource="#maritimeClaim"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="extendedFishingZone">
+  <rdfs:subPropertyOf rdf:resource="#maritimeClaim"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:ID="landUse"/>
+<owl:DatatypeProperty rdf:ID="arableLand">
+  <rdfs:subPropertyOf rdf:resource="#landUse"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="permanentCrops">
+  <rdfs:subPropertyOf rdf:resource="#landUse"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="permanentPastures">
+  <rdfs:subPropertyOf rdf:resource="#landUse"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="forestsAndWoodland">
+  <rdfs:subPropertyOf rdf:resource="#landUse"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="otherLandUse">
+  <rdfs:subPropertyOf rdf:resource="#landUse"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:ID="grossDomesticProductComposition"/>
+<owl:DatatypeProperty rdf:ID="grossDomesticProductAgriculture">
+  <rdfs:subPropertyOf rdf:resource="#grossDomesticProductComposition"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="grossDomesticProductIndustry">
+  <rdfs:subPropertyOf rdf:resource="#grossDomesticProductComposition"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="grossDomesticProductServices">
+  <rdfs:subPropertyOf rdf:resource="#grossDomesticProductComposition"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:ID="householdIncomeByPercentageShare"/>
+<owl:DatatypeProperty rdf:ID="householdIncomeLowest10Percent">
+  <rdfs:subPropertyOf rdf:resource="#householdIncomeByPercentageShare"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="householdIncomeHighest10Percent">
+  <rdfs:subPropertyOf rdf:resource="#householdIncomeByPercentageShare"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:ID="electricityProductionPercent"/>
+<owl:DatatypeProperty rdf:ID="electricityProductionFossilFuel">
+  <rdfs:subPropertyOf rdf:resource="#electricityProductionPercent"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="electricityProductionHydro">
+  <rdfs:subPropertyOf rdf:resource="#electricityProductionPercent"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="electricityProductionNuclear">
+  <rdfs:subPropertyOf rdf:resource="#electricityProductionPercent"/>
+</owl:DatatypeProperty>
+<owl:DatatypeProperty rdf:ID="electricityProductionOther">
+  <rdfs:subPropertyOf rdf:resource="#electricityProductionPercent"/>
+</owl:DatatypeProperty>
+
+
+<owl:Class rdf:ID="ElevationExtreme">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#name"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#elevation"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>meters</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="Port">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#name"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="CapitalCity">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#name"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="AdministrativeDivision">
+  <rdfs:comment>intended to be subclassed for each country</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#name"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="SharedObject">
+  <rdfs:comment>abstract base for common instances that are referred to by multiple Countries</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#name"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="Breakdown">
+  <rdfs:comment>abstract base for classes associating categorizing a value by some other index (percentage, count, etc.)</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:ID="PercentBreakdown">
+  <rdfs:subClassOf rdf:resource="#Breakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#percent"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>percent</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="CountBreakdown">
+  <rdfs:subClassOf rdf:resource="#Breakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#count"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="Commodity">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="CommodityPercent">
+  <rdfs:subClassOf rdf:resource="#PercentBreakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#commodity"/>
+      <owl:allValuesFrom rdf:resource="#Commodity"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="NaturalResource">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="EnvironmentalAgreement">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="InternationalOrganization">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="GovernmentType">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="EthnicGroup">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="EthnicGroupPercent">
+  <rdfs:subClassOf rdf:resource="#PercentBreakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#ethnicGroup"/>
+      <owl:allValuesFrom rdf:resource="#EthnicGroup"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="Religion">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="ReligionPercent">
+  <rdfs:subClassOf rdf:resource="#PercentBreakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#religion"/>
+      <owl:allValuesFrom rdf:resource="#Religion"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="Language">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="LanguagePercent">
+  <rdfs:subClassOf rdf:resource="#PercentBreakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#language"/>
+      <owl:allValuesFrom rdf:resource="#Language"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="CountryPercent">
+  <rdfs:subClassOf rdf:resource="#PercentBreakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#country"/>
+      <owl:allValuesFrom rdf:resource="&fips-countries-ont;#Country"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="Industry">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="Occupation">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="OccupationPercent">
+  <rdfs:subClassOf rdf:resource="#PercentBreakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#occupation"/>
+      <owl:allValuesFrom rdf:resource="#Occupation"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="AgricultureProduct">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="PipelineDistance">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#type"/>
+      <owl:allValuesFrom rdf:resource="#PipelineType"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#distance"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="PipelineType">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="RadioBand">
+  <rdfs:subClassOf rdf:resource="#SharedObject"/>
+</owl:Class>
+
+<owl:Class rdf:ID="RadioBandBreakdown">
+  <rdfs:subClassOf rdf:resource="#CountBreakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#band"/>
+      <owl:allValuesFrom rdf:resource="#RadioBand"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="AirportBreakdown">
+  <rdfs:subClassOf rdf:resource="#CountBreakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#paved"/>
+      <owl:allValuesFrom rdf:resource="&xsd;boolean"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#minRunway"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#maxRunway"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="AgeBreakdown">
+  <rdfs:subClassOf rdf:resource="#Breakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#minAge"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#maxAge"/>
+      <owl:allValuesFrom rdf:resource="&xsd;integer"/>
+      <factbook:units>km</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="SexRatioBreakdown">
+  <rdfs:subClassOf rdf:resource="#AgeBreakdown"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#ratio"/>
+      <owl:allValuesFrom rdf:resource="&xsd;float"/>
+      <factbook:units>male(s)/female</factbook:units>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<!--
+<owl:Class rdf:ID="Estimate">
+  <rdfs:comment>rdf:type added to some (reified) Statements</rdfs:comment>
+  <rdfs:subClassOf rdf:resource="&rdf;Statement"/>
+</owl:Class>
+
+<rdf:Description rdf:about="&rdf;Statement">
+  <rdfs:comment>associate a timestamp with a (reified) Statement</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#year"/>
+      <owl:allValuesFrom rdf:resource="&xsd;gYear"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#fiscalYear"/>
+      <owl:allValuesFrom rdf:resource="&xsd;gYear"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</rdf:Description>
+<rdf:Description rdf:about="&rdf;Statement">
+  <rdfs:comment>associate a parenthesized comment with a (reified) Statement</rdfs:comment>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#note"/>
+      <owl:allValuesFrom rdf:resource="&xsd;string"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</rdf:Description>
+-->
+
+<owl:ObjectProperty rdf:ID="administrativeDivision"/>
+<owl:ObjectProperty rdf:ID="agricultureProduct"/>
+<owl:DatatypeProperty rdf:ID="airportBreakdown"/>
+<owl:DatatypeProperty rdf:ID="airports"/>
+<owl:DatatypeProperty rdf:ID="background"/>
+<owl:DatatypeProperty rdf:ID="band"/>
+<owl:DatatypeProperty rdf:ID="birthRate"/>
+<owl:ObjectProperty rdf:ID="border"/>
+<owl:DatatypeProperty rdf:ID="budgetCapitalExpenditures"/>
+<owl:DatatypeProperty rdf:ID="budgetExpenditures"/>
+<owl:DatatypeProperty rdf:ID="budgetRevenues"/>
+<owl:ObjectProperty rdf:ID="capital"/>
+<owl:DatatypeProperty rdf:ID="climate"/>
+<owl:DatatypeProperty rdf:ID="coastline"/>
+<owl:ObjectProperty rdf:ID="commodity"/>
+<owl:DatatypeProperty rdf:ID="comparativeArea"/>
+<owl:DatatypeProperty rdf:ID="constitution"/>
+<owl:DatatypeProperty rdf:ID="conventionalLongCountryName"/>
+<owl:DatatypeProperty rdf:ID="conventionalShortCountryName"/>
+<owl:DatatypeProperty rdf:ID="count"/>
+<owl:ObjectProperty rdf:ID="country"/>
+<owl:DatatypeProperty rdf:ID="countryAbbreviation"/>
+<owl:DatatypeProperty rdf:ID="currency"/>
+<owl:DatatypeProperty rdf:ID="currencyCode"/>
+<owl:DatatypeProperty rdf:ID="deathRate"/>
+<owl:DatatypeProperty rdf:ID="dependencyStatus"/>
+<owl:ObjectProperty rdf:ID="dependentArea"/>
+<owl:DatatypeProperty rdf:ID="distance"/>
+<owl:DatatypeProperty rdf:ID="distributionOfFamilyIncomeGiniIndex"/>
+<owl:DatatypeProperty rdf:ID="economyOverview"/>
+<owl:DatatypeProperty rdf:ID="economicAidDonor"/>
+<owl:DatatypeProperty rdf:ID="economicAidRecipient"/>
+<owl:DatatypeProperty rdf:ID="electricityConsumption"/>
+<owl:DatatypeProperty rdf:ID="electricityExports"/>
+<owl:DatatypeProperty rdf:ID="electricityImports"/>
+<owl:DatatypeProperty rdf:ID="electricityProduction"/>
+<owl:DatatypeProperty rdf:ID="elevation"/>
+<owl:DatatypeProperty rdf:ID="environmentalIssue"/>
+<owl:ObjectProperty rdf:ID="environmentalAgreementPartyTo"/>
+<owl:ObjectProperty rdf:ID="environmentalAgreementSigned"/>
+<owl:ObjectProperty rdf:ID="ethnicGroup"/>
+<owl:ObjectProperty rdf:ID="exportPartner"/>
+<owl:DatatypeProperty rdf:ID="exports"/>
+<owl:ObjectProperty rdf:ID="exportsCommodity"/>
+<owl:DatatypeProperty rdf:ID="externalDebt"/>
+<owl:DatatypeProperty rdf:ID="femalesFitForMilitaryService"/>
+<owl:DatatypeProperty rdf:ID="femalesOfMilitaryAge"/>
+<owl:DatatypeProperty rdf:ID="femalesReachingMilitaryAgeAnnually"/>
+<owl:DatatypeProperty rdf:ID="flagDescription"/>
+<owl:DatatypeProperty rdf:ID="fiscalYear"/>
+<owl:DatatypeProperty rdf:ID="formerCountryName"/>
+<owl:ObjectProperty rdf:ID="geographicCoordinates"/>
+<owl:ObjectProperty rdf:ID="governmentType"/>
+<owl:DatatypeProperty rdf:ID="grossDomesticProduct"/>
+<owl:DatatypeProperty rdf:ID="grossDomesticProductPerCapita"/>
+<owl:DatatypeProperty rdf:ID="grossDomesticProductRealGrowth"/>
+<owl:DatatypeProperty rdf:ID="heliports"/>
+<owl:DatatypeProperty rdf:ID="highestPoint"/>
+<owl:DatatypeProperty rdf:ID="highwaysPaved"/>
+<owl:DatatypeProperty rdf:ID="highwaysTotal"/>
+<owl:DatatypeProperty rdf:ID="highwaysUnpaved"/>
+<owl:DatatypeProperty rdf:ID="illicitDrugs"/>
+<owl:ObjectProperty rdf:ID="importPartner"/>
+<owl:DatatypeProperty rdf:ID="imports"/>
+<owl:ObjectProperty rdf:ID="importsCommodity"/>
+<owl:DatatypeProperty rdf:ID="independence"/>
+<owl:DatatypeProperty rdf:ID="infantMortalityRateFemale"/>
+<owl:DatatypeProperty rdf:ID="infantMortalityRateMale"/>
+<owl:DatatypeProperty rdf:ID="infantMortalityRateTotal"/>
+<owl:DatatypeProperty rdf:ID="internationalDispute"/>
+<owl:DatatypeProperty rdf:ID="inflationRate"/>
+<owl:DatatypeProperty rdf:ID="irrigatedLand"/>
+<owl:ObjectProperty rdf:ID="industry"/>
+<owl:DatatypeProperty rdf:ID="industrialProductionGrowthRate"/>
+<owl:DatatypeProperty rdf:ID="internetCountryCode"/>
+<owl:DatatypeProperty rdf:ID="internetServiceProviders"/>
+<owl:DatatypeProperty rdf:ID="internetUsers"/>
+<owl:DatatypeProperty rdf:ID="laborForce"/>
+<owl:DatatypeProperty rdf:ID="landArea"/>
+<owl:DatatypeProperty rdf:ID="landBoundaries"/>
+<owl:ObjectProperty rdf:ID="language"/>
+<owl:DatatypeProperty rdf:ID="largeFlag"/>
+<owl:DatatypeProperty rdf:ID="latitude"/>
+<owl:DatatypeProperty rdf:ID="legalSystem"/>
+<owl:DatatypeProperty rdf:ID="literacyDefinition"/>
+<owl:DatatypeProperty rdf:ID="literacyTotal"/>
+<owl:DatatypeProperty rdf:ID="literacyMale"/>
+<owl:DatatypeProperty rdf:ID="literacyFemale"/>
+<owl:DatatypeProperty rdf:ID="localLongCountryName"/>
+<owl:DatatypeProperty rdf:ID="localShortCountryName"/>
+<owl:DatatypeProperty rdf:ID="location"/>
+<owl:DatatypeProperty rdf:ID="longitude"/>
+<owl:DatatypeProperty rdf:ID="lowestPoint"/>
+<owl:DatatypeProperty rdf:ID="mainTelephoneLines"/>
+<owl:DatatypeProperty rdf:ID="malesFitForMilitaryService"/>
+<owl:DatatypeProperty rdf:ID="malesOfMilitaryAge"/>
+<owl:DatatypeProperty rdf:ID="malesReachingMilitaryAgeAnnually"/>
+<owl:DatatypeProperty rdf:ID="map"/>
+<owl:DatatypeProperty rdf:ID="mapReferences"/>
+<owl:DatatypeProperty rdf:ID="maxAge"/>
+<owl:DatatypeProperty rdf:ID="maxRunway"/>
+<owl:DatatypeProperty rdf:ID="medianAgeFemale"/>
+<owl:DatatypeProperty rdf:ID="medianAgeMale"/>
+<owl:DatatypeProperty rdf:ID="medianAgeTotal"/>
+<owl:DatatypeProperty rdf:ID="militaryAge"/>
+<owl:DatatypeProperty rdf:ID="militaryExpenditures"/>
+<owl:DatatypeProperty rdf:ID="militaryExpendituresPercentGDP"/>
+<owl:DatatypeProperty rdf:ID="minAge"/>
+<owl:DatatypeProperty rdf:ID="minRunway"/>
+<owl:DatatypeProperty rdf:ID="mobileTelephoneLines"/>
+<owl:DatatypeProperty rdf:ID="name"/>
+<owl:DatatypeProperty rdf:ID="nationalityAdjective"/>
+<owl:DatatypeProperty rdf:ID="nationalityNoun"/>
+<owl:DatatypeProperty rdf:ID="naturalGasProvedReserves"/>
+<owl:DatatypeProperty rdf:ID="naturalHazard"/>
+<owl:ObjectProperty rdf:ID="naturalResource"/>
+<owl:DatatypeProperty rdf:ID="netMigrationRate"/>
+<owl:DatatypeProperty rdf:ID="note"/>
+<owl:ObjectProperty rdf:ID="occupation"/>
+<owl:DatatypeProperty rdf:ID="oilProduction"/>
+<owl:DatatypeProperty rdf:ID="oilConsumption"/>
+<owl:DatatypeProperty rdf:ID="oilExports"/>
+<owl:DatatypeProperty rdf:ID="oilImports"/>
+<owl:DatatypeProperty rdf:ID="oilProvedReserves"/>
+<owl:ObjectProperty rdf:ID="participatesIn"/>
+<owl:DatatypeProperty rdf:ID="paved"/>
+<owl:DatatypeProperty rdf:ID="percent"/>
+<owl:ObjectProperty rdf:ID="pipelines"/>
+<owl:DatatypeProperty rdf:ID="population"/>
+<owl:DatatypeProperty rdf:ID="populationBelowPovertyLine"/>
+<owl:DatatypeProperty rdf:ID="populationGrowthRate"/>
+<owl:ObjectProperty rdf:ID="port"/>
+<owl:ObjectProperty rdf:ID="radioStations"/>
+<owl:DatatypeProperty rdf:ID="radios"/>
+<owl:DatatypeProperty rdf:ID="railwaysBroadGauge"/>
+<owl:DatatypeProperty rdf:ID="railwaysDualGauge"/>
+<owl:DatatypeProperty rdf:ID="railwaysNarrowGauge"/>
+<owl:DatatypeProperty rdf:ID="railwaysStandardGauge"/>
+<owl:DatatypeProperty rdf:ID="railwaysTotal"/>
+<owl:DatatypeProperty rdf:ID="ratio"/>
+<owl:DatatypeProperty rdf:ID="religion"/>
+<owl:ObjectProperty rdf:ID="sexRatio"/>
+<owl:DatatypeProperty rdf:ID="smallFlag"/>
+<owl:DatatypeProperty rdf:ID="suffrage"/>
+<owl:DatatypeProperty rdf:ID="telephoneSystemDomestic"/>
+<owl:DatatypeProperty rdf:ID="telephoneSystemGeneralAssessment"/>
+<owl:DatatypeProperty rdf:ID="telephoneSystemInternational"/>
+<owl:DatatypeProperty rdf:ID="televisions"/>
+<owl:DatatypeProperty rdf:ID="televisionBroadcastStations"/>
+<owl:DatatypeProperty rdf:ID="terrain"/>
+<owl:DatatypeProperty rdf:ID="totalArea"/>
+<owl:DatatypeProperty rdf:ID="totalFertilityRate"/>
+<owl:DatatypeProperty rdf:ID="type"/>
+<owl:DatatypeProperty rdf:ID="unemploymentRate"/>
+<owl:DatatypeProperty rdf:ID="units"/>
+<owl:DatatypeProperty rdf:ID="waterArea"/>
+<owl:DatatypeProperty rdf:ID="waterways"/>
+<owl:DatatypeProperty rdf:ID="year"/>
+
+</rdf:RDF>

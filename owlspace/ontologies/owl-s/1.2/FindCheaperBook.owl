@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef[
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.2/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.2/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.2/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.2/Grounding.owl">
+  <!ENTITY expr "http://www.daml.org/services/owl-s/1.2/generic/Expression.owl">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb">
+  <!ENTITY list "http://www.daml.org/services/owl-s/1.2/generic/ObjectList.owl">
+  <!ENTITY BookFinder "http://on.cs.unibas.ch/owl-s/1.2/BookFinder.owl">
+  <!ENTITY BNPrice "http://on.cs.unibas.ch/owl-s/1.2/BNPrice.owl">
+  <!ENTITY AmazonBookPrice "http://on.cs.unibas.ch/owl-s/1.2/AmazonBookPrice.owl">
+  <!ENTITY concepts "http://on.cs.unibas.ch/owl/concepts.owl">
+  <!ENTITY this "http://on.cs.unibas.ch/owl-s/1.2/FindCheaperBook.owl">
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xmlns:expr="&expr;#"
+  xmlns:swrl="&swrl;#"
+  xmlns:list="&list;#"
+  xml:base="&this;"
+>
+
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="&BookFinder;"/>
+	<owl:imports rdf:resource="&BNPrice;"/>
+	<owl:imports rdf:resource="&AmazonBookPrice;"/>
+	<owl:versionInfo>$Id: FindCheaperBook.owl 2399 2010-01-27 15:13:56Z thorsten $</owl:versionInfo>
+</owl:Ontology>
+
+<!-- Service description -->
+<service:Service rdf:ID="FindCheaperBookService">
+	<service:presents rdf:resource="#FindCheaperBookProfile"/>
+
+	<service:describedBy rdf:resource="#FindCheaperBookProcess"/>
+
+	<service:supports rdf:resource="#FindCheaperBookGrounding"/>
+</service:Service>
+
+<!-- Profile description -->
+<profile:Profile rdf:ID="FindCheaperBookProfile">
+	<service:presentedBy rdf:resource="#FindCheaperBookService"/>
+
+	<profile:serviceName xml:lang="en">Cheaper Book Finder</profile:serviceName>
+
+	<profile:hasInput rdf:resource="#BookName"/>
+
+	<profile:hasOutput rdf:resource="#BookInfo"/>
+</profile:Profile>
+
+<!-- Process description -->
+
+<process:CompositeProcess rdf:ID="FindCheaperBookProcess">
+	<service:describes rdf:resource="#FindCheaperBookService"/>
+
+	<process:hasInput>
+		<process:Input rdf:ID="BookName">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#string</process:parameterType>
+			<rdfs:label>Book Name</rdfs:label>
+		</process:Input>
+	</process:hasInput>
+
+	<process:hasOutput>
+		<process:Output rdf:ID="BookPrice">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">&concepts;#Price</process:parameterType>
+			<rdfs:label>Book Info</rdfs:label>
+		</process:Output>
+	</process:hasOutput>
+
+	<process:hasOutput>
+		<process:Output rdf:ID="Bookstore">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#string</process:parameterType>
+			<rdfs:label>Book Info</rdfs:label>
+		</process:Output>
+	</process:hasOutput>
+
+    <process:composedOf>
+      <process:Sequence>
+        <process:components>
+          <process:ControlConstructList>
+             <list:first rdf:resource="#FindBookInfo"/>
+             <list:rest>
+				<process:ControlConstructList>
+		            <list:first>
+        		    	<process:Split-Join>
+        		    	   <process:components>
+        		    	      <process:ControlConstructBag>
+				                <list:first rdf:resource="#FindAmazonPrice"/>
+                				<list:rest>
+				                   <process:ControlConstructBag>
+                				      <list:first rdf:resource="#FindBNPrice"/>
+					                  <list:rest rdf:resource="&list;#nil"/>
+	            			       </process:ControlConstructBag>
+	            			     </list:rest>
+			                  </process:ControlConstructBag>
+	                        </process:components>
+            			</process:Split-Join>
+		            </list:first>
+        		    <list:rest>
+	                  <process:ControlConstructList>
+	                    <list:first rdf:resource="#ComparePrices"/>
+	                    <list:rest rdf:resource="&list;#nil"/>
+	                  </process:ControlConstructList>
+	                </list:rest>
+                  </process:ControlConstructList>
+                </list:rest>
+              </process:ControlConstructList>
+        </process:components>
+      </process:Sequence>
+    </process:composedOf>
+    <process:hasResult>
+      <process:Result>
+        <process:withOutput>
+          <process:OutputBinding>
+            <process:toVar rdf:resource="#BookPrice"/>
+            <process:valueSource>
+              <process:ValueOf>
+                <process:fromProcess rdf:resource="#ComparePrices"/>
+                <process:theVar rdf:resource="#CP_OutputPrice"/>
+              </process:ValueOf>
+            </process:valueSource>
+          </process:OutputBinding>
+        </process:withOutput>
+        <process:withOutput>
+          <process:OutputBinding>
+            <process:toVar rdf:resource="#Bookstore"/>
+            <process:valueSource>
+              <process:ValueOf>
+                <process:fromProcess rdf:resource="#ComparePrices"/>
+                <process:theVar rdf:resource="#CP_Bookstore"/>
+              </process:ValueOf>
+            </process:valueSource>
+          </process:OutputBinding>
+        </process:withOutput>
+      </process:Result>
+    </process:hasResult>
+</process:CompositeProcess>
+
+  <process:Perform rdf:ID="FindBookInfo">
+    <process:process rdf:resource="&BookFinder;#BookFinderProcess"/>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:toVar rdf:resource="&BookFinder;#BookName"/>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="&process;#ThisPerform"/>
+            <process:theVar rdf:resource="#BookName"/>
+          </process:ValueOf>
+        </process:valueSource>
+      </process:InputBinding>
+    </process:hasDataFrom>
+  </process:Perform>
+
+  <process:Perform rdf:ID="FindAmazonPrice">
+    <process:process rdf:resource="&AmazonBookPrice;#AmazonPriceProcess"/>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:toVar rdf:resource="&AmazonBookPrice;#BookInfo"/>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="#FindBookInfo"/>
+            <process:theVar rdf:resource="&BookFinder;#BookInfo"/>
+          </process:ValueOf>
+        </process:valueSource>
+      </process:InputBinding>
+    </process:hasDataFrom>
+  </process:Perform>
+
+  <process:Perform rdf:ID="FindBNPrice">
+    <process:process rdf:resource="&BNPrice;#BNPriceProcess"/>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:toVar rdf:resource="&BNPrice;#BookInfo"/>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="#FindBookInfo"/>
+            <process:theVar rdf:resource="&BookFinder;#BookInfo"/>
+          </process:ValueOf>
+        </process:valueSource>
+      </process:InputBinding>
+    </process:hasDataFrom>
+  </process:Perform>
+
+  <process:Perform rdf:ID="ComparePrices">
+    <process:process rdf:resource="#ComparePricesProcess"/>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:toVar rdf:resource="#CP_AmazonPrice"/>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="#FindAmazonPrice"/>
+            <process:theVar rdf:resource="&AmazonBookPrice;#BookPrice"/>
+          </process:ValueOf>
+        </process:valueSource>
+      </process:InputBinding>
+    </process:hasDataFrom>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:toVar rdf:resource="#CP_BNPrice"/>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="#FindBNPrice"/>
+            <process:theVar rdf:resource="&BNPrice;#BookPrice"/>
+          </process:ValueOf>
+        </process:valueSource>
+      </process:InputBinding>
+    </process:hasDataFrom>
+  </process:Perform>
+
+<process:CompositeProcess rdf:ID="ComparePricesProcess">
+
+	<process:hasInput>
+		<process:Input rdf:ID="CP_AmazonPrice">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">&concepts;#Price</process:parameterType>
+			<rdfs:label>Amazon Price</rdfs:label>
+		</process:Input>
+	</process:hasInput>
+
+	<process:hasInput>
+		<process:Input rdf:ID="CP_BNPrice">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">&concepts;#Price</process:parameterType>
+			<rdfs:label>Amazon Price</rdfs:label>
+		</process:Input>
+	</process:hasInput>
+
+	<process:hasOutput>
+		<process:Output rdf:ID="CP_OutputPrice">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">&concepts;#Price</process:parameterType>
+			<rdfs:label>Book Price</rdfs:label>
+		</process:Output>
+	</process:hasOutput>
+
+	<process:hasOutput>
+		<process:Output rdf:ID="CP_Bookstore">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#string</process:parameterType>
+			<rdfs:label>Bookstore</rdfs:label>
+		</process:Output>
+	</process:hasOutput>
+
+	<process:hasLocal>
+		<process:Local rdf:ID="CP_BNPriceAmount">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#float</process:parameterType>
+		</process:Local>
+	</process:hasLocal>
+	<process:hasLocal>
+		<process:Local rdf:ID="CP_AmazonPriceAmount">
+			<process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#float</process:parameterType>
+		</process:Local>
+	</process:hasLocal>
+
+	<process:hasPrecondition>
+		<expr:SWRL-Condition>
+			<expr:expressionLanguage rdf:resource="&expr;#SWRL"/>
+			<expr:expressionObject>
+	          <swrl:AtomList>
+	            <rdf:first>
+	              <swrl:DatavaluedPropertyAtom>
+	                <swrl:propertyPredicate rdf:resource="&concepts;#amount"/>
+	                <swrl:argument1 rdf:resource="&this;#CP_AmazonPrice"/>
+	                <swrl:argument2 rdf:resource="&this;#CP_AmazonPriceAmount"/>
+	              </swrl:DatavaluedPropertyAtom>
+	            </rdf:first>
+	            <rdf:rest rdf:resource="&rdf;#nil"/>
+	          </swrl:AtomList>
+			</expr:expressionObject>
+		</expr:SWRL-Condition>
+	</process:hasPrecondition>
+
+	<process:hasPrecondition>
+		<expr:SWRL-Condition>
+			<expr:expressionLanguage rdf:resource="&expr;#SWRL"/>
+			<expr:expressionObject>
+	          <swrl:AtomList>
+	            <rdf:first>
+	              <swrl:DatavaluedPropertyAtom>
+	                <swrl:propertyPredicate rdf:resource="&concepts;#amount"/>
+	                <swrl:argument1 rdf:resource="&this;#CP_BNPrice"/>
+	                <swrl:argument2 rdf:resource="&this;#CP_BNPriceAmount"/>
+	              </swrl:DatavaluedPropertyAtom>
+	            </rdf:first>
+	            <rdf:rest rdf:resource="&rdf;#nil"/>
+	          </swrl:AtomList>
+			</expr:expressionObject>
+		</expr:SWRL-Condition>
+	</process:hasPrecondition>
+
+    <process:composedOf>
+	    <process:If-Then-Else>
+	      <process:ifCondition>
+	        <expr:SWRL-Condition>
+	          <expr:expressionObject>
+	            <swrl:AtomList>
+	              <rdf:first>
+	                <swrl:BuiltinAtom>
+	                  <swrl:builtin rdf:resource="&swrlb;#lessThan"/>
+	                  <swrl:arguments>
+	                  	<rdf:List>
+	                  		<rdf:first rdf:resource="&this;#CP_BNPriceAmount"/>
+	                  		<rdf:rest>
+	                  		    <rdf:List>
+			                  	  <rdf:first rdf:resource="&this;#CP_AmazonPriceAmount"/>
+					              <rdf:rest rdf:resource="&rdf;#nil"/>
+			                   	</rdf:List>
+	            	      	</rdf:rest>
+	                  	</rdf:List>
+	                  </swrl:arguments>
+	                </swrl:BuiltinAtom>
+	              </rdf:first>
+	              <rdf:rest rdf:resource="&rdf;#nil"/>
+	            </swrl:AtomList>
+	          </expr:expressionObject>
+	        </expr:SWRL-Condition>
+	      </process:ifCondition>
+	      <process:then>
+	         <process:Sequence>
+				<process:components>
+					<process:ControlConstructList>
+		            	<list:first rdf:resource="#ProduceBNPrice"/>
+			            <list:rest>
+				        	<process:ControlConstructList>
+				            	<list:first rdf:resource="#ProduceBNName"/>
+					            <list:rest rdf:resource="&list;#nil"/>
+    	    				</process:ControlConstructList>
+    	    			</list:rest>
+ 	    			</process:ControlConstructList>
+		        </process:components>
+             </process:Sequence>
+          </process:then>
+          <process:else>
+             <process:Sequence>
+		        <process:components>
+		        	<process:ControlConstructList>
+		            	<list:first rdf:resource="#ProduceAmazonPrice"/>
+	        			<list:rest>
+				        	<process:ControlConstructList>
+				            	<list:first rdf:resource="#ProduceAmazonName"/>
+					            <list:rest rdf:resource="&list;#nil"/>
+	    	    			</process:ControlConstructList>
+	    	    		</list:rest>
+		 	    	</process:ControlConstructList>
+				</process:components>
+		     </process:Sequence>
+    	  </process:else>
+	   </process:If-Then-Else>
+    </process:composedOf>
+</process:CompositeProcess>
+
+<process:Produce rdf:ID="ProduceBNPrice">
+   <process:producedBinding>
+      <process:OutputBinding>
+        <process:toVar rdf:resource="#CP_OutputPrice"/>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="&process;#ThisPerform"/>
+            <process:theVar rdf:resource="#CP_BNPrice"/>
+          </process:ValueOf>
+         </process:valueSource>
+       </process:OutputBinding>
+   </process:producedBinding>
+</process:Produce>
+
+<process:Produce rdf:ID="ProduceBNName">
+   <process:producedBinding>
+      <process:OutputBinding>
+        <process:toVar rdf:resource="#CP_Bookstore"/>
+        <process:valueData>Barnes &amp; Nobles</process:valueData>
+      </process:OutputBinding>
+   </process:producedBinding>
+</process:Produce>
+
+<process:Produce rdf:ID="ProduceAmazonPrice">
+   <process:producedBinding>
+      <process:OutputBinding>
+        <process:toVar rdf:resource="#CP_OutputPrice"/>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="&process;#ThisPerform"/>
+            <process:theVar rdf:resource="#CP_AmazonPrice"/>
+          </process:ValueOf>
+         </process:valueSource>
+       </process:OutputBinding>
+   </process:producedBinding>
+</process:Produce>
+
+<process:Produce rdf:ID="ProduceAmazonName">
+   <process:producedBinding>
+      <process:OutputBinding>
+        <process:toVar rdf:resource="#CP_Bookstore"/>
+        <process:valueData>Amazon</process:valueData>
+      </process:OutputBinding>
+   </process:producedBinding>
+</process:Produce>
+
+<grounding:WsdlGrounding rdf:ID="FindCheaperBookGrounding">
+	<service:supportedBy rdf:resource="#FindCheaperBookService"/>
+	<grounding:hasAtomicProcessGrounding rdf:resource="&BookFinder;#BookFinderProcessGrounding"/>
+	<grounding:hasAtomicProcessGrounding rdf:resource="&BNPrice;#BNPriceProcessGrounding"/>
+	<grounding:hasAtomicProcessGrounding rdf:resource="&AmazonBookPrice;#AmazonPriceProcessGrounding"/>
+</grounding:WsdlGrounding>
+
+</rdf:RDF>

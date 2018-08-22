@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.1/Service.owl">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.1/Profile.owl">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.1/Process.owl">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.1/Grounding.owl">
+  <!ENTITY list "http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl">
+  <!ENTITY concepts "http://dangiankit.ddns.net/~dangiankit/owl/concepts.owl">
+  <!ENTITY currency "http://dangiankit.ddns.net/~dangiankit/owl/currency.owl">
+  <!ENTITY mind "http://www.mindswap.org/2004/owl-s/1.1/MindswapProfileHierarchy.owl">
+  <!ENTITY CurrencyConverter "http://dangiankit.ddns.net/~dangiankit/owl-s/1.1/CurrencyConverter.owl">
+  <!ENTITY BookFinder "http://dangiankit.ddns.net/~dangiankit/owl-s/1.1/BookFinder.owl">
+  <!ENTITY BNPrice "http://dangiankit.ddns.net/~dangiankit/owl-s/1.1/BNPrice.owl">
+  <!ENTITY THIS "http://dangiankit.ddns.net/~dangiankit/owl-s/1.1/BookPrice.owl">
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;#"
+  xmlns:rdfs="&rdfs;#"
+  xmlns:owl="&owl;#"
+  xmlns:xsd="&xsd;#"
+  xmlns:service="&service;#"
+  xmlns:profile="&profile;#"
+  xmlns:process="&process;#"
+  xmlns:grounding="&grounding;#"
+  xmlns:list="&list;#"
+  xmlns:mind="&mind;#"
+  xml:base="&THIS;">
+
+  <owl:Ontology rdf:about="">
+	 <owl:imports rdf:resource="&BookFinder;" />
+	 <owl:imports rdf:resource="&BNPrice;" />
+    <owl:imports rdf:resource="&CurrencyConverter;" />
+    <owl:versionInfo>$Id: BookPrice.owl 2252 2009-07-12 11:34:50Z thorsten $</owl:versionInfo>
+  </owl:Ontology>
+
+  <service:Service rdf:ID="BookPriceService">
+    <service:describedBy>
+      <process:CompositeProcess rdf:ID="BookPriceProcess"/>
+    </service:describedBy>
+    <service:supports>
+      <grounding:WsdlGrounding rdf:ID="BookPriceGrounding"/>
+    </service:supports>
+    <service:presents>
+      <profile:Profile rdf:ID="BookPriceProfile"/>
+    </service:presents>
+  </service:Service>
+
+  <mind:BookInformationService rdf:about="#BookPriceProfile">
+    <service:presentedBy rdf:resource="#BookPriceService"/>
+
+	<profile:serviceName xml:lang="en">Book Price Finder</profile:serviceName>
+	<profile:textDescription xml:lang="en">Returns the price of a book in the desired currency. First the ISBN number for the given book is found and then this ISBN number is used to get the prive of the book from Barnes &amp; Nobles service.</profile:textDescription>
+
+    <profile:hasInput>
+      <process:Input rdf:ID="BookName">
+        <rdfs:label>Book Name</rdfs:label>
+        <process:parameterType rdf:datatype="&xsd;#anyURI">&xsd;#string</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <profile:hasInput>
+      <process:Input rdf:ID="Currency">
+        <rdfs:label>Output Currency</rdfs:label>
+        <process:parameterType rdf:datatype="&xsd;#anyURI">&currency;#Currency</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <profile:hasOutput>
+      <process:Output rdf:ID="BookPrice">
+        <rdfs:label>Output Price</rdfs:label>
+        <process:parameterType rdf:datatype="&xsd;#anyURI">&concepts;#Price</process:parameterType>
+      </process:Output>
+    </profile:hasOutput>
+  </mind:BookInformationService>
+
+  <process:CompositeProcess rdf:about="#BookPriceProcess">
+    <service:describes rdf:resource="#BookPriceService"/>
+
+    <process:hasInput rdf:resource="#BookName"/>
+    <process:hasInput rdf:resource="#Currency"/>
+    <process:hasOutput rdf:resource="#BookPrice"/>
+
+    <process:composedOf>
+      <process:Sequence>
+        <process:components>
+          <process:ControlConstructList>
+            <list:first>
+              <process:Perform rdf:nodeID="Perform1"/>
+            </list:first>
+            <list:rest>
+              <process:ControlConstructList>
+                <list:first>
+                  <process:Perform rdf:nodeID="Perform2"/>
+                </list:first>
+                <list:rest>
+                  <process:ControlConstructList>
+                    <list:rest rdf:resource="&list;#nil"/>
+                    <list:first>
+                      <process:Perform rdf:nodeID="Perform3"/>
+                    </list:first>
+                  </process:ControlConstructList>
+                </list:rest>
+              </process:ControlConstructList>
+            </list:rest>
+          </process:ControlConstructList>
+        </process:components>
+      </process:Sequence>
+    </process:composedOf>
+    <process:hasResult>
+      <process:Result>
+        <process:withOutput>
+          <process:OutputBinding>
+            <process:toParam rdf:resource="#BookPrice"/>
+            <process:valueSource>
+              <process:ValueOf>
+                <process:fromProcess>
+                  <process:Perform rdf:nodeID="Perform3"/>
+                </process:fromProcess>
+                <process:theVar rdf:resource="&CurrencyConverter;#OutputPrice"/>
+              </process:ValueOf>
+            </process:valueSource>
+          </process:OutputBinding>
+        </process:withOutput>
+      </process:Result>
+    </process:hasResult>
+  </process:CompositeProcess>
+
+  <process:Perform rdf:nodeID="Perform1">
+    <process:process rdf:resource="&BookFinder;#BookFinderProcess"/>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:toParam rdf:resource="&BookFinder;#BookName"/>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="&process;#TheParentPerform"/>
+            <process:theVar rdf:resource="#BookName"/>
+          </process:ValueOf>
+        </process:valueSource>
+      </process:InputBinding>
+    </process:hasDataFrom>
+  </process:Perform>
+
+  <process:Perform rdf:nodeID="Perform2">
+    <process:process rdf:resource="&BNPrice;#BNPriceProcess"/>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:toParam rdf:resource="&BNPrice;#BookInfo"/>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:theVar rdf:resource="&BookFinder;#BookInfo"/>
+            <process:fromProcess>
+              <process:Perform rdf:nodeID="Perform1"/>
+            </process:fromProcess>
+          </process:ValueOf>
+        </process:valueSource>
+      </process:InputBinding>
+    </process:hasDataFrom>
+  </process:Perform>
+
+  <process:Perform rdf:nodeID="Perform3">
+    <process:process rdf:resource="&CurrencyConverter;#CurrencyConverterProcess"/>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:nodeID="Perform2"/>
+            <process:theVar rdf:resource="&BNPrice;#BookPrice"/>
+          </process:ValueOf>
+        </process:valueSource>
+        <process:toParam rdf:resource="&CurrencyConverter;#InputPrice"/>
+      </process:InputBinding>
+    </process:hasDataFrom>
+    <process:hasDataFrom>
+      <process:InputBinding>
+        <process:valueSource>
+          <process:ValueOf>
+            <process:fromProcess rdf:resource="&process;#TheParentPerform"/>
+            <process:theVar rdf:resource="#Currency"/>
+          </process:ValueOf>
+        </process:valueSource>
+        <process:toParam rdf:resource="&CurrencyConverter;#OutputCurrency"/>
+      </process:InputBinding>
+    </process:hasDataFrom>
+  </process:Perform>
+
+  <grounding:WsdlGrounding rdf:about="#BookPriceGrounding">
+    <grounding:hasAtomicProcessGrounding rdf:resource="&CurrencyConverter;#CurrencyConverterProcessGrounding"/>
+    <grounding:hasAtomicProcessGrounding rdf:resource="&BNPrice;#BNPriceProcessGrounding"/>
+    <grounding:hasAtomicProcessGrounding rdf:resource="&BookFinder;#BookFinderProcessGrounding"/>
+    <service:supportedBy rdf:resource="#BookPriceService"/>
+  </grounding:WsdlGrounding>
+</rdf:RDF>

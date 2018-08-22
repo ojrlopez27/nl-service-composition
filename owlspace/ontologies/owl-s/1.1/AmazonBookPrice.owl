@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uridef [
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY service "http://www.daml.org/services/owl-s/1.1/Service.owl#">
+  <!ENTITY profile "http://www.daml.org/services/owl-s/1.1/Profile.owl#">
+  <!ENTITY process "http://www.daml.org/services/owl-s/1.1/Process.owl#">
+  <!ENTITY grounding "http://www.daml.org/services/owl-s/1.1/Grounding.owl#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY concepts "http://dangiankit.ddns.net/~dangiankit/owl/concepts.owl">
+  <!ENTITY bibtex "http://purl.org/net/nknouf/ns/bibtex#">
+  <!ENTITY mind "http://www.mindswap.org/2004/owl-s/1.1/MindswapProfileHierarchy.owl">
+  <!ENTITY amazon "http://webservices.amazon.com/AWSECommerceService/2005-10-13">
+  <!ENTITY THIS "http://dangiankit.ddns.net/~dangiankit/owl-s/1.1/AmazonBookPrice.owl">
+]>
+<rdf:RDF
+  xmlns:rdf="&rdf;"
+  xmlns:rdfs="&rdfs;"
+  xmlns:owl="&owl;"
+  xmlns:xsd="&xsd;"
+  xmlns:service="&service;"
+  xmlns:process="&process;"
+  xmlns:profile="&profile;"
+  xmlns:grounding="&grounding;"
+  xmlns:bibtex="&bibtex;#"
+  xmlns:mind="&mind;#"
+  xmlns="&THIS;#"
+  xml:base="&THIS;">
+
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="&service;"/>
+    <owl:imports rdf:resource="&profile;"/>
+    <owl:imports rdf:resource="&process;"/>
+    <owl:imports rdf:resource="&grounding;"/>
+    <owl:imports rdf:resource="&concepts;"/>
+   <!-- use the cached version for bibtex ontology -->
+    <owl:imports rdf:resource="http://dangiankit.ddns.net/~dangiankit/owl/2003/12/bibtex.owl"/>
+    <owl:versionInfo>$Id: AmazonBookPrice.owl 2578 2011-02-04 16:58:17Z thorsten $</owl:versionInfo>
+  </owl:Ontology>
+  <service:Service rdf:ID="AmazonPriceService">
+    <service:presents rdf:resource="#AmazonPriceProfile"/>
+    <service:describedBy rdf:resource="#AmazonPriceProcess"/>
+    <service:supports rdf:resource="#AmazonPriceGrounding"/>
+  </service:Service>
+  <mind:BookInformationService rdf:ID="AmazonPriceProfile">
+    <service:presentedBy rdf:resource="#AmazonPriceService"/>
+    <profile:serviceName xml:lang="en">Amazon Book Price</profile:serviceName>
+    <profile:hasInput rdf:resource="#BookInfo"/>
+    <profile:hasOutput rdf:resource="#BookPrice"/>
+  </mind:BookInformationService>
+  <process:AtomicProcess rdf:ID="AmazonPriceProcess">
+    <service:describes rdf:resource="#AmazonPriceService"/>
+    <process:hasInput rdf:resource="#BookInfo"/>
+    <process:hasOutput rdf:resource="#BookPrice"/>
+  </process:AtomicProcess>
+  <process:Input rdf:ID="BookInfo">
+    <rdfs:label>Book</rdfs:label>
+    <process:parameterType rdf:datatype="&xsd;anyURI">&bibtex;Book</process:parameterType>
+  </process:Input>
+  <process:Output rdf:ID="BookPrice">
+    <rdfs:label>Price</rdfs:label>
+    <process:parameterType rdf:datatype="&xsd;anyURI">&concepts;#Price</process:parameterType>
+  </process:Output>
+  <grounding:WsdlGrounding rdf:ID="AmazonPriceGrounding">
+    <service:supportedBy rdf:resource="#AmazonPriceService"/>
+    <grounding:hasAtomicProcessGrounding rdf:resource="#AmazonPriceProcessGrounding"/>
+  </grounding:WsdlGrounding>
+  <grounding:WsdlAtomicProcessGrounding rdf:ID="AmazonPriceProcessGrounding">
+    <grounding:owlsProcess rdf:resource="#AmazonPriceProcess"/>
+    <grounding:wsdlOperation>
+      <grounding:WsdlOperationRef>
+        <grounding:portType rdf:datatype="&xsd;anyURI">/AWSECommerceServicePort</grounding:portType>
+        <grounding:operation rdf:datatype="&xsd;anyURI">&amazon;/ItemLookup</grounding:operation>
+      </grounding:WsdlOperationRef>
+    </grounding:wsdlOperation>
+    <grounding:wsdlInputMessage rdf:datatype="&xsd;anyURI">&amazon;/ItemLookupRequestMsg</grounding:wsdlInputMessage>
+    <grounding:wsdlOutputMessage rdf:datatype="&xsd;anyURI">&amazon;/ItemLookupResponseMsg</grounding:wsdlOutputMessage>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#BookInfo"/>
+        <grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI">&amazon;/SubscriptionId</grounding:wsdlMessagePart>
+        <grounding:xsltTransformationString>
+        <![CDATA[
+            <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+              xmlns:amazon="http://webservices.amazon.com/AWSECommerceService/2005-10-13">
+              <xsl:template match="/">
+                <amazon:SubscriptionId>0YR717KBKX6R0GPTS082</amazon:SubscriptionId>
+              </xsl:template>
+            </xsl:stylesheet>
+        ]]>
+       </grounding:xsltTransformationString>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#BookInfo"/>
+        <grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI">&amazon;/AssociateTag</grounding:wsdlMessagePart>
+        <grounding:xsltTransformationString>
+        <![CDATA[
+            <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+              <xsl:template match="/"/>
+            </xsl:stylesheet>
+        ]]>
+       </grounding:xsltTransformationString>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#BookInfo"/>
+        <grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI">&amazon;/Validate</grounding:wsdlMessagePart>
+        <grounding:xsltTransformationString>
+        <![CDATA[
+            <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+              <xsl:template match="/"/>
+            </xsl:stylesheet>
+        ]]>
+       </grounding:xsltTransformationString>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#BookInfo"/>
+        <grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI">&amazon;/XMLEscaping</grounding:wsdlMessagePart>
+        <grounding:xsltTransformationString>
+        <![CDATA[
+            <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+						<xsl:template match="/"></xsl:template>
+					</xsl:stylesheet>
+        ]]>
+       </grounding:xsltTransformationString>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#BookInfo"/>
+        <grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI">&amazon;/Shared</grounding:wsdlMessagePart>
+        <grounding:xsltTransformationString>
+        <![CDATA[
+            <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+						<xsl:template match="/"></xsl:template>
+				 </xsl:stylesheet>
+        ]]>
+       </grounding:xsltTransformationString>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#BookInfo"/>
+        <grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI">&amazon;/Request</grounding:wsdlMessagePart>
+        <grounding:xsltTransformationString>
+        <![CDATA[
+            <xsl:stylesheet version="1.0"
+              xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+              xmlns:bibtex="http://purl.org/net/nknouf/ns/bibtex#"
+              xmlns:amazon="http://webservices.amazon.com/AWSECommerceService/2005-10-13">
+              <xsl:template match="/">
+                <amazon:Request>
+                  <ItemId>
+                    <xsl:value-of select="rdf:RDF/bibtex:Book/bibtex:hasISBN"/>
+                  </ItemId>
+                  <ResponseGroup>Medium</ResponseGroup>
+                </amazon:Request>
+              </xsl:template>
+            </xsl:stylesheet>
+        ]]>
+       </grounding:xsltTransformationString>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlOutput>
+      <grounding:WsdlOutputMessageMap>
+        <grounding:owlsParameter rdf:resource="#BookPrice"/>
+        <grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI">&amazon;/Items</grounding:wsdlMessagePart>
+        <grounding:xsltTransformationString>
+        <![CDATA[
+            <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+              xmlns:amazon="http://webservices.amazon.com/AWSECommerceService/2005-10-13">
+              <xsl:template match="/">
+                <xsl:variable name="price" select="//amazon:Items/amazon:Item/amazon:ItemAttributes/amazon:ListPrice/amazon:Amount"/>
+                <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                  xmlns:concepts="http://dangiankit.ddns.net/~dangiankit/owl/concepts.owl#">
+                  <concepts:Price>
+                    <concepts:currency rdf:resource="http://dangiankit.ddns.net/~dangiankit/owl/currency.owl#USD"/>
+                    <concepts:amount rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                      <xsl:value-of select="$price div 100"/>
+                    </concepts:amount>
+                  </concepts:Price>
+                </rdf:RDF>
+              </xsl:template>
+            </xsl:stylesheet>
+        ]]>
+        </grounding:xsltTransformationString>
+      </grounding:WsdlOutputMessageMap>
+    </grounding:wsdlOutput>
+    <grounding:wsdlDocument rdf:datatype="&xsd;anyURI">http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl</grounding:wsdlDocument>
+  </grounding:WsdlAtomicProcessGrounding>
+</rdf:RDF>
