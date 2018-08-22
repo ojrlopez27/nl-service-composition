@@ -192,10 +192,8 @@
             </p>
           </div>
         </div> 
-      </div>   
-
-
-
+      </div>
+      
       <div id="body" style="overflow: auto; height:280px;">
         <div id="inbox" style="overflow: auto; height:230px;" >
           {% for message in messages %}
@@ -246,15 +244,14 @@
                 exModal.style.display = "none";
             }
         }
-    //fix for scrollbar using jquery, since this page uses jquery.
-    function getMessages(letter)
-    {
-        var inboxDiv = $("#inbox");
-        inboxDiv.scrollTop(inboxDiv.prop('scrollHeight'));
-    }
-    $(function() {
-      getMessages();
-      });
+        //fix for scrollbar using jquery, since this page uses jquery.
+        function getMessages(letter){
+            var inboxDiv = $("#inbox");
+            inboxDiv.scrollTop(inboxDiv.prop('scrollHeight'));
+        }
+        $(function() {
+          getMessages();
+          });
       </script> 
   </body>
 </html>
