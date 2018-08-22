@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://aserv.composition.inmind.cmu.edu" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://aserv.composition.inmind.cmu.edu">
+    <wsdl:documentation>
+		Please Type your service description here
+	</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://aserv.composition.inmind.cmu.edu">
+            <xs:element name="convertToEuro">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="amountInUSD" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="convertToEuroResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="return" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="convertToEuroRequest">
+        <wsdl:part name="parameters" element="ns:convertToEuro"/>
+    </wsdl:message>
+    <wsdl:message name="convertToEuroResponse">
+        <wsdl:part name="parameters" element="ns:convertToEuroResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="ACurrencyConverterServicePortType">
+        <wsdl:operation name="convertToEuro">
+            <wsdl:input message="ns:convertToEuroRequest" wsaw:Action="urn:convertToEuro"/>
+            <wsdl:output message="ns:convertToEuroResponse" wsaw:Action="urn:convertToEuroResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ACurrencyConverterServiceSoap11Binding" type="ns:ACurrencyConverterServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="convertToEuro">
+            <soap:operation soapAction="urn:convertToEuro" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ACurrencyConverterServiceSoap12Binding" type="ns:ACurrencyConverterServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="convertToEuro">
+            <soap12:operation soapAction="urn:convertToEuro" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ACurrencyConverterServiceHttpBinding" type="ns:ACurrencyConverterServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="convertToEuro">
+            <http:operation location="convertToEuro"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ACurrencyConverterService">
+        <wsdl:port name="ACurrencyConverterServiceHttpSoap11Endpoint" binding="ns:ACurrencyConverterServiceSoap11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/ACurrencyConverterService.ACurrencyConverterServiceHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="ACurrencyConverterServiceHttpSoap12Endpoint" binding="ns:ACurrencyConverterServiceSoap12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/ACurrencyConverterService.ACurrencyConverterServiceHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="ACurrencyConverterServiceHttpEndpoint" binding="ns:ACurrencyConverterServiceHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/ACurrencyConverterService.ACurrencyConverterServiceHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

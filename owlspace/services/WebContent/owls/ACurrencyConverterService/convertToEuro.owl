@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:list="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+    xmlns:expression="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#"
+    xmlns:profile="http://www.daml.org/services/owl-s/1.1/Profile.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:process="http://www.daml.org/services/owl-s/1.1/Process.owl#"
+    xmlns:grounding="http://www.daml.org/services/owl-s/1.1/Grounding.owl#"
+    xmlns="http://www.example.org/service.owl"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:service="http://www.daml.org/services/owl-s/1.1/Service.owl#"
+    xmlns:daml="http://www.daml.org/2001/03/daml+oil#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xml:base="http://www.example.org/service.owl">
+  <service:Service rdf:ID="convertToEuroService">
+    <service:supports>
+      <grounding:WsdlGrounding rdf:ID="convertToEuroGrounding"/>
+    </service:supports>
+    <service:describedBy>
+      <process:AtomicProcess rdf:ID="convertToEuroProcess"/>
+    </service:describedBy>
+    <service:presents>
+      <profile:Profile rdf:ID="convertToEuroProfile"/>
+    </service:presents>
+  </service:Service>
+  <profile:Profile rdf:about="#convertToEuroProfile">
+    <profile:hasInput>
+      <process:Input rdf:ID="amountInUSD">
+        <rdfs:label>amountInUSD</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#long</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <profile:textDescription>Auto generated from file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ACurrencyConverterService.wsdl</profile:textDescription>
+    <service:presentedBy rdf:resource="#convertToEuroService"/>
+    <profile:hasOutput>
+      <process:Output rdf:ID="return">
+        <rdfs:label>return</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#long</process:parameterType>
+      </process:Output>
+    </profile:hasOutput>
+    <profile:serviceName>convertToEuro</profile:serviceName>
+  </profile:Profile>
+  <process:AtomicProcess rdf:about="#convertToEuroProcess">
+    <rdfs:label>convertToEuroProcess</rdfs:label>
+    <process:hasOutput rdf:resource="#return"/>
+    <process:hasInput rdf:resource="#amountInUSD"/>
+    <service:describes rdf:resource="#convertToEuroService"/>
+  </process:AtomicProcess>
+  <grounding:WsdlGrounding rdf:about="#convertToEuroGrounding">
+    <service:supportedBy rdf:resource="#convertToEuroService"/>
+    <grounding:hasAtomicProcessGrounding>
+      <grounding:WsdlAtomicProcessGrounding rdf:ID="convertToEuroAtomicProcessGrounding"/>
+    </grounding:hasAtomicProcessGrounding>
+  </grounding:WsdlGrounding>
+  <grounding:WsdlAtomicProcessGrounding rdf:about="#convertToEuroAtomicProcessGrounding">
+    <grounding:wsdlInputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://aserv.composition.inmind.cmu.edu#convertToEuroRequest</grounding:wsdlInputMessage>
+    <grounding:wsdlOutput>
+      <grounding:WsdlOutputMessageMap>
+        <grounding:owlsParameter rdf:resource="#return"/>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ACurrencyConverterService.wsdl#return</grounding:wsdlMessagePart>
+      </grounding:WsdlOutputMessageMap>
+    </grounding:wsdlOutput>
+    <grounding:owlsProcess rdf:resource="#convertToEuroProcess"/>
+    <grounding:wsdlDocument rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ACurrencyConverterService.wsdl</grounding:wsdlDocument>
+    <grounding:wsdlOperation>
+      <grounding:WsdlOperationRef>
+        <grounding:portType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ACurrencyConverterService.wsdl#ACurrencyConverterServiceHttpSoap11Endpoint</grounding:portType>
+        <grounding:operation rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ACurrencyConverterService.wsdl#convertToEuro</grounding:operation>
+      </grounding:WsdlOperationRef>
+    </grounding:wsdlOperation>
+    <grounding:wsdlOutputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://aserv.composition.inmind.cmu.edu#convertToEuroResponse</grounding:wsdlOutputMessage>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >file:/Users/dangiankit/rejuv/semantic-middleware/owlspace/services/WebContent/wsdl/ACurrencyConverterService.wsdl#amountInUSD</grounding:wsdlMessagePart>
+        <grounding:owlsParameter rdf:resource="#amountInUSD"/>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+  </grounding:WsdlAtomicProcessGrounding>
+</rdf:RDF>

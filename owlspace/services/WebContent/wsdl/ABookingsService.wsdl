@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://aserv.composition.inmind.cmu.edu" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://aserv.composition.inmind.cmu.edu">
+    <wsdl:documentation>
+		Please Type your service description here
+	</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://aserv.composition.inmind.cmu.edu">
+            <xs:element name="searchHotelByID">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="hotelID" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="searchHotelByIDResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="searchHotel">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="destination" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="checkin" nillable="true" type="xs:date"/>
+                        <xs:element minOccurs="0" name="checkout" nillable="true" type="xs:date"/>
+                        <xs:element name="maxPrice" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="searchHotelResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="bookHotel">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="destination" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="checkin" nillable="true" type="xs:date"/>
+                        <xs:element minOccurs="0" name="checkout" nillable="true" type="xs:date"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="bookHotelResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="bookHotelRequest">
+        <wsdl:part name="parameters" element="ns:bookHotel"/>
+    </wsdl:message>
+    <wsdl:message name="bookHotelResponse">
+        <wsdl:part name="parameters" element="ns:bookHotelResponse"/>
+    </wsdl:message>
+    <wsdl:message name="searchHotelByIDRequest">
+        <wsdl:part name="parameters" element="ns:searchHotelByID"/>
+    </wsdl:message>
+    <wsdl:message name="searchHotelByIDResponse">
+        <wsdl:part name="parameters" element="ns:searchHotelByIDResponse"/>
+    </wsdl:message>
+    <wsdl:message name="searchHotelRequest">
+        <wsdl:part name="parameters" element="ns:searchHotel"/>
+    </wsdl:message>
+    <wsdl:message name="searchHotelResponse">
+        <wsdl:part name="parameters" element="ns:searchHotelResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="ABookingsServicePortType">
+        <wsdl:operation name="bookHotel">
+            <wsdl:input message="ns:bookHotelRequest" wsaw:Action="urn:bookHotel"/>
+            <wsdl:output message="ns:bookHotelResponse" wsaw:Action="urn:bookHotelResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="searchHotelByID">
+            <wsdl:input message="ns:searchHotelByIDRequest" wsaw:Action="urn:searchHotelByID"/>
+            <wsdl:output message="ns:searchHotelByIDResponse" wsaw:Action="urn:searchHotelByIDResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="searchHotel">
+            <wsdl:input message="ns:searchHotelRequest" wsaw:Action="urn:searchHotel"/>
+            <wsdl:output message="ns:searchHotelResponse" wsaw:Action="urn:searchHotelResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ABookingsServiceSoap11Binding" type="ns:ABookingsServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="bookHotel">
+            <soap:operation soapAction="urn:bookHotel" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="searchHotelByID">
+            <soap:operation soapAction="urn:searchHotelByID" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="searchHotel">
+            <soap:operation soapAction="urn:searchHotel" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ABookingsServiceSoap12Binding" type="ns:ABookingsServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="bookHotel">
+            <soap12:operation soapAction="urn:bookHotel" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="searchHotelByID">
+            <soap12:operation soapAction="urn:searchHotelByID" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="searchHotel">
+            <soap12:operation soapAction="urn:searchHotel" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ABookingsServiceHttpBinding" type="ns:ABookingsServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="bookHotel">
+            <http:operation location="bookHotel"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="searchHotelByID">
+            <http:operation location="searchHotelByID"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="searchHotel">
+            <http:operation location="searchHotel"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ABookingsService">
+        <wsdl:port name="ABookingsServiceHttpSoap11Endpoint" binding="ns:ABookingsServiceSoap11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/ABookingsService.ABookingsServiceHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="ABookingsServiceHttpSoap12Endpoint" binding="ns:ABookingsServiceSoap12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/ABookingsService.ABookingsServiceHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="ABookingsServiceHttpEndpoint" binding="ns:ABookingsServiceHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/ABookingsService.ABookingsServiceHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

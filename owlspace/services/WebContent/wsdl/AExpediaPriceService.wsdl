@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://aserv.composition.inmind.cmu.edu" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://aserv.composition.inmind.cmu.edu">
+    <wsdl:documentation>
+		Please Type your service description here
+	</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://aserv.composition.inmind.cmu.edu">
+            <xs:element name="hotelPrice">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="hotelName" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="hotelPriceResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="return" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="hotelPriceRequest">
+        <wsdl:part name="parameters" element="ns:hotelPrice"/>
+    </wsdl:message>
+    <wsdl:message name="hotelPriceResponse">
+        <wsdl:part name="parameters" element="ns:hotelPriceResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="AExpediaPriceServicePortType">
+        <wsdl:operation name="hotelPrice">
+            <wsdl:input message="ns:hotelPriceRequest" wsaw:Action="urn:hotelPrice"/>
+            <wsdl:output message="ns:hotelPriceResponse" wsaw:Action="urn:hotelPriceResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="AExpediaPriceServiceSoap11Binding" type="ns:AExpediaPriceServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="hotelPrice">
+            <soap:operation soapAction="urn:hotelPrice" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="AExpediaPriceServiceSoap12Binding" type="ns:AExpediaPriceServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="hotelPrice">
+            <soap12:operation soapAction="urn:hotelPrice" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="AExpediaPriceServiceHttpBinding" type="ns:AExpediaPriceServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="hotelPrice">
+            <http:operation location="hotelPrice"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="AExpediaPriceService">
+        <wsdl:port name="AExpediaPriceServiceHttpSoap11Endpoint" binding="ns:AExpediaPriceServiceSoap11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/AExpediaPriceService.AExpediaPriceServiceHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="AExpediaPriceServiceHttpSoap12Endpoint" binding="ns:AExpediaPriceServiceSoap12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/AExpediaPriceService.AExpediaPriceServiceHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="AExpediaPriceServiceHttpEndpoint" binding="ns:AExpediaPriceServiceHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/AExpediaPriceService.AExpediaPriceServiceHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
