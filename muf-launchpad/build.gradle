@@ -27,7 +27,6 @@ dependencies {
 
     compile ("${servicesGroup}:java-binder:${inmindOsgiJavaBinderVersion}")
     compile 'edu.cmu.inmind.framework.multiuser:muf:3.0.54:all'
-    compile group: 'org.slf4j', name: 'slf4j-nop', version: '1.8.0-beta2'
 
     testCompile ("junit:junit:${junitVersion}")
     deployerJars ("org.apache.maven.wagon:wagon-ssh:${wagonSshVersion}")
