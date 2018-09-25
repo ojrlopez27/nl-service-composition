@@ -18,8 +18,7 @@ public class Constants {
     public static final String OSGI_EE = "osgi.ee";
 
     // MUF Configurations
-    public static final String MUF_SERVER_COMPOSITION       = "server.composition";
-    public static final String MUF_SERVER_COMMUNICATION     = "launchpad.server.port";
+    public static final String MUF_LAUNCHPAD_SERVER_PORT    = "launchpad.server.port";
     public static final String MUF_LOGS_REGULAR             = "logs.regular.path";
     public static final String MUF_LOGS_EXCEPTION           = "logs.exception.path";
 }

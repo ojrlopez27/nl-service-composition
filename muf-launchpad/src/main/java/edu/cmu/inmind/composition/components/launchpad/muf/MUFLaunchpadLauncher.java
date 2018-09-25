@@ -7,7 +7,8 @@ import edu.cmu.inmind.multiuser.controller.muf.ShutdownHook;
 public class MUFLaunchpadLauncher {
 
     public static void main(String args[]) throws Throwable {
-        MUFLaunchpadLog.log("", "test");
+        System.setProperty("log4j.configurationFile", "muf-launchpad-log4j2.xml,log4j2.xml");
+
         MultiuserController multiuserController
                 = MUFLifetimeManager.startFramework(
                         ModuleLoader.createComponents(),
