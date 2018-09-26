@@ -1,0 +1,42 @@
+package edu.cmu.experiments.services;
+
+import java.util.Date;
+
+import edu.cmu.experiments.apis.BookFlightService;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
+import edu.cmu.inmind.services.commons.Constants;
+import edu.cmu.inmind.services.markers.BatteryQoS;
+import edu.cmu.inmind.services.markers.ConnectivityQoS;
+import edu.cmu.inmind.services.markers.Provided;
+
+/**
+ * Created by oscarr on 8/8/18.
+ */
+public class SkyscannerService implements BookFlightService {
+
+    @Override
+    @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
+    @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
+    public String searchFlight(@Provided(value = "Pittsburgh") String from, String destination,
+                                   Date departureDate, Date returnDate, Double maxPrice){
+        Log4J.warn(this, String.format("Executing SkyscannerService.searchFlight for: [from: %s, destination: %s, " +
+                "departure date: %s, return date: %s, maxPrice: %s]", from, destination,
+                departureDate, returnDate, maxPrice));
+        return new String();
+    }
+
+    @Override
+    @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
+    @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
+    public String bookFlight(@Provided(value = "Pittsburgh") String from, String destination,
+                                 Date departureDate, Date returnDate){
+        Log4J.warn(this, String.format("Executing SkyscannerService.bookFlight for: [from: %s, destination: %s, " +
+                "departure date: %s, return date: %s]", from, destination, departureDate, returnDate));
+        return new String();
+    }
+
+    @Override
+    public void execute() {
+        Log4J.warn(this, "Executing SkyscannerService...");
+    }
+}

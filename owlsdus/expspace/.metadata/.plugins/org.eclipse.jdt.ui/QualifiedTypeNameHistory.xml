@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="edu.cmu.inmind.services.markers.Description"/>
+    <fullyQualifiedTypeName name="edu.cmu.inmind.services.markers.ArgDesc"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="edu.cmu.experiments.apis.BookHotelService"/>
+    <fullyQualifiedTypeName name="edu.cmu.inmind.services.markers.BatteryQoS"/>
+    <fullyQualifiedTypeName name="edu.cmu.inmind.services.markers.ConnectivityQoS"/>
+    <fullyQualifiedTypeName name="edu.cmu.inmind.services.commons.Constants"/>
+    <fullyQualifiedTypeName name="edu.cmu.inmind.multiuser.controller.log.Log4J"/>
+    <fullyQualifiedTypeName name="edu.cmu.inmind.services.markers.Provided"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,9 @@
+package edu.cmu.experiments.apis;
+
+/**
+ * Created by oscarr on 8/10/18.
+ */
+public interface NewsService extends GenericService {
+
+    String getNewsFeed(String topic);
+}

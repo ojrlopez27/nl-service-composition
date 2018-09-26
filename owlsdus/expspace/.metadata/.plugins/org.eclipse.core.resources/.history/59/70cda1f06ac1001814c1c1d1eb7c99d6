@@ -1,0 +1,30 @@
+package edu.cmu.experiments.services;
+
+import java.util.Date;
+import java.util.List;
+
+import edu.cmu.experiments.apis.WeatherService;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
+import edu.cmu.inmind.services.commons.Constants;
+import edu.cmu.inmind.services.markers.BatteryQoS;
+import edu.cmu.inmind.services.markers.ConnectivityQoS;
+
+/**
+ * Created by oscarr on 8/8/18.
+ */
+public class WeatherChannelService implements WeatherService {
+
+    @Override
+    @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
+    @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
+    public WeatherPOJO checkWeatherConditions(LocationPOJO place, Date from, Date to){
+        Log4J.warn(this, String.format("Executing WeatherChannelService.checkWeatherConditions for: [place: %s, " +
+                "from: %s, to: %s]", place.getPlace(), from, to));
+        return null;
+    }
+
+    @Override
+    public void execute() {
+        Log4J.warn(this, "Executing WeatherChannelService...");
+    }
+}

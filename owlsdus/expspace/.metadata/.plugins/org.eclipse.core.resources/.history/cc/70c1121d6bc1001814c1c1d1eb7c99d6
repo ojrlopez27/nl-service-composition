@@ -1,0 +1,38 @@
+package edu.cmu.experiments.services;
+
+import java.util.Date;
+
+import edu.cmu.experiments.apis.CalendarService;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
+import edu.cmu.inmind.services.commons.Constants;
+import edu.cmu.inmind.services.markers.BatteryQoS;
+import edu.cmu.inmind.services.markers.ConnectivityQoS;
+
+/**
+ * Created by oscarr on 8/8/18.
+ */
+public class YahooCalendarService implements CalendarService {
+
+    @Override
+    @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
+    @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
+    public Boolean checkAvailability(Date from, Date to){
+        Log4J.warn(this, String.format("Executing YahooCalendarService.checkAvailability for: [from date: %s, " +
+                "to date: %s]", from, to));
+        return true;
+    }
+
+    @Override
+    @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
+    @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
+    public CalendarPOJO createEvent(String eventName, Date from, Date to){
+        Log4J.warn(this, String.format("Executing YahooCalendarService.createEvent for: [eventName: %s. " +
+                "from date: %s, to date: %s]", eventName, from, to));
+        return null;
+    }
+
+    @Override
+    public void execute() {
+        Log4J.warn(this, "Executing YahooCalendarService...");
+    }
+}

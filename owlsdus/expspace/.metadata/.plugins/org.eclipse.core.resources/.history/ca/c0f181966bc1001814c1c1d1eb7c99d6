@@ -1,0 +1,25 @@
+package edu.cmu.experiments.apis;
+
+import java.util.Date;
+import java.util.List;
+
+import edu.cmu.inmind.services.markers.ArgDesc;
+import edu.cmu.inmind.services.markers.Description;
+
+/**
+ * Created by oscarr on 8/8/18.
+ */
+public interface SearchThingsToDoService extends GenericService {
+
+    @Description(capabilities = {
+            "This method returns a list of activities to do in a given city or place, date and weather conditions",
+            "This method returns a list of indoor and outdoor activities to do in a new place",
+            "It recommends things to do or visit in a city or place"
+    })
+    @ArgDesc(args = {
+            "place : which place do you want me to show you activities to do?",
+            "when : when are you planning to do these activities?",
+            "weatherConditions : which weather conditions do you expect (good, bad)?"
+    })
+    List<String> whatToDo(String place, Date when, String weatherConditions);
+}

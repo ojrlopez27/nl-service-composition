@@ -1,0 +1,33 @@
+CalendarService
+
+/**
+ * Created by oscarr on 8/8/18.
+ */
+public class GoogleFlightsService implements BookFlightService {
+
+    @Override
+    @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
+    @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
+    public FlightPOJO searchFlight(@Provided(value = "Pittsburgh") LocationPOJO from, LocationPOJO destination,
+                                   Date departureDate, Date returnDate, Double maxPrice){
+        Log4J.warn(this, String.format("Executing GoogleFlightsService.searchFlight for: [from: %s, destination: %s, " +
+                "departure date: %s, return date: %s, maxPrice: %s]", from.getPlace(), destination.getPlace(),
+                departureDate, returnDate, maxPrice));
+        return null;
+    }
+
+    @Override
+    @BatteryQoS( minBatteryLevel = Constants.WORKS_WITH_LOW_CHARGE)
+    @ConnectivityQoS( wifiStatus = Constants.NOT_REQUIRES_WIFI_CONNECTIVITY)
+    public FlightPOJO bookFlight(@Provided(value = "Pittsburgh") LocationPOJO from, LocationPOJO destination,
+                                 Date departureDate, Date returnDate){
+        Log4J.warn(this, String.format("Executing GoogleFlightsService.bookFlight for: [from: %s, destination: %s, " +
+                "departure date: %s, return date: %s]", from.getPlace(), destination.getPlace(), departureDate, returnDate));
+        return null;
+    }
+
+    @Override
+    public void execute() {
+        Log4J.warn(this, "Executing GoogleFlightsService...");
+    }
+}

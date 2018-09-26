@@ -1,0 +1,30 @@
+package edu.cmu.experiments.services;
+
+import java.util.Date;
+
+import edu.cmu.experiments.apis.SearchThingsToDoService;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
+import edu.cmu.inmind.services.commons.Constants;
+import edu.cmu.inmind.services.markers.BatteryQoS;
+import edu.cmu.inmind.services.markers.ConnectivityQoS;
+import edu.cmu.inmind.services.markers.Provided;
+
+/**
+ * Created by oscarr on 8/8/18.
+ */
+public class TripAdvisorService implements SearchThingsToDoService {
+
+    @Override
+    @BatteryQoS( minBatteryLevel = Constants.REQUIRES_FULLY_CHARGED)
+    @ConnectivityQoS( wifiStatus = Constants.REQUIRES_WIFI_CONNECTIVITY)
+    public List<ThingToDoPOJO> whatToDo(LocationPOJO place, Date when, String weatherConditions){
+        Log4J.warn(this, String.format("Executing TripAdvisorService.whatToDo for: [place: %s, " +
+                "when: %s, conditions: %s]", place.getPlace(), when, weatherConditions));
+        return null;
+    }
+
+    @Override
+    public void execute() {
+        Log4J.warn(this, "Executing TripAdvisorService...");
+    }
+}
