@@ -92,13 +92,17 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                     compositionController.fireRulesGS();
                     String response = "Great, let's continue. What is the next thing you would ask your IPA to do? " +
                             "(type 'DONE' if you are done for this scenario -- but at least 7 actions/steps are required)";
-                    sendResponse(response);
+                    SessionMessage sessionMessage = new SessionMessage();
+                    sessionMessage.setPayload(response);
+                    sendResponse(sessionMessage);
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL1, response));
                     stage = Constants.REQUEST_ACTION_STAGE;
                     actionCounter++;
                 }else{
                     String response = "Ok, can you re-phrase your command? your IPA will try to do it better this time...";
-                    sendResponse(response);
+                    SessionMessage sessionMessage = new SessionMessage();
+                    sessionMessage.setPayload(response);
+                    sendResponse(sessionMessage);
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL2, response));
                     stage = Constants.REQUEST_ACTION_STAGE;
                 }
@@ -109,8 +113,9 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                     String response = String.format("Your sentence is empty or too short (only %s characters). " +
                             "Please re-enter a sentence with at least %s-characters length", userAction.length(), minLength);
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL5, response));
-                    sendResponse( response );
-                }
+                    SessionMessage sessionMessage = new SessionMessage();
+                    sessionMessage.setPayload(response);
+                    sendResponse(sessionMessage);                }
                 else
                     {
                     // let's get the semantic neighbors provided by sent2vec
@@ -127,7 +132,9 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                             Utils.splitByCapitalizedWord(result[1], true));
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL0, response));
                     stage = Constants.ASK_FOR_APP_CONFIRMATION_STAGE;
-                    sendResponse(response);
+                        SessionMessage sessionMessage = new SessionMessage();
+                        sessionMessage.setPayload(response);
+                        sendResponse(sessionMessage);
                 }
             }
         }

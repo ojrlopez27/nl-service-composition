@@ -2,6 +2,7 @@ package edu.cmu.inmind.messenger.groupchannel;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -162,6 +163,16 @@ class GroupChannelListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((ChannelHolder) holder).bind(mContext, mChannelList.get(position), mItemClickListener, mItemLongClickListener);
+    }
+
+    //because we want to select default channel at position 0
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        //super.onBindViewHolder(holder, position, payloads);
+        if(position ==0)
+        {
+            mItemClickListener.onItemClick(mChannelList.get(0));
+        }
     }
 
     @Override

@@ -89,7 +89,6 @@ public class GroupChannelListFragment extends Fragment {
 
         setUpRecyclerView();
         setUpChannelListAdapter();
-
         return rootView;
     }
 
