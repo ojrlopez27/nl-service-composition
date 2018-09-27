@@ -17,11 +17,11 @@ public class ModuleLoader {
     public static Config createConfig() {
         return new Config.Builder()
                 .setExceptionTraceLevel( Constants.SHOW_ALL_EXCEPTIONS)
-                .setSessionManagerPort(5555)
+                .setSessionManagerPort( Integer.parseInt(CommonUtils.getProperty("server.composition")))
                 .setDefaultNumOfPoolInstances(10)
                 .setPathLogs(CommonUtils.getProperty("logs.mkt.regular.path"))
                 .setSessionTimeout(5, TimeUnit.MINUTES)
-                .setServerAddress("tcp://127.0.0.1") //use IP instead of 'localhost'
+                .setServerAddress("tcp://128.237.123.214") //use IP instead of 'localhost'
 //                .setServerAddress("tcp://sogoranmac.ddns.net") //use IP instead of 'localhost'
                 // if using FileLogger, just specify the path to store the logs
                 //.setPathExceptionLogger(Utils.getProperty("pathLogs"))

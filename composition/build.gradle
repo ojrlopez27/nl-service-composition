@@ -33,7 +33,7 @@ dependencies {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'edu.cmu.inmind.composition.launchers.PerformanceTestLauncher',
+                'Main-Class': 'edu.cmu.inmind.composition.launchers.MUF_MKTLauncher',
                 "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
         )
     }
