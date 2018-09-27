@@ -25,7 +25,7 @@ public interface BookRestaurantService extends GenericService{
             "type of restaurant : what type of restaurant are you looking for? (dinner, dinner with drinks, dinner with BYOB)",
             "cuisine: what type of cuisine are you looking for? (italian, french, asian, mexican, south american, spanish)",
             "price : what kind of cost level ? ($, $$, $$$, five star, three star)",
-            "number of people : how many people ? (2)",
+            "number of people : how many people ? (2, 10)",
             "ambience : what kind of ambience ? (closed cabin, good view, rooftop, lake view, seaside view) ",
             "dietary restrictions : what kind of restrictions ? (dairy, nuts, gluten, celiac, vegan, vegetarian) "
     })

@@ -14,7 +14,7 @@ public interface GroundTransportationService extends GenericService {
     @Description(capabilities = {
             "This method allows to check availability of ground transportation from a pickup location to a destination location",
             "This method allows to look up availability of road transportation from a pickup location to a destination location",
-            "This method checks available road transportation options near by",
+            "This method checks available road transportation options near by"
     })
     @ArgDesc(args = {
             "pickup location : what is your pickup location?",

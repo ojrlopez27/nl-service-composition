@@ -14,7 +14,7 @@ public interface TrafficService extends GenericService{
     @Description(capabilities = {
             "This method allows check traffic from source location to destination location",
             "This method allows to get traffic given a destination place, source",
-            "This method gives a traffic estimation",
+            "This method gives a traffic estimation"
     })
     @ArgDesc(args = {
             "from : where are you travelling from?",

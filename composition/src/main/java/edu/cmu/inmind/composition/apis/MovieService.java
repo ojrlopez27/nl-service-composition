@@ -30,7 +30,7 @@ public interface MovieService {
     })
     @ArgDesc(args = {
             "location : what is your from location?",
-            "showtimes: what show time are you lookign for?(morning, aternoon, evening, night)",
+            "showtimes: what show time are you looking for?(morning, aternoon, evening, night)",
             "date : which day are you planning to watch (yyyy-mm-dd)?"
     })
     MoviePOJO searchCinemas();

@@ -14,8 +14,8 @@ public interface WineAndBeerService extends GenericService{
 
     @Description( capabilities = {
             "This method allows to search a list of Wine and Spirit shops near to a location for a given time",
-            "This method allows to lookup for beer shops near to a location",
-            "This method searches a list of beer shops given a location, time"
+            "This method allows to lookup for Wine and spirit shops near to a location",
+            "This method searches a list of Wine shops given a location, time"
     })
     @ArgDesc(args = {
             "location : which location are you looking for?",

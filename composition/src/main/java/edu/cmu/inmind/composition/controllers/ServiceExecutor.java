@@ -5,6 +5,7 @@ import edu.cmu.inmind.composition.apis.UndefinedService;
 import edu.cmu.inmind.composition.common.ServiceMethod;
 import edu.cmu.inmind.composition.common.Utils;
 import edu.cmu.inmind.composition.model.WorkingMemory;
+import edu.cmu.inmind.composition.orchestrators.MKTExperimentOrchestrator;
 import edu.cmu.inmind.composition.pojos.AbstractServicePOJO;
 import edu.cmu.inmind.composition.pojos.NERPojo;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
@@ -21,8 +22,10 @@ import java.util.Scanner;
 public class ServiceExecutor {
     private final String TAG = ServiceExecutor.class.getSimpleName();
     private WorkingMemory wm;
+    private boolean userScannner = true;
     private Class candidate;
-    private Scanner scanner;
+    private MKTExperimentOrchestrator orchestrator;
+    private static Scanner scanner = new Scanner(System.in);
     private static final double upperThreshold = Double.parseDouble(CommonUtils.getProperty("service.executor.threshold.upper"));
     private static final double lowerThreshold = Double.parseDouble(CommonUtils.getProperty("service.executor.threshold.lower"));
     private static final double delta = Double.parseDouble(CommonUtils.getProperty("service.executor.delta"));
@@ -30,6 +33,10 @@ public class ServiceExecutor {
     public ServiceExecutor(WorkingMemory wm) {
         this.wm = wm;
         this.scanner = new Scanner(System.in);
+    }
+
+    public void setOrchestrator(MKTExperimentOrchestrator orchestrator) {
+        this.orchestrator = orchestrator;
     }
 
     public void pick(String QoSfeature, Class<? extends GenericService> genericService){
@@ -45,8 +52,8 @@ public class ServiceExecutor {
                 // first, let's look for existing objects (parameters) in the working memory
                 args[idx] = wm.getResult(type.getTypeName() + "." + argDescription[0]);
                 if(args[idx] == null){
-                    String question = argDescription[1];
-                    Log4J.error(TAG, "Missing criteria (argument). Please indicate: " + question);
+                    String question = "Missing criteria (argument). Please indicate: " + argDescription[1];
+                    Log4J.error(TAG, question);
                     String answer = scanner.nextLine();
                     args[idx] = Utils.getObjectFromAnswer(answer, type);
                 }
@@ -69,7 +76,9 @@ public class ServiceExecutor {
      * @param serviceMap
      * @return
      */
-    public ServiceMethod getServiceMethod(List<AbstractServicePOJO> abstractServices, Map<String, ServiceMethod> serviceMap) {
+    public ServiceMethod getServiceMethod(List<AbstractServicePOJO> abstractServices, Map<String, ServiceMethod> serviceMap,
+                                   boolean useScanner) {
+        this.userScannner = useScanner;
         //assumption: we are considering (for now) only 2 candidates:
         double first = abstractServices.get(0).getSimilarity();
         double second = abstractServices.get(1).getSimilarity();
@@ -87,14 +96,14 @@ public class ServiceExecutor {
         }else if(smFirst == null){
             smFirst = smSecond;
         }
-        Scanner scanner = new Scanner(System.in);
+        if( !useScanner ) return smFirst;
         if(first >= upperThreshold){
             if( smFirst.getServiceMethod().getName().equals(smSecond.getServiceMethod().getName())
                     && Math.abs(first - second) <= delta && !descFirst.equals(descSecond) ){
                 Log4J.error(TAG, String.format("I need to disambiguate which service you need. Type '1' " +
-                        "if you need '%s' [similarity = %s] or type '2' if you need '%s' [similarity = %s]: ", first,
-                        descFirst, second, descSecond));
-                return scanner.nextLine().equals("1")? smFirst : smSecond;
+                                "if you need '%s' [similarity = %s] or type '2' if you need '%s' [similarity = %s]: ",
+                        first, descFirst, second, descSecond));
+                return scanner.nextLine().equals("1") ? smFirst : smSecond;
             }
             return smFirst;
         }else if(second >= upperThreshold){
@@ -104,7 +113,7 @@ public class ServiceExecutor {
                     "service '%s', right? type Y (yes) or simply re-phrase it:", first, first >= lowerThreshold ?
                     descFirst : descSecond));
             //TODO: we need to call again sent2vec for the second desc
-            return scanner.nextLine().equalsIgnoreCase("Y")? smFirst : smFirst;
+            return scanner.nextLine().equalsIgnoreCase("Y") ? smFirst : smFirst;
         }else{
             Log4J.error(TAG, String.format("[similarity = %s] Sorry, this service is not available at this moment!", first));
         }

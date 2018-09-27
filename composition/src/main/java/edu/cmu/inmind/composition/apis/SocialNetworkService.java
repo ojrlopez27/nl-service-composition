@@ -17,7 +17,7 @@ public interface SocialNetworkService extends GenericService {
     @ArgDesc(args = {
             "type of social network : which social network site?(facebook, instagram, snapchat, yelp)",
             "type of status : what type of status change? (checkin, text, photo, video)",
-            "status : what is the status? (photo, text, video, checkin, tags, person tag )",
+            "status : what is the status? (photo, text, video, checkin, tags, person tag )"
     })
     SocialNetworkPOJO changeNewStatus(String typeOfSocialNetwork, String typeOfStatus,
                          SocialNetworkPOJO snStatusPOJO);
@@ -31,7 +31,7 @@ public interface SocialNetworkService extends GenericService {
     @ArgDesc(args = {
             "type of social network : which social network site?(facebook, instagram, snapchat, yelp)",
             "message: what is the message to be sent to ? (text)",
-            "to : what is the person's name to send this message to",
+            "to : what is the person's name to send this message to"
     })
     SocialNetworkPOJO messageSomebody();
 
@@ -43,7 +43,19 @@ public interface SocialNetworkService extends GenericService {
     @ArgDesc(args = {
             "type of social network : which social network site?(facebook, instagram, snapchat, yelp)",
             "path of photo: what is the file path of photo to be uploaded ? (phone storage, click photo)",
-            "upload type : what is the mode of upload? (upload as a status or post or as a review, or to a person"
+            "upload type : what is the mode of upload? (upload as a status or post or as a review, or to a person)"
     })
     SocialNetworkPOJO uploadPhoto(String typeOfSn, String filePath , String typeOfUpload);
+
+    @Description(capabilities = {
+            "This method allows to upload a photo on a given social network site",
+            "This method allows to send a photo on a social network site",
+            "This method uploads a photo on a given social network site"
+    })
+    @ArgDesc(args = {
+            "type of social network : which social network site?(facebook, instagram, snapchat, yelp)",
+            "country : which location are you looking for friends ? (Italy, Spain, Brazil)",
+            "city : what is the mode of upload? (upload as a status or post or as a review, or to a person)"
+    })
+    SocialNetworkPOJO findFriends(String typeOfSn, String country , String city);
 }

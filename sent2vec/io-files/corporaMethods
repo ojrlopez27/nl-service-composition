@@ -1,3 +1,21 @@
+This method allows to calculate distance from one location to destination location
+This method allows to estimate a distance from one location to destination location
+This method gets a distance between two locations
+This method calculates distance between two locations
+This method allows to get directions from one location to destination location
+This method allows to look up directions from one location to destination location
+This method gets directions between two locations, given a mode of transport
+This method validates whether there is availability on calendar given a time slot
+This method checks whether there is a conflict on the calendar given a range of dates
+This method checks calendar availability on a range of dates
+This method creates a new calendar event given a time slot and an event name
+This method generates a new calendar event given an event name and a range of dates
+This method allows to order type of flowers from a florist to deliver or pickup
+This method allows to get flowers given a destination place, florist details
+This method allows to order flowers from a florist
+This method allows to check availability of florists, type of flowers at a destination location
+This method allows to look up florists given a destination location
+This method checks available florists near by
 This method searches different hotel alternatives based on a destination place, check-in date, and check-out date
 This method searches for hotels on a given destination and range of dates
 This method looks for hotels on a given destination and range of dates
@@ -6,23 +24,66 @@ This method allows hotel reservation given a destination place, check-in date, a
 This method allows to book a hotel given a destination place and a range of dates
 This method makes a hotel reservation given a destination place and a range of dates
 This method book an accomodation
-It returns the news feeds about a given topic
-It retrieves news about people
-It retrieves news about places, countries, and cities
-This method validates whether there is availability on calendar given a time slot
-This method checks whether there is a conflict on the calendar given a range of dates
-This method checks calendar availability on a range of dates
-This method creates a new calendar event given a time slot and an event name
-This method generates a new calendar event given an event name and a range of dates
-This method searches different flight options based on a destination place, departure date, and return date
-This method searches multiple flights
-This method looks for different flights
-This method allows flight reservation given a destination place, departure date, and return date
-This method allows to book a flight given a destination place, departure date, and return date
-This method makes a flight reservation
+This method allows check traffic from source location to destination location
+This method allows to get traffic given a destination place, source
+This method gives a traffic estimation
+This method allows to get shortest route given a source place, destination place, departure date, and return date
+This method allows to get shortest route by road given a source place, destination place, departure date, and time
+This method gets a shortest route with optimal traffic conditions
+This method searches different restaurants based on a destination place, date, time, type of options
+This method searches for restaurants on a given destination, date, time, type of options
+This method looks for restaurants given a destination, date, time, type of options
+This method searches for restaurants with options
+This method makes a reservation at a given restaurant, date, time, number of people, dietary restrictions, special instructions
+This method books a reservation at a restaurant on a given address, date, time, type of options
+This method reserves a restaurant given a destination, date, time, type of options
+This method makes a reservation at a restaurant given options
 This method returns a list of activities to do in a given city or place, date and weather conditions
 This method returns a list of indoor and outdoor activities to do in a new place
 It recommends things to do or visit in a city or place
+This method allows to search for cinemas near to location
+This method allows to look up for cinemas at a given location, date, showtime
+This method gets movie theatres near a location, for a given time
+This method searches cinema theatres near a location
+This method allows to get recommendations for movies based on genre, actors, directors, popularity, reviews, language
+This method allows to look up for movie recommendations given a genre, actors, directors, popularity, reviews, language
+This method gets movie recommendations given a genre, actors, directors, popularity, reviews, language
+This method recommends movies given genre, actors, directors, popularity, reviews and language
+This method allows to check availability of ground transportation from a pickup location to a destination location
+This method allows to look up availability of road transportation from a pickup location to a destination location
+This method checks available road transportation options near by
+This method allows to book ground transportation option from a pickup location to a destination location
+This method allows to schedule a transportation option from a pickup location to a destination location
+This method books ground transportation option
+This method allows to search a list of Wine and Spirit shops near to a location for a given time
+This method allows to lookup for Wine and spirit shops near to a location
+This method searches a list of Wine shops given a location, time
+This method allows to search a list of beer shops near to a location
+This method allows to lookup for beer shops near to a location
+This method searches a list of beer shops near to a location
+This method allows flight reservation given a destination place, departure date, and return date
+This method allows to book a flight given a destination place, departure date, and return date
+This method makes a flight reservation
+This method searches different flight options based on a destination place, departure date, and return date
+This method searches multiple flights
+This method looks for different flights
+This method allows to change status on a given social network site
+This method allows to modify status on a social network site
+This method changes status on a given social network site
+This method modify status on a given social network site
+This method allows to message a person on a given social network site
+This method allows to message a friend or eprson on a social network site
+This method messages to a another person on a given social network site
+This method messages to on a given social network site
+This method allows to upload a photo on a given social network site
+This method allows to send a photo on a social network site
+This method uploads a photo on a given social network site
+This method allows to upload a photo on a given social network site
+This method allows to send a photo on a social network site
+This method uploads a photo on a given social network site
 This method validates the weather conditions of a specific place given a range of dates
 This method checks the weather conditions and forecast for a given place and range of dates
 This method determines good and bad weather conditions for a given place and range of dates
+It returns the news feeds about a given topic
+It retrieves news about people
+It retrieves news about places, countries, and cities

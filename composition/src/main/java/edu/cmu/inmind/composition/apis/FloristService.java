@@ -15,7 +15,7 @@ public interface FloristService extends GenericService{
     @Description(capabilities = {
             "This method allows to order type of flowers from a florist to deliver or pickup",
             "This method allows to get flowers given a destination place, florist details",
-            "This method allows to order flowers from a florist",
+            "This method allows to order flowers from a florist"
     })
     @ArgDesc(args = {
             "destination : what is your destination?",
@@ -30,7 +30,7 @@ public interface FloristService extends GenericService{
     @Description(capabilities = {
             "This method allows to check availability of florists, type of flowers at a destination location",
             "This method allows to look up florists given a destination location",
-            "This method checks available florists near by",
+            "This method checks available florists near by"
     })
     @ArgDesc(args = {
             "destination : what is your destination?",

@@ -24,6 +24,26 @@ public class Constants {
 
     public static final String EOS = "<eos>";
     public static final String END = "END";
+    public static final String DONE = "DONE";
 
     public static final String MSG_CHECK_USER_ID = "MSG_CHECK_USER_ID";
+    public static final String MSG_PROCESS_USER_ACTION = "MSG_PROCESS_USER_ACTION";
+
+
+    // stages:
+    public static final String REQUEST_ACTION_STAGE = "REQUEST_ACTION_STAGE";
+    public static final String ASK_FOR_APP_CONFIRMATION_STAGE = "ASK_FOR_APP_CONFIRMATION_STAGE";
+    public static final String DONE_STAGE = "DONE_STAGE";
+
+
+    public static final String USER = "[USER]";
+    public static final String IPA = "[IPA]";
+    public static final String S2V = "[S2V]";
+
+    public static final String LEVEL0 = "[0]:";
+    public static final String LEVEL1 = "[1]:";
+    public static final String LEVEL2 = "[2]:";
+    public static final String LEVEL3 = "[3]:";
+    public static final String LEVEL4 = "[4]:";
+    public static final String LEVEL5 = "[5]:";
 }
