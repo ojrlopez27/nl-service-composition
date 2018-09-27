@@ -194,7 +194,7 @@
         </div> 
       </div>
       
-      <div id="body" style="overflow: auto; height:280px;">
+      <div id="body" style="overflow-y: auto; height:280px;">
         <div id="inbox" style="overflow: auto; height:230px;" >
           {% for message in messages %}
             {% module Template("message.html", message=message) %}
@@ -231,6 +231,8 @@
         // When the user clicks the button, open the modal       
         exBtn.onclick = function() {
             exModal.style.display = "block";
+            var $inbox = $('.message');
+            $inbox.scrollTop($inbox[0].scrollHeight);
         }
 
         // When the user clicks on <span> (x), close the mo
@@ -245,9 +247,11 @@
             }
         }
         //fix for scrollbar using jquery, since this page uses jquery.
-        function getMessages(letter){
-            var inboxDiv = $("#inbox");
-            inboxDiv.scrollTop(inboxDiv.prop('scrollHeight'));
+        function setScrollheight(letter){
+            var inboxDiv = $('.message');
+            console.log($('.message').scrollHeight.toString() + $('.message').clientHeight.toString()
+            $('.message').scrollTop.toString());
+            $('.message').scrollTop(inboxDiv.prop('scrollHeight'));
         }
         $(function() {
           getMessages();
