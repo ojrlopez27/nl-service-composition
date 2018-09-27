@@ -144,9 +144,11 @@ public class MessageController implements ResponseListener{
                             activity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    String message = sessionMessage.getPayload()
+                                            .replace("\"","\"");
                                     chatAdapter.addFirst(BaseMessage.buildFromSerializedData(
                                             new InMindMessage(String.valueOf(random.nextLong()),
-                                                    sessionMessage.getPayload()).serialize()));
+                                                   message ).serialize()));
                                     Log.i("process-run", sessionMessage.getPayload());
                                 }
                             });
