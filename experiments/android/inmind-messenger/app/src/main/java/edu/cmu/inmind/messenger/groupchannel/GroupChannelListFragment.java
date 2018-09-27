@@ -24,7 +24,10 @@ import com.sendbird.android.GroupChannelListQuery;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 import edu.cmu.inmind.messenger.R;
+import edu.cmu.inmind.messenger.comm.MessageController;
 import edu.cmu.inmind.messenger.main.ConnectionManager;
+import edu.cmu.inmind.messenger.main.LoginActivity;
+import edu.cmu.inmind.messenger.utils.PreferenceUtils;
 
 import java.util.List;
 
@@ -272,6 +275,7 @@ public class GroupChannelListFragment extends Fragment {
                 .replace(R.id.container_group_channel, fragment)
                 .addToBackStack(null)
                 .commit();
+
     }
 
     private void refresh() {

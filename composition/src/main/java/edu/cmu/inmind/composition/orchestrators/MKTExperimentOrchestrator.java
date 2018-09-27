@@ -41,7 +41,8 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
         // let's initialize all the resources
         compositionController = new CompositionController();
         communicationController = new CommunicationController();
-        if( !getSessionId().equals("manager") ) scenarioIdx = 1;
+        //if( !getSessionId().equals("manager") )
+            //scenarioIdx = 1;
         //compositionController.createRulesForGroundingServices();
     }
 
@@ -52,7 +53,7 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
         SessionMessage sessionMessage = CommonUtils.fromJson( message, SessionMessage.class );
         switch( sessionMessage.getRequestType() ) {
             case Constants.MSG_CHECK_USER_ID:
-                checkUserLogin(sessionMessage.getSessionId());
+                checkUserLogin(sessionMessage.getPayload());
                 break;
             case Constants.MSG_PROCESS_USER_ACTION:
                 IPALog.log(this,sessionMessage.getRequestType() );
@@ -65,18 +66,18 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
     private void checkUserLogin(String username){
         String validate = Schedule.validate(username);
         if(validate.equals(Schedule.USER_ID_NOT_EXISTS))
-            validate = "Wrong ki id, please try again!";
+            validate = "Wrong MKT id, please try again!";
         else if(validate.equals(Schedule.TOO_EARLY))
             validate = "You have connected too early, please come back at your scheduled time!";
         else if(validate.equals(Schedule.TOO_LATE))
             validate = "Sorry, you have connected too late, please request another time slot through the doodle!";
         else {
-            IPALog.log(this, "checking user Login and validating.");
+            IPALog.log(this, "checking user Login and validating."+scenarioIdx);
             validate = String.format("Thanks! let's start. Consider this scenario: \"%s\". What is the first thing you " +
                     "would ask your IPA to do?", scenarios.get(scenarioIdx++));
             IPALog.setFileName(username);
         }
-        sendResponse( validate );
+        sendResponse( validate);
     }
 
 
@@ -92,17 +93,13 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                     compositionController.fireRulesGS();
                     String response = "Great, let's continue. What is the next thing you would ask your IPA to do? " +
                             "(type 'DONE' if you are done for this scenario -- but at least 7 actions/steps are required)";
-                    SessionMessage sessionMessage = new SessionMessage();
-                    sessionMessage.setPayload(response);
-                    sendResponse(sessionMessage);
+                    sendResponse(response);
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL1, response));
                     stage = Constants.REQUEST_ACTION_STAGE;
                     actionCounter++;
                 }else{
                     String response = "Ok, can you re-phrase your command? your IPA will try to do it better this time...";
-                    SessionMessage sessionMessage = new SessionMessage();
-                    sessionMessage.setPayload(response);
-                    sendResponse(sessionMessage);
+                    sendResponse(response);
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL2, response));
                     stage = Constants.REQUEST_ACTION_STAGE;
                 }
@@ -113,9 +110,8 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                     String response = String.format("Your sentence is empty or too short (only %s characters). " +
                             "Please re-enter a sentence with at least %s-characters length", userAction.length(), minLength);
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL5, response));
-                    SessionMessage sessionMessage = new SessionMessage();
-                    sessionMessage.setPayload(response);
-                    sendResponse(sessionMessage);                }
+                    sendResponse(response);
+                }
                 else
                     {
                     // let's get the semantic neighbors provided by sent2vec
@@ -132,9 +128,7 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                             Utils.splitByCapitalizedWord(result[1], true));
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL0, response));
                     stage = Constants.ASK_FOR_APP_CONFIRMATION_STAGE;
-                        SessionMessage sessionMessage = new SessionMessage();
-                        sessionMessage.setPayload(response);
-                        sendResponse(sessionMessage);
+                    sendResponse(response);
                 }
             }
         }

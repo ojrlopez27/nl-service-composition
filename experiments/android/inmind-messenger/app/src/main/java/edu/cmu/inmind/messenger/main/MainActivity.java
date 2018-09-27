@@ -35,11 +35,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GroupChannelActivity.class);
                 startActivity(intent);
-                // MUF
-                Log.i("OpenChannelActivity" , "onCreate");
 
                 MessageController.getInstance().connect( );
-
             }
         });
 
@@ -63,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         String sdkVersion = String.format(getResources().getString(R.string.all_app_version),
                 BaseApplication.VERSION, SendBird.getSDKVersion());
         ((TextView) findViewById(R.id.text_main_versions)).setText(sdkVersion);
-    }
 
+    }
     /**
      * Unregisters all push tokens for the current user so that they do not receive any notifications,
      * then disconnects from SendBird.

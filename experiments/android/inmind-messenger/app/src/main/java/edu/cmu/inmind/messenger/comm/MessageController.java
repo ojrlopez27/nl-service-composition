@@ -86,6 +86,7 @@ public class MessageController implements ResponseListener{
                 sessionMessage.setSessionId(sessionId);
                 if(TextUtils.equals(message, "Hi"))
                 {
+                    sessionMessage.setPayload(sessionId);
                     sessionMessage.setRequestType(
                             edu.cmu.inmind.messenger.utils.Constants.MSG_CHECK_USER_ID);
                 }
@@ -110,18 +111,21 @@ public class MessageController implements ResponseListener{
     @Override
     public void process(final String message) {
         // message from InMind
+        Log.i("process-run", message);
         if(!message.contains("requestType"))
         {
             if (activity != null)
             {
 
+                final InMindMessage inMindMessage = new InMindMessage(String.valueOf(random.nextLong()),
+                        "[InMind] "+message);
+                Log.i("inmind-message", inMindMessage.toString());
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             chatAdapter.addFirst(BaseMessage.buildFromSerializedData(
-                                    new InMindMessage(String.valueOf(random.nextLong()),
-                                            message).serialize()));
-                            Log.i("process-run", message);
+                                    inMindMessage.serialize()));
+
                         }
                     });
                 //showNotification(sessionMessage.getMessageId());
@@ -144,12 +148,13 @@ public class MessageController implements ResponseListener{
                             activity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    String message = sessionMessage.getPayload()
-                                            .replace("\"","\"");
-                                    chatAdapter.addFirst(BaseMessage.buildFromSerializedData(
+                                    final InMindMessage inMindMessage =
                                             new InMindMessage(String.valueOf(random.nextLong()),
-                                                   message ).serialize()));
-                                    Log.i("process-run", sessionMessage.getPayload());
+                                                    "[InMind] "+message);
+                                    Log.i("inmind-message", inMindMessage.toString());
+                                    chatAdapter.addFirst(BaseMessage.buildFromSerializedData(
+                                            inMindMessage.serialize()));
+                                    Log.i("process-run", inMindMessage.serialize()+"");
                                 }
                             });
                         }

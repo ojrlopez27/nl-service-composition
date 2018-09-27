@@ -221,25 +221,18 @@
     <script>      
         // Get the modals    
         var exModal = document.getElementById('exModal');
-
         // Get the buttons that open the modals
         var exBtn = document.getElementById("ex");
-
-        // Get the <span> elements that close the modals      
+        // Get the <span> elements that close the modals
         var exSpan = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal       
+        // When the user clicks the button, open the modal
         exBtn.onclick = function() {
             exModal.style.display = "block";
-            var $inbox = $('.message');
-            $inbox.scrollTop($inbox[0].scrollHeight);
         }
-
         // When the user clicks on <span> (x), close the mo
         exSpan.onclick = function() {
             exModal.style.display = "none";
         }
-
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {          
             if (event.target == exModal) {
@@ -247,11 +240,9 @@
             }
         }
         //fix for scrollbar using jquery, since this page uses jquery.
-        function setScrollheight(letter){
-            var inboxDiv = $('.message');
-            console.log($('.message').scrollHeight.toString() + $('.message').clientHeight.toString()
-            $('.message').scrollTop.toString());
-            $('.message').scrollTop(inboxDiv.prop('scrollHeight'));
+        function getMessages(letter){
+            var inboxDiv = $("#inbox");
+            inboxDiv.scrollTop(inboxDiv.prop('scrollHeight'));
         }
         $(function() {
           getMessages();
