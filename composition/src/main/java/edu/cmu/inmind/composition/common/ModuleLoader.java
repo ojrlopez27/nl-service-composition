@@ -21,7 +21,7 @@ public class ModuleLoader {
                 .setDefaultNumOfPoolInstances(10)
                 .setPathLogs(CommonUtils.getProperty("logs.mkt.regular.path"))
                 .setSessionTimeout(5, TimeUnit.MINUTES)
-                .setServerAddress("tcp://127.0.0.1") //use IP instead of 'localhost'
+                .setServerAddress("tcp://128.237.123.214") //use IP instead of 'localhost'
 //                .setServerAddress("tcp://sogoranmac.ddns.net") //use IP instead of 'localhost'
                 // if using FileLogger, just specify the path to store the logs
                 //.setPathExceptionLogger(Utils.getProperty("pathLogs"))

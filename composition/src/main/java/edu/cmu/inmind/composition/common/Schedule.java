@@ -4,6 +4,7 @@ import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by oscarr on 4/3/18.
@@ -18,6 +19,9 @@ public class Schedule {
     public volatile static String OROMERO = "oromero";
     public volatile static String ADANGI = "adangi";
     public volatile static String SAKOJU = "sakoju";
+    public volatile static String ALICE = "alice";
+
+    public volatile static long DEFAULT_TIME_DURATION = TimeUnit.DAYS.toMillis(1);
 
     static{
         try {
@@ -34,9 +38,16 @@ public class Schedule {
 
 
     public static String validate(String userId){
-        if(userId.equals(OROMERO) || userId.equals(SAKOJU) || userId.equals(ADANGI)) return GO_AHEAD;
+        if(userId.equals(OROMERO) || userId.equals(SAKOJU) || userId.equals(ADANGI)
+                || userId.equals(ALICE)) return GO_AHEAD;
         TimeSlot timeSlot = schedule.map.get(userId);
-        if( timeSlot == null ) return USER_ID_NOT_EXISTS;
+        if( timeSlot == null ) {
+            //return USER_ID_NOT_EXISTS;
+            timeSlot = new TimeSlot(new Date(System.currentTimeMillis()
+                    -TimeUnit.MILLISECONDS.toMillis(DEFAULT_TIME_DURATION)),
+                    new Date(System.currentTimeMillis()
+                            +TimeUnit.MILLISECONDS.toMillis(DEFAULT_TIME_DURATION)));
+        }
         Date currentTime = new Date(System.currentTimeMillis());
         if( currentTime.before( timeSlot.start) ) return TOO_EARLY;
         if( currentTime.after( timeSlot.end) ) return TOO_LATE;

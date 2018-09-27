@@ -1,100 +1,108 @@
 {
   "map": {
-    "user1": {
+    "surabi": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
-    "user3": {
+    "raj": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
-    "user4": {
+    "ranjan": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
-    "user5": {
+    "chelsey": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
-    "user6": {
+    "val": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
-    "user7": {
+    "messi": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
-    "user8": {
+    "krishna": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
-    "user9": {
+    "A2N2GFB33ZMYGF": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
-    "user10": {
+    "michelle": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user11": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
-    "user12": {
+    "AAPXM02THRRBO": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user13": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user14": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user15": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user16": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user17": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user18": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user19": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user20": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user21": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user22": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user23": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user24": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
     },
     "user25": {
       "start": "Aug 21, 2018 9:00:00 AM",
-      "end": "Aug 23, 2018 13:00:00 PM"
+      "end": "Dec 23, 2018 13:00:00 PM"
+    },
+    "alice": {
+      "start": "Sep 21, 2018 9:00:00 AM",
+      "end": "Dec 23, 2018 13:00:00 PM"
+    },
+    "InMind": {
+      "start": "Sep 21, 2018 9:00:00 AM",
+      "end": "Dec 23, 2018 13:00:00 PM"
     }
   }
 }
