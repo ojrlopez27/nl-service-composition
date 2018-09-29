@@ -30,7 +30,7 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
     private String stage = Constants.REQUEST_ACTION_STAGE;
     private int actionCounter = 0;
     private final int maxActions = 7;
-    private final int minLength = 20;
+    private final int minLength = 15;
 
 
     @Override
@@ -55,6 +55,13 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
             case Constants.MSG_CHECK_USER_ID:
                 checkUserLogin(sessionMessage.getPayload());
                 break;
+            case MSG_GROUP_CHAT_READY :
+                IPALog.log(this, "checking user Login and validating." + scenarioIdx);
+                String response = String.format("Thanks! let's start. Consider this scenario: \"%s\". What is the first thing you " +
+                        "would ask your IPA to do?", scenarios.get(scenarioIdx++));
+                IPALog.setFileName(sessionMessage.getPayload());
+                sendResponse( response);
+                break;
             case Constants.MSG_PROCESS_USER_ACTION:
                 IPALog.log(this,sessionMessage.getRequestType() );
                 processUserAction(sessionMessage.getPayload());
@@ -71,13 +78,11 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
             validate = "You have connected too early, please come back at your scheduled time!";
         else if(validate.equals(Schedule.TOO_LATE))
             validate = "Sorry, you have connected too late, please request another time slot through the doodle!";
-        else {
-            IPALog.log(this, "checking user Login and validating."+scenarioIdx);
-            validate = String.format("Thanks! let's start. Consider this scenario: \"%s\". What is the first thing you " +
-                    "would ask your IPA to do?", scenarios.get(scenarioIdx++));
-            IPALog.setFileName(username);
+        else
+        {
+            validate = "Session "+username + " has been successfully created. Initiate chat to start the user study.";
+            sendResponse(validate);
         }
-        sendResponse( validate);
     }
 
 

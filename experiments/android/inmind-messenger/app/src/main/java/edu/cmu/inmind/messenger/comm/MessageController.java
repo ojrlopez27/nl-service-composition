@@ -118,7 +118,7 @@ public class MessageController implements ResponseListener{
             {
 
                 final InMindMessage inMindMessage = new InMindMessage(String.valueOf(random.nextLong()),
-                        "[InMind] "+message);
+                        INMIND+message);
                 Log.i("inmind-message", inMindMessage.toString());
                     activity.runOnUiThread(new Runnable() {
                         @Override
@@ -133,38 +133,37 @@ public class MessageController implements ResponseListener{
         }
         else
             {
-            Log.i("process", message);
-            final SessionMessage sessionMessage = CommonUtils.fromJson(message, SessionMessage.class);
-            Log.i("process-start", sessionMessage.getPayload());
-            if (!sessionMessage.getPayload().equals(INMIND + "ACK")) {
-                if (!message.contains(Constants.SESSION_INITIATED)
-                        && !message.contains(Constants.SESSION_RECONNECTED)) {
-                    Log.i("session-status", sessionMessage.getRequestType());
-                    if (activity != null)
-                    {
-                        if (sessionMessage.getPayload() != null
-                                && !sessionMessage.getPayload().isEmpty() &&
-                                !sessionMessage.getPayload().equals(INMIND)) {
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    final InMindMessage inMindMessage =
-                                            new InMindMessage(String.valueOf(random.nextLong()),
-                                                    "[InMind] "+message);
-                                    Log.i("inmind-message", inMindMessage.toString());
-                                    chatAdapter.addFirst(BaseMessage.buildFromSerializedData(
-                                            inMindMessage.serialize()));
-                                    Log.i("process-run", inMindMessage.serialize()+"");
-                                }
-                            });
+                Log.i("process", message);
+                final SessionMessage sessionMessage = CommonUtils.fromJson(message, SessionMessage.class);
+                Log.i("process-start", sessionMessage.getPayload());
+                if (!sessionMessage.getPayload().equals(INMIND + "ACK")) {
+                    if (!message.contains(Constants.SESSION_INITIATED)
+                            && !message.contains(Constants.SESSION_RECONNECTED)) {
+                        Log.i("session-status", sessionMessage.getRequestType());
+                        if (activity != null)
+                        {
+                            if (sessionMessage.getPayload() != null
+                                    && !sessionMessage.getPayload().isEmpty() &&
+                                    !sessionMessage.getPayload().equals(INMIND)) {
+                                activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        final InMindMessage inMindMessage =
+                                                new InMindMessage(String.valueOf(random.nextLong()),
+                                                        INMIND+message);
+                                        chatAdapter.addFirst(BaseMessage.buildFromSerializedData(
+                                               inMindMessage.serialize()));
+                                        Log.i("process-run", inMindMessage.serialize()+"");
+                                    }
+                                });
+                            }
+                            //showNotification(sessionMessage.getMessageId());
                         }
-                        //showNotification(sessionMessage.getMessageId());
+                    } else {
+                        // Let's tell MUF that we are ready to start conversation
+                        send("Hi", 2000);
                     }
-                } else {
-                    // Let's tell MUF that we are ready to start conversation
-                    send("Hi", 2000);
                 }
-            }
         }
     }
 

@@ -43,6 +43,7 @@ import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 import com.sendbird.android.UserMessage;
 import edu.cmu.inmind.messenger.R;
+import edu.cmu.inmind.messenger.comm.InMindMessage;
 import edu.cmu.inmind.messenger.main.ConnectionManager;
 import edu.cmu.inmind.messenger.utils.FileUtils;
 import edu.cmu.inmind.messenger.utils.MediaPlayerActivity;
@@ -52,6 +53,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+
+import static edu.cmu.inmind.messenger.utils.Constants.INMIND;
 
 
 public class OpenChatFragment extends Fragment {

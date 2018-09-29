@@ -7,6 +7,9 @@ import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.plugin.PluginModule;
 import edu.cmu.inmind.multiuser.controller.resources.Config;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,13 +18,20 @@ import java.util.concurrent.TimeUnit;
 public class ModuleLoader {
 
     public static Config createConfig() {
+        InetAddress inetAddress=null;
+        String ipAddress ="";
+        try {
+             inetAddress = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         return new Config.Builder()
                 .setExceptionTraceLevel( Constants.SHOW_ALL_EXCEPTIONS)
                 .setSessionManagerPort( Integer.parseInt(CommonUtils.getProperty("server.composition")))
                 .setDefaultNumOfPoolInstances(10)
                 .setPathLogs(CommonUtils.getProperty("logs.mkt.regular.path"))
                 .setSessionTimeout(5, TimeUnit.MINUTES)
-                .setServerAddress("tcp://128.237.123.214") //use IP instead of 'localhost'
+                .setServerAddress("tcp://"+inetAddress.getHostAddress()) //use IP instead of 'localhost'
 //                .setServerAddress("tcp://sogoranmac.ddns.net") //use IP instead of 'localhost'
                 // if using FileLogger, just specify the path to store the logs
                 //.setPathExceptionLogger(Utils.getProperty("pathLogs"))

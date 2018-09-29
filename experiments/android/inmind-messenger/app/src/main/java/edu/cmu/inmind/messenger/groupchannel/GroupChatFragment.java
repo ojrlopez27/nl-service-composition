@@ -50,6 +50,7 @@ import edu.cmu.inmind.messenger.R;
 
 import edu.cmu.inmind.messenger.comm.MessageController;
 import edu.cmu.inmind.messenger.main.ConnectionManager;
+import edu.cmu.inmind.messenger.utils.Constants;
 import edu.cmu.inmind.messenger.utils.FileUtils;
 import edu.cmu.inmind.messenger.utils.MediaPlayerActivity;
 import edu.cmu.inmind.messenger.utils.PhotoViewerActivity;
@@ -168,7 +169,6 @@ public class GroupChatFragment extends Fragment {
         mMessageEditText.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
         mMessageSendButton = (Button) rootView.findViewById(R.id.button_group_chat_send);
         mUploadFileButton = (ImageButton) rootView.findViewById(R.id.button_group_chat_upload);
-
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -430,6 +430,7 @@ public class GroupChatFragment extends Fragment {
                 }
             }
         });
+        MessageController.getInstance().send(Constants.MSG_GROUP_CHAT_READY);
     }
 
     private void setUpChatListAdapter() {
@@ -772,6 +773,7 @@ public class GroupChatFragment extends Fragment {
 
         List<String> urls = WebUtils.extractUrls(text);
         if (urls.size() > 0) {
+            Log.i("getUrl", urls.get(0));
             sendUserMessageWithUrl(text, urls.get(0));
             return;
         }

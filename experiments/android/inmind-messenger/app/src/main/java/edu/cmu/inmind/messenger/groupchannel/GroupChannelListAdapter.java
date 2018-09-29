@@ -163,8 +163,8 @@ class GroupChannelListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //because we want to select default channel at position 0
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(position == 0 && mChannelList.size()>0)
-            mItemClickListener.onItemClick(mChannelList.get(0));
+        //if(position == 0 && mChannelList.size()>0)
+            //mItemClickListener.onItemClick(mChannelList.get(0));
         ((ChannelHolder) holder).bind(mContext, mChannelList.get(position), mItemClickListener, mItemLongClickListener);
     }
 

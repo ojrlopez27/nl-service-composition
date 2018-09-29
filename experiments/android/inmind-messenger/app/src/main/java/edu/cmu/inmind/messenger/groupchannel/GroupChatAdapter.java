@@ -25,6 +25,7 @@ import com.sendbird.android.UserMessage;
 
 import edu.cmu.inmind.messenger.R;
 import edu.cmu.inmind.messenger.comm.MessageController;
+import edu.cmu.inmind.messenger.utils.Constants;
 import edu.cmu.inmind.messenger.utils.DateUtils;
 import edu.cmu.inmind.messenger.utils.FileUtils;
 import edu.cmu.inmind.messenger.utils.ImageUtils;
@@ -115,6 +116,7 @@ public class GroupChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //            }
 
             notifyDataSetChanged();
+            Log.i("loadChatAdapter", "loaded chat Adapter ");
         } catch(Exception e) {
             // Nothing to load.
             //e.printStackTrace();
@@ -169,7 +171,6 @@ public class GroupChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
      */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         switch (viewType) {
             case VIEW_TYPE_USER_MESSAGE_ME:
                 View myUserMsgView = LayoutInflater.from(parent.getContext())
