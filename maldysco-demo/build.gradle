@@ -1,0 +1,39 @@
+group 'edu.cmu.inmind.demo'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+    maven {
+        credentials {
+            username 'inmind'
+            password '2018InMindOath'
+        }
+        url "http://www.cs.cmu.edu/afs/cs/project/inmind-cmu-yahoo/www/maven2"
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.slf4j', name: 'slf4j-nop', version: '1.8.0-beta2'
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+    compile group: 'org.jeasy', name: 'easy-rules-core', version: '3.2.0'
+    compile group: 'org.jeasy', name: 'easy-rules-mvel', version: '3.2.0'
+    compile 'edu.cmu.inmind.framework.multiuser:muf:3.0.54:all'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'edu.cmu.inmind.demo.DemoLauncher',
+                "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
+        )
+    }
+}
