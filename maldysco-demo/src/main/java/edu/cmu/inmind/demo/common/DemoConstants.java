@@ -3,9 +3,12 @@ package edu.cmu.inmind.demo.common;
  * Created for demo : sakoju 10/4/2018
  */
 public class DemoConstants {
-    public static String ID_NER = "ID_NER";
-    public static String ID_S2V = "ID_S2V";
-    public static String ID_USERLOGIN = "ID_USERLOGIN";
+    public static final String ID_NER = "ID_NER";
+    public static final String ID_S2V = "ID_S2V";
+    public static final String ID_USERLOGIN = "ID_USERLOGIN";
+    public static final String MSG_SEND_TO_CLIENT = "MSG_SEND_TO_CLIENT";
+    public static final String MSG_SEND_TO_S2V = "MSG_SEND_TO_S2V";
+
     public static String STEP_START ="STEP_START";
     public static String STEP_END ="STEP_END";
 

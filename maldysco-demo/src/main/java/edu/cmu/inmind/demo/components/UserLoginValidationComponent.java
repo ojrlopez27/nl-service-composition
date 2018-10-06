@@ -1,11 +1,17 @@
 package edu.cmu.inmind.demo.components;
 
+import com.google.common.eventbus.Subscribe;
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.demo.common.Schedule;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
+import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
+import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
+import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 
+@StateType(state = Constants.STATELESS)
+@BlackboardSubscription(messages= DemoConstants.MSG_CHECK_USER_ID)
 public class UserLoginValidationComponent extends PluggableComponent {
 
     private void checkUserLogin(String username, Blackboard blackboard){

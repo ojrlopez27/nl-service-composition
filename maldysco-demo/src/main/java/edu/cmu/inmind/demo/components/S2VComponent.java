@@ -3,12 +3,17 @@ package edu.cmu.inmind.demo.components;
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
+import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
+import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
+import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 import org.zeromq.ZMQ;
 /**
  * Created for demo : sakoju 10/4/2018
  */
+@StateType(state = Constants.STATELESS)
+@BlackboardSubscription(messages= DemoConstants.MSG_SEND_TO_S2V)
 public class S2VComponent extends PluggableComponent {
     private final String TAG = S2VComponent.class.getSimpleName();
     private final static ZMQ.Context context = ZMQ.context(1);
@@ -52,6 +57,7 @@ public class S2VComponent extends PluggableComponent {
 
     @Override
     public void onEvent(Blackboard blackboard, BlackboardEvent blackboardEvent) throws Throwable {
+        //send to s2V once you receive a user utterance: this is only example of when we send/forward to S2V which is an external component
         if(blackboardEvent.getId()!= DemoConstants.STEP_END)
         {
             sendS2V((String) blackboardEvent.getElement());
