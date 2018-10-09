@@ -1,12 +1,17 @@
 package edu.cmu.inmind.demo.client;
 
+import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.demo.common.Utils;
 import edu.cmu.inmind.multiuser.communication.ClientCommController;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.communication.ResponseListener;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.log.LogC;
+
+import java.util.Scanner;
+
 
 public class MockDemoClient {
     private ClientCommController clientCommController;
@@ -18,20 +23,36 @@ public class MockDemoClient {
     public MockDemoClient(String serverIPAddress, String sessionID,
                           ResponseListener responseListener)
     {
-        String tempIPAddress= Utils.getSystemIPAddress();
-        serverIPAddress += tempIPAddress.isEmpty()?DEFAULT_IP_ADDRESS
-                            :tempIPAddress;
-        this.responseListener =responseListener!=null? responseListener:
-            new ClientResponseListener();
-        this.sessionID += (!sessionID.isEmpty())?sessionID:"";
+        if(!serverIPAddress.equals("") && !sessionID.equals("")) {
+            connect(serverIPAddress, sessionID, responseListener);
+        }
+        else
+        {
+            connect("","",null);
+        }
+    }
+
+    public void connect(String serverIPAddress, String sessionID,
+                        ResponseListener responseListener)
+    {
+        String tempIPAddress = Utils.getSystemIPAddress();
+        Log4J.info(this, tempIPAddress);
+        serverIPAddress += tempIPAddress.isEmpty() ? DEFAULT_IP_ADDRESS
+                : tempIPAddress;
+        this.responseListener = responseListener != null ? responseListener :
+                new ClientResponseListener();
+        this.sessionID += (!sessionID.isEmpty()) ? sessionID : "";
         clientCommController = new ClientCommController.Builder(new LogC())
-                .setServerAddress(serverIPAddress)
+                .setServerAddress("tcp://"+"inmind-maldysco.ddns.net"+":5556")
                 .setResponseListener(this.responseListener)
                 .setSessionId(sessionID)
                 .setRequestType(Constants.REQUEST_CONNECT)
                 .build();
     }
 
+    /***
+     * by default : send no values for CCC
+     */
     public MockDemoClient()
     {
         this(null, null, null);
@@ -63,14 +84,50 @@ public class MockDemoClient {
     }
 
     /***
-     * ResponseListener : custom implementation on receiving a message: see if user has to reply Y/N etc.
+     * ResponseListener : custom implementation on receiving a message: eg: if user has to reply Y/N etc.
      */
     public class ClientResponseListener implements ResponseListener
     {
         @Override
         public void process(String message)
         {
-            LogC.info(this, "Client Response Listener"+message);
+            LogC.info(this,
+                    "Client Response Listener"+message);
         }
+    }
+
+    public static void main(String args[]) throws Throwable
+    {
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+        MockDemoClient mockDemoClient=null;
+        while (!input.equals("stop") && !input.equals("disconnect"))
+        {
+            System.out.println("Enter a command:");
+            input = scanner.nextLine();
+            if(input.equals("start")) {
+                mockDemoClient = new MockDemoClient("", "",
+                        null);
+            }
+            if (input.equals("stop")) {
+                Log4J.info(mockDemoClient, "Do you want to end the session? " +
+                        "Please type \"disconnect\"");
+            }
+            else if(input.equals("login"))
+            {
+                mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
+                    new SessionMessage(DemoConstants.MSG_CHECK_USER_ID,
+                            mockDemoClient.sessionID));
+            }
+            else if (input.equals("disconnect")) {
+                mockDemoClient.clientCommController.disconnect(mockDemoClient.sessionID);
+            }
+            else
+            {
+                mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
+                        new SessionMessage(DemoConstants.MSG_PROCESS_USER_ACTION, input));
+            }
+        }
+        System.exit(0);
     }
 }

@@ -30,6 +30,12 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
                     sessionMessage);
                 break;
             case DemoConstants.MSG_PROCESS_USER_ACTION:
+                blackboard.post(this, sessionMessage.getMessageId(),
+                        sessionMessage);
+                break;
+            case DemoConstants.MSG_GROUP_CHAT_READY:
+                blackboard.post(this, sessionMessage.getMessageId(),
+                        sessionMessage);
                 break;
             default:
                     break;
@@ -43,9 +49,16 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
 
     @Override
     public void onEvent(Blackboard blackboard, BlackboardEvent event) throws Throwable {
-        if(event.getId().equals(DemoConstants.MSG_SEND_TO_S2V))
+        switch(event.getId())
         {
-            sendResponse(event.getElement());
+            case DemoConstants.MSG_SEND_TO_S2V:
+                    sendResponse(event.getElement());
+                    break;
+            case DemoConstants.MSG_SEND_TO_CLIENT:
+                    sendResponse(event.getElement());
+                    break;
+            default:
+                break;
         }
         super.onEvent(blackboard, event);
     }

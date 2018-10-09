@@ -6,9 +6,11 @@ import edu.cmu.inmind.demo.components.UserLoginValidationComponent;
 import edu.cmu.inmind.demo.orchestrator.DemoOrchestrator;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluginModule;
 import edu.cmu.inmind.multiuser.controller.resources.Config;
 
+import java.net.InetAddress;
 import java.util.concurrent.TimeUnit;
 /**
  * Created for demo : sakoju 10/4/2018
@@ -17,6 +19,7 @@ public class DemoMUFController {
     public static Config createConfig()
     {
         String serverIpAddress = Utils.getSystemIPAddress();
+        System.out.println(serverIpAddress);
         return new Config.Builder()
                 .setExceptionTraceLevel(Constants.SHOW_ALL_EXCEPTIONS)
                 .setSessionManagerPort
@@ -26,7 +29,7 @@ public class DemoMUFController {
                         CommonUtils.getProperty("logs.mkt.regular.path"))
                 .setDefaultNumOfPoolInstances(10)
                 .setSessionTimeout(5, TimeUnit.MINUTES)
-                .setServerAddress(serverIpAddress)
+                .setServerAddress("tcp://"+"inmind-maldysco.ddns.net")
                 .build();
     }
 

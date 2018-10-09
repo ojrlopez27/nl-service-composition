@@ -16,4 +16,14 @@ public class Utils {
         }
         return ipAddress;
     }
+
+    public static String splitByCapitalizedWord(String word, boolean lowercase){
+        String[] split = word.split("(?=\\p{Upper})");
+        String newWord = "";
+        for(String sp : split){
+            newWord += (!newWord.isEmpty()? "-" + sp : sp);
+        }
+        return lowercase? newWord.toLowerCase() : newWord;
+    }
+
 }

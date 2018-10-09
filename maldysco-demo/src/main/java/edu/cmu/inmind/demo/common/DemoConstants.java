@@ -37,8 +37,9 @@ public class DemoConstants {
     public static final String DONE = "DONE";
 
     public static final String MSG_CHECK_USER_ID = "MSG_CHECK_USER_ID";
-    public static final String MSG_GROUP_CHAT_READY = "MSG_GROUP_CHAT_READY";
+    public static final String MSG_USER_VALIDATION_SUCCCES = "MSG_USER_VALIDATION_SUCCCES";
     public static final String MSG_PROCESS_USER_ACTION = "MSG_PROCESS_USER_ACTION";
+    public static final String MSG_GROUP_CHAT_READY="MSG_GROUP_CHAT_READY";
 
 
     // stages:
