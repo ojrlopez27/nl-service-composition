@@ -36,24 +36,20 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
         launchpadStarterController.stopFramework();
     }
 
+    /*
     @Override
     public void execute() {
         Log4J.info(this, "Inside OSGiLaunchpadComponent.execute: " + hashCode());
         handleService(getBlackBoard(getSessionId()));
     }
+    */
 
     @Override
     public void onEvent(Blackboard blackboard, BlackboardEvent blackboardEvent) throws Throwable {
         Log4J.info(this, "Inside OSGiLaunchpadComponent.onEvent");
-        handleService(blackboard);
-    }
-
-    private void handleService(Blackboard blackboard) {
-        Log4J.info(this, "Inside OSGiLaunchpadComponent.handleService");
         try {
             // read the input command
-
-            LaunchpadInput launchpadInput = (LaunchpadInput) blackboard.get(MSG_LP_INPUT_CMD);
+            LaunchpadInput launchpadInput = (LaunchpadInput) blackboardEvent.getElement();
             String launchpadInputCommand = launchpadInput.getCommand();
 
             // process the input command
