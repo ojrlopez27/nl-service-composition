@@ -1,0 +1,28 @@
+{
+  "map": {
+    "service1": {
+      "name": "edu.cmu.inmind.osgi.merge-Apr25.bundle-commons",
+      "level": "2",
+      "deploymentDate": "Oct 5, 2018 5:30:00 AM",
+      "autoUpdate": "true"
+    },
+    "service2": {
+      "name": "edu.cmu.inmind.osgi.merge-Apr25.osgi-core",
+      "level": "3",
+      "deploymentDate": "Oct 5, 2018 5:30:00 AM",
+      "autoUpdate": "true"
+    },
+    "service3": {
+      "name": "edu.cmu.inmind.osgi.merge-Apr25.bundle-apis",
+      "level": "3",
+      "deploymentDate": "Oct 5, 2018 5:30:00 AM",
+      "autoUpdate": "true"
+    },
+    "service4": {
+      "name": "edu.cmu.inmind.osgi.merge-Apr25.calculator-integer",
+      "level": "4",
+      "deploymentDate": "Oct 5, 2018 5:30:00 AM",
+      "autoUpdate": "true"
+    }
+  }
+}
