@@ -1,0 +1,86 @@
+plugins {
+    id 'java'
+}
+
+group 'edu.cmu.inmind.services'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+configurations {
+    deployerJars
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        credentials {
+            username 'inmind'
+            password '2018InMindOath'
+        }
+        url "http://www.cs.cmu.edu/afs/cs/project/inmind-cmu-yahoo/www/maven2"
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile group: "${servicesGroup}", name: 'smw-muf-commons', version: "${smwMUFCommonsVersion}"
+    //compile group: "${middlewareGroup}", name: 'middleware-data', version: "${middlewareDataVersion}"
+
+    // dependencies for MUF Components
+    compile group: "${servicesGroup}", name: 'muf-osgi-launchpad', version: "${mufOsgiLaunchpadVersion}"
+    compile group: "${servicesGroup}", name: 'muf-sent2vec', version: "${mufSent2VecVersion}"
+    compile group: "${servicesGroup}", name: 'muf-ner', version: "${mufNerVersion}"
+    compile group: "${servicesGroup}", name: 'muf-middleware', version: "${mufMiddlewareVersion}"
+    compile group: "${servicesGroup}", name: 'muf-composition', version: "${mufCompositionVersion}"
+
+    testCompile group: 'junit', name: 'junit', version: "${junitVersion}"
+}
+
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'edu.cmu.inmind.services.muf.core.MUFMain',
+                "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
+        )
+    }
+}
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            configuration = configurations.deployerJars
+            repository(url: "scp://linux.gp.cs.cmu.edu:/afs/cs/project/inmind-cmu-yahoo/www/maven2/") {
+                authentication(userName: mavenUser, password: mavenPassword)
+            }
+
+            pom.project {
+                name 'InMind Semantic Middleware Core'
+                packaging 'jar'
+                description 'Core for InMind Semantic Middleware.'
+                pom.version = "${smwCoreVersion}"
+                pom.artifactId = "${smwCoreArtifactId}"
+                pom.groupId = "${servicesGroup}"
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        name 'Ankit Dangi'
+                        email 'adangi@cs.cmu.edu'
+                    }
+                }
+            }
+        }
+    }
+}
