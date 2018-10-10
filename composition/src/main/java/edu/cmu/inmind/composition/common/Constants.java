@@ -29,6 +29,8 @@ public class Constants {
     public static final String MSG_CHECK_USER_ID = "MSG_CHECK_USER_ID";
     public static final String MSG_GROUP_CHAT_READY = "MSG_GROUP_CHAT_READY";
     public static final String MSG_PROCESS_USER_ACTION = "MSG_PROCESS_USER_ACTION";
+    public static final String MSG_S2V_RESULT = "MSG_S2V_RESULT";
+
 
 
     // stages:

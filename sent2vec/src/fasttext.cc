@@ -696,7 +696,7 @@ void FastText::nnSent(int32_t k, std::string filename) {
         //send json serialized string
         std::string json_string="\{\"requestType\":\"\",\"sessionId\":\"\",\"url\":\"\",\"payload\":\"";
         json_string.append(output.c_str());
-        json_string.append("\"});");
+        json_string.append("\"\}");
         std::strcpy(char_array, json_string.c_str());
   		s_send(socket, char_array);  
     }

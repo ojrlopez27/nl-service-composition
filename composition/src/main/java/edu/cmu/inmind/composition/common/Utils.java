@@ -25,6 +25,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -33,6 +35,16 @@ import java.util.*;
  */
 public class Utils {
     private static String lineSeparator = System.lineSeparator();
+
+    public static String getSystemIPAddress() {
+        String ipAddress = "";
+        try {
+            ipAddress = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return ipAddress;
+    }
 
     public static void generateInputText(CompositionController.CompositeService compositeService){
         // extract steps from composite service

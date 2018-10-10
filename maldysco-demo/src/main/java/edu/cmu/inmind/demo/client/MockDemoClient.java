@@ -28,7 +28,7 @@ public class MockDemoClient {
         }
         else
         {
-            connect("","",null);
+            connect("",this.sessionID,null);
         }
     }
 
@@ -41,9 +41,9 @@ public class MockDemoClient {
                 : tempIPAddress;
         this.responseListener = responseListener != null ? responseListener :
                 new ClientResponseListener();
-        this.sessionID += (!sessionID.isEmpty()) ? sessionID : "";
+        this.sessionID += (!sessionID.isEmpty()) ? sessionID : this.sessionID;
         clientCommController = new ClientCommController.Builder(new LogC())
-                .setServerAddress("tcp://"+"inmind-maldysco.ddns.net"+":5556")
+                .setServerAddress("tcp://"+serverIPAddress+":5556")
                 .setResponseListener(this.responseListener)
                 .setSessionId(sessionID)
                 .setRequestType(Constants.REQUEST_CONNECT)
@@ -113,7 +113,7 @@ public class MockDemoClient {
                 Log4J.info(mockDemoClient, "Do you want to end the session? " +
                         "Please type \"disconnect\"");
             }
-            else if(input.equals("login"))
+            else if(input.contains("login"))
             {
                 mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
                     new SessionMessage(DemoConstants.MSG_CHECK_USER_ID,

@@ -6,6 +6,7 @@ import edu.cmu.inmind.demo.common.Utils;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
+import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
@@ -18,7 +19,7 @@ import java.util.List;
 //TODO: communication sequence defined : TEST with mock client.
 @StateType(state = Constants.STATELESS)
 @BlackboardSubscription(messages= {DemoConstants.MSG_CHECK_USER_ID, DemoConstants.MSG_GROUP_CHAT_READY})
-public class UserLoginValidationComponent extends PluggableComponent {
+public class UserInteractionComponent extends PluggableComponent {
     private List<String> scenarios = Arrays.asList(
             "You want to go on a vacation to Europe next month and need to plan your trip",
             "Your wedding anniversary is the next weekend and you want to plan a romantic night with your spouse",
@@ -74,11 +75,13 @@ public class UserLoginValidationComponent extends PluggableComponent {
                         blackboard);
                 break;
             case DemoConstants.MSG_GROUP_CHAT_READY :
-                String response = String.format("Thanks! let's start. Consider this scenario: \"%s\". What is the first thing you " +
+                String response = String.format("Thanks! let's start. Consider this scenario: %s. What is the first thing you " +
                         "would ask your IPA to do?", scenarios.get(scenarioIdx++));
                 //IPALog.setFileName(sessionMessage.getPayload());
+                Log4J.info(this, blackboardEvent.getElement().toString());
                 SessionMessage sessionMessage = new SessionMessage();
-                sessionMessage.setPayload((String) blackboardEvent.getElement());
+                sessionMessage.setPayload(response);
+                sessionMessage.setMessageId(DemoConstants.MSG_SEND_TO_CLIENT);
                 sessionMessage.setRequestType(DemoConstants.MSG_PROCESS_USER_ACTION);
                 blackboard.post(this, DemoConstants.MSG_SEND_TO_CLIENT,
                         sessionMessage);

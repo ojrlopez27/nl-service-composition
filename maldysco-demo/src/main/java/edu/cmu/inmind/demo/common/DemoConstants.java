@@ -8,6 +8,8 @@ public class DemoConstants {
     public static final String ID_USERLOGIN = "ID_USERLOGIN";
     public static final String MSG_SEND_TO_CLIENT = "MSG_SEND_TO_CLIENT";
     public static final String MSG_SEND_TO_S2V = "MSG_SEND_TO_S2V";
+    public static final String MSG_RECEIVE_S2V = "MSG_RECEIVE_S2V";
+    public static final String EMPTY_S2V = "EMPTY_S2V";
 
     public static String STEP_START ="STEP_START";
     public static String STEP_END ="STEP_END";

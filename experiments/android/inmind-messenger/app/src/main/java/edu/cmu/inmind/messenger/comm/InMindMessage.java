@@ -20,10 +20,13 @@ public class InMindMessage{
 
     public byte[] serialize(){
         try {
+            message.replace(": ", ":")
+                    .replace("\"", "");
             createdAt = System.currentTimeMillis();
             String json = "{\n" +
                     "\"channel_type\": \"group\",\n" +
-                    "\"channel_url\": \"sendbird_group_channel_73872400_4f31a0e12deef132ec880d67f0450b91a7eb6ab5\",\n" +
+                    "\"channel_url\": \"\n" +
+                    "sendbird_group_channel_73872400_4eff1293ac39b70f91415d1116f5c7fe5bf9f7b6\",\n" +
                     "\"custom_type\": \"\",\n" +
                     "\"data\": \"\",\n" +
                     "\"message\": \"" + message + "\",\n" +
@@ -41,8 +44,7 @@ public class InMindMessage{
                     "\"created_at\": " + createdAt + ",\n" + //1528476106569L
                     "\"updated_at\": 0\n" +
                     "}";
-            json = json.replace("\n", "").replace(": ", ":")
-                    .replace("\" ", "");
+            json = json.replace("\n", "");
             Log.i("inmindMessage", json);
             byte[] data = Base64.encode(json.getBytes("UTF-8"), 0);
             for (int i = 0; i < data.length; ++i) {

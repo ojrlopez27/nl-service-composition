@@ -80,7 +80,13 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
             validate = "Sorry, you have connected too late, please request another time slot through the doodle!";
         else
         {
-            validate = "Session "+username + " has been successfully created. Initiate chat to start the user study.";
+            //validate = "Session "+username + " has been successfully created. Initiate chat to start the user study.";
+            IPALog.log(this, "checking user Login and validating." + scenarioIdx);
+            String response = String.format("Thanks! let's start. Consider this scenario: %s. What is the first thing you " +
+                    "would ask your IPA to do?", scenarios.get(scenarioIdx++));
+            IPALog.log(this, "response" + response);
+            IPALog.setFileName(username);
+            sendResponse( response);
             sendResponse(validate);
         }
     }

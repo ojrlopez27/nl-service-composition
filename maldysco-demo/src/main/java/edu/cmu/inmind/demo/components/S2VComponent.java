@@ -6,6 +6,7 @@ import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
+import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 import org.zeromq.ZMQ;
@@ -33,7 +34,13 @@ public class S2VComponent extends PluggableComponent {
     public String receiveS2V()
     {
         try {
-            return clientSent2Vec.recvStr();
+            String message = clientSent2Vec.recvStr();
+            SessionMessage sessionMessage = CommonUtils.fromJson(message, SessionMessage.class);
+            if(!sessionMessage.getPayload().isEmpty())
+                return sessionMessage.getPayload();
+            else
+                return DemoConstants.EMPTY_S2V;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,7 +67,8 @@ public class S2VComponent extends PluggableComponent {
     public void onEvent(Blackboard blackboard, BlackboardEvent blackboardEvent) throws Throwable {
         //send to s2V once you receive a user utterance: this is
         // only example of when we send/forward to S2V which is an external component
-        if(blackboardEvent.getId()!= DemoConstants.STEP_END)
+        if(blackboardEvent.getId().equals(DemoConstants.STEP_END) &&
+                !blackboardEvent.getId().equals(DemoConstants.MSG_GROUP_CHAT_READY))
         {
             sendS2V((String) blackboardEvent.getElement());
         }

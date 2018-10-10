@@ -2,15 +2,13 @@ package edu.cmu.inmind.demo.common;
 
 import edu.cmu.inmind.demo.components.NERComponent;
 import edu.cmu.inmind.demo.components.S2VComponent;
-import edu.cmu.inmind.demo.components.UserLoginValidationComponent;
+import edu.cmu.inmind.demo.components.UserInteractionComponent;
 import edu.cmu.inmind.demo.orchestrator.DemoOrchestrator;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
-import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluginModule;
 import edu.cmu.inmind.multiuser.controller.resources.Config;
 
-import java.net.InetAddress;
 import java.util.concurrent.TimeUnit;
 /**
  * Created for demo : sakoju 10/4/2018
@@ -39,7 +37,7 @@ public class DemoMUFController {
                 new PluginModule.Builder(DemoOrchestrator.class,
                         NERComponent.class, DemoConstants.ID_NER)
                 .addPlugin(S2VComponent.class, DemoConstants.ID_S2V)
-                .addPlugin(UserLoginValidationComponent.class, DemoConstants.ID_USERLOGIN)
+                .addPlugin(UserInteractionComponent.class, DemoConstants.ID_USERLOGIN)
                 .build()
         };
     }

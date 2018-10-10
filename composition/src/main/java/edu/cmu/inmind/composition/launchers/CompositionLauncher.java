@@ -40,7 +40,8 @@ public class CompositionLauncher {
             Log4J.info(TAG, "Enter one by one each step to accomplish the goal (type 'END' to finish):");
             step = inputController.getNext();
 
-            if( !step.equals(Constants.END) ) {
+            if( !step.equals(Constants.END) &&
+                    !step.equals(Constants.MSG_GROUP_CHAT_READY)) {
                 // let's get the semantic neighbors provided by sent2vec
                 communicationController.sendS2V(step);
                 String absServiceCandidates = communicationController.receiveS2V();
