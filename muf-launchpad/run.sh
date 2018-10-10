@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-java -jar ./build/libs/muf-launchpad-1.0.0.jar -Xmx2048

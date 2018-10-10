@@ -41,7 +41,7 @@ uploadArchives {
             pom.project {
                 name 'Semantic Middleware Commons'
                 packaging 'jar'
-                description 'Commons for Semantic Middleware.'
+                description 'Commons library for Semantic Middleware.'
                 pom.version = "${smwCommonsVersion}"
                 pom.artifactId = "${smwCommonsArtifactId}"
                 pom.groupId = "${servicesGroup}"
