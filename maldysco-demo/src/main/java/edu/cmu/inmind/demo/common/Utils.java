@@ -81,6 +81,7 @@ public class Utils {
         extractImplementationClasses();
         return mapInterfaces;
     }
+    //TODO: remove all services, methods, pojos and instead just add strings for testing
 
     public static Map<String, ServiceMethod> extractImplementationClasses(){
         mapImplementations = extractClassesFromPackage(AirBnBService.class.getPackage().getName(),null,
@@ -131,5 +132,14 @@ public class Utils {
         }
         return map;
     }
+
+    public static <A> Map<String, A> asMap(Object... keysAndValues) {
+        return new LinkedHashMap<String, A>() {{
+            for (int i = 0; i < keysAndValues.length - 1; i++) {
+                put(keysAndValues[i].toString(), (A) keysAndValues[++i]);
+            }
+        }};
+    }
+
 
 }

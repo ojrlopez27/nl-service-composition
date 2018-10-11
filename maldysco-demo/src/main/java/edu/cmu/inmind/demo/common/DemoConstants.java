@@ -1,5 +1,7 @@
 package edu.cmu.inmind.demo.common;
 
+import com.google.common.collect.ImmutableMap;
+
 import java.util.*;
 
 /**
@@ -70,16 +72,9 @@ public class DemoConstants {
                     "MovieService", "NewsService", "OrderFoodService", "SocialNetworkService",
                     "TextMessageService", "TrafficService", "UndefinedService", "WeatherService",
                     "WineAndBeerService"));
-    public static final Map<String, String> servicesMap = new HashMap<>(
-            Arrays.asList("AirBnBService",
-                    "BookingsService",
-                    "ExpediaService",
-                    "GoogleCalendarService",
-                    "GoogleFlightsService",
-                    "SkyscannerService",
-                    "TripAdvisorService",
-                    "WeatherChannelService",
-                    "WundergroundService",
-                    "YahooCalendarService",
-                    "YahooNewsService"));
+    public static final HashMap<String, String> servicesMap = Utils.asMap(
+            "AirBnBService","", "BookingsService","",
+                    "ExpediaService","", "GoogleCalendarService","", "GoogleFlightsService","",
+            "SkyscannerService","", "TripAdvisorService","", "WeatherChannelService","",
+            "WundergroundService","", "YahooCalendarService","", "YahooNewsService", "");
 }
