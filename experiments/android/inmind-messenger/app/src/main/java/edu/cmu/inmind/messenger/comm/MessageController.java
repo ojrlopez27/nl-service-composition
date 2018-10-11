@@ -130,7 +130,7 @@ public class MessageController implements ResponseListener{
             {
 
                 final InMindMessage inMindMessage = new InMindMessage(String.valueOf(random.nextLong()),
-                        message);
+                        INMIND+message);
                 Log.i("inmind-message", inMindMessage.toString());
                     activity.runOnUiThread(new Runnable() {
                         @Override
@@ -162,7 +162,7 @@ public class MessageController implements ResponseListener{
                                     public void run() {
                                         final InMindMessage inMindMessage =
                                                 new InMindMessage(String.valueOf(random.nextLong()),
-                                                        message);
+                                                        INMIND+sessionMessage.getPayload());
                                         chatAdapter.addFirst(BaseMessage.buildFromSerializedData(
                                                inMindMessage.serialize()));
                                         Log.i("process-run", inMindMessage.serialize()+"");

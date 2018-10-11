@@ -133,9 +133,10 @@ public class MKTExperimentOrchestrator extends ProcessOrchestratorImpl {
                     compositionController.fireRulesAS();
 
                     String[] result = compositionController.execute(serviceMap);
-                    String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
-                                    "Is that what you would want your IPA to do (Y/N)?",
-                            Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
+                    String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. "
+                                    + "Is that what you would want your IPA to do (Y/N)?",
+                            Utils.splitByCapitalizedWord(result[0].replace("Service", ""),
+                                    false),
                             Utils.splitByCapitalizedWord(result[1], true));
                     IPALog.log(this, String.format("%s%s\t%s", IPA, LEVEL0, response));
                     stage = Constants.ASK_FOR_APP_CONFIRMATION_STAGE;

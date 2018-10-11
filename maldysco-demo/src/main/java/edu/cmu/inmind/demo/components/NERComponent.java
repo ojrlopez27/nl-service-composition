@@ -5,7 +5,10 @@ import edu.cmu.inmind.demo.controllers.NERController;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
+import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
+import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 import edu.cmu.inmind.multiuser.controller.session.Session;
@@ -45,11 +48,17 @@ public class NERComponent extends PluggableComponent {
 
     @Override
     public void onEvent(Blackboard blackboard, BlackboardEvent blackboardEvent) throws Throwable {
-
+        switch(blackboardEvent.getId())
+        {
+            case DemoConstants.MSG_PROCESS_USER_ACTION:
+                Log4J.info(this, (String) blackboardEvent.getElement());
+        }
     }
 
     @Override
     public String getSessionId() {
         return super.getSessionId();
     }
+
+
 }

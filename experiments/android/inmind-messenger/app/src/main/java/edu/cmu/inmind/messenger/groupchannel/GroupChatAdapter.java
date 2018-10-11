@@ -18,6 +18,7 @@ import com.sendbird.android.BaseChannel;
 import com.sendbird.android.BaseMessage;
 import com.sendbird.android.FileMessage;
 import com.sendbird.android.GroupChannel;
+import com.sendbird.android.PreviousMessageListQuery;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 import com.sendbird.android.User;
@@ -443,6 +444,7 @@ public class GroupChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void addFirst(BaseMessage message) {
         mMessageList.add(0, message);
+        // refresh();
         notifyDataSetChanged();
     }
 
@@ -806,8 +808,7 @@ public class GroupChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 nicknameText.setText(message.getSender().getNickname());
             }
 
-            messageText.setText(message.getMessage().replace(INMIND, "")
-                    .replace("InMind:", ""));
+            messageText.setText(message.getMessage());
             Log.i("GroupChatAdapter", message.getMessage());
             timeText.setText(DateUtils.formatTime(message.getCreatedAt()));
 

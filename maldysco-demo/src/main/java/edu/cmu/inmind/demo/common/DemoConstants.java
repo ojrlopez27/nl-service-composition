@@ -1,4 +1,7 @@
 package edu.cmu.inmind.demo.common;
+
+import java.util.*;
+
 /**
  * Created for demo : sakoju 10/4/2018
  */
@@ -60,5 +63,23 @@ public class DemoConstants {
     public static final String LEVEL3 = "[3]:";
     public static final String LEVEL4 = "[4]:";
     public static final String LEVEL5 = "[5]:";
-
+    public static final List<String> abstractServices = new ArrayList<>(
+            Arrays.asList("BookFlightService", "BookHotelService",
+                    "BookRestaurantService", "CalendarService", "FloristService", "GenericService",
+                    "GroundTransportationService", "LeisureRecommendationService", "MapsService",
+                    "MovieService", "NewsService", "OrderFoodService", "SocialNetworkService",
+                    "TextMessageService", "TrafficService", "UndefinedService", "WeatherService",
+                    "WineAndBeerService"));
+    public static final Map<String, String> servicesMap = new HashMap<>(
+            Arrays.asList("AirBnBService",
+                    "BookingsService",
+                    "ExpediaService",
+                    "GoogleCalendarService",
+                    "GoogleFlightsService",
+                    "SkyscannerService",
+                    "TripAdvisorService",
+                    "WeatherChannelService",
+                    "WundergroundService",
+                    "YahooCalendarService",
+                    "YahooNewsService"));
 }

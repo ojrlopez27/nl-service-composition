@@ -58,10 +58,10 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
         switch(event.getId())
         {
             case DemoConstants.MSG_SEND_TO_S2V:
-                    sendResponse(event.getElement());
+                    sendResponse(CommonUtils.toJson(event.getElement()));
                     break;
             case DemoConstants.MSG_SEND_TO_CLIENT:
-                    sendResponse(event.getElement());
+                    sendResponse(CommonUtils.toJson(event.getElement()));
                     break;
             case DemoConstants.MSG_RECEIVE_S2V:
                 //ideally call CompositionController methods to send the results.but for now just print.

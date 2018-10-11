@@ -2,11 +2,9 @@ package edu.cmu.inmind.demo.components;
 
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.demo.common.Schedule;
-import edu.cmu.inmind.demo.common.Utils;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
-import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
@@ -18,7 +16,8 @@ import java.util.List;
 //TODO: write pseudo rules and pseudo services
 //TODO: communication sequence defined : TEST with mock client.
 @StateType(state = Constants.STATELESS)
-@BlackboardSubscription(messages= {DemoConstants.MSG_CHECK_USER_ID, DemoConstants.MSG_GROUP_CHAT_READY})
+@BlackboardSubscription(messages= {DemoConstants.MSG_CHECK_USER_ID,
+        DemoConstants.MSG_GROUP_CHAT_READY, DemoConstants.MSG_PROCESS_USER_ACTION})
 public class UserInteractionComponent extends PluggableComponent {
     private List<String> scenarios = Arrays.asList(
             "You want to go on a vacation to Europe next month and need to plan your trip",
@@ -70,27 +69,36 @@ public class UserInteractionComponent extends PluggableComponent {
     public void onEvent(Blackboard blackboard, BlackboardEvent blackboardEvent) throws Throwable {
         switch(blackboardEvent.getId())
         {
+            //first validate user from schedule.json
             case DemoConstants.MSG_CHECK_USER_ID:
                 checkUserLogin(blackboardEvent.getSessionId(),
                         blackboard);
                 break;
+            //Android Phone app's GroupChannel chat is ready ?
             case DemoConstants.MSG_GROUP_CHAT_READY :
                 String response = String.format("Thanks! let's start. Consider this scenario: %s. What is the first thing you " +
                         "would ask your IPA to do?", scenarios.get(scenarioIdx++));
                 //IPALog.setFileName(sessionMessage.getPayload());
-                Log4J.info(this, blackboardEvent.getElement().toString());
+                Log4J.info(this, (String) response);
                 SessionMessage sessionMessage = new SessionMessage();
                 sessionMessage.setPayload(response);
                 sessionMessage.setMessageId(DemoConstants.MSG_SEND_TO_CLIENT);
-                sessionMessage.setRequestType(DemoConstants.MSG_PROCESS_USER_ACTION);
+                sessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_CLIENT);
                 blackboard.post(this, DemoConstants.MSG_SEND_TO_CLIENT,
                         sessionMessage);
                 break;
+            case DemoConstants.MSG_PROCESS_USER_ACTION:
+                    processUserAction((String)blackboardEvent.getElement(), blackboard);
             default:
                 break;
         }
     }
 
+    /***
+     * process user action
+     * @param userAction
+     * @param blackboard
+     */
     private void processUserAction(String userAction,Blackboard blackboard){
         Log4J.info(this, "orchestrator processUserAction: "+userAction);
         Log4J.info(this, String.format("%s%s\t%s", DemoConstants.USER, DemoConstants.LEVEL0, userAction));
@@ -104,15 +112,22 @@ public class UserInteractionComponent extends PluggableComponent {
                     //compositionController.fireRulesGS();
                     String response = "Great, let's continue. What is the next thing you would ask your IPA to do? " +
                             "(type 'DONE' if you are done for this scenario -- but at least 7 actions/steps are required)";
-                    //TODO: instead post on BB SEND_TO_CLIENT so orchestrator sends to client
-                    //sendResponse(response);
-                    Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL1, response));
+                    SessionMessage clientSessionMessage = new SessionMessage();
+                    clientSessionMessage.setMessageId(DemoConstants.MSG_SEND_TO_CLIENT);
+                    clientSessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_CLIENT);
+                    clientSessionMessage.setPayload(response);
+                    blackboard.post(this, DemoConstants.MSG_SEND_TO_CLIENT,
+                            clientSessionMessage);                    Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL1, response));
                     stage = DemoConstants.REQUEST_ACTION_STAGE;
                     actionCounter++;
                 }else{
                     String response = "Ok, can you re-phrase your command? your IPA will try to do it better this time...";
-                    //sendResponse(response);
-                    Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL2, response));
+                    SessionMessage clientSessionMessage = new SessionMessage();
+                    clientSessionMessage.setMessageId(DemoConstants.MSG_SEND_TO_CLIENT);
+                    clientSessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_CLIENT);
+                    clientSessionMessage.setPayload(response);
+                    blackboard.post(this, DemoConstants.MSG_SEND_TO_CLIENT,
+                            clientSessionMessage);                    Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL2, response));
                     stage = DemoConstants.REQUEST_ACTION_STAGE;
                 }
             }
@@ -122,8 +137,12 @@ public class UserInteractionComponent extends PluggableComponent {
                     String response = String.format("Your sentence is empty or too short (only %s characters). " +
                             "Please re-enter a sentence with at least %s-characters length", userAction.length(), minLength);
                     Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL5, response));
-                    //TODO: instead post on BB SEND_TO_CLIENT so orchestrator sends to client
-                    //sendResponse(response);
+                    SessionMessage sessionMessage = new SessionMessage();
+                    sessionMessage.setMessageId(DemoConstants.MSG_SEND_TO_CLIENT);
+                    sessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_CLIENT);
+                    sessionMessage.setPayload(response);
+                    blackboard.post(this, DemoConstants.MSG_SEND_TO_CLIENT,
+                            sessionMessage);
                 }
                 else
                 {
@@ -144,14 +163,20 @@ public class UserInteractionComponent extends PluggableComponent {
 
                     //TODO: have written pseudo rules and serviceMaps (string), W.I.P
                     //String[] result = compositionController.execute(serviceMap);
-  /*                  String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
-                                    "Is that what you would want your IPA to do (Y/N)?",
-                            Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
-                            Utils.splitByCapitalizedWord(result[1], true));*/
-                    //Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL0, response));
-                    stage = DemoConstants.ASK_FOR_APP_CONFIRMATION_STAGE;
-                    //TODO: instead post on BB SEND_TO_CLIENT so orchestrator sends to client
-                    //sendResponse(response);
+                    //String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
+                      //      "Is that what you would want your IPA to do (Y/N)?");
+                    String response = String.format("Your IPA would open this app: and execute this action: . " +
+                                    "Is that what you would want your IPA to do (Y/N)?");
+                            //Utils.splitByCapitalizedWord(result[0].replace("Service", ""), false),
+                            //Utils.splitByCapitalizedWord(result[1], true));
+                    Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL0, response));
+                            stage = DemoConstants.ASK_FOR_APP_CONFIRMATION_STAGE;
+                    SessionMessage clientSessionMessage = new SessionMessage();
+                    clientSessionMessage.setMessageId(DemoConstants.MSG_SEND_TO_CLIENT);
+                    clientSessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_CLIENT);
+                    clientSessionMessage.setPayload(response);
+                    blackboard.post(this, DemoConstants.MSG_SEND_TO_CLIENT,
+                            clientSessionMessage);
                 }
             }
         }
@@ -160,20 +185,34 @@ public class UserInteractionComponent extends PluggableComponent {
                 if( actionCounter < maxActions){
                     String response = String.format("You have identified %s actions/steps so far, please identify %s " +
                             "more....", actionCounter, (maxActions - actionCounter));
-                    //sendResponse(response);
+                    SessionMessage clientSessionMessage = new SessionMessage();
+                    clientSessionMessage.setMessageId(DemoConstants.MSG_SEND_TO_CLIENT);
+                    clientSessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_CLIENT);
+                    clientSessionMessage.setPayload(response);
+                    blackboard.post(this, DemoConstants.MSG_SEND_TO_CLIENT,
+                            clientSessionMessage);
                     Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL3, response));
                 }else {
                     String response = String.format("Perfect, you are doing really well. This is the next scenario: \"%s\". " +
                             "What is the first action you would ask your IPA to do?", scenarios.get(scenarioIdx++));
-                    //sendResponse(response);
-                    actionCounter = 0;
+                    SessionMessage clientSessionMessage = new SessionMessage();
+                    clientSessionMessage.setMessageId(DemoConstants.MSG_SEND_TO_CLIENT);
+                    clientSessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_CLIENT);
+                    clientSessionMessage.setPayload(response);
+                    blackboard.post(this, DemoConstants.MSG_SEND_TO_CLIENT,
+                            clientSessionMessage);                    actionCounter = 0;
                     Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL4, response));
                 }
                 stage = DemoConstants.REQUEST_ACTION_STAGE;
             }else{
                 String response = "Wonderful, we have finished the scenarios. The last step is to answer a short " +
                         "questionnaire on this link (). Thanks for your collaboration!";
-                //sendResponse(response);
+                SessionMessage clientSessionMessage = new SessionMessage();
+                clientSessionMessage.setMessageId(DemoConstants.MSG_SEND_TO_CLIENT);
+                clientSessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_CLIENT);
+                clientSessionMessage.setPayload(response);
+                blackboard.post(this, DemoConstants.MSG_SEND_TO_CLIENT,
+                        clientSessionMessage);
                 Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL5, response));
                 stage = DemoConstants.DONE_STAGE;
             }
