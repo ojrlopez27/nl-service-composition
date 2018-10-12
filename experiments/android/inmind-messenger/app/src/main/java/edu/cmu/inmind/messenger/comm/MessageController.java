@@ -25,10 +25,9 @@ import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.communication.ResponseListener;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
-import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.log.LogC;
-import edu.cmu.inmind.services.muf.data.LaunchpadMessage;
-import edu.cmu.inmind.services.muf.data.OSGiService;
+/*import edu.cmu.inmind.services.muf.data.LaunchpadMessage;
+import edu.cmu.inmind.services.muf.data.OSGiService;*/
 
 import static edu.cmu.inmind.messenger.utils.Constants.INMIND;
 
