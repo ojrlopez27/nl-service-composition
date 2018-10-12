@@ -33,6 +33,7 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
                 blackboard.post(this, sessionMessage.getMessageId(),
                     sessionMessage.getPayload());
                 break;
+                //post always this to backboard
             case DemoConstants.MSG_PROCESS_USER_ACTION:
                 blackboard.post(this, sessionMessage.getMessageId(),
                         sessionMessage.getPayload());
@@ -80,7 +81,7 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
                     sendResponse(CommonUtils.toJson(event.getElement()));
                     break;
             case DemoConstants.MSG_RECEIVE_S2V:
-                //ideally call CompositionController methods to send the results.but for now just print.
+                //ideally call CompositionController to send the results.but for now just print.
                 Log4J.info(this, ((SessionMessage)event.getElement()).getPayload());
             case DemoConstants.MSG_USER_VALIDATION_SUCCCES:
                 sendResponse(event.getElement());

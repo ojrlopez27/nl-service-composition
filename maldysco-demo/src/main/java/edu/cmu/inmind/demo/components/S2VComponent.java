@@ -79,6 +79,11 @@ public class S2VComponent extends PluggableComponent {
             SessionMessage sessionMessage = CommonUtils.fromJson((String) blackboardEvent.getElement(),
                     SessionMessage.class);
             sendS2V(sessionMessage.getPayload());
+            SessionMessage sessionMessageResult = new SessionMessage();
+            sessionMessageResult.setPayload(receiveS2V());
+            sessionMessageResult.setRequestType(DemoConstants.MSG_RECEIVE_S2V);
+            blackboard.post(this,DemoConstants.MSG_RECEIVE_S2V,
+                    sessionMessageResult);
         }
     }
 }

@@ -1,6 +1,6 @@
 package edu.cmu.inmind.demo.markers;
 
-import edu.cmu.inmind.services.commons.Constants;
+import edu.cmu.inmind.demo.common.DemoConstants;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface BatteryQoS {
-    String minBatteryLevel() default Constants.WORKS_WITH_LOW_CHARGE;
+    String minBatteryLevel() default DemoConstants.WORKS_WITH_LOW_CHARGE;
 }

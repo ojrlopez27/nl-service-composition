@@ -107,20 +107,23 @@ public class MockDemoClient {
             SessionMessage sessionMessage = CommonUtils.fromJson(message, SessionMessage.class);
             switch (sessionMessage.getRequestType()) {
                 case Constants.SESSION_INITIATED:
-                 // Merging Ankit's changes *****BEGIN
-                case Constants.SESSION_RECONNECTED:
                     Log4J.info(this, "Connected to server: " + sessionMessage.getPayload());
                     deployServices();
                     listServices();
+                 // Merging Ankit's changes *****BEGIN
+                case Constants.SESSION_RECONNECTED:
+                    break;
                 case MSG_LAUNCHPAD:
                     processLaunchpadMessages(sessionMessage, message);
                  // Merging Ankit's changes *****END
                     break;
                  default:
+                     Log4J.info(this, sessionMessage.getPayload());
                         break;
                 }
             }
         }
+
     // Merging Ankit's changes *****BEGIN
     public void listServices() {
         LaunchpadMessage launchpadMessage = new LaunchpadMessage();
@@ -153,6 +156,7 @@ public class MockDemoClient {
                 break;
         }
     }
+
     // Merging Ankit's changes *****END
     public static void main(String args[]) throws Throwable
     {

@@ -1,8 +1,6 @@
 package edu.cmu.inmind.demo.common;
 
-import edu.cmu.inmind.demo.components.NERComponent;
-import edu.cmu.inmind.demo.components.S2VComponent;
-import edu.cmu.inmind.demo.components.UserInteractionComponent;
+import edu.cmu.inmind.demo.components.*;
 import edu.cmu.inmind.demo.orchestrator.DemoOrchestrator;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
@@ -38,6 +36,9 @@ public class DemoMUFController {
                         NERComponent.class, DemoConstants.ID_NER)
                 .addPlugin(S2VComponent.class, DemoConstants.ID_S2V)
                 .addPlugin(UserInteractionComponent.class, DemoConstants.ID_USERLOGIN)
+                        .addPlugin(MiddlewareComponent.class, DemoConstants.ID_MIDDLEWARE)
+                        .addPlugin(OSGiDeployerComponent.class, DemoConstants.ID_OSGI_DEPLOYER)
+                        .addPlugin(OSGiLaunchpadComponent.class, DemoConstants.ID_OSGI_LAUNCHPAD)
                 .build()
         };
     }

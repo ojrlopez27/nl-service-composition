@@ -17,7 +17,8 @@ import java.util.List;
 //TODO: communication sequence defined : TEST with mock client.
 @StateType(state = Constants.STATELESS)
 @BlackboardSubscription(messages= {DemoConstants.MSG_CHECK_USER_ID,
-        DemoConstants.MSG_GROUP_CHAT_READY, DemoConstants.MSG_PROCESS_USER_ACTION})
+        DemoConstants.MSG_GROUP_CHAT_READY, DemoConstants.MSG_PROCESS_USER_ACTION,
+        DemoConstants.MSG_RECEIVE_S2V})
 public class UserInteractionComponent extends PluggableComponent {
     private List<String> scenarios = Arrays.asList(
             "You want to go on a vacation to Europe next month and need to plan your trip",
