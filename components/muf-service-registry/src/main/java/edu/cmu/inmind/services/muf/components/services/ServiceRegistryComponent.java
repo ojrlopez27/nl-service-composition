@@ -8,6 +8,7 @@ import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
+import edu.cmu.inmind.services.muf.components.services.registry.ServiceMapper;
 import edu.cmu.inmind.services.muf.components.services.registry.ServiceRegistryController;
 import edu.cmu.inmind.services.muf.data.ServiceRegistryMessage;
 import edu.cmu.inmind.services.muf.inputs.LaunchpadInput;
@@ -67,13 +68,13 @@ public class ServiceRegistryComponent extends PluggableComponent {
                     blackboard.post(this, MSG_LP_INPUT_CMD, launchpadInput);
 
                     // .. now, there has to be a mechanism for launchpad to post the services
-                    // as a ServiceRegistryMessage object and then process the response below..
+                    // as a ServiceRegistryMessage object and then process the response as below..
                 }
                 case MSG_LP_RESP_GET_ALL_SERVICES: {
 
-                    // what happens if we don't know the dims? or should we sent another request to get the number of services..
-                    // or, is there a method in CommonUtils that creates arrays as well, or may be, I should convert to JSON while sending from launchpad..
-                    ServiceReference[] serviceRefs = (ServiceReference[]) Array.newInstance(ServiceReference.class);    //, dims);
+                    // map the service references
+                    ServiceReference[] serviceRefs = CommonUtils.fromJson(serviceRegistryMessage.getPayload(), ServiceReference[].class);
+                    ServiceMapper.map(serviceRefs);
 
                 }
 
