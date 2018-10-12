@@ -187,7 +187,7 @@ public class MessageController implements ResponseListener{
                     else {
                         // Let's tell MUF that we are ready to start conversation
                         send("Hi", 2000);
-                        switch(sessionMessage.getRequestType()) {
+                        /*switch(sessionMessage.getRequestType()) {
                             // Merging Ankit's changes *****BEGIN
                             case Constants.SESSION_RECONNECTED:
                                 Log.i("process", "Connected to server: " + sessionMessage.getPayload());
@@ -199,7 +199,7 @@ public class MessageController implements ResponseListener{
                                 break;
                             default:
                                 break;
-                        }
+                        }*/
                     }
                 }
         }
@@ -269,7 +269,7 @@ public class MessageController implements ResponseListener{
 
 
     // Merging Ankit's changes *****BEGIN
-    public void listServices() {
+    /*public void listServices() {
         LaunchpadMessage launchpadMessage = new LaunchpadMessage();
         launchpadMessage.setSessionId(getSessionId());
         launchpadMessage.setMessageId(edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_LIST_SERVICES);
@@ -299,6 +299,6 @@ public class MessageController implements ResponseListener{
                 Log4J.info(this, "No message from Launchpad.");
                 break;
         }
-    }
+    }*/
     // Merging Ankit's changes *****END
 }

@@ -12,6 +12,7 @@ import edu.cmu.inmind.services.muf.data.OSGiService;
  */
 
 public class OSGiServices {
+    /*
     private static final String SERVICES_METADATA = "services.json";
 
     private Map<String, OSGiService> map = new HashMap<>();
@@ -36,6 +37,6 @@ public class OSGiServices {
 
     public static OSGiService getService(String serviceId) {
         return osGiServices.map.get(serviceId);
-    }
+    }*/
 
 }
