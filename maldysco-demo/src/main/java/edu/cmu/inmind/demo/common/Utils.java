@@ -72,66 +72,6 @@ public class Utils {
         return String.format("Rule%s-%s", (ruleCont++), step);
     }
 
-    //TODO: remove all services, methods, pojos and instead just add strings for testing
-    private static Map<String, ServiceMethod> mapInterfaces, mapImplementations;
-    public static Map<String, ServiceMethod> generateCorporaFromMethods(boolean isMechanicalTurkTest){
-        mapInterfaces = extractClassesFromPackage(GenericService.class.getPackage().getName(),
-                CommonUtils.getProperty("sent2vec.corpora.methods.path"), true,
-                isMechanicalTurkTest);
-        extractImplementationClasses();
-        return mapInterfaces;
-    }
-    //TODO: remove all services, methods, pojos and instead just add strings for testing
-
-    public static Map<String, ServiceMethod> extractImplementationClasses(){
-        mapImplementations = extractClassesFromPackage(AirBnBService.class.getPackage().getName(),null,
-                false, false);
-        return mapImplementations;
-    }
-
-    private static Map<String, ServiceMethod> extractClassesFromPackage(String packageName, String path,
-                                                                        boolean checkDescriptionAnnotation,
-                                                                        boolean isMechanicalTurkTest){
-        // loading all the classes from 'services' package
-        List<ClassLoader> classLoadersList = new LinkedList<>();
-        classLoadersList.add(ClasspathHelper.contextClassLoader());
-        classLoadersList.add(ClasspathHelper.staticClassLoader());
-
-        Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setScanners(new SubTypesScanner(false /* don't exclude Object.class */), new ResourcesScanner())
-                .setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
-                .filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix(packageName))));
-        Set<Class<?>> services = reflections.getSubTypesOf(Object.class);
-
-        // iterate over the classes and methods, and then extract their description
-        Map map = new HashMap<>();
-        StringBuffer corpora = new StringBuffer();
-        for(Class service : services){
-            for(Method method : service.getDeclaredMethods()){
-                if( checkDescriptionAnnotation ) {
-                    for (Annotation annotation : method.getDeclaredAnnotations()) {
-                        if (annotation instanceof Description) {
-                            for (String capability : ((Description) annotation).capabilities()) {
-                                appendToStrBuffer(corpora, capability);
-                                map.put(capability.toLowerCase(), new ServiceMethod(service, method,
-                                        method.getGenericParameterTypes()));
-                            }
-                        }
-                    }
-                }else{
-                    map.put(service.getName()+"."+method.getName(),
-                            new ServiceMethod(service, method, method.getGenericParameterTypes()));
-                }
-            }
-        }
-        // store the corpora file
-        if(path != null){
-            if(isMechanicalTurkTest)
-                corpora.append("\n").append(DatasetCleaner.getCleanDataset());
-            printToFile(path, corpora);
-        }
-        return map;
-    }
 
     public static <A> Map<String, A> asMap(Object... keysAndValues) {
         return new LinkedHashMap<String, A>() {{

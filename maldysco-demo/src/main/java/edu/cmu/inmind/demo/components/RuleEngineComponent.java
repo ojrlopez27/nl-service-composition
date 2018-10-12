@@ -15,7 +15,6 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.mvel.MVELRule;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RuleEngineComponent extends PluggableComponent {

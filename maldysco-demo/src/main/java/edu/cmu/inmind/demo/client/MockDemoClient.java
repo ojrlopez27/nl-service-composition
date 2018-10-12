@@ -2,6 +2,8 @@ package edu.cmu.inmind.demo.client;
 
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.demo.common.Utils;
+import edu.cmu.inmind.demo.data.LaunchpadMessage;
+import edu.cmu.inmind.demo.data.OSGiService;
 import edu.cmu.inmind.multiuser.communication.ClientCommController;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
@@ -12,6 +14,9 @@ import edu.cmu.inmind.multiuser.log.LogC;
 
 import java.util.Scanner;
 
+import static edu.cmu.inmind.demo.common.DemoConstants.MSG_LAUNCHPAD;
+import static edu.cmu.inmind.demo.common.DemoConstants.MSG_OSGI_SERVICE_DEPLOYED;
+
 
 public class MockDemoClient {
     private ClientCommController clientCommController;
@@ -19,6 +24,7 @@ public class MockDemoClient {
     private String serverIPAddress="tcp://";
     private static String DEFAULT_IP_ADDRESS = "127.0.0.1/5555";
     private ResponseListener responseListener;
+    private static MockDemoClient mockDemoClient;
 
     public MockDemoClient(String serverIPAddress, String sessionID,
                           ResponseListener responseListener)
@@ -30,6 +36,13 @@ public class MockDemoClient {
         {
             connect("",this.sessionID,null);
         }
+    }
+
+    public static MockDemoClient getInstance() {
+        if (mockDemoClient==null) {
+            mockDemoClient = new MockDemoClient("","",null);
+        }
+        return mockDemoClient;
     }
 
     public void connect(String serverIPAddress, String sessionID,
@@ -86,16 +99,61 @@ public class MockDemoClient {
     /***
      * ResponseListener : custom implementation on receiving a message: eg: if user has to reply Y/N etc.
      */
-    public class ClientResponseListener implements ResponseListener
-    {
+    public class ClientResponseListener implements ResponseListener {
         @Override
-        public void process(String message)
-        {
+        public void process(String message) {
             LogC.info(this,
-                    "Client Response Listener"+message);
+                    "Client Response Listener" + message);
+            SessionMessage sessionMessage = CommonUtils.fromJson(message, SessionMessage.class);
+            switch (sessionMessage.getRequestType()) {
+                case Constants.SESSION_INITIATED:
+                 // Merging Ankit's changes *****BEGIN
+                case Constants.SESSION_RECONNECTED:
+                    Log4J.info(this, "Connected to server: " + sessionMessage.getPayload());
+                    deployServices();
+                    listServices();
+                case MSG_LAUNCHPAD:
+                    processLaunchpadMessages(sessionMessage, message);
+                 // Merging Ankit's changes *****END
+                    break;
+                 default:
+                        break;
+                }
+            }
+        }
+    // Merging Ankit's changes *****BEGIN
+    public void listServices() {
+        LaunchpadMessage launchpadMessage = new LaunchpadMessage();
+        launchpadMessage.setSessionId(MockDemoClient.getInstance().sessionID);
+        launchpadMessage.setMessageId(DemoConstants.MSG_LP_LIST_SERVICES);
+        MockDemoClient.getInstance().clientCommController.send(mockDemoClient.sessionID,
+                launchpadMessage);
+    }
+
+    public void deployServices() {
+        for (String osgiServiceId : OSGiServices.getServiceIDs()) {
+            Log4J.info(this, "Deploying OSGi Service: " + osgiServiceId);
+            OSGiService osGiService = OSGiServices.getService(osgiServiceId);
+
+            LaunchpadMessage launchpadMessage = new LaunchpadMessage();
+            launchpadMessage.setSessionId(MockDemoClient.getInstance().sessionID);
+            launchpadMessage.setMessageId(DemoConstants.MSG_LP_START_SERVICE);
+            launchpadMessage.setPayload(osGiService);
+            MockDemoClient.getInstance().send(launchpadMessage);
         }
     }
 
+    private void processLaunchpadMessages(SessionMessage sessionMessage, String message) {
+        switch (sessionMessage.getMessageId()) {
+            case MSG_OSGI_SERVICE_DEPLOYED:
+                Log4J.info(this, "OSGi Service Deployed: " + message);
+                break;
+            default:
+                Log4J.info(this, "No message from Launchpad.");
+                break;
+        }
+    }
+    // Merging Ankit's changes *****END
     public static void main(String args[]) throws Throwable
     {
         Scanner scanner = new Scanner(System.in);
@@ -118,6 +176,12 @@ public class MockDemoClient {
                 mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
                     new SessionMessage(DemoConstants.MSG_CHECK_USER_ID,
                             mockDemoClient.sessionID));
+            }
+            else if(input.contains("ready"))
+            {
+                mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
+                        new SessionMessage(DemoConstants.MSG_GROUP_CHAT_READY,
+                                mockDemoClient.sessionID));
             }
             else if (input.equals("disconnect")) {
                 mockDemoClient.clientCommController.disconnect(mockDemoClient.sessionID);

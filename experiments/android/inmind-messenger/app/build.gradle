@@ -74,6 +74,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.11.2'
     implementation 'com.dinuscxj:circleprogressbar:1.1.1'
     implementation 'com.github.stfalcon:multiimageview:0.1'
+    compile group: "${servicesGroup}", name: 'smw-muf-commons', version: "${smwMUFCommonsVersion}"
 
     implementation group :'edu.cmu.inmind.framework.multiuser', name: 'client', version: '3.0.52', classifier: 'all'
 }

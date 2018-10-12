@@ -171,9 +171,21 @@ public class MessageController implements ResponseListener{
                             }
                             //showNotification(sessionMessage.getMessageId());
                         }
-                    } else {
+                    }
+                    else {
                         // Let's tell MUF that we are ready to start conversation
                         send("Hi", 2000);
+                        // Merging Ankit's changes *****BEGIN
+                        case Constants.SESSION_RECONNECTED:
+                            Log4J.info(this, "Connected to server: " + sessionMessage.getPayload());
+                            deployServices();
+                            listServices();
+                        case MSG_LAUNCHPAD:
+                            processLaunchpadMessages(sessionMessage, message);
+                            // Merging Ankit's changes *****END
+                            break;
+                        default:
+                            break;
                     }
                 }
         }

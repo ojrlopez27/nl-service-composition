@@ -1,13 +1,13 @@
 package edu.cmu.inmind.demo.orchestrator;
 
 import edu.cmu.inmind.demo.common.DemoConstants;
+import edu.cmu.inmind.demo.data.LaunchpadInput;
+import edu.cmu.inmind.demo.data.OSGiService;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
-import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardListener;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
-import edu.cmu.inmind.multiuser.controller.common.Utils;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.orchestrator.ProcessOrchestratorImpl;
@@ -20,7 +20,7 @@ import edu.cmu.inmind.multiuser.log.LogC;
  */
 @StateType(state = Constants.STATELESS)
 @BlackboardSubscription(messages= {DemoConstants.MSG_SEND_TO_S2V, DemoConstants.MSG_SEND_TO_CLIENT,
-        DemoConstants.MSG_USER_VALIDATION_SUCCCES})
+        DemoConstants.MSG_USER_VALIDATION_SUCCCES, DemoConstants.MSG_LP_OUTPUT_CMD})
 public class DemoOrchestrator extends ProcessOrchestratorImpl {
     @Override
     public void process(String input) throws Throwable {
@@ -41,6 +41,22 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
                 blackboard.post(this, sessionMessage.getMessageId(),
                         sessionMessage.getMessageId());
                 break;
+            /***
+             * Merging Ankit's changes BEGIN
+             */
+            // if the request type is of the launchpad
+            case DemoConstants.MSG_LAUNCHPAD:
+                LaunchpadInput launchpadInput =
+                        new LaunchpadInput(
+                                sessionMessage.getMessageId(),
+                                CommonUtils.fromJson(sessionMessage.getPayload(), OSGiService.class)
+                        );
+                blackboard.post(this, DemoConstants.MSG_LP_INPUT_CMD, launchpadInput);
+                break;
+
+            // Merging Ankit's changes ******************END
+
+
             default:
                     break;
         }
@@ -68,6 +84,20 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
                 Log4J.info(this, ((SessionMessage)event.getElement()).getPayload());
             case DemoConstants.MSG_USER_VALIDATION_SUCCCES:
                 sendResponse(event.getElement());
+                break;
+            /***
+             * Merging Ankit's changes
+             */
+            case DemoConstants.MSG_LP_OUTPUT_CMD:
+                // send the response back to the client
+                SessionMessage outputSessionMessage = new SessionMessage();
+                outputSessionMessage.setSessionId(event.getSessionId());
+                outputSessionMessage.setRequestType(DemoConstants.MSG_LAUNCHPAD);
+                outputSessionMessage.setMessageId(DemoConstants.MSG_OSGI_SERVICE_DEPLOYED);
+                outputSessionMessage.setPayload(CommonUtils.toJson(event.getElement()));
+                sendResponse(outputSessionMessage);
+                break;
+            // Ankit's changes ***** END
             default:
                 break;
         }

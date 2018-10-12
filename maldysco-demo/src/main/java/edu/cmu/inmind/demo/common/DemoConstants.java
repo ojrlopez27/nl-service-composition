@@ -20,6 +20,32 @@ public class DemoConstants {
     public static String STEP_END ="STEP_END";
 
     /***
+     * Merging Ankit's changes
+     */
+    // MUF Pluggable Component IDs
+    public static final String ID_COMPOSITION       = "ID_COMPOSITION";
+    public static final String ID_MIDDLEWARE        = "ID_MIDDLEWARE";
+    public static final String ID_OSGI_DEPLOYER     = "ID_OSGI_DEPLOYER";
+    public static final String ID_OSGI_LAUNCHPAD    = "ID_OSGI_LAUNCHPAD";
+
+    // Request Type Messages
+    public static final String MSG_LAUNCHPAD        = "MSG_LAUNCHPAD";
+    public static final String MSG_COMPOSITION      = "MSG_COMPOSITION";
+    public static final String MSG_MIDDLEWARE       = "MSG_MIDDLEWARE";
+    public static final String MSG_DEPLOYER         = "MSG_DEPLOYER";
+
+    // Launchpad Commands/Messages
+    public static final String MSG_LP_INPUT_CMD     = "MSG_LP_INPUT_CMD";
+    public static final String MSG_LP_OUTPUT_CMD    = "MSG_LP_OUTPUT_CMD";
+    public static final String MSG_LP_START_SERVICE = "MSG_LP_START_SERVICE";
+    public static final String MSG_LP_LIST_SERVICES = "MSG_LP_LIST_SERVICES";
+
+    // OSGi Service Messages
+    public static final String MSG_OSGI_SERVICE_DEPLOYED = "MSG_OSGI_SERVICE_DEPLOYED";
+    // Merging Ankit's changes ***** END
+
+
+    /***
      * following constants from Oscar's composition module.
      */
     public static final String REQUIRES_FULLY_CHARGED = "REQUIRES_FULLY_CHARGED";
@@ -72,7 +98,7 @@ public class DemoConstants {
                     "MovieService", "NewsService", "OrderFoodService", "SocialNetworkService",
                     "TextMessageService", "TrafficService", "UndefinedService", "WeatherService",
                     "WineAndBeerService"));
-    public static final HashMap<String, String> servicesMap = Utils.asMap(
+   public static final Map<String, String> servicesMap = Utils.asMap(
             "AirBnBService","", "BookingsService","",
                     "ExpediaService","", "GoogleCalendarService","", "GoogleFlightsService","",
             "SkyscannerService","", "TripAdvisorService","", "WeatherChannelService","",
