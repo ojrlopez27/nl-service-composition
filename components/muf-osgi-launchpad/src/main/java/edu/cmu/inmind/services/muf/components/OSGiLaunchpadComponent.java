@@ -1,6 +1,5 @@
 package edu.cmu.inmind.services.muf.components;
 
-import edu.cmu.inmind.services.muf.data.LaunchpadInput;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
@@ -9,14 +8,17 @@ import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 import edu.cmu.inmind.services.muf.components.osgi.LaunchpadStarterController;
+import edu.cmu.inmind.services.muf.inputs.LaunchpadInput;
 
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_GET_ALL_SERVICES;
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_GET_SERVICE_IMPL;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_INPUT_CMD;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_LIST_SERVICES;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_OUTPUT_CMD;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_START_SERVICE;
 
 @StateType(state = Constants.STATEFULL)
-@BlackboardSubscription(messages = {MSG_LP_INPUT_CMD}) // MSG_LP_START_SERVICE, MSG_LP_LIST_SERVICES})
+@BlackboardSubscription(messages = {MSG_LP_INPUT_CMD})
 public class OSGiLaunchpadComponent extends PluggableComponent {
 
     LaunchpadStarterController launchpadStarterController;
@@ -55,11 +57,16 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
             // process the input command
             switch (launchpadInputCommand) {
                 case MSG_LP_START_SERVICE:
-                    launchpadStarterController.startService(launchpadInput.getOsGiService());
+                    launchpadStarterController.startService(launchpadInput.getOSGiService());
                     break;
                 case MSG_LP_LIST_SERVICES:
                     launchpadStarterController.listServices();
                     break;
+                case MSG_LP_GET_ALL_SERVICES:
+                    launchpadStarterController.getAllServices();
+                    break;
+                case MSG_LP_GET_SERVICE_IMPL:
+                    launchpadStarterController.getImplementation(launchpadInput.getServiceReference());
                 default:
                     Log4J.info(this, "Inside OSGiLaunchpadComponent.handleService " + " -- not sure what to do.");
             }
@@ -70,8 +77,8 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
             Object launchpadOutput = new Object();
 
             // update the blackboard
-            if (launchpadInput.getOsGiService() != null) {
-                blackboard.post(this, MSG_LP_OUTPUT_CMD, launchpadInput.getOsGiService()); // launchpadOutput);
+            if (launchpadInput.getOSGiService() != null) {
+                blackboard.post(this, MSG_LP_OUTPUT_CMD, launchpadInput.getOSGiService()); // launchpadOutput);
             }
 
         } catch (Throwable throwable) {

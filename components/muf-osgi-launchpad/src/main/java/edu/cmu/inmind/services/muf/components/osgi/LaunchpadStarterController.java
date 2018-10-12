@@ -4,6 +4,7 @@ import edu.cmu.inmind.services.muf.data.OSGiService;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import java.util.ArrayList;
 import java.util.List;
+import org.osgi.framework.ServiceReference;
 
 public class LaunchpadStarterController {
     //LaunchpadStarter launchpadStarter;
@@ -72,5 +73,13 @@ public class LaunchpadStarterController {
 
         System.out.println(osGiServiceList);
 
+    }
+
+    public void getImplementation(ServiceReference serviceReference) {
+        Log4J.info(this, "Inside LaunchpadStarter.getImplementation() for " + serviceReference);
+    }
+
+    public void getAllServices() {
+        Log4J.info(this, "Inside LaunchpadStarter.getAllServices()");
     }
 }
