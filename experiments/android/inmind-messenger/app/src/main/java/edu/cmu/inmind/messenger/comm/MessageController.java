@@ -25,7 +25,10 @@ import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.communication.ResponseListener;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.log.LogC;
+import edu.cmu.inmind.services.muf.data.LaunchpadMessage;
+import edu.cmu.inmind.services.muf.data.OSGiService;
 
 import static edu.cmu.inmind.messenger.utils.Constants.INMIND;
 
@@ -36,6 +39,15 @@ import static edu.cmu.inmind.messenger.utils.Constants.INMIND;
 public class MessageController implements ResponseListener{
     private static MessageController instance;
     private ClientCommController clientCommController;
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
     private String sessionId;
     private GroupChatAdapter chatAdapter;
     private Activity activity;
@@ -175,17 +187,19 @@ public class MessageController implements ResponseListener{
                     else {
                         // Let's tell MUF that we are ready to start conversation
                         send("Hi", 2000);
-                        // Merging Ankit's changes *****BEGIN
-                        case Constants.SESSION_RECONNECTED:
-                            Log4J.info(this, "Connected to server: " + sessionMessage.getPayload());
-                            deployServices();
-                            listServices();
-                        case MSG_LAUNCHPAD:
-                            processLaunchpadMessages(sessionMessage, message);
-                            // Merging Ankit's changes *****END
-                            break;
-                        default:
-                            break;
+                        switch(sessionMessage.getRequestType()) {
+                            // Merging Ankit's changes *****BEGIN
+                            case Constants.SESSION_RECONNECTED:
+                                Log.i("process", "Connected to server: " + sessionMessage.getPayload());
+                                deployServices();
+                                listServices();
+                            case "MSG_LAUNCHPAD":
+                                processLaunchpadMessages(sessionMessage, message);
+                           // Merging Ankit's changes *****END
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
         }
@@ -252,4 +266,39 @@ public class MessageController implements ResponseListener{
             }
         }
     }
+
+
+    // Merging Ankit's changes *****BEGIN
+    public void listServices() {
+        LaunchpadMessage launchpadMessage = new LaunchpadMessage();
+        launchpadMessage.setSessionId(getSessionId());
+        launchpadMessage.setMessageId(edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_LIST_SERVICES);
+        clientCommController.send(getSessionId(),
+                launchpadMessage);
+    }
+
+    public void deployServices() {
+        for (String osgiServiceId : OSGiServices.getServiceIDs()) {
+            Log4J.info(this, "Deploying OSGi Service: " + osgiServiceId);
+            OSGiService osGiService = OSGiServices.getService(osgiServiceId);
+
+            LaunchpadMessage launchpadMessage = new LaunchpadMessage();
+            launchpadMessage.setSessionId(getSessionId());
+            launchpadMessage.setMessageId(edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_START_SERVICE);
+            //launchpadMessage.setPayload(osGiService);
+            clientCommController.send(getSessionId(), launchpadMessage);
+        }
+    }
+
+    private void processLaunchpadMessages(SessionMessage sessionMessage, String message) {
+        switch (sessionMessage.getMessageId()) {
+            case edu.cmu.inmind.services.muf.commons.Constants.MSG_OSGI_SERVICE_DEPLOYED:
+                Log4J.info(this, "OSGi Service Deployed: " + message);
+                break;
+            default:
+                Log4J.info(this, "No message from Launchpad.");
+                break;
+        }
+    }
+    // Merging Ankit's changes *****END
 }
