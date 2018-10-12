@@ -26,7 +26,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile group: "${servicesGroup}", name: 'smw-muf-commons', version: "${smwMUFCommonsVersion}"
-    //compile group: "${middlewareGroup}", name: 'middleware-data', version: "${middlewareDataVersion}"
 
     // dependencies for MUF Components
     compile group: "${servicesGroup}", name: 'muf-osgi-launchpad', version: "${mufOsgiLaunchpadVersion}"
