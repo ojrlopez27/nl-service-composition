@@ -2,24 +2,24 @@ package edu.cmu.inmind.services.muf.data;
 
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
-import edu.cmu.inmind.services.muf.inputs.LaunchpadInput;
+import edu.cmu.inmind.services.muf.inputs.ServiceRegistryInput;
 
-import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_INPUT_CMD;
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_INPUT_CMD;
 
-public class LaunchpadMessage extends SessionMessage {
+public class ServiceRegistryMessage extends SessionMessage {
 
-    public LaunchpadMessage() {
+    public ServiceRegistryMessage() {
         super();
-        super.setRequestType(MSG_LP_INPUT_CMD);
+        super.setRequestType(MSG_SR_INPUT_CMD);
     }
 
-    public void setPayload(LaunchpadInput launchpadInput) {
-        super.setPayload(CommonUtils.toJson(launchpadInput));
+    public void setPayload(ServiceRegistryInput serviceRegistryInput) {
+        super.setPayload(CommonUtils.toJson(serviceRegistryInput));
     }
 
     @Override
     public String toString() {
-        return "LaunchpadMessage{" +
+        return "ServiceRegistryMessage{" +
                 "sessionId=" + getSessionId() + ", " +
                 "messageId=" + getMessageId() + ", " +
                 "requestType=" + getRequestType() + ", " +
