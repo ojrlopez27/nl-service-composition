@@ -9,6 +9,7 @@ import edu.cmu.inmind.osgi.commons.utils.Pair;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.osgi.framework.ServiceReference;
 
 /**
@@ -23,27 +24,27 @@ public class ServiceMapper {
 
     private static final List<String> ignoreableServices = CommonUtils.IGNORABLE_SERVICES;
 
-    public static void map (ServiceReference[] serviceReferences) throws Exception {
+    public static void map (Map<ServiceReference, Object> allServicesMap) throws Exception {
+        Log4J.debug(TAG,"*** Total services: " + allServicesMap.size());
+        Set<ServiceReference> serviceReferences = allServicesMap.keySet();
         for (ServiceReference serviceReference : serviceReferences) {
-
-            // instead of taking service references only from launchpad and
-            // then querying each implementation in the below method,
-            // I guess, launchpad could provide a map of service references and service implementation objects
-            // TODO: add a method for the above scenario, and then modify the below method's signature
-
-            map(serviceReference);
+            map(serviceReference, allServicesMap.get(serviceReference));
         }
+    }
+
+    private static boolean serviceIgnorable(ServiceReference serviceReference) {
+        String serviceBundleName = serviceReference.getBundle().getSymbolicName();
+        return CommonUtils.serviceIgnoreable(serviceBundleName, ignoreableServices);
     }
 
     public static void map(ServiceReference serviceReference, Object serviceImplementation) throws Exception {
 
+        // do not map if the service belongs to the services to be ignored
+        if (serviceIgnorable(serviceReference)) return;
+
         // obtain the service name
         String serviceName = serviceReference.toString(); //serviceReference.getBundle().getSymbolicName();
-        Log4J.debug(TAG,"*** Service: " + serviceName);
-        String serviceBundleName = serviceReference.getBundle().getSymbolicName();
-
-        // do not map if the service belongs to the services to be ignored
-        if (CommonUtils.serviceIgnoreable(serviceBundleName, ignoreableServices)) return;
+        Log4J.debug(TAG,"*** Mapping Service: " + serviceName);
 
         // extract the bundle implementation info
         BundleImplInfo bundleImplInfo = BundleMethodExtractor.extract(serviceImplementation, ignoreableServices);
@@ -79,11 +80,10 @@ public class ServiceMapper {
         return bundleImplInfo.getClassType().isInterface();
     }
 
-    /*
-    Override
-    public String toString() {
+    public static void printServiceMap() {
         if (serviceMap == null) {
-            return "ServiceMapper [0 Services]";
+            System.out.println("ServiceMapper [0 Services]");
+            return;
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -99,7 +99,6 @@ public class ServiceMapper {
                     .append("]")
                     .append(System.lineSeparator());
         }
-        return stringBuilder.toString();
+        System.out.println(stringBuilder.toString());
     }
-    */
 }
