@@ -52,11 +52,9 @@ public class MUFClientMain {
             case MSG_OSGI_SERVICE_DEPLOYED:
                 Log4J.info(TAG, "OSGi Service Deployed: " + message);
 
-                // wait for 0.2 seconds because launchpad needs to deploy the services before registering it.
+                // wait for 2 seconds because launchpad needs to deploy the services before registering it.
                 CommonUtils.sleep(2000);
 
-
-                
                 OSGiService osGiService = CommonUtils.fromJson(sessionMessage.getPayload(), OSGiService.class);
                 registerService(osGiService);
 
