@@ -31,7 +31,8 @@ dependencies {
     compile group: "${servicesGroup}", name: 'muf-osgi-launchpad', version: "${mufOsgiLaunchpadVersion}"
     compile group: "${servicesGroup}", name: 'muf-sent2vec', version: "${mufSent2VecVersion}"
     compile group: "${servicesGroup}", name: 'muf-ner', version: "${mufNerVersion}"
-    compile group: "${servicesGroup}", name: 'muf-middleware', version: "${mufMiddlewareVersion}"
+    //compile group: "${servicesGroup}", name: 'muf-middleware', version: "${mufMiddlewareVersion}"
+    compile group: "${servicesGroup}", name: 'muf-service-registry', version: "${mufServiceRegistryVersion}"
     compile group: "${servicesGroup}", name: 'muf-composition', version: "${mufCompositionVersion}"
 
     testCompile group: 'junit', name: 'junit', version: "${junitVersion}"

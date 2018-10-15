@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-gradle clean
+gradle clean --refresh-dependencies
 rm -rf build out gradle gradlew* .gradle 
