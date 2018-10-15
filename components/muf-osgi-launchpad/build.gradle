@@ -26,7 +26,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile group: "${servicesGroup}", name: 'smw-muf-commons', version: "${smwMUFCommonsVersion}"
-    //compile group: "${servicesGroup}", name: 'java-binder', version: "${javaBinderVersion}"
+    compile group: "${servicesGroup}", name: 'java-binder', version: "${javaBinderVersion}"
 
     testCompile group: 'junit', name: 'junit', version: "${junitVersion}"
     deployerJars ("org.apache.maven.wagon:wagon-ssh:${wagonSshVersion}")
