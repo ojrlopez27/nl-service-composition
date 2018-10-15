@@ -1,14 +1,14 @@
 package edu.cmu.inmind.services.muf.inputs;
 
+import edu.cmu.inmind.services.muf.commons.Command;
 import edu.cmu.inmind.services.muf.data.OSGiService;
-import org.osgi.framework.ServiceReference;
+import java.util.ArrayList;
 
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_GET_SERVICE_IMPL;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_START_SERVICE;
 
-public class LaunchpadInput extends CommandInput {
+public class LaunchpadInput extends Command {
     private OSGiService osGiService;
-    private ServiceReference serviceRef;
 
     private LaunchpadInput(VanillaBuilder vanillaBuilder) {
         super(vanillaBuilder.command);
@@ -21,17 +21,17 @@ public class LaunchpadInput extends CommandInput {
 
     private LaunchpadInput(GetServiceImplementationBuilder getServiceImplementationBuilder) {
         super(getServiceImplementationBuilder.command);
-        this.serviceRef = getServiceImplementationBuilder.serviceRef;
+        this.osGiService = getServiceImplementationBuilder.osGiService;
     }
 
     public OSGiService getOSGiService() {
-        validateCommand(MSG_LP_START_SERVICE);
+        validateIfAnyCommand(new String[]{MSG_LP_START_SERVICE, MSG_LP_GET_SERVICE_IMPL});
         return osGiService;
     }
 
-    public ServiceReference getServiceReference() {
+    public OSGiService getServiceReference() {
         validateCommand(MSG_LP_GET_SERVICE_IMPL);
-        return serviceRef;
+        return osGiService;
     }
 
     @Override
@@ -45,9 +45,8 @@ public class LaunchpadInput extends CommandInput {
     private String toStringHelper() {
         switch (command) {
             case MSG_LP_START_SERVICE:
-                return "osGiService=" + osGiService;
             case MSG_LP_GET_SERVICE_IMPL:
-                return "serviceRef=" + serviceRef;
+                return "osGiService=" + osGiService;
         }
         return "";
     }
@@ -84,14 +83,14 @@ public class LaunchpadInput extends CommandInput {
 
     public static class GetServiceImplementationBuilder {
         private String command;
-        private ServiceReference serviceRef;
+        private OSGiService osGiService;
 
         public GetServiceImplementationBuilder(String command) {
             this.command = command;
         }
 
-        public GetServiceImplementationBuilder setServiceRef(ServiceReference serviceRef) {
-            this.serviceRef = serviceRef;
+        public GetServiceImplementationBuilder setOSGiService(OSGiService osGiService) {
+            this.osGiService = osGiService;
             return this;
         }
 

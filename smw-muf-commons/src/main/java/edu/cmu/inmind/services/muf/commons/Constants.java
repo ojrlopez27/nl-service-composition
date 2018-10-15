@@ -4,7 +4,9 @@ public class Constants {
 
     // MUF Pluggable Component IDs
     public static final String ID_COMPOSITION       = "ID_COMPOSITION";
-    public static final String ID_MIDDLEWARE        = "ID_MIDDLEWARE";
+    //public static final String ID_MIDDLEWARE        = "ID_MIDDLEWARE";
+    public static final String ID_SERVICE_REGISTRY  = "ID_SERVICE_REGISTRY";
+    public static final String ID_SERVICE_EXECUTOR  = "ID_SERVICE_EXECUTOR";
     public static final String ID_NER               = "ID_NER";
     public static final String ID_OSGI_DEPLOYER     = "ID_OSGI_DEPLOYER";
     public static final String ID_OSGI_LAUNCHPAD    = "ID_OSGI_LAUNCHPAD";
@@ -14,7 +16,8 @@ public class Constants {
     public static final String MSG_LAUNCHPAD        = "MSG_LAUNCHPAD";
     public static final String MSG_SENT2VEC         = "MSG_SENT2VEC";
     public static final String MSG_COMPOSITION      = "MSG_COMPOSITION";
-    public static final String MSG_MIDDLEWARE       = "MSG_MIDDLEWARE";
+    //public static final String MSG_MIDDLEWARE       = "MSG_MIDDLEWARE";
+    public static final String MSG_SERVICE_REGISTRY = "MSG_SERVICE_REGISTRY";
     public static final String MSG_NER              = "MSG_NER";
     public static final String MSG_DEPLOYER         = "MSG_DEPLOYER";
 

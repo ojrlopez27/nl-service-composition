@@ -1,16 +1,17 @@
 package edu.cmu.inmind.services.muf.inputs;
 
 import edu.cmu.inmind.framework.middleware.data.generic.GenericPOJO;
-import org.osgi.framework.ServiceReference;
+import edu.cmu.inmind.services.muf.commons.Command;
+import edu.cmu.inmind.services.muf.data.OSGiService;
 
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_GET_SERVICE_BY_KEY;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_GET_SERVICE_BY_POJO;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_REGISTER_SERVICE;
 
-public class ServiceRegistryInput extends CommandInput {
+public class ServiceRegistryInput extends Command {
     private String serviceKey;
     private GenericPOJO genericPOJO;
-    private ServiceReference serviceRef;
+    private OSGiService osGiService;
 
     private ServiceRegistryInput(VanillaBuilder vanillaBuilder) {
         super(vanillaBuilder.command);
@@ -18,7 +19,7 @@ public class ServiceRegistryInput extends CommandInput {
 
     private ServiceRegistryInput(RegisterServiceBuilder registerServiceBuilder) {
         super(registerServiceBuilder.command);
-        this.serviceRef = registerServiceBuilder.serviceRef;
+        this.osGiService = registerServiceBuilder.osGiService;
     }
 
     private ServiceRegistryInput(GetServiceByKeyBuilder getServiceByKeyBuilder) {
@@ -31,9 +32,9 @@ public class ServiceRegistryInput extends CommandInput {
         this.genericPOJO = getServiceByPOJOBuilder.genericPOJO;
     }
 
-    public ServiceReference getServiceReference() {
+    public OSGiService getOsGiService() {
         validateCommand(MSG_SR_REGISTER_SERVICE);
-        return serviceRef;
+        return osGiService;
     }
 
     public String getServiceKey() {
@@ -57,7 +58,7 @@ public class ServiceRegistryInput extends CommandInput {
     private String toStringHelper() {
         switch (command) {
             case MSG_SR_REGISTER_SERVICE:
-                return "serviceRef=" + serviceRef;
+                return "OSGiService=" + osGiService;
             case MSG_SR_GET_SERVICE_BY_KEY:
                 return "serviceKey='" + serviceKey + '\'';
             case MSG_SR_GET_SERVICE_BY_POJO:
@@ -80,14 +81,14 @@ public class ServiceRegistryInput extends CommandInput {
 
     public static class RegisterServiceBuilder {
         private String command;
-        private ServiceReference serviceRef;
+        private OSGiService osGiService;
 
         public RegisterServiceBuilder(String command) {
             this.command = command;
         }
 
-        public RegisterServiceBuilder setServiceReference(ServiceReference serviceRef) {
-            this.serviceRef = serviceRef;
+        public RegisterServiceBuilder setOSGiService(OSGiService osGiService) {
+            this.osGiService = osGiService;
             return this;
         }
 

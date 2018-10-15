@@ -4,13 +4,13 @@ import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.services.muf.inputs.ServiceRegistryInput;
 
-import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_INPUT_CMD;
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SERVICE_REGISTRY;
 
 public class ServiceRegistryMessage extends SessionMessage {
 
     public ServiceRegistryMessage() {
         super();
-        super.setRequestType(MSG_SR_INPUT_CMD);
+        super.setRequestType(MSG_SERVICE_REGISTRY);
     }
 
     public void setPayload(ServiceRegistryInput serviceRegistryInput) {
