@@ -9,7 +9,7 @@ import java.util.List;
  * Merging Ankit's changes
  */
 public class LaunchpadStarterController {
-    //LaunchpadStarter launchpadStarter;
+    LaunchpadStarter launchpadStarter;
     List<OSGiService> osGiServiceList;
     boolean debug = Boolean.TRUE;
 
@@ -19,7 +19,7 @@ public class LaunchpadStarterController {
         if (debug) {
 
             // initialize launchpad starter
-            //launchpadStarter = LaunchpadStarter.getInstance();
+            launchpadStarter = LaunchpadStarter.getInstance();
         }
 
         osGiServiceList = new ArrayList<>();
@@ -31,7 +31,7 @@ public class LaunchpadStarterController {
         if (debug) {
 
             // if there's an exception that can be caught, stop the felix framework
-            //LaunchpadStarter.getInstance().stopFelixFramework();
+            LaunchpadStarter.getInstance().stopFelixFramework();
         }
 
         osGiServiceList = null;
@@ -45,7 +45,7 @@ public class LaunchpadStarterController {
         if (debug) {
 
             // ask launchpad starter to start the service
-            //launchpadStarter.startService(osGiService.getServiceName(), Integer.parseInt(osGiService.getServiceLevel()));
+            launchpadStarter.startService(osGiService.getServiceName(), Integer.parseInt(osGiService.getServiceLevel()));
         }
 
         osGiServiceList.add(osGiService);
@@ -58,10 +58,10 @@ public class LaunchpadStarterController {
         if (debug) {
 
             // ask launchpad starter to start the service
-            //launchpadStarter.startService(service, level.intValue());
+            launchpadStarter.startService(service, level.intValue());
         }
 
-        // osGiServiceList.add(new OSGiService(service, level));
+        //osGiServiceList.add(new OSGiService(service, level));
     }
 
     public void listServices() {
@@ -70,7 +70,7 @@ public class LaunchpadStarterController {
         if (debug) {
 
             // ask launchpad to list the bundles
-            //launchpadStarter.executeCommand(FELIX_CMD_PS);
+            launchpadStarter.executeCommand(LaunchpadConstants.FELIX_CMD_PS);
         }
 
         System.out.println(osGiServiceList);

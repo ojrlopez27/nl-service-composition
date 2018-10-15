@@ -25,7 +25,7 @@ public class DemoMUFController {
                         CommonUtils.getProperty("logs.mkt.regular.path"))
                 .setDefaultNumOfPoolInstances(10)
                 .setSessionTimeout(5, TimeUnit.MINUTES)
-                .setServerAddress("tcp://"+"inmind-maldysco.ddns.net")
+                .setServerAddress("tcp://"+serverIpAddress)
                 .build();
     }
 

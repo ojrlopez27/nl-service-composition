@@ -110,6 +110,7 @@ public class MockDemoClient {
                     Log4J.info(this, "Connected to server: " + sessionMessage.getPayload());
                     deployServices();
                     listServices();
+                    break;
                  // Merging Ankit's changes *****BEGIN
                 case Constants.SESSION_RECONNECTED:
                     break;
@@ -175,14 +176,16 @@ public class MockDemoClient {
                 Log4J.info(mockDemoClient, "Do you want to end the session? " +
                         "Please type \"disconnect\"");
             }
-            else if(input.contains("login"))
+            else if(input.equals("login"))
             {
+                Log4J.info(mockDemoClient, "login");
                 mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
                     new SessionMessage(DemoConstants.MSG_CHECK_USER_ID,
                             mockDemoClient.sessionID));
             }
             else if(input.contains("ready"))
             {
+                Log4J.info(mockDemoClient, "ready");
                 mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
                         new SessionMessage(DemoConstants.MSG_GROUP_CHAT_READY,
                                 mockDemoClient.sessionID));
@@ -192,6 +195,7 @@ public class MockDemoClient {
             }
             else
             {
+                Log4J.info(mockDemoClient, "others");
                 mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
                         new SessionMessage(DemoConstants.MSG_PROCESS_USER_ACTION, input));
             }

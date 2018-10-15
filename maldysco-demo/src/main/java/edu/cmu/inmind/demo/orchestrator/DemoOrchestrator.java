@@ -25,6 +25,7 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
     @Override
     public void process(String input) throws Throwable {
         super.process(input);
+        LogC.info(this, "process: "+input);
         SessionMessage sessionMessage = CommonUtils.fromJson(input,
                 SessionMessage.class);
         switch(sessionMessage.getRequestType()) {
@@ -54,10 +55,23 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
                         );
                 blackboard.post(this, DemoConstants.MSG_LP_INPUT_CMD, launchpadInput);
                 break;
-
+            case DemoConstants.MSG_LP_START_SERVICE:
+                LaunchpadInput launchpadInputMessage =
+                        new LaunchpadInput(
+                                sessionMessage.getMessageId(),
+                                CommonUtils.fromJson(sessionMessage.getPayload(), OSGiService.class)
+                        );
+                blackboard.post(this, DemoConstants.MSG_LP_START_SERVICE, launchpadInputMessage);
+                break;
             // Merging Ankit's changes ******************END
-
-
+            case DemoConstants.MSG_LP_LIST_SERVICES:
+                LaunchpadInput launchpadInputMsg =
+                        new LaunchpadInput(
+                                sessionMessage.getMessageId(),
+                                CommonUtils.fromJson(sessionMessage.getPayload(), OSGiService.class)
+                        );
+                blackboard.post(this, DemoConstants.MSG_LP_START_SERVICE, launchpadInputMsg);
+                break;
             default:
                     break;
         }

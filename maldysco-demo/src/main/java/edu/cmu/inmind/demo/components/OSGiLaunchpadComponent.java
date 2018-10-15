@@ -14,7 +14,8 @@ import edu.cmu.inmind.multiuser.controller.plugin.StateType;
  * Merging Ankit's changes
  */
 @StateType(state = Constants.STATEFULL)
-@BlackboardSubscription(messages = {DemoConstants.MSG_LP_INPUT_CMD}) // MSG_LP_START_SERVICE, MSG_LP_LIST_SERVICES})
+@BlackboardSubscription(messages = {DemoConstants.MSG_LP_INPUT_CMD, DemoConstants.MSG_LP_LIST_SERVICES
+, DemoConstants.MSG_LP_START_SERVICE}) // MSG_LP_START_SERVICE, MSG_LP_LIST_SERVICES})
 public class OSGiLaunchpadComponent extends PluggableComponent {
 
     LaunchpadStarterController launchpadStarterController;
