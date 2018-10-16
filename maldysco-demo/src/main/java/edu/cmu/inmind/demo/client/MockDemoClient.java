@@ -108,14 +108,14 @@ public class MockDemoClient {
             switch (sessionMessage.getRequestType()) {
                 case Constants.SESSION_INITIATED:
                     Log4J.info(this, "Connected to server: " + sessionMessage.getPayload());
-                    deployServices();
-                    listServices();
+                    //deployServices();
+                    //listServices();
                     break;
                  // Merging Ankit's changes *****BEGIN
                 case Constants.SESSION_RECONNECTED:
                     break;
                 case MSG_LAUNCHPAD:
-                    processLaunchpadMessages(sessionMessage, message);
+                    //processLaunchpadMessages(sessionMessage, message);
                  // Merging Ankit's changes *****END
                     break;
                  default:

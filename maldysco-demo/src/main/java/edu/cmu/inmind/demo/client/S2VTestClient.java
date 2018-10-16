@@ -1,28 +1,19 @@
-package edu.cmu.inmind.demo.components;
+package edu.cmu.inmind.demo.client;
 
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.demo.common.Utils;
 import edu.cmu.inmind.multiuser.communication.ClientCommController;
-import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
-import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardListener;
-import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
-import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.communication.ResponseListener;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
-import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
-import edu.cmu.inmind.multiuser.controller.plugin.StateType;
-import edu.cmu.inmind.multiuser.controller.resources.ResourceLocator;
 import edu.cmu.inmind.multiuser.log.LogC;
 
-/**
- * Created for demo : sakoju 10/4/2018
- */
-@StateType(state = Constants.STATELESS)
-@BlackboardSubscription(messages= DemoConstants.MSG_SEND_TO_S2V)
-public class S2V_CCC_Component extends PluggableComponent {
+import java.util.Scanner;
+
+public class S2VTestClient {
+
     //private final static ZMQ.Context context = ZMQ.context(1);
     //private ZMQ.Socket clientSent2Vec;
     private ClientCommController clientCommController;
@@ -32,7 +23,7 @@ public class S2V_CCC_Component extends PluggableComponent {
     private ResponseListener responseListener;
     private BlackboardListener blackboardListener;
 
-    public S2V_CCC_Component() {
+    public S2VTestClient() {
         if(!serverIPAddress.equals("") && !sessionID.equals("")) {
             connect(serverIPAddress, sessionID, responseListener);
         }
@@ -50,7 +41,7 @@ public class S2V_CCC_Component extends PluggableComponent {
         serverIPAddress += tempIPAddress.isEmpty() ? DEFAULT_IP_ADDRESS
                 : tempIPAddress+":5555";
         this.responseListener = responseListener != null ? responseListener :
-                new ClientResponseListener();
+                new S2VTestClient.ClientResponseListener();
         this.sessionID += (!sessionID.isEmpty()) ? sessionID : this.sessionID;
         clientCommController = new ClientCommController.Builder(new LogC())
                 .setServerAddress("tcp://"+DEFAULT_IP_ADDRESS)
@@ -66,7 +57,7 @@ public class S2V_CCC_Component extends PluggableComponent {
         {
             SessionMessage sessionMessage = new SessionMessage();
             sessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_S2V);
-            clientCommController.send(getSessionId(), CommonUtils.toJson(message));
+            clientCommController.send(sessionID, CommonUtils.toJson(message));
         }
         catch(Exception e)
         {
@@ -103,21 +94,49 @@ public class S2V_CCC_Component extends PluggableComponent {
             SessionMessage sessionMessage = new SessionMessage();
             sessionMessage.setRequestType(DemoConstants.MSG_RECEIVE_S2V);
             sessionMessage.setPayload(message);
-            getBlackBoard( getSessionId()).post(blackboardListener,
-                    DemoConstants.MSG_RECEIVE_S2V, sessionMessage);
         }
     }
 
-    @Override
-    public void onEvent(Blackboard blackboard, BlackboardEvent blackboardEvent) throws Throwable {
-        //send to s2V once you receive a user utterance: this is
-        // only example of when we send/forward to S2V which is an external component
-        if(blackboardEvent.getId()!= DemoConstants.STEP_END)
+    public static void main(String args[]) throws Throwable
+    {
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+        S2VTestClient s2VTestClient=null;
+        while (!input.equals("stop") && !input.equals("disconnect"))
         {
-            //ResourceLocator.getComponent(sessionID, UserInteractionComponent.class);
-            sendS2V((String) blackboardEvent.getElement());
-            LogC.info(this,
-                    "Client Response Listener"+ blackboardEvent.getElement().toString());
+            System.out.println("Enter a command:");
+            input = scanner.nextLine();
+            if(input.equals("start")) {
+                s2VTestClient = new S2VTestClient();
+            }
+            if (input.equals("stop")) {
+                Log4J.info(s2VTestClient, "Do you want to end the session? " +
+                        "Please type \"disconnect\"");
+            }
+            else if(input.equals("login"))
+            {
+                Log4J.info(s2VTestClient, "login");
+                s2VTestClient.clientCommController.send(s2VTestClient.sessionID,
+                        new SessionMessage(DemoConstants.MSG_CHECK_USER_ID,
+                                s2VTestClient.sessionID));
+            }
+            else if(input.contains("ready"))
+            {
+                Log4J.info(s2VTestClient, "ready");
+                s2VTestClient.clientCommController.send(s2VTestClient.sessionID,
+                        new SessionMessage(DemoConstants.MSG_GROUP_CHAT_READY,
+                                s2VTestClient.sessionID));
+            }
+            else if (input.equals("disconnect")) {
+                s2VTestClient.clientCommController.disconnect(s2VTestClient.sessionID);
+            }
+            else
+            {
+                Log4J.info(s2VTestClient, "others");
+                s2VTestClient.clientCommController.send(s2VTestClient.sessionID,
+                        new SessionMessage(DemoConstants.MSG_PROCESS_USER_ACTION, input));
+            }
         }
+        System.exit(0);
     }
 }

@@ -34,11 +34,11 @@ public class DemoMUFController {
         return new PluginModule[]{
                 new PluginModule.Builder(DemoOrchestrator.class,
                         NERComponent.class, DemoConstants.ID_NER)
-                .addPlugin(S2VComponent.class, DemoConstants.ID_S2V)
+                .addPlugin(S2V_CCC_Component.class, DemoConstants.ID_S2V)
                 .addPlugin(UserInteractionComponent.class, DemoConstants.ID_USERLOGIN)
                         .addPlugin(MiddlewareComponent.class, DemoConstants.ID_MIDDLEWARE)
-                        .addPlugin(OSGiDeployerComponent.class, DemoConstants.ID_OSGI_DEPLOYER)
-                        .addPlugin(OSGiLaunchpadComponent.class, DemoConstants.ID_OSGI_LAUNCHPAD)
+                        //.addPlugin(OSGiDeployerComponent.class, DemoConstants.ID_OSGI_DEPLOYER)
+                        //.addPlugin(OSGiLaunchpadComponent.class, DemoConstants.ID_OSGI_LAUNCHPAD)
                 .build()
         };
     }
