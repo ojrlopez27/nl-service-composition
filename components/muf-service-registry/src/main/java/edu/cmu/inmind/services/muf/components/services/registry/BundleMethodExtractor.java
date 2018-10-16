@@ -22,7 +22,7 @@ public class BundleMethodExtractor {
         // instance id and instance api
         extractBundleContracts(bundleBuilder, bundleInstance, ignoreableServices);
 
-        if (!AnnotationParser.classHasAnnotation(bundleBuilder.getClassType(), BundleImpl.class)) {
+        if (!SRCommonUtils.isAnnotationPresent(bundleBuilder.getClassType(), BundleImpl.class)) {
             throw new OSGiCoreException(ErrorMessages.NO_BUNDLE_TYPE, bundleBuilder.getClassType());
         }
 
@@ -93,16 +93,14 @@ public class BundleMethodExtractor {
                 throw new OSGiCoreException(ErrorMessages.NO_BUNDLE_METHODS, bundleAPI);
             }
             for (Method method : methods) {
-                String methodName = method.getName();
-
-                Feature featureAnnotation = method.getAnnotation(Feature.class);
+                Annotation featureAnnotation = SRCommonUtils.getAnnotation(method, Feature.class);
                 if (featureAnnotation == null) {
                     throw new OSGiCoreException(ErrorMessages.NO_FEATURE_ANNOTATION, method, bundleAPI);
                 }
 
-                String id = featureAnnotation.id();
-                String description = featureAnnotation.description();
-                String[] keywords = featureAnnotation.keywords();
+                String id = (String) AnnotationParser.getMethodValue(featureAnnotation, "id");
+                String description = (String) AnnotationParser.getMethodValue(featureAnnotation, "description");
+                String[] keywords = (String[]) AnnotationParser.getMethodValue(featureAnnotation, "keywords");
 
                 if (id.isEmpty()) {
                     throw new OSGiCoreException(ErrorMessages.NO_METHOD_ID, method, bundle);
@@ -125,7 +123,7 @@ public class BundleMethodExtractor {
     }
 
     private static List<Class> extractInterfaces(Class bundle, List<String> ignoreableServices) throws Exception {
-        List<Class> interfaces = CommonUtils.getAllInterfaces(bundle, ignoreableServices);
+        List<Class> interfaces = SRCommonUtils.getAllInterfaces(bundle, ignoreableServices);
         if (interfaces.size() == 0) {
             throw new OSGiCoreException(ErrorMessages.NO_APIS, bundle);
         }
@@ -133,7 +131,7 @@ public class BundleMethodExtractor {
     }
 
     private static void assertBundleApiAnnotation(Class api) throws OSGiCoreException {
-        if (!AnnotationParser.classHasAnnotation(api, BundleAPI.class)) {
+        if (!SRCommonUtils.isAnnotationPresent(api, BundleAPI.class)) {
             throw new OSGiCoreException(ErrorMessages.NO_BUNDLE_API_ANNOTATION, api);
         }
     }
