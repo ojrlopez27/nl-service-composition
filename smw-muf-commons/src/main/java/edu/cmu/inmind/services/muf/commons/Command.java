@@ -1,7 +1,5 @@
 package edu.cmu.inmind.services.muf.commons;
 
-import java.util.List;
-
 public abstract class Command {
 
     protected String command;

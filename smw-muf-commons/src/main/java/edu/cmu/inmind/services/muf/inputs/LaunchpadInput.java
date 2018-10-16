@@ -2,7 +2,6 @@ package edu.cmu.inmind.services.muf.inputs;
 
 import edu.cmu.inmind.services.muf.commons.Command;
 import edu.cmu.inmind.services.muf.data.OSGiService;
-import java.util.ArrayList;
 
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_GET_SERVICE_IMPL;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_START_SERVICE;
