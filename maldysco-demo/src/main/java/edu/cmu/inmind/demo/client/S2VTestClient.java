@@ -133,8 +133,7 @@ public class S2VTestClient {
             else
             {
                 Log4J.info(s2VTestClient, "others");
-                s2VTestClient.clientCommController.send(s2VTestClient.sessionID,
-                        new SessionMessage(DemoConstants.MSG_PROCESS_USER_ACTION, input));
+                s2VTestClient.clientCommController.send(s2VTestClient.sessionID, input);
             }
         }
         System.exit(0);

@@ -21,6 +21,7 @@
 #include <queue>
 #include <algorithm>
 #include <stdio.h>
+#include <string.h>
 
 #include <sys/stat.h>
 #include <unistd.h>
@@ -672,33 +673,67 @@ void FastText::nnSent(int32_t k, std::string filename) {
   		// let's receive message from java client using ZMQ
   		char* message = s_recv(socket);	
   		std::cout<< "Received: " << message << std::endl;
-  	
+        std::string messageString(message);
+        std::string sessionId;
     	query.zero();
-    	std::cout << "If user request is: [" << message << "] then the most similar descriptions are: " << std::endl ;
-    	dict_->getLine(message, line, labels, model_->rng);
-    	dict_->addNgrams(line, args_->wordNgrams);
-    	buffer.zero();    
-    	for (auto it = line.cbegin(); it != line.cend(); ++it) {
-   		   	buffer.addRow(*input_, *it);
-    	}
-    	if (!line.empty()) {
-      		buffer.mul(1.0 / line.size());
-    	}
-    	query.addVector(buffer, 1.0);    
+        std::string default_sessionid = "s2v-partial-ccc";
+        std::string::size_type position = messageString.find(default_sessionid);
+        if(position != std::string::npos)
+        {
+            sessionId ="s2v-partial-ccc";
+            std::cout<< "Received: " << sessionId << std::endl;
+        }
+        
+        std::string str = "\{\"requestType\"\:\"REQUEST_CONNECT\"\,\"sessionId\"\:\"s2v-partial-ccc\"\,\"url\"\:\"\"\,\"payload\"\:\"null\"\}";
+        std::cout<< "if block: " << messageString.compare("MDPC01") ;
+        std::cout<< messageString.compare("session-manager");
+        std::cout<<messageString.compare(str)<< std::endl;
+        //dont add ngrams or nearest neighbor (NN) if CCC request contains connection strings/status
+        if(messageString.compare("MDPC01")!=0 && messageString.compare("session-manager")!=0 && messageString.compare(str)!=0)
+        {
+            std::cout << "If user request is: [" << message << "] then the most similar descriptions are: " << std::endl ;
+            dict_->getLine(message, line, labels, model_->rng);
+            dict_->addNgrams(line, args_->wordNgrams);
+            buffer.zero();
+            for (auto it = line.cbegin(); it != line.cend(); ++it) {
+                buffer.addRow(*input_, *it);
+            }
+            if (!line.empty()) {
+                buffer.mul(1.0 / line.size());
+            }
+            query.addVector(buffer, 1.0);
 
-    	std::string output = findNNSent(sentenceVectors, query, k, banSet, n, sentences);    
-    	std::cout << std::endl;    
+            std::string output = findNNSent(sentenceVectors, query, k, banSet, n, sentences);
+            std::cout << std::endl;
 
-    	// send the response (closest neighbors to the given sentence) back to the java client    
-    	int n = output.length();
-    	char char_array[n+1]; 
-    	std::strcpy(char_array, output.c_str());
-        //send json serialized string
-        std::string json_string="\{\"requestType\":\"\",\"sessionId\":\"\",\"url\":\"\",\"payload\":\"";
-        json_string.append(output.c_str());
-        json_string.append("\"\}");
-        std::strcpy(char_array, json_string.c_str());
-  		s_send(socket, char_array);  
+            // send the response (closest neighbors to the given sentence) back to the java client
+            int n = output.length();
+            char char_array[n+1];
+            std::strcpy(char_array, output.c_str());
+            //send json serialized string
+            std::string json_string="\{\"requestType\":\"MSG_FROM_S2V\"";
+            json_string.append(",\"sessionId\":\"");
+            json_string.append(sessionId);
+            json_string.append("\",\"url\":\"\",\"payload\":\"");
+            json_string.append(output.c_str());
+            json_string.append("\"\}");
+            std::strcpy(char_array, json_string.c_str());
+            std::cout<< "Sending: " << char_array << std::endl;
+            s_send(socket, char_array);
+        }
+        else{
+            
+            std::string json_string="\{\"requestType\":\"MSG_FROM_S2V\"";
+            json_string.append(",\"sessionId\":\"");
+            json_string.append(default_sessionid);
+            json_string.append("\",\"url\":\"\",\"payload\":\"");
+            json_string.append("CCC connected to S2V");
+            json_string.append("\"\}");
+            char char_array[json_string.length()+1];
+            std::strcpy(char_array, json_string.c_str());
+            std::cout<< "Sending: " << char_array << std::endl;
+            s_send(socket, char_array);
+        }
     }
   zmq_close(socket);
   // zmq_ctx_destroy(context);
