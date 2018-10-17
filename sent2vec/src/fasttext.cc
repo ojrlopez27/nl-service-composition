@@ -676,21 +676,15 @@ void FastText::nnSent(int32_t k, std::string filename) {
         std::string messageString(message);
         std::string sessionId;
     	query.zero();
-        std::string default_sessionid = "s2v-partial-ccc";
-        std::string::size_type position = messageString.find(default_sessionid);
-        if(position != std::string::npos)
+        if(messageString.compare("start")==0)
         {
-            sessionId ="s2v-partial-ccc";
-            std::cout<< "Received: " << sessionId << std::endl;
+            std::string msg = "*****connected to S2V server****";
+            char char_array[msg.length()+1];
+            std::strcpy(char_array, msg.c_str());
+            std::cout<< "Sending: " << char_array << std::endl;
+            s_send(socket, char_array);
         }
-        
-        std::string str = "\{\"requestType\"\:\"REQUEST_CONNECT\"\,\"sessionId\"\:\"s2v-partial-ccc\"\,\"url\"\:\"\"\,\"payload\"\:\"null\"\}";
-        std::cout<< "if block: " << messageString.compare("MDPC01") ;
-        std::cout<< messageString.compare("session-manager");
-        std::cout<<messageString.compare(str)<< std::endl;
-        //dont add ngrams or nearest neighbor (NN) if CCC request contains connection strings/status
-        if(messageString.compare("MDPC01")!=0 && messageString.compare("session-manager")!=0 && messageString.compare(str)!=0)
-        {
+        else{
             std::cout << "If user request is: [" << message << "] then the most similar descriptions are: " << std::endl ;
             dict_->getLine(message, line, labels, model_->rng);
             dict_->addNgrams(line, args_->wordNgrams);
@@ -710,27 +704,6 @@ void FastText::nnSent(int32_t k, std::string filename) {
             int n = output.length();
             char char_array[n+1];
             std::strcpy(char_array, output.c_str());
-            //send json serialized string
-            std::string json_string="\{\"requestType\":\"MSG_FROM_S2V\"";
-            json_string.append(",\"sessionId\":\"");
-            json_string.append(sessionId);
-            json_string.append("\",\"url\":\"\",\"payload\":\"");
-            json_string.append(output.c_str());
-            json_string.append("\"\}");
-            std::strcpy(char_array, json_string.c_str());
-            std::cout<< "Sending: " << char_array << std::endl;
-            s_send(socket, char_array);
-        }
-        else{
-            
-            std::string json_string="\{\"requestType\":\"MSG_FROM_S2V\"";
-            json_string.append(",\"sessionId\":\"");
-            json_string.append(default_sessionid);
-            json_string.append("\",\"url\":\"\",\"payload\":\"");
-            json_string.append("CCC connected to S2V");
-            json_string.append("\"\}");
-            char char_array[json_string.length()+1];
-            std::strcpy(char_array, json_string.c_str());
             std::cout<< "Sending: " << char_array << std::endl;
             s_send(socket, char_array);
         }

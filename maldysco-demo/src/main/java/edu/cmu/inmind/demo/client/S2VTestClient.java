@@ -1,100 +1,16 @@
 package edu.cmu.inmind.demo.client;
 
 import edu.cmu.inmind.demo.common.DemoConstants;
-import edu.cmu.inmind.demo.common.Utils;
-import edu.cmu.inmind.multiuser.communication.ClientCommController;
-import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardListener;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
-import edu.cmu.inmind.multiuser.controller.communication.ResponseListener;
-import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
-import edu.cmu.inmind.multiuser.log.LogC;
+import org.zeromq.ZMQ;
 
 import java.util.Scanner;
 
 public class S2VTestClient {
 
-    //private final static ZMQ.Context context = ZMQ.context(1);
-    //private ZMQ.Socket clientSent2Vec;
-    private ClientCommController clientCommController;
-    private String sessionID = "s2v-partial-ccc";
-    private String serverIPAddress="tcp://";
-    private static String DEFAULT_IP_ADDRESS = "127.0.0.1:5555";
-    private ResponseListener responseListener;
-    private BlackboardListener blackboardListener;
-
-    public S2VTestClient() {
-        if(!serverIPAddress.equals("") && !sessionID.equals("")) {
-            connect(serverIPAddress, sessionID, responseListener);
-        }
-        else
-        {
-            connect("",this.sessionID,null);
-        }
-    }
-
-    public void connect(String serverIPAddress, String sessionID,
-                        ResponseListener responseListener)
-    {
-        String tempIPAddress = Utils.getSystemIPAddress();
-        Log4J.info(this, tempIPAddress);
-        serverIPAddress += tempIPAddress.isEmpty() ? DEFAULT_IP_ADDRESS
-                : tempIPAddress+":5555";
-        this.responseListener = responseListener != null ? responseListener :
-                new S2VTestClient.ClientResponseListener();
-        this.sessionID += (!sessionID.isEmpty()) ? sessionID : this.sessionID;
-        clientCommController = new ClientCommController.Builder(new LogC())
-                .setServerAddress("tcp://"+DEFAULT_IP_ADDRESS)
-                .setResponseListener(this.responseListener)
-                .setSessionId(sessionID)
-                .setRequestType(edu.cmu.inmind.multiuser.controller.common.Constants.REQUEST_CONNECT)
-                .build();
-    }
-    public void sendS2V(String message){
-
-        //clientSent2Vec.send(message);
-        try
-        {
-            SessionMessage sessionMessage = new SessionMessage();
-            sessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_S2V);
-            clientCommController.send(sessionID, CommonUtils.toJson(message));
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public String receiveS2V(){
-        try {
-            Log4J.debug(this, "Waiting for sent2vec server....");
-            //return;
-            //clientSent2Vec.recvStr();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
     public void stopS2V() {
-        //clientSent2Vec.close();
-        clientCommController.disconnect(sessionID);
-    }
-
-    /***
-     * ResponseListener : custom implementation on receiving a message: eg: if user has to reply Y/N etc.
-     */
-    public class ClientResponseListener implements ResponseListener
-    {
-        @Override
-        public void process(String message)
-        {
-            LogC.info(this,
-                    "Client Response Listener"+message);
-            SessionMessage sessionMessage = new SessionMessage();
-            sessionMessage.setRequestType(DemoConstants.MSG_RECEIVE_S2V);
-            sessionMessage.setPayload(message);
-        }
+        clientSent2Vec.close();
     }
 
     public static void main(String args[]) throws Throwable
@@ -116,26 +32,56 @@ public class S2VTestClient {
             else if(input.equals("login"))
             {
                 Log4J.info(s2VTestClient, "login");
-                s2VTestClient.clientCommController.send(s2VTestClient.sessionID,
-                        new SessionMessage(DemoConstants.MSG_CHECK_USER_ID,
-                                s2VTestClient.sessionID));
+                s2VTestClient.sendS2V(input);
+                String result= s2VTestClient.receiveS2V();
+                Log4J.info(s2VTestClient, result);
+
             }
             else if(input.contains("ready"))
             {
                 Log4J.info(s2VTestClient, "ready");
-                s2VTestClient.clientCommController.send(s2VTestClient.sessionID,
-                        new SessionMessage(DemoConstants.MSG_GROUP_CHAT_READY,
-                                s2VTestClient.sessionID));
-            }
-            else if (input.equals("disconnect")) {
-                s2VTestClient.clientCommController.disconnect(s2VTestClient.sessionID);
+                s2VTestClient.sendS2V(input);
+                String result= s2VTestClient.receiveS2V();
+                Log4J.info(s2VTestClient, result);
             }
             else
             {
-                Log4J.info(s2VTestClient, "others");
-                s2VTestClient.clientCommController.send(s2VTestClient.sessionID, input);
+                Log4J.info(s2VTestClient, input);
+                s2VTestClient.sendS2V(input);
+                String result= s2VTestClient.receiveS2V();
+                Log4J.info(s2VTestClient, result);
             }
         }
+        s2VTestClient.stopS2V();
         System.exit(0);
+    }
+
+    private final static ZMQ.Context context = ZMQ.context(1);
+    private ZMQ.Socket clientSent2Vec;
+    String message;
+
+    public S2VTestClient() {
+        clientSent2Vec = context.socket(ZMQ.REQ);
+        clientSent2Vec.connect("tcp://localhost:" + CommonUtils.getProperty("sent2vec.server.port"));
+    }
+
+    public void sendS2V(String message)
+    {
+        clientSent2Vec.send(message);
+    }
+
+    public String receiveS2V()
+    {
+        try {
+             message = clientSent2Vec.recvStr();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(message.isEmpty()) {
+            return DemoConstants.EMPTY_S2V;
+        }else
+        {
+            return message;
+        }
     }
 }
