@@ -21,6 +21,9 @@ public class Constants {
     public static final String MSG_NER              = "MSG_NER";
     public static final String MSG_DEPLOYER         = "MSG_DEPLOYER";
 
+    // Request Type Message for all server responses to client
+    public static final String MSG_SERVER_RESPONSE  = "MSG_SERVER_RESPONSE";
+
     // Launchpad Commands/Messages
     public static final String MSG_LP_INPUT_CMD             = "MSG_LP_INPUT_CMD";                   // process launchpad commands assuming it is from client or other component
     public static final String MSG_LP_OUTPUT_CMD            = "MSG_LP_OUTPUT_CMD";
@@ -46,6 +49,8 @@ public class Constants {
     public static final String MSG_SR_GET_SERVICE_BY_POJO   = "MSG_SR_GET_SERVICE_BY_POJO";         // retrieve the service pair from the registry by service POJO
 
     // Service Registry Messages: return object after service registry method invocations
+    public static final String MSG_SR_RESP_INITIALIZE           = "MSG_SR_RESP_INITIALIZE";             // response when the service registry has been initialized
+    public static final String MSG_SR_RESP_REGISTER_SERVICE     = "MSG_SR_RESP_REGISTER_SERVICE";       // response when a service has been registered
     public static final String MSG_SR_RESP_GET_SERVICE_BY_KEY   = "MSG_SR_RESP_GET_SERVICE_BY_KEY";     // response after the service pair has been found in registry
     public static final String MSG_SR_RESP_GET_SERVICE_BY_POJO  = "MSG_SR_RESP_GET_SERVICE_BY_POJO";    // response after the service pair has been found in registry
 
