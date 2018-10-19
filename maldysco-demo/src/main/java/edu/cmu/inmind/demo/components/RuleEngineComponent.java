@@ -63,6 +63,8 @@ public class RuleEngineComponent extends PluggableComponent {
                 Log4J.info(this, "S2V received "+blackboardEvent.getElement().toString());
                 SessionMessage sessionMessage = (SessionMessage)  blackboardEvent.getElement();
                 absServiceCandidates = sessionMessage.getPayload();
+                // TODO: Now that service mapping, service execution are done,
+                // TODO: check Rules, identify Sequence and send result to User
                 processUserActionOnS2V();
             default:
                 break;
