@@ -29,8 +29,7 @@ dependencies {
 jar {
     manifest {
         attributes(
-                //'Main-Class': 'edu.cmu.inmind.services.client.MUFClientMain',
-                'Main-Class': 'edu.cmu.inmind.services.client.MUFClientNewer',
+                'Main-Class': 'edu.cmu.inmind.services.client.MUFClientMain',
                 "Class-Path": configurations.compile.collect { it.absolutePath }.join(" ")
         )
     }

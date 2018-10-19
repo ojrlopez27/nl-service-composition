@@ -5,9 +5,12 @@ import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.communication.ResponseListener;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.log.LogC;
 
 public class MUFClient {
+
+    private static final String TAG = MUFClient.class.getSimpleName();
 
     public static final String MUF_SERVER_PORT          = "muf.server.port";
     private static final String MUF_SERVER_ADDRESS      = "muf.server.address";
@@ -30,7 +33,7 @@ public class MUFClient {
         if (responseListener != null) {
             this.responseListener = responseListener;
         } else {
-            this.responseListener = new MyResponseListener();
+            this.responseListener = new NoResponseListener();
         }
         clientCommController = new ClientCommController.Builder(new LogC())
                 .setServerAddress(this.serverAddress)
@@ -54,9 +57,11 @@ public class MUFClient {
     }
 
     public void send(SessionMessage sessionMessage) {
-        clientCommController.send(sessionId, sessionMessage);
+        Log4J.info(TAG, "Request to Server: " + CommonUtils.toJson(sessionMessage));
+        clientCommController.send(sessionId, CommonUtils.toJson(sessionMessage));
     }
 
+    /*
     // only for testing MUF 3.0.55
     public void send(SessionMessage sessionMessage, boolean transformString) {
         if (transformString) {
@@ -64,6 +69,7 @@ public class MUFClient {
         }
         else send(sessionMessage);
     }
+    */
 
     public void disconnect() {
         clientCommController.disconnect(sessionId);
@@ -73,7 +79,7 @@ public class MUFClient {
         return clientCommController.getIsConnected().get();
     }
 
-    class MyResponseListener implements ResponseListener {
+    class NoResponseListener implements ResponseListener {
 
         @Override
         public void process(String message) {
