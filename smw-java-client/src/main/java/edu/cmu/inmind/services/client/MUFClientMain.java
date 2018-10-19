@@ -45,12 +45,20 @@ public class MUFClientMain {
             // obtain the session message from the server
             SessionMessage sessionMessage = CommonUtils.fromJson(message, SessionMessage.class);
             String sessionRequestType = sessionMessage.getRequestType();
-            System.out.println("SessionRequest: " + sessionRequestType);
 
             switch (sessionRequestType) {
                 case SESSION_INITIATED:
                 case SESSION_RECONNECTED: {
                     Log4J.info(TAG, "Connected to server: " + sessionMessage.getPayload());
+
+                    // wait for the launchpad starter to start completely
+                    // that is, when MUF's ServiceManager has initialized all
+                    // stateless and statefull components, if there is a different
+                    // SESSION_<message> to denote that, we could use that as a
+                    // switch-conditional to start the deployment of services
+                    // until then, we wait for a few seconds and then deploy
+                    // CommonUtils.sleep(12000);        // this doesn't help!
+
                     deployServices();
                     break;
                 }

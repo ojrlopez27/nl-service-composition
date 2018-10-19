@@ -5,6 +5,7 @@ import edu.cmu.inmind.services.muf.data.OSGiService;
 
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_GET_SERVICE_IMPL;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_START_SERVICE;
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_RESP_REGISTER_SERVICE;
 
 public class LaunchpadInput extends Command {
     private OSGiService osGiService;
@@ -24,7 +25,11 @@ public class LaunchpadInput extends Command {
     }
 
     public OSGiService getOSGiService() {
-        validateIfAnyCommand(new String[]{MSG_LP_START_SERVICE, MSG_LP_GET_SERVICE_IMPL});
+        validateIfAnyCommand(new String[]{
+                MSG_LP_START_SERVICE,           // when the service is being started by launchpad
+                MSG_LP_GET_SERVICE_IMPL,        // when the service impl is sought from launchpad
+                MSG_SR_RESP_REGISTER_SERVICE    // when the service registration response is sent by launchpad
+        });
         return osGiService;
     }
 

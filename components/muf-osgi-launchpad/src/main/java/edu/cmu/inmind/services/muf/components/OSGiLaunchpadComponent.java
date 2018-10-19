@@ -3,13 +3,20 @@ package edu.cmu.inmind.services.muf.components;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
+import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
+import edu.cmu.inmind.multiuser.controller.plugin.Pluggable;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
+import edu.cmu.inmind.multiuser.controller.resources.ResourceLocator;
+import edu.cmu.inmind.services.muf.components.osgi.LaunchpadStarter;
 import edu.cmu.inmind.services.muf.components.osgi.LaunchpadStarterController;
+import edu.cmu.inmind.services.muf.data.OSGiService;
 import edu.cmu.inmind.services.muf.inputs.LaunchpadInput;
+import edu.cmu.inmind.services.muf.inputs.ServiceRegistryInput;
 import edu.cmu.inmind.services.muf.outputs.LaunchpadOutput;
+import java.util.Arrays;
 import java.util.Map;
 import org.osgi.framework.ServiceReference;
 
@@ -21,9 +28,13 @@ import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_OUTPUT_CMD;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_RESP_GET_ALL_SERVICES;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_RESP_GET_SERVICE_IMPL;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_START_SERVICE;
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_REGISTER_SERVICE;
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_RESP_REGISTER_SERVICE;
 
 @StateType(state = Constants.STATEFULL)
-@BlackboardSubscription(messages = {MSG_LP_INPUT_CMD})
+@BlackboardSubscription(messages = {
+        MSG_LP_INPUT_CMD
+})
 public class OSGiLaunchpadComponent extends PluggableComponent {
 
     LaunchpadStarterController launchpadStarterController;
@@ -58,18 +69,39 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
             // read the input command
             LaunchpadInput launchpadInput = (LaunchpadInput) blackboardEvent.getElement();
             String launchpadInputCommand = launchpadInput.getCommand();
-            System.out.println("LaunchpadInputCommand: " + launchpadInputCommand);
+            //System.out.println("LaunchpadInputCommand: " + launchpadInputCommand);
 
             // process the input command
             switch (launchpadInputCommand) {
 
                 case MSG_LP_START_SERVICE: {
 
-                    // start the service using launchpad
-                    launchpadStarterController.startService(launchpadInput.getOSGiService());
+                    OSGiService osGiService = launchpadInput.getOSGiService();
 
-                    // update the blackboard with the output
-                    blackboard.post(this, MSG_LP_OUTPUT_CMD, launchpadInput.getOSGiService());
+                    // start the service using launchpad
+                    launchpadStarterController.startService(osGiService);
+
+                    // Note: if the service has not started, then, the service mapping
+                    // into the registry will fail.
+                    // So, sleep for a while because the service may not have been started
+                    // or we could sync call the service registration component
+                    CommonUtils.sleep(2000);
+
+                    // register the service with the service registry (service mapping)
+                    ServiceRegistryInput serviceRegistryInput =
+                            new ServiceRegistryInput.RegisterServiceBuilder(MSG_SR_REGISTER_SERVICE)
+                                    .setOSGiService(osGiService).build();
+
+                    // update the blackboard with the register service request
+                    blackboard.post(this, MSG_SR_REGISTER_SERVICE, serviceRegistryInput);
+
+                    break;
+                }
+
+                case MSG_SR_RESP_REGISTER_SERVICE: {
+
+                    // update the blackboard with the output: no output object required, hence the object is the same
+                    blackboard.post(this, MSG_LP_OUTPUT_CMD, "OSGiService deployed: " + launchpadInput.getOSGiService());
 
                     break;
                 }
@@ -77,7 +109,10 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
                 case MSG_LP_GET_SERVICE_IMPL: {
 
                     ServiceReference[] serviceReferences = launchpadStarterController.getServices(launchpadInput.getOSGiService());
-                    if (serviceReferences != null && serviceReferences.length > 0) {
+
+                    // map the services that exist in the bundle
+                    if (LaunchpadStarter.bundleHasServices(serviceReferences)) {
+
                         for (ServiceReference serviceReference : serviceReferences) {
                             Object serviceImplObj = launchpadStarterController.getImplementation(serviceReference);
 
@@ -90,6 +125,14 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
                             // update the blackboard with the service registry message output
                             blackboard.post(this, MSG_LP_RESP_GET_SERVICE_IMPL, launchpadOutput);
                         }
+                    }
+
+                    // there are no services in this bundle to map/register
+                    else {
+
+                        // so, update the blackboard by saying that the OSGiService has been deployed
+                        // update the blackboard with the output: no output object required, hence the object is the same
+                        blackboard.post(this, MSG_LP_OUTPUT_CMD, "OSGiService deployed: " + launchpadInput.getOSGiService());
                     }
 
                     break;
@@ -106,8 +149,6 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
                 }
                 case MSG_LP_GET_ALL_SERVICES: {
 
-                    Log4J.debug(this, "In LP Component: MSG_LP_GET_ALL_SERVICES..");
-
                     // get all service implementations from launchpad
                     Map<ServiceReference, Object> serviceImplMap = launchpadStarterController.getAllServiceImplementations();
 
@@ -121,13 +162,16 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
                     blackboard.post(this, MSG_LP_RESP_GET_ALL_SERVICES, launchpadOutput);
                     break;
                 }
-                default:
+                default: {
                     Log4J.info(this, "Inside OSGiLaunchpadComponent.handleService " + " -- not sure what to do.");
+                    break;
+                }
             }
 
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
     }
+
 
 }

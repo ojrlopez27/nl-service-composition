@@ -23,6 +23,7 @@ import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_RESP_GET_ALL_
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_RESP_GET_SERVICE_IMPL;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_INITIALIZE;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_REGISTER_SERVICE;
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_RESP_REGISTER_SERVICE;
 
 @StateType(state = Constants.STATEFULL)
 @BlackboardSubscription(messages = {
@@ -101,6 +102,11 @@ public class ServiceRegistryComponent extends PluggableComponent {
 
                     // print the service map to be sure if the services have been mapped
                     ServiceMapper.printServiceMap();
+
+                    // update the launchpad that the service has been registered
+                    LaunchpadInput launchpadInput = new LaunchpadInput.VanillaBuilder(MSG_SR_RESP_REGISTER_SERVICE).build();
+                    blackboard.post(this, MSG_LP_INPUT_CMD, launchpadInput);
+
                     break;
                 }
                 case MSG_LP_RESP_GET_ALL_SERVICES: {

@@ -140,10 +140,19 @@ public class LaunchpadStarter {
         felixFramework = null;
     }
 
+    public static boolean bundleHasServices(ServiceReference[] serviceReferences) {
+        return (serviceReferences != null && serviceReferences.length > 0);
+    }
+
     public ServiceReference[] getServices(String bundleName, boolean preprocess) throws InvalidSyntaxException {
         Bundle bundle = getBundle(bundleName);
         ServiceReference[] bundleServices = bundle.getRegisteredServices();
-        System.out.println("Bundle: " + bundle + " has services: " + Arrays.toString(bundleServices));
+        if (bundleHasServices(bundleServices)) {
+            System.out.println("Bundle: " + bundle + " has " + bundleServices.length + " services: " + Arrays.toString(bundleServices));
+        }
+        else {
+            System.out.println("Bundle: " + bundle + " has no services.");
+        }
         return bundleServices;
     }
 
