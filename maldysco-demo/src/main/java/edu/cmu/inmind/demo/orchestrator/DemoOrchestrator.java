@@ -19,7 +19,7 @@ import edu.cmu.inmind.multiuser.log.LogC;
  * Created for demo : sakoju 10/4/2018
  */
 @StateType(state = Constants.STATELESS)
-@BlackboardSubscription(messages= {DemoConstants.MSG_SEND_TO_S2V, DemoConstants.MSG_SEND_TO_CLIENT,
+@BlackboardSubscription(messages= { DemoConstants.MSG_SEND_TO_CLIENT,
         DemoConstants.MSG_USER_VALIDATION_SUCCCES, DemoConstants.MSG_LP_OUTPUT_CMD})
 public class DemoOrchestrator extends ProcessOrchestratorImpl {
     @Override
@@ -64,6 +64,7 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
                 blackboard.post(this, DemoConstants.MSG_LP_START_SERVICE, launchpadInputMessage);
                 break;
             // Merging Ankit's changes ******************END
+
             case DemoConstants.MSG_LP_LIST_SERVICES:
                 LaunchpadInput launchpadInputMsg =
                         new LaunchpadInput(
@@ -88,9 +89,6 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
                 "Demo orchestrator"+event.getElement().toString());
         switch(event.getId())
         {
-            case DemoConstants.MSG_SEND_TO_S2V:
-                    sendResponse(CommonUtils.toJson(event.getElement()));
-                    break;
             case DemoConstants.MSG_SEND_TO_CLIENT:
                     sendResponse(CommonUtils.toJson(event.getElement()));
                     break;

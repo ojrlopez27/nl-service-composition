@@ -2,19 +2,24 @@ package edu.cmu.inmind.demo.components;
 
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.demo.controllers.NERController;
+import edu.cmu.inmind.demo.pojos.NERPojo;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
+import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 import edu.cmu.inmind.multiuser.controller.session.Session;
+
+import java.util.List;
+
 /**
  * Created for demo : sakoju 10/4/2018
  */
 @StateType(state = Constants.STATELESS)
-@BlackboardSubscription(messages= DemoConstants.MSG_PROCESS_USER_ACTION)
+@BlackboardSubscription(messages= DemoConstants.MSG_SEND_TO_NER)
 public class NERComponent extends PluggableComponent {
     @Override
     public Session getSession() throws Throwable {
@@ -48,8 +53,11 @@ public class NERComponent extends PluggableComponent {
     public void onEvent(Blackboard blackboard, BlackboardEvent blackboardEvent) throws Throwable {
         switch(blackboardEvent.getId())
         {
-            case DemoConstants.MSG_PROCESS_USER_ACTION:
-                Log4J.info(this, (String) blackboardEvent.getElement());
+            case DemoConstants.MSG_SEND_TO_NER:
+                SessionMessage message = (SessionMessage) blackboardEvent.getElement();
+                Log4J.info(this, message.getPayload());
+                List<NERPojo> nerPojoList = NERController.extractEntities(message.getPayload());
+                Log4J.info(this, "Entities (annotations) identified "+nerPojoList.size());
         }
     }
 

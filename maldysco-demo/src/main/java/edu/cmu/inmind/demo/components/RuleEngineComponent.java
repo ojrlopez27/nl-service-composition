@@ -2,170 +2,79 @@ package edu.cmu.inmind.demo.components;
 
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.demo.common.Node;
+import edu.cmu.inmind.demo.common.ServiceMethod;
 import edu.cmu.inmind.demo.common.Utils;
-import edu.cmu.inmind.demo.model.WorkingMemory;
+import edu.cmu.inmind.demo.controllers.CompositionController;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
+import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
+import edu.cmu.inmind.multiuser.controller.common.Constants;
+import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
-import org.jeasy.rules.api.Facts;
-import org.jeasy.rules.api.Rule;
-import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.api.RulesEngine;
-import org.jeasy.rules.core.DefaultRulesEngine;
-import org.jeasy.rules.mvel.MVELRule;
+import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+/**
+ * Created for demo : sakoju 10/4/2018
+ */
+@StateType(state = Constants.STATELESS)
+@BlackboardSubscription(messages =  {DemoConstants.MSG_GROUP_CHAT_READY,
+        DemoConstants.MSG_PROCESS_USER_ACTION, DemoConstants.MSG_RECEIVE_S2V})
 public class RuleEngineComponent extends PluggableComponent {
-    // AS: Abstract Services, GS: Grounded Services
-    private WorkingMemory wm;
-    private Rules rulesAS, rulesGS;
-    private RulesEngine rulesEngineAS, rulesEngineGS;
-    private Facts factsAS;
-    private List<Rule> ruleListAS, ruleListGS;
+    private CompositionController compositionController;
+    private Map<String, ServiceMethod> serviceMap;
 
-
-    public RuleEngineComponent() {
-        wm = new WorkingMemory();
-        rulesAS = new Rules();
-        rulesGS = new Rules();
-        factsAS = new Facts();
-        rulesEngineAS = new DefaultRulesEngine();
-        rulesEngineGS = new DefaultRulesEngine();
-        ruleListAS = new ArrayList<>();
-        ruleListGS = new ArrayList<>();
-    }
-    public void addGoal(String goal) {
-        // create some facts
-        wm.setGoal(goal);
-        factsAS.put("wm", wm);
-        // we do this only the first time
-        wm.setLastRuleName(goal);
-        wm.setCommand(goal);
-    }
-
-    /**
-     * This is just a simple chaining of rules.
-     * @param step
-     */
-    public MVELRule addStep(String step, String abstracServiceCandidates) {
-        String ruleName = Utils.getRuleName(step);
-        List<String> candidates = new ArrayList<>();
-        candidates.add(abstracServiceCandidates);
-        wm.getCandidates().add(candidates);
-        MVELRule rule = new MVELRule()
-                .name(ruleName)
-                .description(step)
-                .priority(1)
-                .when( "wm.command == wm.lastRuleName")
-                .then("wm.print(\"Triggering '" + ruleName + "'...\"); ")
-                .then(String.format("wm.command = \"%s\"; ", ruleName))
-                .then(String.format("wm.abstractService = \"%s\";", step))
-                .then(String.format("wm.lastRuleName = \"%s\"; ", ruleName));
-        ruleListAS.add(rule);
-        return rule;
-    }
-
-    /**
-     * This method will put in WM the list of abastract services
-     */
-    public void fireRulesAS(){
-        //create a default rules engine and fire rules on known facts
-        rulesEngineAS.fire(rulesAS, factsAS);
-    }
-
-
-    /**
-     * We can also simulate here some changing conditions like gradual battery draining, or
-     * weak/strong wifi access changes.
-     */
-    public void addPhoneStatusToWM(){
-        wm.setBattery(DemoConstants.PHONE_HIGH_BATTERY);
-        wm.setWifi(DemoConstants.WIFI_ON);
-        //wm.setExecutor(serviceExecutor);
-        wm.setCommand(DemoConstants.CHECK_BATTERY);
-    }
-
-    public void addStepAndRegister(String step, String abstracServiceCandidates) {
-        rulesAS.register( addStep(step, abstracServiceCandidates) );
-    }
-
-    public CompositeService generateCompositeServiceRequest() {
-        CompositeServiceBuilder builder = null;
-        // create a rule set
-        for(Rule rule : ruleListAS){
-            rulesAS.register(rule);
-            if(builder == null) builder = new CompositeServiceBuilder(rule.getDescription());
-            else builder.and(rule.getDescription());
-        }
-        return builder.build();
-    }
-    /**
-     * Heuristic rules for grounding services (given a set of abstract services) based on
-     * non-functional QoS features (i.e., battery consumption, connectivity, availability, etc.)
-     */
-    public void createRulesForGroundingServices() {
-        ruleListGS.add(
-                new MVELRule()
-                        .name("if-battery-low-then-low-consumption-rule")
-                        .description("if battery is low, then look for a service method with low battery consumption")
-                        .priority(1)
-                        .when( String.format("wm.battery == \"%s\" && wm.command == \"%s\"",
-                                DemoConstants.PHONE_LOW_BATTERY, DemoConstants.CHECK_BATTERY) )
-                        .then( String.format("wm.executor.pick(\"%s\", wm.service); ", DemoConstants.LOW_BATTERY_SERVICE) )
-        );
-
-        ruleListGS.add(
-                new MVELRule()
-                        .name("if-battery-high-then-check-wifi-rule")
-                        .description("if battery is high, then check connectivity")
-                        .priority(1)
-                        .when( String.format("wm.battery == \"%s\" && wm.command == \"%s\"",
-                                DemoConstants.PHONE_HIGH_BATTERY, DemoConstants.CHECK_BATTERY) )
-                        .then( String.format("wm.command = \"%s\"", DemoConstants.CHECK_WIFI) )
-                        .then( String.format("wm.executor.setCandidate(\"%s\", wm.service); ", DemoConstants.PHONE_HIGH_BATTERY) )
-        );
-
-        ruleListGS.add(
-                new MVELRule()
-                        .name("if-wifi-on-then-pick-remote-service-rule")
-                        .description("if wifi is ON then pick a remote service")
-                        .priority(1)
-                        .when( String.format("wm.wifi == \"%s\" && wm.command == \"%s\"",
-                                DemoConstants.WIFI_ON, DemoConstants.CHECK_WIFI) )
-                        .then( String.format("wm.executor.pick(\"%s\", wm.service); ", DemoConstants.PICK_REMOTE_SERVICE) )
-        );
-
-        ruleListGS.add(
-                new MVELRule()
-                        .name("if-wifi-off-then-pick-local-service-rule")
-                        .description("if wifi is OF then pick a local service")
-                        .priority(1)
-                        .when( String.format("wm.wifi == \"%s\" && wm.command == \"%s\"",
-                                DemoConstants.WIFI_OFF, DemoConstants.CHECK_WIFI) )
-                        .then( String.format("wm.executor.pick(\"%s\", wm.service); ", DemoConstants.PICK_LOCAL_SERVICE) )
-        );
-
-        for(Rule rule : ruleListGS){
-            rulesGS.register(rule);
-        }
-    }
-
-    public void fireRulesGS(){
-        //create a default rules engine and fire rules on known facts
-        rulesEngineGS.fire(rulesGS, factsAS);
-    }
+    // scenarios
+    private List<String> scenarios = Arrays.asList(
+            "You want to go on a vacation to Europe next month and need to plan your trip",
+            "Your wedding anniversary is the next weekend and you want to plan a romantic night with your spouse",
+            "You are planning to have a party at your home this coning weekend");
+    private int scenarioIdx = 0;
+    private String stage = DemoConstants.REQUEST_ACTION_STAGE;
+    private int actionCounter = 0;
+    private final int maxActions = 7;
+    private final int minLength = 15;
+    private String absServiceCandidates;
+    private String userAction ="";
+    private Blackboard blackboard;
 
     // private ServiceExecutor serviceExecutor;
     @Override
     public void onEvent(Blackboard blackboard, BlackboardEvent blackboardEvent) throws Throwable {
+        this.blackboard = blackboard;
+        switch(blackboardEvent.getId()) {
+            //Android Phone app's GroupChannel chat is ready ?
+            case DemoConstants.MSG_GROUP_CHAT_READY :
+                String response = String.format("Thanks! let's start. Consider this scenario: %s. What is the first thing you " +
+                        "would ask your IPA to do?", scenarios.get(scenarioIdx++));
+                //IPALog.setFileName(sessionMessage.getPayload());
+                Log4J.info(this, response);
+                postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT, response);
+                break;
+            case DemoConstants.MSG_PROCESS_USER_ACTION:
+                processUserAction((String) blackboardEvent.getElement());
+                break;
+            case DemoConstants.MSG_RECEIVE_S2V:
+                Log4J.info(this, "S2V received "+blackboardEvent.getElement().toString());
+                SessionMessage sessionMessage = (SessionMessage)  blackboardEvent.getElement();
+                absServiceCandidates = sessionMessage.getPayload();
+                processUserActionOnS2V();
+            default:
+                break;
+        }
 
     }
 
     @Override
     protected void startUp() {
         super.startUp();
+        compositionController = new CompositionController();
+        serviceMap = Utils.generateCorporaFromMethods(false);
     }
 
     @Override
@@ -210,4 +119,164 @@ public class RuleEngineComponent extends PluggableComponent {
         }
     }
 
+
+    /***
+     * process user action
+     * @param userAction
+     */
+    private void processUserAction(String userAction)
+    {
+        Log4J.info(this, "orchestrator processUserAction: "+userAction);
+        Log4J.info(this, String.format("%s%s\t%s", DemoConstants.USER, DemoConstants.LEVEL0, userAction));
+        if( !userAction.equalsIgnoreCase(DemoConstants.DONE) ) {
+            Log4J.info(this, "userAction is NOT DONE: processUserAction: "+userAction);
+            if( DemoConstants.ASK_FOR_APP_CONFIRMATION_STAGE.equals(stage) ) {
+                //user said Yes (confirmation)
+                if(userAction.equalsIgnoreCase("Y") || userAction.equalsIgnoreCase("Yes")
+                        || userAction.contains("Yes ") || userAction.equalsIgnoreCase("yes ")
+                        || userAction.equalsIgnoreCase("YES "))
+                {
+                    continueWithCurrentScenario();
+                }
+                //user said other than Yes/Y/yes//y
+                else
+                    {
+                        rephraseYourStep();
+                    }
+            }
+            else if( DemoConstants.REQUEST_ACTION_STAGE.equals(stage) )
+            {
+                //user sentence is too short ?
+                if( userAction.length() < minLength ){
+                    userSentenceIsTooShort();
+                }
+                // let's get the semantic neighbors provided by sent2vec
+                else
+                {
+                    postToBlackboard(DemoConstants.MSG_SEND_TO_S2V, userAction);
+                    postToBlackboard(DemoConstants.MSG_SEND_TO_NER, userAction);
+                }
+            }
+        }
+        else{
+            if(scenarioIdx < scenarios.size()){
+                Log4J.info(this, "scenarios "+scenarioIdx);
+                //user typed DONE, but scenario is NOT DONE
+                if( actionCounter < maxActions){
+                    askUserToEnterNextStep();
+                }
+                //scenario is DONE so proceed to next scenario
+                else
+                {
+                    String response = String.format("Perfect, you are doing really well. This is the next scenario: %s. " +
+                            "What is the first action you would ask your IPA to do?", scenarios.get(scenarioIdx++));
+                    postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT , response);
+                    actionCounter = 0;
+                    Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL4, response));
+                }
+                stage = DemoConstants.REQUEST_ACTION_STAGE;
+            }
+            //3 scenarios are DONE, so end the iteration for user
+            else
+                {
+                String response = "Wonderful, we have finished the scenarios. Thanks for your collaboration!";
+                postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT , response);
+                Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL5, response));
+                stage = DemoConstants.DONE_STAGE;
+            }
+        }
+    }
+
+    /***
+     * Received results from S2V, so now process userAction + S2V response : composition...
+     */
+    private void processUserActionOnS2V()
+    {
+        Log4J.info(this, String.format("%s%s\t%s",
+                DemoConstants.S2V, DemoConstants.LEVEL0, absServiceCandidates));
+        compositionController.addStepAndRegister(userAction, absServiceCandidates);
+        compositionController.fireRulesAS();
+        resetAbstractServiceCandidates();
+
+        String[] result = compositionController.execute(serviceMap);
+        String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
+                        "Is that what you would want your IPA to do (Y/N)?",
+                Utils.splitByCapitalizedWord(result[0].replace("Service", ""),
+                        false),
+                Utils.splitByCapitalizedWord(result[1], true));
+        Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL0, response));
+        stage = DemoConstants.ASK_FOR_APP_CONFIRMATION_STAGE;
+        postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT, response);
+    }
+
+    /***
+     * Post to Blackboard
+     * @param MSG_ID
+     * @param response
+     */
+    private void postToBlackboard(String MSG_ID, String response)
+    {
+        SessionMessage clientSessionMessage = new SessionMessage();
+        clientSessionMessage.setMessageId(MSG_ID);
+        clientSessionMessage.setRequestType(MSG_ID);
+        clientSessionMessage.setPayload(response);
+        blackboard.post(this, MSG_ID,
+                clientSessionMessage);
+    }
+
+    /***
+     * Service methods results confirmed and accepted as correct by user
+     */
+    private void continueWithCurrentScenario()
+    {
+        compositionController.fireRulesGS();
+        String response = "Great, let's continue. What is the next thing you would ask your IPA to do? " +
+                "(type 'DONE' if you are done for this scenario -- but at least 7 actions/steps are required)";
+        postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT , response);
+        Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL1, response));
+        stage = DemoConstants.REQUEST_ACTION_STAGE;
+        actionCounter++;
+    }
+
+    /***
+     * user did not confirm correctly (response!= yes/y/Y/Yes)
+     */
+    private void rephraseYourStep()
+    {
+        String response = "Ok, can you re-phrase your command? your IPA will try to do it better " +
+                "this time...";
+        postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT , response);
+        Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA,
+                DemoConstants.LEVEL2, response));
+        stage = DemoConstants.REQUEST_ACTION_STAGE;
+    }
+
+    /***
+     * User sentence is too short. request another sentence
+     */
+    private void userSentenceIsTooShort()
+    {
+        String response = String.format("Your sentence is empty or too short (only %s characters). " +
+                "Please re-enter a sentence with at least %s-characters length", userAction.length(),
+                minLength);
+        Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL5, response));
+        postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT , response);
+    }
+
+    /***
+     * User typed DONE but scenario is not yet complete unless user elicits 7 steps.
+     */
+    private void askUserToEnterNextStep()
+    {
+        String response = String.format("You have identified %s actions/steps so far, please identify %s " +
+                "more....", actionCounter, (maxActions - actionCounter));
+        postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT, response);
+        Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA,
+                DemoConstants.LEVEL3, response));
+    }
+
+    private void resetAbstractServiceCandidates()
+    {
+        absServiceCandidates="";
+    }
 }

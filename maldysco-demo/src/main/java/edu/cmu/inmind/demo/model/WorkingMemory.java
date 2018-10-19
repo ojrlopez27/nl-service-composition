@@ -1,6 +1,9 @@
 package edu.cmu.inmind.demo.model;
 
 import edu.cmu.inmind.demo.controllers.SemanticController;
+import edu.cmu.inmind.demo.controllers.ServiceExecutor;
+import edu.cmu.inmind.demo.pojos.AbstractServicePOJO;
+import edu.cmu.inmind.demo.apis.GenericService;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 
 import java.lang.reflect.Method;
@@ -18,13 +21,13 @@ public class WorkingMemory {
     private String lastRuleName;
     private String battery;
     private String wifi;
-    //private ServiceExecutor executor;
-    //private Class<? extends GenericService> service;
+    private ServiceExecutor executor;
+    private Class<? extends GenericService> service;
     private Method serviceMethod;
     private String abstractService;
     private String concreteAction;
-    private Map<String, String> results = new HashMap<>();
-    private List<List<String>> candidates = new ArrayList<>();
+    private Map<String, Object> results = new HashMap<>();
+    private List<List<AbstractServicePOJO>> candidates = new ArrayList<>();
     private int idxCandidates;
 
     public String getCommand() {
@@ -75,7 +78,7 @@ public class WorkingMemory {
         this.wifi = wifi;
     }
 
-   /* public ServiceExecutor getExecutor() {
+    public ServiceExecutor getExecutor() {
         return executor;
     }
 
@@ -89,7 +92,7 @@ public class WorkingMemory {
 
     public void setService(Class<? extends GenericService> service) {
         this.service = service;
-    }*/
+    }
 
     public Method getServiceMethod() {
         return serviceMethod;
@@ -99,23 +102,23 @@ public class WorkingMemory {
         this.serviceMethod = serviceMethod;
     }
 
-    public void addResult(String key, String result) {
+    public void addResult(String key, Object result) {
         results.put(key, result);
     }
 
-    public Map<String, String> getResults() {
+    public Map<String, Object> getResults() {
         return results;
     }
 
-    public void setResults(Map<String, String> results) {
+    public void setResults(Map<String, Object> results) {
         this.results = results;
     }
 
-    public List<List<String>> getCandidates() {
+    public List<List<AbstractServicePOJO>> getCandidates() {
         return candidates;
     }
 
-    public void setCandidates(List<List<String>> candidates) {
+    public void setCandidates(List<List<AbstractServicePOJO>> candidates) {
         this.candidates = candidates;
     }
 
@@ -127,7 +130,7 @@ public class WorkingMemory {
         this.concreteAction = concreteAction;
     }
 
-    public List<String> getAbstractServices() {
+    public List<AbstractServicePOJO> getAbstractServices() {
         return candidates.get(idxCandidates++);
     }
 

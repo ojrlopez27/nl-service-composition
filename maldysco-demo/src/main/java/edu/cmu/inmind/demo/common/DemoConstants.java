@@ -8,10 +8,12 @@ import java.util.*;
 public class DemoConstants {
     public static final String ID_NER = "ID_NER";
     public static final String ID_S2V = "ID_S2V";
+    public static final String ID_RULE_ENGINE = "ID_RULE_ENGINE";
     public static final String ID_USERLOGIN = "ID_USERLOGIN";
     public static final String MSG_SEND_TO_CLIENT = "MSG_SEND_TO_CLIENT";
     public static final String MSG_SEND_TO_S2V = "MSG_SEND_TO_S2V";
     public static final String MSG_RECEIVE_S2V = "MSG_RECEIVE_S2V";
+    public static final String MSG_SEND_TO_NER = "MSG_SEND_TO_NER";
     public static final String EMPTY_S2V = "EMPTY_S2V";
 
     public static String STEP_START ="STEP_START";
@@ -89,16 +91,4 @@ public class DemoConstants {
     public static final String LEVEL3 = "[3]:";
     public static final String LEVEL4 = "[4]:";
     public static final String LEVEL5 = "[5]:";
-    public static final List<String> abstractServices = new ArrayList<>(
-            Arrays.asList("BookFlightService", "BookHotelService",
-                    "BookRestaurantService", "CalendarService", "FloristService", "GenericService",
-                    "GroundTransportationService", "LeisureRecommendationService", "MapsService",
-                    "MovieService", "NewsService", "OrderFoodService", "SocialNetworkService",
-                    "TextMessageService", "TrafficService", "UndefinedService", "WeatherService",
-                    "WineAndBeerService"));
-   public static final Map<String, String> servicesMap = Utils.asMap(
-            "AirBnBService","", "BookingsService","",
-                    "ExpediaService","", "GoogleCalendarService","", "GoogleFlightsService","",
-            "SkyscannerService","", "TripAdvisorService","", "WeatherChannelService","",
-            "WundergroundService","", "YahooCalendarService","", "YahooNewsService", "");
 }

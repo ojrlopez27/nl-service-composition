@@ -52,10 +52,12 @@ public class MessageController implements ResponseListener{
     private Activity activity;
     private Random random;
     private Context ctx;
+    private boolean isGroupChatReady;
 
     private MessageController() {
         this.sessionId = PreferenceUtils.getUserId();
         random = new Random();
+        isGroupChatReady= false;
     }
 
     public static MessageController getInstance(){
@@ -106,10 +108,13 @@ public class MessageController implements ResponseListener{
                 else if( TextUtils.equals(message,
                         edu.cmu.inmind.messenger.utils.Constants.MSG_GROUP_CHAT_READY))
                 {
-                    sessionMessage.setMessageId(
-                            edu.cmu.inmind.messenger.utils.Constants.MSG_GROUP_CHAT_READY);
-                    sessionMessage.setRequestType(
-                            edu.cmu.inmind.messenger.utils.Constants.MSG_GROUP_CHAT_READY);
+                    if(!isGroupChatReady) {
+                        sessionMessage.setMessageId(
+                                edu.cmu.inmind.messenger.utils.Constants.MSG_GROUP_CHAT_READY);
+                        sessionMessage.setRequestType(
+                                edu.cmu.inmind.messenger.utils.Constants.MSG_GROUP_CHAT_READY);
+                        isGroupChatReady = true;
+                    }
                 }
                 else {
                     sessionMessage.setMessageId(
