@@ -6,6 +6,7 @@ import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
+import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 
@@ -29,7 +30,7 @@ public class UserInteractionComponent extends PluggableComponent {
         {
             validate = "Session "+username + " has been successfully created. Initiate chat to start the user study.";
             blackboard.post(this, DemoConstants.MSG_USER_VALIDATION_SUCCCES,
-                    validate);
+                    new SessionMessage(DemoConstants.MSG_USER_VALIDATION_SUCCCES, validate));
         }
     }
 

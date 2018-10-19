@@ -122,7 +122,7 @@ public class MessageController implements ResponseListener{
                     sessionMessage.setRequestType(
                             edu.cmu.inmind.messenger.utils.Constants.MSG_PROCESS_USER_ACTION);
                 }
-                clientCommController.send(sessionId, sessionMessage);
+                clientCommController.send(sessionId, CommonUtils.toJson(sessionMessage));
             }
         });
     }
