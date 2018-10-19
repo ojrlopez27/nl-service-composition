@@ -20,6 +20,10 @@ public class MUFClient {
     private String serverAddress =
             CommonUtils.getProperty(MUF_SERVER_ADDRESS) + ":" + CommonUtils.getProperty(MUF_SERVER_PORT);
 
+    public MUFClient() {
+        this(null, null, null);
+    }
+
     public MUFClient(String serverAddress, String sessionId, ResponseListener responseListener) {
         if (serverAddress != null) this.serverAddress = serverAddress;
         if (sessionId != null) this.sessionId = sessionId;
@@ -41,16 +45,24 @@ public class MUFClient {
         this.clientCommController.setResponseListener(responseListener);
     }
 
+    public void setResponseListener(ResponseListener responseListener) {
+        this.clientCommController.setResponseListener(responseListener);
+    }
+
     public String getSessionId() {
         return sessionId;
     }
 
-    public MUFClient() {
-        this(null, null, null);
-    }
-
     public void send(SessionMessage sessionMessage) {
         clientCommController.send(sessionId, sessionMessage);
+    }
+
+    // only for testing MUF 3.0.55
+    public void send(SessionMessage sessionMessage, boolean transformString) {
+        if (transformString) {
+            clientCommController.send(sessionId, CommonUtils.toJson(sessionMessage));
+        }
+        else send(sessionMessage);
     }
 
     public void disconnect() {

@@ -9,19 +9,16 @@ import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.orchestrator.ProcessOrchestratorImpl;
 import edu.cmu.inmind.multiuser.controller.session.Session;
 import edu.cmu.inmind.services.muf.inputs.LaunchpadInput;
-import edu.cmu.inmind.services.muf.inputs.ServiceRegistryInput;
 
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LAUNCHPAD;
-import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_INPUT_CMD;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_OUTPUT_CMD;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_OSGI_SERVICE_DEPLOYED;
-import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SENT2VEC;
-import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SERVICE_REGISTRY;
-import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_INITIALIZE;
-import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_INPUT_CMD;
 
 @BlackboardSubscription(messages = {MSG_LP_OUTPUT_CMD})
 public class MUFOrchestrator extends ProcessOrchestratorImpl {
+
+    // only for testing MUF 3.0.55
+    public final static String STRING = "String";
 
     @Override
     public void initialize(Session session) throws Throwable{
@@ -40,10 +37,39 @@ public class MUFOrchestrator extends ProcessOrchestratorImpl {
         // this is important: only then the blackboard keeps objects with it.
         blackboard.setKeepModel(Boolean.TRUE);
 
+
         // read the input message coming from the client
         SessionMessage inputSessionMessage = CommonUtils.fromJson(message, SessionMessage.class);
         Log4J.info(this, "Inside MUFOrchestrator.process ");
 
+        switch (inputSessionMessage.getRequestType()) {
+            case MSG_LAUNCHPAD: {
+                LaunchpadInput launchpadInput = CommonUtils.fromJson(inputSessionMessage.getPayload(), LaunchpadInput.class);
+                String serviceName = launchpadInput.getOSGiService().getServiceName();
+
+                SessionMessage outputSessionMessage = new SessionMessage();
+                outputSessionMessage.setSessionId(inputSessionMessage.getSessionId());
+                outputSessionMessage.setRequestType(MSG_LAUNCHPAD);
+                outputSessionMessage.setMessageId(MSG_OSGI_SERVICE_DEPLOYED);
+                outputSessionMessage.setPayload("From Server: " + serviceName);
+                sendResponse(outputSessionMessage);
+                break;
+            }
+            // only for testing MUF 3.0.55
+            case STRING: {
+                SessionMessage opSessionMessage = new SessionMessage();
+                opSessionMessage.setSessionId(inputSessionMessage.getSessionId());
+                opSessionMessage.setRequestType(MSG_LAUNCHPAD);
+                opSessionMessage.setMessageId(STRING);
+                opSessionMessage.setPayload("String Resp.. " + inputSessionMessage.getPayload());
+                sendResponse(opSessionMessage);
+                break;
+            }
+
+
+        }
+
+        /*
         // the client may request several types of inputs
         switch(inputSessionMessage.getRequestType()) {
 
@@ -65,6 +91,7 @@ public class MUFOrchestrator extends ProcessOrchestratorImpl {
                 processSent2Vec(inputSessionMessage);
                 break;
         }
+        */
 
         // do not send any output to the client from here
         // use the below onEvent() method instead
@@ -76,12 +103,13 @@ public class MUFOrchestrator extends ProcessOrchestratorImpl {
         super.onEvent(blackboard, event);
 
         // send the response back to the client
-        SessionMessage outputSessionMessage = new SessionMessage();
+        /* SessionMessage outputSessionMessage = new SessionMessage();
         outputSessionMessage.setSessionId(event.getSessionId());
         outputSessionMessage.setRequestType(MSG_LAUNCHPAD);
         outputSessionMessage.setMessageId(MSG_OSGI_SERVICE_DEPLOYED);
         outputSessionMessage.setPayload(CommonUtils.toJson(event.getElement()));
         sendResponse(outputSessionMessage);
+        */
     }
 
     // dummy method only; it will eventually be removed
