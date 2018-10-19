@@ -26,7 +26,7 @@ dependencies {
     compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
     compile group: 'org.jeasy', name: 'easy-rules-core', version: '3.2.0'
     compile group: 'org.jeasy', name: 'easy-rules-mvel', version: '3.2.0'
-    compile 'edu.cmu.inmind.framework.multiuser:muf:3.0.54:all'
+    compile 'edu.cmu.inmind.framework.multiuser:muf:3.0.55:all'
     compile group: "${servicesGroup}", name: 'smw-muf-commons', version: "${smwMUFCommonsVersion}"
     compile group: "${middlewareGroup}", name: 'middleware-data', version: "${middlewareDataVersion}"
     compile group: "${servicesGroup}", name: 'java-binder', version: "${javaBinderVersion}"
