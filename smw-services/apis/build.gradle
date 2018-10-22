@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+}
+
+group 'edu.cmu.inmind.services'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+configurations {
+    deployerJars
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        credentials {
+            username 'inmind'
+            password '2018InMindOath'
+        }
+        url "http://www.cs.cmu.edu/afs/cs/project/inmind-cmu-yahoo/www/maven2"
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile group: "${servicesGroup}", name: 'smw-commons', version: "${smwCommonsVersion}"
+    compile group: "${osgiGroup}", name: 'bundle-commons', version: "${bundleCommonsVersion}"
+
+    testCompile ("junit:junit:${junitVersion}")
+    deployerJars ("org.apache.maven.wagon:wagon-ssh:${wagonSshVersion}")
+
+}
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            configuration = configurations.deployerJars
+            repository(url: "scp://linux.gp.cs.cmu.edu:/afs/cs/project/inmind-cmu-yahoo/www/maven2/") {
+                authentication(userName: mavenUser, password: mavenPassword)
+            }
+
+            pom.project {
+                name 'InMind Semantic Middleware Service APIs'
+                packaging 'jar'
+                description 'Service APIs for InMind Semantic Middleware.'
+                pom.version = "${smwServicesAPIsVersion}"
+                pom.artifactId = "${smwServicesAPIsArtifactId}"
+                pom.groupId = "${servicesGroup}"
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        name 'Ankit Dangi'
+                        email 'adangi@cs.cmu.edu'
+                    }
+                }
+            }
+        }
+    }
+}
