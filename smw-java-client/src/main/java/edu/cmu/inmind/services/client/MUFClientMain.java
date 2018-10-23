@@ -85,6 +85,8 @@ public class MUFClientMain {
                                 .createLaunchpadMessage(MSG_LP_START_SERVICE, lpInput);
 
                 mufClient.send(lpMessage);
+
+                CommonUtils.sleep(5000);
             }
         }
 
