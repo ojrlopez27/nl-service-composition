@@ -6,17 +6,14 @@ import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
-import edu.cmu.inmind.multiuser.controller.plugin.Pluggable;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
-import edu.cmu.inmind.multiuser.controller.resources.ResourceLocator;
 import edu.cmu.inmind.services.muf.components.osgi.LaunchpadStarter;
 import edu.cmu.inmind.services.muf.components.osgi.LaunchpadStarterController;
 import edu.cmu.inmind.services.muf.data.OSGiService;
 import edu.cmu.inmind.services.muf.inputs.LaunchpadInput;
 import edu.cmu.inmind.services.muf.inputs.ServiceRegistryInput;
 import edu.cmu.inmind.services.muf.outputs.LaunchpadOutput;
-import java.util.Arrays;
 import java.util.Map;
 import org.osgi.framework.ServiceReference;
 

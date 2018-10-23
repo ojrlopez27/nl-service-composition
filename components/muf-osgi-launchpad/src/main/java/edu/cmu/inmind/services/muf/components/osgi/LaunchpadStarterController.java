@@ -28,12 +28,18 @@ public class LaunchpadStarterController {
     public void startService(OSGiService osGiService) {
         Log4J.info(this, "Inside LaunchpadStarter.startService() for "
                 + osGiService.getServiceName() + " at "
-                + osGiService.getServiceLevel());
+                + osGiService.getServiceLevel() + " from "
+                + osGiService.getHostOBR());
 
         // ask launchpad starter to start the service
-        launchpadStarter.startService(osGiService.getServiceName(), Integer.parseInt(osGiService.getServiceLevel()));
+        launchpadStarter.startService(
+                osGiService.getHostOBR(),
+                osGiService.getServiceName(),
+                Integer.parseInt(osGiService.getServiceLevel())
+        );
     }
 
+    /*
     public void startService(String service, Number level) {
         Log4J.info(this, "Inside LaunchpadStarter.startService() for "
                 + service + " at " + level);
@@ -41,6 +47,7 @@ public class LaunchpadStarterController {
         // ask launchpad starter to start the service
         launchpadStarter.startService(service, level.intValue());
     }
+    */
 
     public void listServices() {
         Log4J.info(this, "Inside LaunchpadStarter.listServices()");
