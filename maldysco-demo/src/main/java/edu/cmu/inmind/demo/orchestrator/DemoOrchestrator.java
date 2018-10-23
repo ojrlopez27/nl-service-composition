@@ -1,8 +1,6 @@
 package edu.cmu.inmind.demo.orchestrator;
 
 import edu.cmu.inmind.demo.common.DemoConstants;
-import edu.cmu.inmind.demo.data.LaunchpadInput;
-import edu.cmu.inmind.demo.data.OSGiService;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
@@ -14,6 +12,8 @@ import edu.cmu.inmind.multiuser.controller.orchestrator.ProcessOrchestratorImpl;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 import edu.cmu.inmind.multiuser.controller.session.Session;
 import edu.cmu.inmind.multiuser.log.LogC;
+import edu.cmu.inmind.services.muf.data.OSGiService;
+import edu.cmu.inmind.services.muf.inputs.LaunchpadInput;
 
 /**
  * Created for demo : sakoju 10/4/2018
@@ -49,28 +49,19 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
             // if the request type is of the launchpad
             case DemoConstants.MSG_LAUNCHPAD:
                 LaunchpadInput launchpadInput =
-                        new LaunchpadInput(
-                                sessionMessage.getMessageId(),
-                                CommonUtils.fromJson(sessionMessage.getPayload(), OSGiService.class)
-                        );
+                        CommonUtils.fromJson(sessionMessage.getPayload(), LaunchpadInput.class);
                 blackboard.post(this, DemoConstants.MSG_LP_INPUT_CMD, launchpadInput);
                 break;
             case DemoConstants.MSG_LP_START_SERVICE:
-                LaunchpadInput launchpadInputMessage =
-                        new LaunchpadInput(
-                                sessionMessage.getMessageId(),
-                                CommonUtils.fromJson(sessionMessage.getPayload(), OSGiService.class)
-                        );
-                blackboard.post(this, DemoConstants.MSG_LP_START_SERVICE, launchpadInputMessage);
+                launchpadInput =
+                        CommonUtils.fromJson(sessionMessage.getPayload(), LaunchpadInput.class);
+                blackboard.post(this, DemoConstants.MSG_LP_START_SERVICE, launchpadInput);
                 break;
             // Merging Ankit's changes ******************END
 
             case DemoConstants.MSG_LP_LIST_SERVICES:
                 LaunchpadInput launchpadInputMsg =
-                        new LaunchpadInput(
-                                sessionMessage.getMessageId(),
-                                CommonUtils.fromJson(sessionMessage.getPayload(), OSGiService.class)
-                        );
+                    CommonUtils.fromJson(sessionMessage.getPayload(), LaunchpadInput.class);
                 blackboard.post(this, DemoConstants.MSG_LP_START_SERVICE, launchpadInputMsg);
                 break;
             default:
@@ -92,9 +83,6 @@ public class DemoOrchestrator extends ProcessOrchestratorImpl {
             case DemoConstants.MSG_SEND_TO_CLIENT:
                     sendResponse(CommonUtils.toJson(event.getElement()));
                     break;
-            case DemoConstants.MSG_RECEIVE_S2V:
-                //ideally call CompositionController to send the results.but for now just print.
-                Log4J.info(this, ((SessionMessage)event.getElement()).getPayload());
             case DemoConstants.MSG_USER_VALIDATION_SUCCCES:
                 sendResponse(event.getElement());
                 break;

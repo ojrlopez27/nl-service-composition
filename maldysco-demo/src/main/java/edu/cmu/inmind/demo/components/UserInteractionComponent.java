@@ -18,20 +18,33 @@ import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 public class UserInteractionComponent extends PluggableComponent {
 
 
+    /***
+     * Valid user login
+     * @param username
+     * @param blackboard
+     */
     private void checkUserLogin(String username, Blackboard blackboard){
         String validate = Schedule.validate(username);
-        if(validate.equals(Schedule.USER_ID_NOT_EXISTS))
-            validate = "Wrong MKT id, please try again!";
-        else if(validate.equals(Schedule.TOO_EARLY))
+        String messageRequest = "";
+        if(validate.equals(Schedule.USER_ID_NOT_EXISTS)) {
+            validate = "Wrong id, please try again!";
+            messageRequest = DemoConstants.MSG_USER_VALIDATION_ERROR;
+        }
+        else if(validate.equals(Schedule.TOO_EARLY)) {
             validate = "You have connected too early, please come back at your scheduled time!";
-        else if(validate.equals(Schedule.TOO_LATE))
+            messageRequest = DemoConstants.MSG_USER_VALIDATION_ERROR;
+        }
+        else if(validate.equals(Schedule.TOO_LATE)) {
             validate = "Sorry, you have connected too late, please request another time slot through the doodle!";
+            messageRequest = DemoConstants.MSG_USER_VALIDATION_ERROR;
+        }
         else
         {
             validate = "Session "+username + " has been successfully created. Initiate chat to start the user study.";
-            blackboard.post(this, DemoConstants.MSG_USER_VALIDATION_SUCCCES,
-                    new SessionMessage(DemoConstants.MSG_USER_VALIDATION_SUCCCES, validate));
+            messageRequest = DemoConstants.MSG_USER_VALIDATION_SUCCCES;
         }
+        blackboard.post(this, messageRequest,
+                new SessionMessage(messageRequest, validate));
     }
 
     @Override

@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * Created by oscarr on 8/16/18.
  */
-//TODO: we need to use a proper semantic mechanism (e.g., WordNet?, Word2Vec, etc.) that provides related words by similarity
 public class SemanticController {
     private static List<List<String>> synonyms = new ArrayList<>();
 

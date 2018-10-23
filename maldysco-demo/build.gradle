@@ -28,9 +28,9 @@ dependencies {
     compile group: 'org.jeasy', name: 'easy-rules-mvel', version: '3.2.0'
     compile 'edu.cmu.inmind.framework.multiuser:muf:3.0.55:all'
     compile group: "${servicesGroup}", name: 'smw-muf-commons', version: "${smwMUFCommonsVersion}"
-    compile group: "${middlewareGroup}", name: 'middleware-data', version: "${middlewareDataVersion}"
     compile group: "${servicesGroup}", name: 'java-binder', version: "${javaBinderVersion}"
-    compile group: "${servicesGroup}", name: 'smw-muf-commons', version: "${smwMUFCommonsVersion}"
+    compile group: "${middlewareGroup}", name: 'middleware-data', version: "${middlewareDataVersion}"
+    compile group: "${servicesGroup}", name: 'muf-service-registry', version: "${mufServiceRegistryVersion}"
 }
 
 jar {

@@ -58,7 +58,6 @@ public class NERComponent extends PluggableComponent {
                 Log4J.info(this, message.getPayload());
                 List<NERPojo> nerPojoList = NERController.extractEntities(message.getPayload());
                 Log4J.info(this, "Entities (annotations) identified "+nerPojoList.size());
-                //TODO: now that entities are identified, process remaining : service mapping, service execution,
         }
     }
 

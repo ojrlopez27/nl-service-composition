@@ -3,7 +3,6 @@ package edu.cmu.inmind.demo.client;
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.demo.common.Utils;
 import edu.cmu.inmind.demo.data.LaunchpadMessage;
-import edu.cmu.inmind.demo.data.OSGiService;
 import edu.cmu.inmind.multiuser.communication.ClientCommController;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
@@ -11,6 +10,7 @@ import edu.cmu.inmind.multiuser.controller.communication.ResponseListener;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.log.LogC;
+import edu.cmu.inmind.services.muf.data.OSGiService;
 
 import java.util.Scanner;
 
@@ -97,14 +97,15 @@ public class MockDemoClient {
     }
 
     /***
-     * ResponseListener : custom implementation on receiving a message: eg: if user has to reply Y/N etc.
+     * ResponseListener : implementation on receiving a message: eg: if user has to reply Y/N etc.
      */
     public class ClientResponseListener implements ResponseListener {
         @Override
         public void process(String message) {
-            LogC.info(this,
-                    "Client Response Listener" + message);
             SessionMessage sessionMessage = CommonUtils.fromJson(message, SessionMessage.class);
+            LogC.info(this,
+                    "Client Response Listener" + sessionMessage.getMessageId()+
+                            " "+sessionMessage.getPayload());
             switch (sessionMessage.getRequestType()) {
                 case Constants.SESSION_INITIATED:
                     Log4J.info(this, "Connected to server: " + sessionMessage.getPayload());
@@ -180,15 +181,15 @@ public class MockDemoClient {
             {
                 Log4J.info(mockDemoClient, "login");
                 mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
-                    new SessionMessage(DemoConstants.MSG_CHECK_USER_ID,
-                            mockDemoClient.sessionID));
+                    CommonUtils.toJson(new SessionMessage(DemoConstants.MSG_CHECK_USER_ID,
+                            mockDemoClient.sessionID)));
             }
             else if(input.contains("ready"))
             {
                 Log4J.info(mockDemoClient, "ready");
                 mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
-                        new SessionMessage(DemoConstants.MSG_GROUP_CHAT_READY,
-                                mockDemoClient.sessionID));
+                        CommonUtils.toJson(new SessionMessage(DemoConstants.MSG_GROUP_CHAT_READY,
+                                mockDemoClient.sessionID)));
             }
             else if (input.equals("disconnect")) {
                 mockDemoClient.clientCommController.disconnect(mockDemoClient.sessionID);
@@ -197,7 +198,8 @@ public class MockDemoClient {
             {
                 Log4J.info(mockDemoClient, "others");
                 mockDemoClient.clientCommController.send(mockDemoClient.sessionID,
-                        new SessionMessage(DemoConstants.MSG_PROCESS_USER_ACTION, input));
+                        CommonUtils.toJson(new SessionMessage(DemoConstants.MSG_PROCESS_USER_ACTION,
+                                input)));
             }
         }
         System.exit(0);

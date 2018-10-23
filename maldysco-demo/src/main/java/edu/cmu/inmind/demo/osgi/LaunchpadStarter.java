@@ -18,6 +18,7 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.framework.wiring.BundleRevision;
 import org.osgi.resource.Capability;
 
+import static edu.cmu.inmind.demo.osgi.LaunchpadConstants.*;
 import static org.apache.felix.bundlerepository.impl.RepositoryAdminImpl.REPOSITORY_URL_PROP;
 
 /**
@@ -65,7 +66,7 @@ public class LaunchpadStarter {
     }
 
     public ServiceReference[] getAllServices (boolean registeredOnly) {
-        if (felixFramework == null) throw new RuntimeException(LaunchpadConstants.FRAMEWORK_NOT_INITIALIZED);
+        if (felixFramework == null) throw new RuntimeException(FRAMEWORK_NOT_INITIALIZED);
         if (registeredOnly) {
             return felixFramework.getRegisteredServices();
         }
@@ -85,7 +86,7 @@ public class LaunchpadStarter {
     }
 
     public String getImplementation(String apiName) {
-        if (felixFramework == null) throw new RuntimeException(LaunchpadConstants.FRAMEWORK_NOT_INITIALIZED);
+        if (felixFramework == null) throw new RuntimeException(FRAMEWORK_NOT_INITIALIZED);
         ServiceReference sref = felixFramework.getBundleContext().getServiceReference(apiName);
         return felixFramework.getBundleContext().getService(sref).getClass().getName();
     }
@@ -98,7 +99,7 @@ public class LaunchpadStarter {
     }
 
     public ServiceReference[] getImplementations(String apiName, String filter) {
-        if (felixFramework == null) throw new RuntimeException(LaunchpadConstants.FRAMEWORK_NOT_INITIALIZED);
+        if (felixFramework == null) throw new RuntimeException(FRAMEWORK_NOT_INITIALIZED);
 
         try {
             return felixFramework.getBundleContext().getServiceReferences(apiName, filter);
@@ -134,10 +135,19 @@ public class LaunchpadStarter {
         felixFramework = null;
     }
 
+    public static boolean bundleHasServices(ServiceReference[] serviceReferences) {
+        return (serviceReferences != null && serviceReferences.length > 0);
+    }
+
     public ServiceReference[] getServices(String bundleName, boolean preprocess) throws InvalidSyntaxException {
         Bundle bundle = getBundle(bundleName);
         ServiceReference[] bundleServices = bundle.getRegisteredServices();
-        System.out.println("Bundle: " + bundle + " has services: " + Arrays.toString(bundleServices));
+        if (bundleHasServices(bundleServices)) {
+            System.out.println("Bundle: " + bundle + " has " + bundleServices.length + " services: " + Arrays.toString(bundleServices));
+        }
+        else {
+            System.out.println("Bundle: " + bundle + " has no services.");
+        }
         return bundleServices;
     }
 
@@ -168,7 +178,7 @@ public class LaunchpadStarter {
 
     private void validateFelixFrameworkInitialized() {
         if (felixFramework != null) {
-            throw new RuntimeException(LaunchpadConstants.FRAMEWORK_ALREADY_INIT);
+            throw new RuntimeException(FRAMEWORK_ALREADY_INIT);
         }
     }
 
@@ -212,7 +222,7 @@ public class LaunchpadStarter {
      * Prints the list of system capabilities available to the Felix framework.
      */
     private void printOSGiCapabilities() {
-        logger.d(TAG, LaunchpadConstants.OSGI_EE + " capabilities: " + getOSGiCapabilities());
+        logger.d(TAG, OSGI_EE + " capabilities: " + getOSGiCapabilities());
     }
 
     /**
@@ -225,13 +235,13 @@ public class LaunchpadStarter {
         Felix felix = felixFramework.getFelixInstance();
         Bundle bundle = felix.getBundleContext().getBundle(0);
         BundleRevision bundleRevision = bundle.adapt(BundleRevision.class);
-        return bundleRevision.getCapabilities(LaunchpadConstants.OSGI_EE);
+        return bundleRevision.getCapabilities(OSGI_EE);
     }
 
     private void switchFrameworkLevel(int toLevel) {
         String level = Integer.toString(toLevel);
-        executeCommand(String.format("%s -i %s", LaunchpadConstants.FELIX_CMD_BUNDLE_LEVEL, level));
-        executeCommand(String.format("%s %s", LaunchpadConstants.FELIX_CMD_START_LEVEL, level));
+        executeCommand(String.format("%s -i %s", FELIX_CMD_BUNDLE_LEVEL, level));
+        executeCommand(String.format("%s %s", FELIX_CMD_START_LEVEL, level));
         logger.d(TAG, "Felix Framework layer switched to: " + level);
     }
 
@@ -263,7 +273,7 @@ public class LaunchpadStarter {
      */
     private void initRemoteServerObrs() {
         remoteServerObrs = new ArrayList<>();
-        remoteServerObrs.add(RepositoryManager.getRemoteServerOBR(LaunchpadConstants.URL_OBR_INMIND_OSGI_CORE));
+        remoteServerObrs.add(RepositoryManager.getRemoteServerOBR(URL_OBR_INMIND_OSGI_CORE));
         //remoteServerObrs.add(RepositoryManager.getRemoteServerOBR(URL_OBR_INMIND));
     }
 

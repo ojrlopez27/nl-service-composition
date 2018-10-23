@@ -32,11 +32,13 @@ public class CompositionController {
     private List<Rule> ruleListAS, ruleListGS;
     private ServiceExecutor serviceExecutor;
 
+    private static CompositionController compositionController;
+
     static{
         NERController.init();
     }
 
-    public CompositionController(){
+    private CompositionController(){
         Log4J.debug(TAG, "Initializing CompositionController...");
         wm = new WorkingMemory();
         rulesAS = new Rules();
@@ -47,6 +49,15 @@ public class CompositionController {
         ruleListAS = new ArrayList<>();
         ruleListGS = new ArrayList<>();
         serviceExecutor = new ServiceExecutor(wm);
+    }
+
+    public static CompositionController getInstance()
+    {
+        if(compositionController==null)
+        {
+            compositionController = new CompositionController();
+        }
+        return compositionController;
     }
 
     public void addGoal(String goal) {

@@ -10,14 +10,19 @@ public class DemoConstants {
     public static final String ID_S2V = "ID_S2V";
     public static final String ID_RULE_ENGINE = "ID_RULE_ENGINE";
     public static final String ID_USERLOGIN = "ID_USERLOGIN";
+    public static final String ID_SERVICE_MAP = "ID_SERVICE_MAP";
+    public static final String ID_SERVICE_EXECUTION = "ID_SERVICE_EXECUTION";
+
     public static final String MSG_SEND_TO_CLIENT = "MSG_SEND_TO_CLIENT";
     public static final String MSG_SEND_TO_S2V = "MSG_SEND_TO_S2V";
     public static final String MSG_RECEIVE_S2V = "MSG_RECEIVE_S2V";
     public static final String MSG_SEND_TO_NER = "MSG_SEND_TO_NER";
     public static final String EMPTY_S2V = "EMPTY_S2V";
-
-    public static String STEP_START ="STEP_START";
     public static String STEP_END ="STEP_END";
+    public static final String MSG_GET_SERVICE_MAP ="MSG_GET_SERVICE_MAP";
+    public static final String MSG_SERVICE_EXECUTION ="MSG_SERVICE_EXECUTION";
+    public static final String MSG_SEND_SERVICE_MAP ="MSG_SEND_SERVICE_MAP";
+
 
     /***
      * Merging Ankit's changes
@@ -42,6 +47,14 @@ public class DemoConstants {
 
     // OSGi Service Messages
     public static final String MSG_OSGI_SERVICE_DEPLOYED = "MSG_OSGI_SERVICE_DEPLOYED";
+    // Service Registry Messages: return object after service registry method invocations
+    public static final String MSG_SR_RESP_INITIALIZE           = "MSG_SR_RESP_INITIALIZE";             // response when the service registry has been initialized
+    public static final String MSG_SR_RESP_REGISTER_SERVICE     = "MSG_SR_RESP_REGISTER_SERVICE";       // response when a service has been registered
+    public static final String MSG_SR_RESP_GET_SERVICE_BY_KEY   = "MSG_SR_RESP_GET_SERVICE_BY_KEY";     // response after the service pair has been found in registry
+    public static final String MSG_SR_RESP_GET_SERVICE_BY_POJO  = "MSG_SR_RESP_GET_SERVICE_BY_POJO";    // response after the service pair has been found in registry
+    public static final String MSG_LP_GET_ALL_SERVICES      = "MSG_LP_GET_ALL_SERVICES";            // retrieve all service references from launchpad for service registration
+    public static final String MSG_LP_GET_SERVICE_IMPL      = "MSG_LP_GET_SERVICE_IMPL";            // retrieve a service object from the Felix framework via launchpad
+
     // Merging Ankit's changes ***** END
 
 
@@ -66,11 +79,11 @@ public class DemoConstants {
     public static final String HIGH_BATTERY_SERVICE = "HIGH_BATTERY_SERVICE";
 
     public static final String EOS = "<eos>";
-    public static final String END = "END";
     public static final String DONE = "DONE";
 
     public static final String MSG_CHECK_USER_ID = "MSG_CHECK_USER_ID";
     public static final String MSG_USER_VALIDATION_SUCCCES = "MSG_USER_VALIDATION_SUCCCES";
+    public static final String MSG_USER_VALIDATION_ERROR = "MSG_USER_VALIDATION_ERROR";
     public static final String MSG_PROCESS_USER_ACTION = "MSG_PROCESS_USER_ACTION";
     public static final String MSG_GROUP_CHAT_READY="MSG_GROUP_CHAT_READY";
 

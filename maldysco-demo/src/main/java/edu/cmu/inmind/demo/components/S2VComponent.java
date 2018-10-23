@@ -88,8 +88,7 @@ public class S2VComponent extends PluggableComponent {
                     SessionMessage message = (SessionMessage) blackboardEvent.getElement();
                     sendS2V(message.getPayload());
                     this.blackboard = blackboard;
-                    String response = receiveS2V();
-                //TODO: now that entities are identified, process remaining : service mapping, service execution, checkRules
+                    receiveS2V();
                 break;
              default:
                     break;

@@ -1,40 +1,32 @@
 package edu.cmu.inmind.demo.osgi;
 
-import edu.cmu.inmind.demo.data.OSGiService;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
-import java.util.ArrayList;
-import java.util.List;
+import edu.cmu.inmind.services.muf.data.OSGiService;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceReference;
+
+import java.util.Map;
+
+import static edu.cmu.inmind.demo.osgi.LaunchpadConstants.FELIX_CMD_PS;
 
 /***
  * Merging Ankit's changes
  */
 public class LaunchpadStarterController {
     LaunchpadStarter launchpadStarter;
-    List<OSGiService> osGiServiceList;
-    boolean debug = Boolean.TRUE;
 
     public void initFramework() {
         Log4J.info(this, "Inside LaunchpadStarter.initFramework()");
 
-        if (debug) {
-
-            // initialize launchpad starter
-            launchpadStarter = LaunchpadStarter.getInstance();
-        }
-
-        osGiServiceList = new ArrayList<>();
+        // initialize launchpad starter
+        launchpadStarter = LaunchpadStarter.getInstance();
     }
 
     public void stopFramework() {
         Log4J.info(this, "Inside LaunchpadStarter.stopFramework()");
 
-        if (debug) {
-
-            // if there's an exception that can be caught, stop the felix framework
-            LaunchpadStarter.getInstance().stopFelixFramework();
-        }
-
-        osGiServiceList = null;
+        // if there's an exception that can be caught, stop the felix framework
+        LaunchpadStarter.getInstance().stopFelixFramework();
     }
 
     public void startService(OSGiService osGiService) {
@@ -42,38 +34,38 @@ public class LaunchpadStarterController {
                 + osGiService.getServiceName() + " at "
                 + osGiService.getServiceLevel());
 
-        if (debug) {
-
-            // ask launchpad starter to start the service
-            launchpadStarter.startService(osGiService.getServiceName(), Integer.parseInt(osGiService.getServiceLevel()));
-        }
-
-        osGiServiceList.add(osGiService);
+        // ask launchpad starter to start the service
+        launchpadStarter.startService(osGiService.getServiceName(), Integer.parseInt(osGiService.getServiceLevel()));
     }
 
     public void startService(String service, Number level) {
         Log4J.info(this, "Inside LaunchpadStarter.startService() for "
                 + service + " at " + level);
 
-        if (debug) {
-
-            // ask launchpad starter to start the service
-            launchpadStarter.startService(service, level.intValue());
-        }
-
-        //osGiServiceList.add(new OSGiService(service, level));
+        // ask launchpad starter to start the service
+        launchpadStarter.startService(service, level.intValue());
     }
 
     public void listServices() {
         Log4J.info(this, "Inside LaunchpadStarter.listServices()");
 
-        if (debug) {
+        // ask launchpad to list the bundles
+        launchpadStarter.executeCommand(FELIX_CMD_PS);
+    }
 
-            // ask launchpad to list the bundles
-            launchpadStarter.executeCommand(LaunchpadConstants.FELIX_CMD_PS);
-        }
+    public ServiceReference[] getServices(OSGiService osGiService) throws InvalidSyntaxException {
+        return launchpadStarter.getServices(osGiService.getServiceName(), Boolean.FALSE);
+    }
 
-        System.out.println(osGiServiceList);
+    public Object getImplementation(ServiceReference serviceReference) {
+        Log4J.info(this, "Inside LaunchpadStarter.getImplementation() for " + serviceReference);
+        return launchpadStarter.getImplementation(serviceReference);
+    }
 
+    public Map<ServiceReference, Object> getAllServiceImplementations() {
+        Log4J.info(this, "Inside LaunchpadStarter.getAllServiceImplementations()");
+
+        // retrieve all service references and implementations from launchpad
+        return launchpadStarter.getAllServiceImplementations();
     }
 }

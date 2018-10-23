@@ -2,7 +2,6 @@ package edu.cmu.inmind.demo.components;
 
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.demo.common.Node;
-import edu.cmu.inmind.demo.common.ServiceMethod;
 import edu.cmu.inmind.demo.common.Utils;
 import edu.cmu.inmind.demo.controllers.CompositionController;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
@@ -17,17 +16,16 @@ import edu.cmu.inmind.multiuser.controller.plugin.StateType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created for demo : sakoju 10/4/2018
  */
 @StateType(state = Constants.STATELESS)
 @BlackboardSubscription(messages =  {DemoConstants.MSG_GROUP_CHAT_READY,
-        DemoConstants.MSG_PROCESS_USER_ACTION, DemoConstants.MSG_RECEIVE_S2V})
+        DemoConstants.MSG_PROCESS_USER_ACTION, DemoConstants.MSG_RECEIVE_S2V,
+        DemoConstants.MSG_SERVICE_EXECUTION})
 public class RuleEngineComponent extends PluggableComponent {
     private CompositionController compositionController;
-    private Map<String, ServiceMethod> serviceMap;
 
     // scenarios
     private List<String> scenarios = Arrays.asList(
@@ -45,9 +43,9 @@ public class RuleEngineComponent extends PluggableComponent {
 
     // private ServiceExecutor serviceExecutor;
     @Override
-    public void onEvent(Blackboard blackboard, BlackboardEvent blackboardEvent) throws Throwable {
+    public void onEvent(Blackboard blackboard, BlackboardEvent event) throws Throwable {
         this.blackboard = blackboard;
-        switch(blackboardEvent.getId()) {
+        switch(event.getId()) {
             //Android Phone app's GroupChannel chat is ready ?
             case DemoConstants.MSG_GROUP_CHAT_READY :
                 String response = String.format("Thanks! let's start. Consider this scenario: %s. What is the first thing you " +
@@ -57,15 +55,29 @@ public class RuleEngineComponent extends PluggableComponent {
                 postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT, response);
                 break;
             case DemoConstants.MSG_PROCESS_USER_ACTION:
-                processUserAction((String) blackboardEvent.getElement());
+                processUserAction((String) event.getElement());
                 break;
             case DemoConstants.MSG_RECEIVE_S2V:
-                Log4J.info(this, "S2V received "+blackboardEvent.getElement().toString());
-                SessionMessage sessionMessage = (SessionMessage)  blackboardEvent.getElement();
+                Log4J.info(this, "S2V received "+event.getElement().toString());
+                SessionMessage sessionMessage = (SessionMessage)  event.getElement();
                 absServiceCandidates = sessionMessage.getPayload();
                 // TODO: Now that service mapping, service execution are done,
                 // TODO: check Rules, identify Sequence and send result to User
                 processUserActionOnS2V();
+            case DemoConstants.MSG_SERVICE_EXECUTION:
+                /***
+                 * So now send the service execution results to client
+                 */
+                String[] result = (String[]) event.getElement();
+                response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
+                                "Is that what you would want your IPA to do (Y/N)?",
+                        Utils.splitByCapitalizedWord(result[0].replace("Service", ""),
+                                false),
+                        Utils.splitByCapitalizedWord(result[1], true));
+                Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL0, response));
+                stage = DemoConstants.ASK_FOR_APP_CONFIRMATION_STAGE;
+                postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT, response);
+                break;
             default:
                 break;
         }
@@ -75,8 +87,7 @@ public class RuleEngineComponent extends PluggableComponent {
     @Override
     protected void startUp() {
         super.startUp();
-        compositionController = new CompositionController();
-        serviceMap = Utils.generateCorporaFromMethods(false);
+        compositionController = CompositionController.getInstance();
     }
 
     @Override
@@ -199,16 +210,11 @@ public class RuleEngineComponent extends PluggableComponent {
         compositionController.addStepAndRegister(userAction, absServiceCandidates);
         compositionController.fireRulesAS();
         resetAbstractServiceCandidates();
-
-        String[] result = compositionController.execute(serviceMap);
-        String response = String.format("Your IPA would open this app: [%s] and execute this action: [%s]. " +
-                        "Is that what you would want your IPA to do (Y/N)?",
-                Utils.splitByCapitalizedWord(result[0].replace("Service", ""),
-                        false),
-                Utils.splitByCapitalizedWord(result[1], true));
-        Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL0, response));
-        stage = DemoConstants.ASK_FOR_APP_CONFIRMATION_STAGE;
-        postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT, response);
+        /***
+         * add, check and fire rules and now let's get service map
+         */
+        blackboard.post(this, DemoConstants.MSG_GET_SERVICE_MAP,
+                DemoConstants.MSG_GET_SERVICE_MAP);
     }
 
     /***

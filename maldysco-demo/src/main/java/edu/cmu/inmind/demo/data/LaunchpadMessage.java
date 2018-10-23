@@ -3,6 +3,7 @@ package edu.cmu.inmind.demo.data;
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
+import edu.cmu.inmind.services.muf.data.OSGiService;
 
 /***
  * Merging Ankit's changes

@@ -1,7 +1,8 @@
 package edu.cmu.inmind.demo.client;
 
-import edu.cmu.inmind.demo.data.OSGiService;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
+import edu.cmu.inmind.services.muf.data.OSGiService;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
