@@ -23,6 +23,7 @@ import static edu.cmu.inmind.services.muf.components.osgi.LaunchpadConstants.FEL
 import static edu.cmu.inmind.services.muf.components.osgi.LaunchpadConstants.FRAMEWORK_ALREADY_INIT;
 import static edu.cmu.inmind.services.muf.components.osgi.LaunchpadConstants.FRAMEWORK_NOT_INITIALIZED;
 import static edu.cmu.inmind.services.muf.components.osgi.LaunchpadConstants.OSGI_EE;
+import static edu.cmu.inmind.services.muf.components.osgi.LaunchpadConstants.URL_OBR_INMIND_MUF;
 import static edu.cmu.inmind.services.muf.components.osgi.LaunchpadConstants.URL_OBR_INMIND_OSGI_CORE;
 import static org.apache.felix.bundlerepository.impl.RepositoryAdminImpl.REPOSITORY_URL_PROP;
 
@@ -279,6 +280,7 @@ public class LaunchpadStarter {
     private void initRemoteServerObrs() {
         remoteServerObrs = new ArrayList<>();
         remoteServerObrs.add(RepositoryManager.getRemoteServerOBR(URL_OBR_INMIND_OSGI_CORE));
+        remoteServerObrs.add(RepositoryManager.getRemoteServerOBR(URL_OBR_INMIND_MUF));
         //remoteServerObrs.add(RepositoryManager.getRemoteServerOBR(URL_OBR_INMIND));
     }
 
