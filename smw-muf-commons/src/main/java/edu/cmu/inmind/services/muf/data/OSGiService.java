@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class OSGiService {
 
+    private String hostOBR;
     private String name;
     private String level;
     private Date deploymentDate;
@@ -14,11 +15,22 @@ public class OSGiService {
         this.level = serviceLevel;
     }
 
-    public OSGiService(String serviceName, String serviceLevel, Date deploymentDate, Boolean autoUpdate) {
+    public OSGiService(String hostOBR, String serviceName, String serviceLevel,
+                       Date deploymentDate, Boolean autoUpdate) {
+
+        this.hostOBR = hostOBR;
         this.name = serviceName;
         this.level = serviceLevel;
         this.deploymentDate = deploymentDate;
         this.autoUpdate = autoUpdate;
+    }
+
+    public String getHostOBR() {
+        return hostOBR;
+    }
+
+    public void setHostOBR(String hostOBR) {
+        this.hostOBR = hostOBR;
     }
 
     public String getServiceName() {
@@ -56,7 +68,8 @@ public class OSGiService {
     @Override
     public String toString() {
         return "OSGiService{" +
-                "name='" + name + '\'' +
+                "hostOBR='" + hostOBR + '\'' +
+                ", name='" + name + '\'' +
                 ", level='" + level + '\'' +
                 ", deploymentDate=" + deploymentDate +
                 ", autoUpdate=" + autoUpdate +
