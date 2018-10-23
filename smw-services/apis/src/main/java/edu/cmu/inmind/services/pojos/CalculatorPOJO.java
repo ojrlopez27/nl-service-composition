@@ -1,8 +1,13 @@
 package edu.cmu.inmind.services.pojos;
 
+import edu.cmu.inmind.services.apis.CalculatorService;
 import edu.cmu.inmind.services.commons.GenericPOJO;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalculatorPOJO extends GenericPOJO {
+
+    private static final String ERR_TRANSFORM_UNSUPPORTED = "Invalid operation specified to CalculatorPOJO: ";
 
     private Number one;
     private Number two;
@@ -36,6 +41,22 @@ public class CalculatorPOJO extends GenericPOJO {
 
     public Number getResult() {
         return result;
+    }
+
+    @Override
+    public List<Object> transform() {
+        List<Object> parameters = new ArrayList<>();
+        switch (this.operation) {
+            case CalculatorService.CALCULATOR_SUM:
+            case CalculatorService.CALCULATOR_MULTIPLY: {
+                parameters.add(this.getOne());
+                parameters.add(this.getTwo());
+                break;
+            }
+            default:
+                throw new UnsupportedOperationException(ERR_TRANSFORM_UNSUPPORTED + this.operation);
+        }
+        return parameters;
     }
 
     public class CalculatorPOJOBuilder extends PojoBuilder {

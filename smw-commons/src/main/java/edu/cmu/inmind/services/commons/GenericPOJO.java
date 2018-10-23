@@ -1,11 +1,15 @@
 package edu.cmu.inmind.services.commons;
 
+import java.util.List;
+
 /**
  * GenericPOJO is useful to define generic types for parameters and return types in bundles
  *
  * Created by oscarr on 2/12/18.
  */
 public class GenericPOJO {
+
+    private static final String ERR_TRANSFORM_UNSUPPORTED = "GenericPOJO cannot be transformed: no valid operation.";
 
     /**
      * Unique identifier for the bundle/service. This must correspond to the id defined in the BundleAPI
@@ -66,6 +70,16 @@ public class GenericPOJO {
      */
     public String getAlias() {
         return alias;
+    }
+
+    /**
+     * Returns a <code>List</code> of <code>Object</code> for the parameters
+     * for the method as specified by the method name that describes this POJO.
+     * The order of the parameters needs to be ensured.
+     * @return
+     */
+    public List<Object> transform() {
+        throw new UnsupportedOperationException(ERR_TRANSFORM_UNSUPPORTED);
     }
 
     /**
