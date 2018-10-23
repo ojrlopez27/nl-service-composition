@@ -1,0 +1,12 @@
+Bundle-Name: Integer Calculator
+Bundle-SymbolicName: edu.cmu.inmind.osgi.calculator-integer
+Bundle-Description: Integer Calculator Services provides implementation for integers to Calculator Service.
+Bundle-Activator: edu.cmu.inmind.services.osgi.calculator.activator.IntegerCalculatorActivator
+Bundle-Vendor: CMU InMind Project
+Bundle-Version: 1.0.0
+Bundle-ManifestVersion: 2
+Export-Package: edu.cmu.inmind.services.osgi.calculator.activator, edu.cmu.inmind.services.osgi.calculator.impl
+Import-Package: edu.cmu.inmind.osgi.commons.markers;version="2.0.1",
+    edu.cmu.inmind.services.apis;version="1.0.0",
+    edu.cmu.inmind.services.pojos;version="1.0.0",
+    edu.cmu.inmind.osgi.core.main;version="2.0.1"

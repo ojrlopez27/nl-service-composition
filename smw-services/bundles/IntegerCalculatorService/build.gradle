@@ -1,0 +1,124 @@
+
+plugins {
+    id "com.athaydes.osgi-run" version "1.6.0"
+    id "org.dm.bundle" version "0.10.0"
+}
+
+group "${calcIntegerGroup}"
+version "${calcIntegerArtifactVersion}"
+
+description = """\
+Integer Calculator Service provides implementation for Calculator Service.
+------------------------------------------
+Project version: ${version}
+Gradle version: ${gradle.gradleVersion}
+------------------------------------------
+"""
+
+apply plugin: 'java'
+
+sourceCompatibility = "${sourceCompatibility}"
+
+configurations {
+    deployerJars
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        credentials {
+            username 'inmind'
+            password '2018InMindOath'
+        }
+        url "http://www.cs.cmu.edu/afs/cs/project/inmind-cmu-yahoo/www/maven2"
+    }
+}
+
+configurations.all {
+    // Check for updates every hour.
+    // You can force it to an immediate update by passing 0 instead of 3600
+    resolutionStrategy.cacheChangingModulesFor(0, 'seconds')
+    resolutionStrategy.cacheDynamicVersionsFor(0, 'seconds')
+    resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+}
+
+dependencies {
+    compile group: "${osgiGroup}", name: 'osgi-core', version: "${osgiInmindCoreVersion}"
+    compile group: "${servicesGroup}", name: 'apis', version: "${smwServiceApisVersion}"
+
+    testCompile group: 'junit', name: 'junit', version: "${junitVersion}"
+    deployerJars group: 'org.apache.maven.wagon', name: 'wagon-ssh', version: "${wagonSshVersion}"
+}
+
+jar {
+    dependsOn configurations.runtime
+    manifest {
+        def manif = "${resources}/MANIFEST.MF"
+        if (new File(manif).exists()) {
+            from file(manif)
+        }
+    }
+    baseName = project.name
+    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+    zip64 true
+}
+
+task wrapper (type: Wrapper) {
+    gradleVersion = "${gradleVersion}"
+}
+
+//this is bare minimum task required to run this osgi example
+runOsgi {
+    osgiMain = "org.apache.felix:org.apache.felix.main:${felixVersion}"
+    bundles += project
+}
+
+def osgiBundleDir = 'build/osgi/bundle'
+
+task copyOSGiBundleToBuild (type: Copy) {
+    from("$osgiBundleDir" + File.separator) {
+        include ('**/' + rootProject.name + '-' + version + '.jar')
+    }
+    into("$buildDir" + '/libs')
+    eachFile { path = name }
+    includeEmptyDirs = false;
+}
+
+apply plugin: 'maven'
+
+uploadArchives.dependsOn copyOSGiBundleToBuild
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            configuration = configurations.deployerJars
+            repository(url: "scp://linux.gp.cs.cmu.edu:/afs/cs/project/inmind-cmu-yahoo/www/maven2/") {
+                authentication(userName: mavenUser, password: mavenPassword)
+            }
+
+            pom.project {
+                name 'Calculator-Integer'
+                packaging 'jar'
+                description 'Integer Calculator Service provides implementation for Calculator Service.'
+                pom.version = "${calcIntegerArtifactVersion}"
+                pom.artifactId = "${calcIntegerArtifactId}"
+                pom.groupId = "${calcIntegerGroup}"
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        name 'Ankit Dangi'
+                        email 'adangi@cs.cmu.edu'
+                    }
+                }
+            }
+        }
+    }
+}
