@@ -10,7 +10,7 @@ import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_REGISTER_SERV
 
 public class ServiceRegistryInput extends Command {
     private String serviceKey;
-    private GenericPOJO genericPOJO;
+    private GenericPOJO servicePOJO;
     private OSGiService osGiService;
 
     private ServiceRegistryInput(VanillaBuilder vanillaBuilder) {
@@ -29,7 +29,7 @@ public class ServiceRegistryInput extends Command {
 
     private ServiceRegistryInput(GetServiceByPOJOBuilder getServiceByPOJOBuilder) {
         super(getServiceByPOJOBuilder.command);
-        this.genericPOJO = getServiceByPOJOBuilder.genericPOJO;
+        this.servicePOJO = getServiceByPOJOBuilder.servicePOJO;
     }
 
     public OSGiService getOsGiService() {
@@ -42,9 +42,9 @@ public class ServiceRegistryInput extends Command {
         return serviceKey;
     }
 
-    public GenericPOJO getGenericPOJO() {
+    public GenericPOJO getServicePOJO() {
         validateCommand(MSG_SR_GET_SERVICE_BY_POJO);
-        return genericPOJO;
+        return servicePOJO;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ServiceRegistryInput extends Command {
             case MSG_SR_GET_SERVICE_BY_KEY:
                 return "serviceKey='" + serviceKey + '\'';
             case MSG_SR_GET_SERVICE_BY_POJO:
-                return "genericPOJO=" + genericPOJO;
+                return "servicePOJO=" + servicePOJO;
         }
         return "";
     }
@@ -117,14 +117,14 @@ public class ServiceRegistryInput extends Command {
 
     public static class GetServiceByPOJOBuilder {
         private String command;
-        private GenericPOJO genericPOJO;
+        private GenericPOJO servicePOJO;
 
         public GetServiceByPOJOBuilder(String command) {
             this.command = command;
         }
 
-        public GetServiceByPOJOBuilder setGenericPOJO(GenericPOJO genericPOJO) {
-            this.genericPOJO = genericPOJO;
+        public GetServiceByPOJOBuilder setServicePOJO(GenericPOJO servicePOJO) {
+            this.servicePOJO = servicePOJO;
             return this;
         }
 

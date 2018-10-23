@@ -54,6 +54,10 @@ public class Constants {
     public static final String MSG_SR_RESP_GET_SERVICE_BY_KEY   = "MSG_SR_RESP_GET_SERVICE_BY_KEY";     // response after the service pair has been found in registry
     public static final String MSG_SR_RESP_GET_SERVICE_BY_POJO  = "MSG_SR_RESP_GET_SERVICE_BY_POJO";    // response after the service pair has been found in registry
 
+    // Service Executor Messages: processed by service registry as method invocations
+    public static final String MSG_SE_EXECUTE_OSGI_SERVICE      = "MSG_SE_EXECUTE_OSGI_SERVICE";
+    public static final String MSG_SE_RESP_EXECUTE_OSGI_SERVICE = "MSG_SE_RESP_EXECUTE_OSGI_SERVICE";
+
     // OSGi Service Messages
     public static final String MSG_OSGI_SERVICE_DEPLOYED = "MSG_OSGI_SERVICE_DEPLOYED";
 }
