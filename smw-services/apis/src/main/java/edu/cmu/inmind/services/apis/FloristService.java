@@ -1,6 +1,7 @@
 package edu.cmu.inmind.services.apis;
 
 import edu.cmu.inmind.osgi.commons.markers.BundleAPI;
+import edu.cmu.inmind.services.commons.GenericService;
 import edu.cmu.inmind.services.markers.ArgDesc;
 import edu.cmu.inmind.services.markers.Description;
 import edu.cmu.inmind.services.pojos.FloristPOJO;
@@ -13,7 +14,7 @@ import static edu.cmu.inmind.services.apis.FloristService.SERVICE;
  * Created by oscarr on 8/17/18.
  */
 @BundleAPI(id = SERVICE)
-public interface FloristService extends GenericService{
+public interface FloristService extends GenericService {
 
     /** this is the service id **/
     String SERVICE = "FloristService";

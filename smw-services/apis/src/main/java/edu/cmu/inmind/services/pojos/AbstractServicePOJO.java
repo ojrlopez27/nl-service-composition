@@ -13,6 +13,7 @@ public class AbstractServicePOJO {
     }
 
     public double getSimilarity() {
+
         return similarity;
     }
 

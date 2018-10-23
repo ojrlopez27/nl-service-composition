@@ -1,6 +1,7 @@
 package edu.cmu.inmind.services.apis;
 
 import edu.cmu.inmind.osgi.commons.markers.BundleAPI;
+import edu.cmu.inmind.services.commons.GenericService;
 
 import static edu.cmu.inmind.services.apis.UndefinedService.SERVICE;
 

@@ -1,6 +1,7 @@
 package edu.cmu.inmind.services.apis;
 
 import edu.cmu.inmind.osgi.commons.markers.BundleAPI;
+import edu.cmu.inmind.services.commons.GenericService;
 import edu.cmu.inmind.services.markers.ArgDesc;
 import edu.cmu.inmind.services.markers.Description;
 import edu.cmu.inmind.services.pojos.LocationPOJO;
@@ -12,7 +13,7 @@ import static edu.cmu.inmind.services.apis.TrafficService.SERVICE;
  * Created by oscarr on 8/17/18.
  */
 @BundleAPI(id = SERVICE)
-public interface TrafficService extends GenericService{
+public interface TrafficService extends GenericService {
 
     /** this is the service id **/
     String SERVICE = "TrafficService";

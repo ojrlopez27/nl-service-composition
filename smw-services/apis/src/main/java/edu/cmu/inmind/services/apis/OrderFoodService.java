@@ -1,6 +1,7 @@
 package edu.cmu.inmind.services.apis;
 
 import edu.cmu.inmind.osgi.commons.markers.BundleAPI;
+import edu.cmu.inmind.services.commons.GenericService;
 import edu.cmu.inmind.services.markers.ArgDesc;
 import edu.cmu.inmind.services.markers.Description;
 import edu.cmu.inmind.services.pojos.FoodPOJO;
