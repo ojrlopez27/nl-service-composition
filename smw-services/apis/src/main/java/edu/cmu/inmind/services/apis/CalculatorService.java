@@ -5,6 +5,7 @@ import edu.cmu.inmind.osgi.commons.markers.Feature;
 import edu.cmu.inmind.services.commons.GenericService;
 import edu.cmu.inmind.services.markers.ArgDesc;
 import edu.cmu.inmind.services.markers.Description;
+import edu.cmu.inmind.services.pojos.CalculatorPOJO;
 
 import static edu.cmu.inmind.services.apis.CalculatorService.SERVICE;
 
@@ -34,7 +35,7 @@ public interface CalculatorService extends GenericService {
     @Feature(id = CALCULATOR_SUM,
             description = "This method returns the sum of two numbers",
             keywords = {"add", "summation", "plus"})
-    void add(Number one, Number two);
+    CalculatorPOJO add(Number one, Number two);
 
     @Description(capabilities = {
             "This method multiplies two numbers",
@@ -47,6 +48,6 @@ public interface CalculatorService extends GenericService {
     @Feature(id = CALCULATOR_MULTIPLY,
             description = "This method returns the multiplication of two numbers",
             keywords = {"times", "multiplication", "multiply"})
-    void multiply(Number one, Number two);
+    CalculatorPOJO multiply(Number one, Number two);
 
 }

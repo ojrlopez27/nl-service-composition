@@ -85,7 +85,7 @@ public class GenericPOJO {
     /**
      * Created by oscarr on 4/25/18.
      */
-    public class PojoBuilder {
+    public static class PojoBuilder {
         protected String serviceId;
         protected String alias;
         protected String methodName;

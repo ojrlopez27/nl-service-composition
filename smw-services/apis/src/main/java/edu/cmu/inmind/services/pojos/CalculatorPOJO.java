@@ -59,7 +59,7 @@ public class CalculatorPOJO extends GenericPOJO {
         return parameters;
     }
 
-    public class CalculatorPOJOBuilder extends PojoBuilder {
+    public static class CalculatorPOJOBuilder extends PojoBuilder {
         private Number one;
         private Number two;
         private String operation;
