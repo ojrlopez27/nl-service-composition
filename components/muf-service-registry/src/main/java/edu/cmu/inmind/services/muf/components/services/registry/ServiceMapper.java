@@ -1,11 +1,11 @@
 package edu.cmu.inmind.services.muf.components.services.registry;
 
-import edu.cmu.inmind.framework.middleware.data.generic.GenericPOJO;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.osgi.commons.core.BundleApiInfo;
 import edu.cmu.inmind.osgi.commons.core.BundleImplInfo;
 import edu.cmu.inmind.osgi.commons.utils.CommonUtils;
 import edu.cmu.inmind.osgi.commons.utils.Pair;
+import edu.cmu.inmind.services.commons.GenericPOJO;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

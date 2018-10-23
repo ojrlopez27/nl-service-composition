@@ -1,8 +1,8 @@
 package edu.cmu.inmind.services.muf.components.services.registry;
 
-import edu.cmu.inmind.framework.middleware.data.generic.GenericPOJO;
 import edu.cmu.inmind.osgi.commons.core.BundleApiInfo;
 import edu.cmu.inmind.osgi.commons.core.BundleImplInfo;
+import edu.cmu.inmind.services.commons.GenericPOJO;
 
 /**
  * Created by adangi.
