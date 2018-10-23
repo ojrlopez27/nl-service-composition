@@ -7,12 +7,17 @@ import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
+import edu.cmu.inmind.osgi.commons.core.BundleApiInfo;
+import edu.cmu.inmind.osgi.commons.core.BundleImplInfo;
+import edu.cmu.inmind.osgi.commons.utils.Pair;
+import edu.cmu.inmind.services.commons.GenericPOJO;
 import edu.cmu.inmind.services.muf.components.services.registry.ServiceMapper;
 import edu.cmu.inmind.services.muf.components.services.registry.ServiceRegistryController;
 import edu.cmu.inmind.services.muf.data.OSGiService;
 import edu.cmu.inmind.services.muf.inputs.LaunchpadInput;
 import edu.cmu.inmind.services.muf.inputs.ServiceRegistryInput;
 import edu.cmu.inmind.services.muf.outputs.LaunchpadOutput;
+import edu.cmu.inmind.services.muf.outputs.ServiceRegistryOutput;
 import java.util.Map;
 import org.osgi.framework.ServiceReference;
 
@@ -21,14 +26,17 @@ import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_GET_SERVICE_I
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_INPUT_CMD;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_RESP_GET_ALL_SERVICES;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_LP_RESP_GET_SERVICE_IMPL;
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_GET_SERVICE_BY_POJO;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_INITIALIZE;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_REGISTER_SERVICE;
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_RESP_GET_SERVICE_BY_POJO;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_RESP_REGISTER_SERVICE;
 
 @StateType(state = Constants.STATEFULL)
 @BlackboardSubscription(messages = {
         MSG_SR_INITIALIZE,                      // SR initializes the service registry by mapping all services from launchpad
         MSG_SR_REGISTER_SERVICE,                // SR maps the given service from launchpad
+        MSG_SR_GET_SERVICE_BY_POJO,             // SR returns a service pair to SE
         MSG_LP_RESP_GET_ALL_SERVICES,           // SR asks for all services, so, it listens to the response from launchpad
         MSG_LP_RESP_GET_SERVICE_IMPL            // SR asks for a service's implementation, so, it listens to the response from launchpad
 })
@@ -87,6 +95,21 @@ public class ServiceRegistryComponent extends PluggableComponent {
                                     .build();
 
                     blackboard.post(this, MSG_LP_INPUT_CMD, launchpadInput);
+                    break;
+                }
+
+                case MSG_SR_GET_SERVICE_BY_POJO: {
+
+                    ServiceRegistryInput serviceRegistryInput = (ServiceRegistryInput) blackboardEvent.getElement();
+                    GenericPOJO servicePOJO = serviceRegistryInput.getServicePOJO();
+
+                    Pair<BundleImplInfo, BundleApiInfo> servicePair = ServiceMapper.getServicePair(servicePOJO);
+                    ServiceRegistryOutput serviceRegistryOutput
+                            = new ServiceRegistryOutput.GetServicePairRespBuilder(MSG_SR_RESP_GET_SERVICE_BY_POJO)
+                            .setServicePair(servicePair)
+                            .build();
+
+                    blackboard.post(this, MSG_SR_RESP_GET_SERVICE_BY_POJO, serviceRegistryOutput);
                     break;
                 }
 
