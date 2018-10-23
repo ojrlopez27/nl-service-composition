@@ -26,6 +26,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile ("${mufGroup}:muf:${mufVersion}:all")
+    compile group: "${servicesGroup}", name: 'smw-commons', version: "${smwCommonsVersion}"
     compile group: "${osgiGroup}", name: 'bundle-commons', version: "${bundleCommonsVersion}"
 
     testCompile ("junit:junit:${junitVersion}")

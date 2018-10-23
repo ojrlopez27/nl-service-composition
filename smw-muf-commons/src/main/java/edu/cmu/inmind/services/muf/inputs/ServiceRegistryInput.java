@@ -1,14 +1,16 @@
 package edu.cmu.inmind.services.muf.inputs;
 
+import edu.cmu.inmind.services.commons.GenericPOJO;
 import edu.cmu.inmind.services.muf.commons.Command;
 import edu.cmu.inmind.services.muf.data.OSGiService;
 
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_GET_SERVICE_BY_KEY;
+import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_GET_SERVICE_BY_POJO;
 import static edu.cmu.inmind.services.muf.commons.Constants.MSG_SR_REGISTER_SERVICE;
 
 public class ServiceRegistryInput extends Command {
     private String serviceKey;
-    // private GenericPOJO genericPOJO;
+    private GenericPOJO genericPOJO;
     private OSGiService osGiService;
 
     private ServiceRegistryInput(VanillaBuilder vanillaBuilder) {
@@ -25,12 +27,10 @@ public class ServiceRegistryInput extends Command {
         this.serviceKey = getServiceByKeyBuilder.serviceKey;
     }
 
-    /*
     private ServiceRegistryInput(GetServiceByPOJOBuilder getServiceByPOJOBuilder) {
         super(getServiceByPOJOBuilder.command);
         this.genericPOJO = getServiceByPOJOBuilder.genericPOJO;
     }
-    */
 
     public OSGiService getOsGiService() {
         validateCommand(MSG_SR_REGISTER_SERVICE);
@@ -42,12 +42,10 @@ public class ServiceRegistryInput extends Command {
         return serviceKey;
     }
 
-    /*
     public GenericPOJO getGenericPOJO() {
         validateCommand(MSG_SR_GET_SERVICE_BY_POJO);
         return genericPOJO;
     }
-    */
 
     @Override
     public String toString() {
@@ -63,9 +61,8 @@ public class ServiceRegistryInput extends Command {
                 return "OSGiService=" + osGiService;
             case MSG_SR_GET_SERVICE_BY_KEY:
                 return "serviceKey='" + serviceKey + '\'';
-            /* case MSG_SR_GET_SERVICE_BY_POJO:
+            case MSG_SR_GET_SERVICE_BY_POJO:
                 return "genericPOJO=" + genericPOJO;
-             */
         }
         return "";
     }
@@ -118,7 +115,6 @@ public class ServiceRegistryInput extends Command {
         }
     }
 
-    /*
     public static class GetServiceByPOJOBuilder {
         private String command;
         private GenericPOJO genericPOJO;
@@ -136,5 +132,4 @@ public class ServiceRegistryInput extends Command {
             return new ServiceRegistryInput(this);
         }
     }
-    */
 }
