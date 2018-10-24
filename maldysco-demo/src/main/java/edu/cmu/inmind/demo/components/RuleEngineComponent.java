@@ -12,6 +12,7 @@ import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
+import edu.cmu.inmind.multiuser.controller.resources.ResourceLocator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +34,7 @@ public class RuleEngineComponent extends PluggableComponent {
             "Your wedding anniversary is the next weekend and you want to plan a romantic night with your spouse",
             "You are planning to have a party at your home this coning weekend");
     private int scenarioIdx = 0;
+
     private String stage = DemoConstants.REQUEST_ACTION_STAGE;
     private int actionCounter = 0;
     private final int maxActions = 7;
@@ -58,12 +60,11 @@ public class RuleEngineComponent extends PluggableComponent {
                 processUserAction((String) event.getElement());
                 break;
             case DemoConstants.MSG_RECEIVE_S2V:
-                Log4J.info(this, "S2V received "+event.getElement().toString());
                 SessionMessage sessionMessage = (SessionMessage)  event.getElement();
                 absServiceCandidates = sessionMessage.getPayload();
-                // TODO: Now that service mapping, service execution are done,
-                // TODO: check Rules, identify Sequence and send result to User
+                Log4J.info(this, "S2V received "+event.getElement().toString());
                 processUserActionOnS2V();
+                break;
             case DemoConstants.MSG_SERVICE_EXECUTION:
                 /***
                  * So now send the service execution results to client
@@ -76,7 +77,12 @@ public class RuleEngineComponent extends PluggableComponent {
                         Utils.splitByCapitalizedWord(result[1], true));
                 Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL0, response));
                 stage = DemoConstants.ASK_FOR_APP_CONFIRMATION_STAGE;
-                postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT, response);
+                sessionMessage = new SessionMessage();
+                sessionMessage.setMessageId(DemoConstants.MSG_SEND_TO_CLIENT);
+                sessionMessage.setRequestType(DemoConstants.MSG_SEND_TO_CLIENT);
+                sessionMessage.setPayload(response);
+                blackboard.post(this,
+                        DemoConstants.MSG_SEND_TO_CLIENT, sessionMessage);
                 break;
             default:
                 break;
@@ -209,7 +215,7 @@ public class RuleEngineComponent extends PluggableComponent {
                 DemoConstants.S2V, DemoConstants.LEVEL0, absServiceCandidates));
         compositionController.addStepAndRegister(userAction, absServiceCandidates);
         compositionController.fireRulesAS();
-        resetAbstractServiceCandidates();
+        //resetAbstractServiceCandidates();
         /***
          * add, check and fire rules and now let's get service map
          */

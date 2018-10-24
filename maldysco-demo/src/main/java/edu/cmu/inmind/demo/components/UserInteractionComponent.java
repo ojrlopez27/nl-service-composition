@@ -2,21 +2,25 @@ package edu.cmu.inmind.demo.components;
 
 import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.demo.common.Schedule;
+import edu.cmu.inmind.demo.common.Utils;
 import edu.cmu.inmind.multiuser.controller.blackboard.Blackboard;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardEvent;
 import edu.cmu.inmind.multiuser.controller.blackboard.BlackboardSubscription;
 import edu.cmu.inmind.multiuser.controller.common.Constants;
 import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
+import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
+import edu.cmu.inmind.multiuser.controller.resources.ResourceLocator;
 
 /**
  * Created for demo : sakoju 10/4/2018
  */
 @StateType(state = Constants.STATELESS)
-@BlackboardSubscription(messages= {DemoConstants.MSG_CHECK_USER_ID})
+@BlackboardSubscription(messages= {DemoConstants.MSG_CHECK_USER_ID, DemoConstants.MSG_SERVICE_EXECUTION})
 public class UserInteractionComponent extends PluggableComponent {
 
+    private String stage="";
 
     /***
      * Valid user login
@@ -68,12 +72,12 @@ public class UserInteractionComponent extends PluggableComponent {
     }
 
     @Override
-    public void onEvent(Blackboard blackboard, BlackboardEvent blackboardEvent) throws Throwable {
-        switch(blackboardEvent.getId())
+    public void onEvent(Blackboard blackboard, BlackboardEvent event) throws Throwable {
+        switch(event.getId())
         {
             //first validate user from schedule.json
             case DemoConstants.MSG_CHECK_USER_ID:
-                checkUserLogin(blackboardEvent.getSessionId(),
+                checkUserLogin(event.getSessionId(),
                         blackboard);
                 break;
             default:

@@ -30,8 +30,8 @@ public class ServiceExecutor {
     private static final double lowerThreshold = Double.parseDouble(CommonUtils.getProperty("service.executor.threshold.lower"));
     private static final double delta = Double.parseDouble(CommonUtils.getProperty("service.executor.delta"));
 
-    public ServiceExecutor(WorkingMemory wm) {
-        this.wm = wm;
+    public ServiceExecutor() {
+        this.wm = WorkingMemory.getInstance();
         this.scanner = new Scanner(System.in);
     }
 

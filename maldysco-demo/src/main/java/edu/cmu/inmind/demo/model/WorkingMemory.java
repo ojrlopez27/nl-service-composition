@@ -29,6 +29,21 @@ public class WorkingMemory {
     private Map<String, Object> results = new HashMap<>();
     private List<List<AbstractServicePOJO>> candidates = new ArrayList<>();
     private int idxCandidates;
+    private static WorkingMemory workingMemory;
+
+    private WorkingMemory()
+    {
+
+    }
+
+    public static WorkingMemory getInstance()
+    {
+        if(workingMemory==null)
+        {
+            workingMemory = new WorkingMemory();
+        }
+        return workingMemory;
+    }
 
     public String getCommand() {
         return command;

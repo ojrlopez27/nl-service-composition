@@ -40,7 +40,7 @@ public class CompositionController {
 
     private CompositionController(){
         Log4J.debug(TAG, "Initializing CompositionController...");
-        wm = new WorkingMemory();
+        wm = WorkingMemory.getInstance();
         rulesAS = new Rules();
         rulesGS = new Rules();
         factsAS = new Facts();
@@ -48,7 +48,7 @@ public class CompositionController {
         rulesEngineGS = new DefaultRulesEngine();
         ruleListAS = new ArrayList<>();
         ruleListGS = new ArrayList<>();
-        serviceExecutor = new ServiceExecutor(wm);
+        serviceExecutor = new ServiceExecutor();
     }
 
     public static CompositionController getInstance()
