@@ -1,6 +1,7 @@
 package edu.cmu.inmind.demo.apis;
 
 import edu.cmu.inmind.demo.markers.ArgDesc;
+import edu.cmu.inmind.services.commons.GenericService;
 import edu.cmu.inmind.demo.markers.Description;
 import edu.cmu.inmind.demo.pojos.NewsPOJO;
 

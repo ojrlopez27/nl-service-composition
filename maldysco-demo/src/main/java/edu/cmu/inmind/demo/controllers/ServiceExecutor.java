@@ -7,9 +7,9 @@ import edu.cmu.inmind.demo.model.WorkingMemory;
 import edu.cmu.inmind.demo.orchestrator.DemoOrchestrator;
 import edu.cmu.inmind.demo.pojos.AbstractServicePOJO;
 import edu.cmu.inmind.demo.pojos.NERPojo;
-import edu.cmu.inmind.demo.apis.GenericService;
 import edu.cmu.inmind.multiuser.controller.common.CommonUtils;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
+import edu.cmu.inmind.services.commons.GenericService;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -40,19 +40,23 @@ public class ServiceExecutor {
     }
 
     public void pick(String QoSfeature, Class<? extends GenericService> genericService){
+        Log4J.info(this, "in 1. Serviceexecutor.pick");
         List<ServiceMethod> implementations = Utils.getImplementationsOf(genericService, wm.getServiceMethod());
         ServiceMethod method = Utils.selectService(QoSfeature, implementations);
         List<NERPojo> entities = NERController.extractEntities(wm.getConcreteAction());
         Object[] args = Utils.matchEntitiesToArgs(entities, method.getServiceMethod(), method.getParams());
         for(int idx = 0; idx < args.length; idx++){
+            Log4J.info(this, "in 2. Serviceexecutor.pick");
             String[] argDescription = Utils.getArgDescAnnotation(method.getServiceMethod(), idx);
             Type type = method.getParams()[idx];
             Object arg = args[idx];
             if(arg == null){
+                Log4J.info(this, "in 3. Serviceexecutor.pick");
                 // first, let's look for existing objects (parameters) in the working memory
                 args[idx] = wm.getResult(type.getTypeName() + "." + argDescription[0]);
                 if(args[idx] == null){
                     String question = "Missing criteria (argument). Please indicate: " + argDescription[1];
+                    Log4J.info(this, question);
                     Log4J.error(TAG, question);
                     String answer = scanner.nextLine();
                     args[idx] = Utils.getObjectFromAnswer(answer, type);

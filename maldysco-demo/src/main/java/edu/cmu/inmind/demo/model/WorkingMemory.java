@@ -3,8 +3,8 @@ package edu.cmu.inmind.demo.model;
 import edu.cmu.inmind.demo.controllers.SemanticController;
 import edu.cmu.inmind.demo.controllers.ServiceExecutor;
 import edu.cmu.inmind.demo.pojos.AbstractServicePOJO;
-import edu.cmu.inmind.demo.apis.GenericService;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
+import edu.cmu.inmind.services.commons.GenericService;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

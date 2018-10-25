@@ -1,13 +1,14 @@
 package edu.cmu.inmind.demo.apis;
 
 import edu.cmu.inmind.demo.markers.ArgDesc;
+import edu.cmu.inmind.services.commons.GenericService;
 import edu.cmu.inmind.demo.markers.Description;
 import edu.cmu.inmind.demo.pojos.MoviePOJO;
 
 /**
  * Created by oscarr on 8/17/18.
  */
-public interface MovieService {
+public interface MovieService extends GenericService {
 
     @Description(capabilities = {
             "This method allows to get recommendations for movies based on genre, actors, directors, popularity, reviews, language",

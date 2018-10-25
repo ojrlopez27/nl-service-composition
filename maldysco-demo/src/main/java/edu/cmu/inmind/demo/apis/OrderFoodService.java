@@ -1,13 +1,14 @@
 package edu.cmu.inmind.demo.apis;
 
 import edu.cmu.inmind.demo.markers.ArgDesc;
+import edu.cmu.inmind.services.commons.GenericService;
 import edu.cmu.inmind.demo.markers.Description;
 import edu.cmu.inmind.demo.pojos.FoodPOJO;
 import edu.cmu.inmind.demo.pojos.LocationPOJO;
 
 import java.util.Date;
 
-public interface OrderFoodService extends GenericService{
+public interface OrderFoodService extends GenericService {
 
     @Description(capabilities = {
             "This method allows to order food for deliver or pickup",
