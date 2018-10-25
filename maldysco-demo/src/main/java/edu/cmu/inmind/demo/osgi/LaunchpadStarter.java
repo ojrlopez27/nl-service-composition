@@ -1,5 +1,6 @@
 package edu.cmu.inmind.demo.osgi;
 
+import edu.cmu.inmind.demo.common.DemoConstants;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.yahoo.inmind.launchpad.core.framework.FelixFramework;
 import edu.cmu.yahoo.inmind.launchpad.core.repos.RepositoryManager;
@@ -30,7 +31,7 @@ public class LaunchpadStarter {
     private static LoggerContext logger;
     private static LaunchpadStarter instance;
     private FelixFramework felixFramework;
-    private List<String> remoteServerObrs;
+    private Map<String, String> remoteServerObrsMap;
     private Map<ServiceReference, Object> serviceImplMap;
 
     private LaunchpadStarter() {
@@ -48,6 +49,7 @@ public class LaunchpadStarter {
 
         // Initialize felix framework
         felixFramework = FelixFramework.getInstance();
+        remoteServerObrsMap = new HashMap<>();
         serviceImplMap = new HashMap<>();
 
         // Start the felix framework
@@ -121,7 +123,7 @@ public class LaunchpadStarter {
         felixFramework.listRegisteredServices();
 
         // initialize the repositories
-        initRemoteServerObrs();
+        // initRemoteServerObrs();
         initRepositories();
     }
 
@@ -210,8 +212,10 @@ public class LaunchpadStarter {
         // add the OBRs as mentioned in the Felix config file
         repositories.add(felixFramework.getFelixConfiguration().get(REPOSITORY_URL_PROP));
 
+        if (remoteServerObrsMap.isEmpty()) return repositories;
+
         // add the custom OBRs hosted on the remote server
-        for (String remoteServerObr : remoteServerObrs) {
+        for (String remoteServerObr : remoteServerObrsMap.values()) {
             repositories.add(remoteServerObr);
         }
 
@@ -245,14 +249,38 @@ public class LaunchpadStarter {
         logger.d(TAG, "Felix Framework layer switched to: " + level);
     }
 
+    /*
     public void startService(String serviceName, int atLevel) {
-
         String obrOsgiCore = remoteServerObrs.get(0);
-
         startService(obrOsgiCore, serviceName, atLevel);
     }
+    */
 
-    public void startService(String remoteServerObr, String serviceName, int atLevel) {
+    private String constructRemoteServerOBR(String hostOBR) {
+        return (DemoConstants.OBR_PREFIX + hostOBR + DemoConstants.REPOSITORY_SUFFIX);
+    }
+
+    public void startService(String hostOBR, String serviceName, int atLevel) {
+        String remoteServerObr;
+
+        // if the hostOBR doesn't exist in the obr cache
+        if (!remoteServerObrsMap.containsKey(hostOBR)) {
+
+            // construct the entire repository.xml file path
+            String remoteServerObrName = constructRemoteServerOBR(hostOBR);
+
+            // obtain the remote path, that is, with the hosted server details
+            remoteServerObr = RepositoryManager.getRemoteServerOBR(remoteServerObrName);
+
+            // add it to the obr cache
+            remoteServerObrsMap.put(hostOBR, remoteServerObr);
+
+            // refresh the felix repository by adding the obr
+            felixFramework.getRepositoryManager().refreshRepository(remoteServerObr);
+        }
+        else {
+            remoteServerObr = remoteServerObrsMap.get(hostOBR);
+        }
 
         // switch Felix framework to the desired level
         switchFrameworkLevel(atLevel);
@@ -271,11 +299,14 @@ public class LaunchpadStarter {
      * Initializes the initial list of OBRs hosted on the remote server
      * from which the Felix framework could load bundles.
      */
+    /*
     private void initRemoteServerObrs() {
         remoteServerObrs = new ArrayList<>();
         remoteServerObrs.add(RepositoryManager.getRemoteServerOBR(URL_OBR_INMIND_OSGI_CORE));
+        remoteServerObrs.add(RepositoryManager.getRemoteServerOBR(URL_OBR_INMIND_MUF));
         //remoteServerObrs.add(RepositoryManager.getRemoteServerOBR(URL_OBR_INMIND));
     }
+    */
 
     /*
     public void startServices() {

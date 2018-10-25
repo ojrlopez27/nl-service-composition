@@ -2,5 +2,5 @@ package edu.cmu.inmind.demo.pojos;
 /**
  * Created by sakoju on 8/8/20.
  */
-public class SocialNetworkPOJO extends GenericPOJO {
+public class SocialNetworkPOJO {
 }

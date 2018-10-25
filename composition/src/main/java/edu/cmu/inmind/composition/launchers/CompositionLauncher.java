@@ -60,7 +60,7 @@ public class CompositionLauncher {
 
         // PHASE 2: GROUNDING SERVICE COMPOSITION
         // execute services using the serviceMap:
-        inputController = new InputController(true, InputController.PHASE.GROUNDING);
+        inputController = new InputController(false, InputController.PHASE.GROUNDING);
         // let's create some rules for grounding specific services based on QoS:
         compositionController.createRulesForGroundingServices();
 

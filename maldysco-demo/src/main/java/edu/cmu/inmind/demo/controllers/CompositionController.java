@@ -82,7 +82,7 @@ public class CompositionController {
                 .description(step)
                 .priority(1)
                 .when( "wm.command == wm.lastRuleName")
-                .then("wm.print(\"Triggering '" + ruleName + "'...\"); ")
+                .then("wm.print(\"Triggering '" + ruleName +step+ "'...\"); ")
                 .then(String.format("wm.command = \"%s\"; ", ruleName))
                 .then(String.format("wm.abstractService = \"%s\";", step))
                 .then(String.format("wm.lastRuleName = \"%s\"; ", ruleName));

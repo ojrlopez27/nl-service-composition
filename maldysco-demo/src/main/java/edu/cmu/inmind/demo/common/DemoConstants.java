@@ -22,7 +22,9 @@ public class DemoConstants {
     public static final String MSG_GET_SERVICE_MAP ="MSG_GET_SERVICE_MAP";
     public static final String MSG_SERVICE_EXECUTION ="MSG_SERVICE_EXECUTION";
     public static final String MSG_SEND_SERVICE_MAP ="MSG_SEND_SERVICE_MAP";
-
+    // OBR URLs
+    public static final String OBR_PREFIX              = "obr/";
+    public static final String REPOSITORY_SUFFIX       = "/repository.xml";
 
     /***
      * Merging Ankit's changes

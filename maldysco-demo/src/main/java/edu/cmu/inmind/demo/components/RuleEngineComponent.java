@@ -12,7 +12,6 @@ import edu.cmu.inmind.multiuser.controller.communication.SessionMessage;
 import edu.cmu.inmind.multiuser.controller.log.Log4J;
 import edu.cmu.inmind.multiuser.controller.plugin.PluggableComponent;
 import edu.cmu.inmind.multiuser.controller.plugin.StateType;
-import edu.cmu.inmind.multiuser.controller.resources.ResourceLocator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,8 +36,8 @@ public class RuleEngineComponent extends PluggableComponent {
 
     private String stage = DemoConstants.REQUEST_ACTION_STAGE;
     private int actionCounter = 0;
-    private final int maxActions = 7;
-    private final int minLength = 15;
+    private final int maxActions = 4;
+    private final int minLength = 10;
     private String absServiceCandidates;
     private String userAction ="";
     private Blackboard blackboard;
@@ -52,6 +51,7 @@ public class RuleEngineComponent extends PluggableComponent {
             case DemoConstants.MSG_GROUP_CHAT_READY :
                 String response = String.format("Thanks! let's start. Consider this scenario: %s. What is the first thing you " +
                         "would ask your IPA to do?", scenarios.get(scenarioIdx++));
+                compositionController.addGoal(scenarios.get(scenarioIdx));
                 //IPALog.setFileName(sessionMessage.getPayload());
                 Log4J.info(this, response);
                 postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT, response);
@@ -214,6 +214,11 @@ public class RuleEngineComponent extends PluggableComponent {
         Log4J.info(this, String.format("%s%s\t%s",
                 DemoConstants.S2V, DemoConstants.LEVEL0, absServiceCandidates));
         compositionController.addStepAndRegister(userAction, absServiceCandidates);
+        CompositionController.CompositeService compositeService
+                = compositionController.generateCompositeServiceRequest();
+        Log4J.info(this, ". Abstract action (step): " +compositeService.getNodes().size()+
+                compositeService.getNext());
+        compositionController.createRulesForGroundingServices();
         compositionController.fireRulesAS();
         //resetAbstractServiceCandidates();
         /***
@@ -245,7 +250,7 @@ public class RuleEngineComponent extends PluggableComponent {
     {
         compositionController.fireRulesGS();
         String response = "Great, let's continue. What is the next thing you would ask your IPA to do? " +
-                "(type 'DONE' if you are done for this scenario -- but at least 7 actions/steps are required)";
+                "(type 'DONE' if you are done for this scenario -- but at least 4 actions/steps are required)";
         postToBlackboard(DemoConstants.MSG_SEND_TO_CLIENT , response);
         Log4J.info(this, String.format("%s%s\t%s", DemoConstants.IPA, DemoConstants.LEVEL1, response));
         stage = DemoConstants.REQUEST_ACTION_STAGE;
@@ -278,7 +283,7 @@ public class RuleEngineComponent extends PluggableComponent {
     }
 
     /***
-     * User typed DONE but scenario is not yet complete unless user elicits 7 steps.
+     * User typed DONE but scenario is not yet complete unless user elicits 4 steps.
      */
     private void askUserToEnterNextStep()
     {

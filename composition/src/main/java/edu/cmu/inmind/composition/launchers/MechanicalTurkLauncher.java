@@ -61,7 +61,7 @@ public class MechanicalTurkLauncher {
 
         // PHASE 2: GROUNDING SERVICE COMPOSITION
         // execute services using the serviceMap:
-        inputController = new InputController(true, InputController.PHASE.GROUNDING);
+        inputController = new InputController(false, InputController.PHASE.GROUNDING);
         // let's create some rules for grounding specific services based on QoS:
         compositionController.createRulesForGroundingServices();
 
@@ -73,6 +73,8 @@ public class MechanicalTurkLauncher {
         while( true ){
             Log4J.info(TAG, numStep + ". For this action you said: " + (concreteAction = inputController.getNext()));
             if( !concreteAction.equals(Constants.END ) ){
+                // let's simulate changes on QoS conditions
+                compositionController.addPhoneStatusToWM();
                 // let's execute the grounded service:
                 String[] result = compositionController.execute(serviceMap);
                 Log4J.trace(TAG, numStep + String.format(". The system will open this app: [%s] " +

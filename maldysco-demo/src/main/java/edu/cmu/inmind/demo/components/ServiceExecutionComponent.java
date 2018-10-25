@@ -36,6 +36,8 @@ public class ServiceExecutionComponent extends PluggableComponent {
          */
         if(blackboardEvent.getId().equals(DemoConstants.MSG_SEND_SERVICE_MAP)) {
             serviceMap = (Map<String, ServiceMethod>) blackboardEvent.getElement();
+            // let's simulate changes on QoS conditions
+            compositionController.addPhoneStatusToWM();
             String[] result = compositionController.execute(serviceMap);
             blackboard.post(this, DemoConstants.MSG_SERVICE_EXECUTION,
                     result);

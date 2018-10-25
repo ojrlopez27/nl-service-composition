@@ -91,7 +91,7 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
                     break;
                 }
 
-                case DemoConstants.MSG_SR_RESP_REGISTER_SERVICE: {
+                case MSG_SR_RESP_REGISTER_SERVICE: {
 
                     // update the blackboard with the output: no output object required, hence the object is the same
                     blackboard.post(this, MSG_LP_OUTPUT_CMD, "OSGiService deployed: " + launchpadInput.getOSGiService());
@@ -130,7 +130,7 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
 
                     break;
                 }
-                case DemoConstants.MSG_LP_LIST_SERVICES: {
+                case MSG_LP_LIST_SERVICES: {
 
                     // list the services using launchpad
                     launchpadStarterController.listServices();
@@ -140,7 +140,7 @@ public class OSGiLaunchpadComponent extends PluggableComponent {
 
                     break;
                 }
-                case DemoConstants.MSG_LP_GET_ALL_SERVICES: {
+                case MSG_LP_GET_ALL_SERVICES: {
 
                     // get all service implementations from launchpad
                     Map<ServiceReference, Object> serviceImplMap = launchpadStarterController.getAllServiceImplementations();
