@@ -1,4 +1,4 @@
-# <OPTIONAL_NAME> Natural-Language-based Service Composition
+# <MAL-DySCo> Architectural Middleware for Natural Language-Based Dynamic Service Composition
 
 This project is composed of three sub-projects (a client and two servers):
 1. sent2vec (server): this sub-project uses sentence embeddings based on an unsupervised version of Facebook FastText, and an extension of word2vec (CBOW) to sentences. It is written in C++ code and provides some Python wrappers (though, we are not using them now)
