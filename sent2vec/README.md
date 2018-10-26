@@ -1,4 +1,7 @@
 # sent2vec
+
+**Check the original github repo at: [sent2vec](https://github.com/epfml/sent2vec)**
+
 TLDR: This library delivers numerical representations (features) for short texts or sentences, which can be used as input to any machine learning task later on. Think of it as an unsupervised version of [FastText](https://github.com/facebookresearch/fastText), and an extension of word2vec (CBOW) to sentences.
 
 The method uses a simple but efficient unsupervised objective to train distributed representations of sentences. The algorithm outperforms the state-of-the-art unsupervised models on most benchmark tasks, and on many tasks even beats supervised models, highlighting the robustness of the produced sentence embeddings, see [*the paper*](https://arxiv.org/abs/1703.02507) for more details.
