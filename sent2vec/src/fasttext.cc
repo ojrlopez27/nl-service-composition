@@ -27,12 +27,15 @@
 #include <time.h>
 #include <stdio.h>
 #include <zhelpers.h>
+#include <time.h>
+#include <ctime>
+#include <chrono>
 
 #include <zmq.hpp>
 
 struct tm *fileTime;
 struct stat attrib;
-
+std::chrono::high_resolution_clock::time_point endTime;
 
 namespace fasttext {
 
@@ -595,6 +598,7 @@ std::string FastText::findNNSent(const Matrix& sentenceVectors, const Vector& qu
     }
     heap.pop();
   }
+    ::endTime = std::chrono::high_resolution_clock::now();
   return str;
 }
 
@@ -643,9 +647,8 @@ void FastText::analogies(int32_t k) {
   }
 }
 
-
 void FastText::nnSent(int32_t k, std::string filename) {  
-
+    using namespace std::chrono;
 	// let's load the corpora (method descriptions extracted from services)
 	std::string sentence;
 	std::ifstream in1(filename);
@@ -669,6 +672,7 @@ void FastText::nnSent(int32_t k, std::string filename) {
 
 	// let's calculate the similarity of user's sentences
   	while(true){
+        std::chrono::high_resolution_clock::time_point startTime = std::chrono::high_resolution_clock::now();
   		// let's receive message from java client using ZMQ
   		char* message = s_recv(socket);	
   		std::cout<< "Received: " << message << std::endl;
@@ -687,8 +691,8 @@ void FastText::nnSent(int32_t k, std::string filename) {
     	query.addVector(buffer, 1.0);    
 
     	std::string output = findNNSent(sentenceVectors, query, k, banSet, n, sentences);    
-    	std::cout << std::endl;    
-
+        duration<double, std::milli> millis = ::endTime - startTime;
+        std::cout << millis.count() << std::endl;
     	// send the response (closest neighbors to the given sentence) back to the java client    
     	int n = output.length();
     	char char_array[n+1]; 
