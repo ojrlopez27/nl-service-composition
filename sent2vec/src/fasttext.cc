@@ -598,6 +598,7 @@ std::string FastText::findNNSent(const Matrix& sentenceVectors, const Vector& qu
     }
     heap.pop();
   }
+    //let's record end time here once services are matched
     ::endTime = std::chrono::high_resolution_clock::now();
   return str;
 }
@@ -672,10 +673,11 @@ void FastText::nnSent(int32_t k, std::string filename) {
 
 	// let's calculate the similarity of user's sentences
   	while(true){
+  		char* message = s_recv(socket);
+        //let's first record start time here once message is received
         std::chrono::high_resolution_clock::time_point startTime = std::chrono::high_resolution_clock::now();
-  		// let's receive message from java client using ZMQ
-  		char* message = s_recv(socket);	
-  		std::cout<< "Received: " << message << std::endl;
+        // let's receive message from java client using ZMQ
+        std::cout<< "Received: " << message << std::endl;
   	
     	query.zero();
     	std::cout << "If user request is: [" << message << "] then the most similar descriptions are: " << std::endl ;
