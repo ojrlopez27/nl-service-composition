@@ -49,6 +49,9 @@ class FastText {
     bool quant_;
     zmq::context_t context;
     zmq::socket_t socket;
+    
+    //zmq::context_t clientcontext;
+    //zmq::socket_t clientsocket;
 
     void signModel(std::ostream&);
     bool checkModel(std::istream&);

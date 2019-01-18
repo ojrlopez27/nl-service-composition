@@ -39,9 +39,12 @@ std::chrono::high_resolution_clock::time_point endTime;
 
 namespace fasttext {
 
-FastText::FastText() : quant_(false), context (1), socket (context, ZMQ_REP) {
+    FastText::FastText() : quant_(false), context (1), socket (context, ZMQ_REP) {
+    //clientcontext (1), clientsocket (clientcontext, ZMQ_REP) {
 	socket.bind ("tcp://*:5555"), 
 	std::cout<< "Server running on port 5555..." << std::endl;
+    /*clientsocket.connect("tcp://localhost:5555");
+    std::cout<< "client connected on port 5555..." << std::endl;*/
 }
 
 void FastText::getVector(Vector& vec, const std::string& word) const {
@@ -670,7 +673,14 @@ void FastText::nnSent(int32_t k, std::string filename) {
 
 	precomputeSentenceVectors(sentenceVectors, in1);
 	std::set<std::string> banSet;
-
+    
+    //send first utterance from client socket
+    /*zmq::message_t request (40);
+    memcpy(request.data(),"book flight tickets to Rome", 27);
+    std::cout<< "user utterance sending: " << request << std::endl;
+    clientsocket.send(request);
+    int utteranceCount = 1;*/
+    
 	// let's calculate the similarity of user's sentences
   	while(true){
   		char* message = s_recv(socket);
@@ -699,7 +709,19 @@ void FastText::nnSent(int32_t k, std::string filename) {
     	int n = output.length();
     	char char_array[n+1]; 
     	std::strcpy(char_array, output.c_str()); 
-  		s_send(socket, char_array);  
+  		s_send(socket, char_array);
+        
+        //check utterance count for client socket only : scalability experiments
+        /*utteranceCount = utteranceCount+ 1;
+        if(utteranceCount <=5)
+        {
+            memcpy( request.data(),"book hotel accomodation in Rome", 31);
+            std::cout<< "user utterance sending: " << request << std::endl;
+            clientsocket.send( request);
+            utteranceCount += 1;
+        }
+        else
+            break;*/
     }
   zmq_close(socket);
   // zmq_ctx_destroy(context);
