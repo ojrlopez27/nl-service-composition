@@ -1,6 +1,8 @@
-# <MAL-DySCo> Architectural Middleware for Natural Language-Based Dynamic Service Composition
-	
-MAL-DySCo uses sentence embeddings for matching high-level natural-language-based user requests to low-level service descriptions without needing to use syntactic or semantic description languages (e.g., WSDL, OWL-S, etc.)
+# <NLSC> Unrestricted Natural Language-based Service Composition through Sentence Embeddings
+
+![coverage](https://img.shields.io/badge/coverage-80%25-yellowgreen.svg?cacheSeconds=2592000)
+
+NLSC uses sentence embeddings for matching high-level natural-language-based user requests to low-level service descriptions without needing to use syntactic or semantic description languages (e.g., WSDL, OWL-S, etc.)
 
 This project is composed of three sub-projects (a client and two servers):
 1. sent2vec (server): this sub-project uses sentence embeddings based on an unsupervised version of Facebook FastText, and an extension of word2vec (CBOW) to sentences. It is written in C++ code and provides some Python wrappers (though, we are not using them now)
@@ -85,3 +87,17 @@ This project is composed of three sub-projects (a client and two servers):
 - Mechanism for mapping entity extraction with parameters is pretty basic, we should improve it
 - Running multiple times the same experiment produces different similarities (sent2vec) so sometimes the service grounding cannot be performed since similarities are really low.... not sure why this happens (it occurs randomly and rarely)
 - etc.
+
+## Citation
+
+Please cite the [SCC 2019 paper](https://arxiv.org/abs/1901.07910) if you use NLSC in your work:
+
+```
+@inproceedings{nlsc:2019,
+  title = {Unrestricted Natural Language-based Service Composition through Sentence Embeddings},
+  author = {{Romero}, {Oscar} J. and {Dangi}, {Ankit and} {Akoju}, {Sushma}},
+  booktitle = {Services Computing Conference},
+  year          = "2019",
+  pages         = "00--00"
+}
+```
