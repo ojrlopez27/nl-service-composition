@@ -2,8 +2,6 @@
 
 ![coverage](https://img.shields.io/badge/coverage-90%25-yellowgreen.svg?cacheSeconds=2592000) 
 ![language](https://img.shields.io/badge/language-Java-yellowgreen.svg?cacheSeconds=2592000) 
-![language](https://img.shields.io/badge/language-Android-yellowgreen.svg?cacheSeconds=2592000) 
-![language](https://img.shields.io/badge/language-Python-yellowgreen.svg?cacheSeconds=2592000) 
 ![language](https://img.shields.io/badge/language-C++-yellowgreen.svg?cacheSeconds=2592000) 
 ![version](https://img.shields.io/badge/version-1.2-blue.svg?cacheSeconds=2592000)
 ![build](https://img.shields.io/badge/build-passed-green.svg?cacheSeconds=2592000)
