@@ -1,5 +1,8 @@
 SendBird Android Sample UI
 ===========
+
+Source: [SendBird](https://github.com/smilefam/SendBird-Android/tree/master/basic)
+
 The Sendbird Android Sample UI is a fully functional messaging app. In **Open Channels**, users can freely enter and chat with anyone within a channel. **Group Channels** can be created by inviting others into a private 1:1 chat or a group chat among multiple friends.
 
 
