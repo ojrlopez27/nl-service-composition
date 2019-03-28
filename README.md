@@ -1,15 +1,22 @@
 # <NLSC> Unrestricted Natural Language-based Service Composition through Sentence Embeddings
 
+Status for master branch:
+
+[//]: # (this is a comment: see this link for badges using travis-CI, codecov, etc: https://github.com/mlindauer/SMAC3/blob/warmstarting_multi_model/README.md)
+
+![build](https://img.shields.io/badge/build-passing-green.svg?cacheSeconds=2592000)
+![test](https://img.shields.io/badge/test-passing-green.svg?cacheSeconds=2592000)
 ![coverage](https://img.shields.io/badge/coverage-90%25-yellowgreen.svg?cacheSeconds=2592000) 
-![language](https://img.shields.io/badge/language-Java-yellowgreen.svg?cacheSeconds=2592000) 
-![language](https://img.shields.io/badge/language-C++-yellowgreen.svg?cacheSeconds=2592000) 
-![version](https://img.shields.io/badge/version-1.2-blue.svg?cacheSeconds=2592000)
-![build](https://img.shields.io/badge/build-passed-green.svg?cacheSeconds=2592000)
-![test](https://img.shields.io/badge/test-passed-green.svg?cacheSeconds=2592000)
-![dependencies](https://img.shields.io/badge/dependencies-sent2vec-orange.svg?cacheSeconds=2592000)
 ![codacy](https://img.shields.io/badge/codacy-B-green.svg?cacheSeconds=2592000)
 
+Implementation:
 
+![version](https://img.shields.io/badge/version-1.2-blue.svg?cacheSeconds=2592000)
+![language](https://img.shields.io/badge/language-Java-yellowgreen.svg?cacheSeconds=2592000) 
+![language](https://img.shields.io/badge/language-C++-yellowgreen.svg?cacheSeconds=2592000) 
+![dependencies](https://img.shields.io/badge/dependencies-sent2vec-orange.svg?cacheSeconds=2592000)
+
+## Overview
 
 NLSC uses sentence embeddings for matching high-level natural-language-based user requests to low-level service descriptions without needing to use syntactic or semantic description languages (e.g., WSDL, OWL-S, etc.)
 
@@ -25,10 +32,10 @@ This project is composed of three sub-projects (a client and two servers):
     - easy-rule engine and MVEL rules for composition
     - POJOs
     - Utils
-3. performance (server): this is a Java server that is listening from multiple clients which tell the server how long they took to perform the task. This server, once has collected all the time logs from all the clients, stores the each single time entry and the average on a file.
+3. performance (server): this is a Java server that is listening from multiple clients which tell the server how long they took to perform the task. This server, once has collected all the time logs from all the clients, stores on a file both each single time entry and the average time for all clients.
     
 ## Setup
-1. sent2vec: follow the instructions on the README file under the sent2vec folder, and:
+1. **sent2vec** server: follow the instructions on the README file under the sent2vec folder, and:
     - Download Cython. If using mac, 'pip install Cython'
     - Install module globally:
 	      - /usr/local/bin/python2.7 setup.py build_ext
@@ -36,7 +43,7 @@ This project is composed of three sub-projects (a client and two servers):
 	      - pip3 install nltk
     - Download pre-trained models from https://github.com/epfml/sent2vec, more specifically, wiki bigrams (16GB) and toronto unigrams (2GB) -- though you can try different models, particularly, we should try twitter model since it is bigger in size and precision may be improved. Put the models under the folder sent2vec
     - Modify run.sh bash script. If you want more precision (though it will be slower) then use wiki model, otherwise use toronto model which is faster
-2. composition:
+2. **composition client:
     - Modify config.properties and point the path variables to your local folders
     - Modify task-def-script to reflect the high level description of a task or plan (e.g., plan a trip to a place on a range of dates)
     - Modify task-exec-script to reflect a contextualization of the high-level description (e.g., plan a trip to Boston from August 29 to September 11)
@@ -97,7 +104,7 @@ This project is composed of three sub-projects (a client and two servers):
 - Running multiple times the same experiment produces different similarities (sent2vec) so sometimes the service grounding cannot be performed since similarities are really low.... not sure why this happens (it occurs randomly and rarely)
 - etc.
 
-## Citation
+## How to cite our work
 
 Please cite the [SCC 2019 paper](https://arxiv.org/abs/1901.07910) if you use NLSC in your work:
 
