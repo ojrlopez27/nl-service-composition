@@ -2,27 +2,27 @@
 
 Status for master branch:
 
-[//]: # (this is a comment: see this link for badges using travis-CI, codecov, etc: https://github.com/mlindauer/SMAC3/blob/warmstarting_multi_model/README.md)
-
-![build](https://img.shields.io/badge/build-passing-green.svg?cacheSeconds=2592000)
-![test](https://img.shields.io/badge/test-passing-green.svg?cacheSeconds=2592000)
+[//]: # (this is a comment: see this link for badges using travis-CI, codecov, etc: https://github.com/mlindauer/SMAC3/blob/warmstarting_multi_model/README.md) 
+![build](https://img.shields.io/badge/build-passing-green.svg?cacheSeconds=2592000) 
+![test](https://img.shields.io/badge/test-passing-green.svg?cacheSeconds=2592000) 
 ![coverage](https://img.shields.io/badge/coverage-90%25-yellowgreen.svg?cacheSeconds=2592000) 
-![codacy](https://img.shields.io/badge/codacy-B-green.svg?cacheSeconds=2592000)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e3935f15c7fe495191910e9ab92d9143)](https://www.codacy.com/app/ojrlopez27/semantic-middleware?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ojrlopez27/nl-service-composition&amp;utm_campaign=Badge_Grade)
 
 Implementation:
 
 ![version](https://img.shields.io/badge/version-1.2-blue.svg?cacheSeconds=2592000)
 ![language](https://img.shields.io/badge/language-Java-yellowgreen.svg?cacheSeconds=2592000) 
 ![language](https://img.shields.io/badge/language-C++-yellowgreen.svg?cacheSeconds=2592000) 
+![language](https://img.shields.io/badge/language-Python-yellowgreen.svg?cacheSeconds=2592000) 
 ![dependencies](https://img.shields.io/badge/dependencies-sent2vec-orange.svg?cacheSeconds=2592000)
 
 ## Overview
 
 NLSC uses sentence embeddings for matching high-level natural-language-based user requests to low-level service descriptions without needing to use syntactic or semantic description languages (e.g., WSDL, OWL-S, etc.)
 
-This project is composed of three sub-projects (a client and two servers):
-1. sent2vec (server): this sub-project uses sentence embeddings based on an unsupervised version of Facebook FastText, and an extension of word2vec (CBOW) to sentences. It is written in C++ code and provides some Python wrappers (though, we are not using them now)
-2. composition (client): this is a Java sub-project (further portable to Android) that defines:
+This project is composed of multiple sub-projects, but for a minimal execution you only need to run sub-projects 1 and 2:
+1. **sent2vec** (server): this sub-project uses sentence embeddings based on an unsupervised version of Facebook FastText, and an extension of word2vec (CBOW) to sentences. It is written in C++ code and provides some Python wrappers.
+2. **composition** (client): this is a Java sub-project (further portable to Android) that defines:
     - Annotated abstract services (APIS) 
     - Annotated concrete services
     - Compositional Mechanisms (pipeline syle, for now)
@@ -32,7 +32,11 @@ This project is composed of three sub-projects (a client and two servers):
     - easy-rule engine and MVEL rules for composition
     - POJOs
     - Utils
-3. performance (server): this is a Java server that is listening from multiple clients which tell the server how long they took to perform the task. This server, once has collected all the time logs from all the clients, stores on a file both each single time entry and the average time for all clients.
+3. **experiments/performance** (server): this is a Java server that is listening to multiple clients which tell the server how long they took to perform the composition task. This server, once has collected all the time logs from all the clients, stores on a file both each single time entry and the average time for all clients.
+4. **experiments/mechanical-turk** (client-server): this is a web application written in tornado python. Basically, this is a chat interface that allows human users to interact with an agent in the background who performs service composition
+5. **experiments/android** (client): this is an android client app that allows a human user to communicate with an agent running in the server who performs service composition
+6. **osgi** (server): this is the migration of composition project to OSG-i (experimental)
+7. **sent2vec-client** (client): this is a test client that communicates with sent2vec server (only for testing pruposes)
     
 ## Setup
 1. **sent2vec** server: follow the instructions on the README file under the sent2vec folder, and:
@@ -48,7 +52,7 @@ This project is composed of three sub-projects (a client and two servers):
     - Modify task-def-script to reflect the high level description of a task or plan (e.g., plan a trip to a place on a range of dates)
     - Modify task-exec-script to reflect a contextualization of the high-level description (e.g., plan a trip to Boston from August 29 to September 11)
     - If you are **NOT** doing performance tests, then you should disable the corresponding option on the confi.properties file (performance.test.enable = false)
-3. **performance** server:
+3. **experiments/performance** server:
 	- Install GNU parallel: (brew install parallel, or port install parallel)
 	- Modify build.gradle to create a jar
 	- Write a script for running the jar
@@ -58,10 +62,10 @@ This project is composed of three sub-projects (a client and two servers):
 	- Run the performance Java server
 	- Run the parallel script for 10, 100, 1000, 10,000 processes (clients)
 4. Mechanical Turk Experiments:
-	- Make sure you are using wiki pre-trained model (it is more accurate). Modify run.sh script.
+	- Make sure you are using wiki pre-trained model (it is more accurate). Modify sent2vec/run.sh script.
 	- If you have added new services or api's (**only**) then:
-		- add words to the blacklist (if needed) in DatasetCleaner
-	- Configure the Chat Web App (python):
+		- add words to the blacklist (if needed) in composiiton/.../DatasetCleaner
+	- Configure the Chat Web App (experiments/mechanical-turk/chat):
 		- brew install python
 		- brew upgrade python
 		- check version (should be minimum 3.6): /usr/local/bin/python3.6-32 --version
@@ -71,16 +75,16 @@ This project is composed of three sub-projects (a client and two servers):
 			- make sure every time you move to another network (e.g., from home to campus) you will have to update the ip address in noip.com (user inmind.yahoo.2015@gmail)
 			- if working from home, you hill have to open (forward) TCP and UPP ports 5555, 5556 and 8888 (using your admin web console of your router) otherwise, while testing locally, you can just test using localhost (though, during tests with turkers, you will need to make sure app.composer.ddns.net is available)
 	- run sent2vec
-	- change config.properties (paths) on java composition project
+	- change config.properties (variable paths) on java composition project
 	- run Java composition project (MUF_MKTLauncher.java)
 	- open a web browser and type either app.composer.ddns.net:8888 or localhost:8888
   
 ## Execution
 - There are two modes of execution:
-    1. Batch: it reads both high-level and contextualized descriptions from task-def-script and task-exec-script files respectively
+    1. Batch: it reads both high-level and contextualized descriptions from composition/task-def-script and composition/task-exec-script files respectively
     2. Step-by-step: it waits for user to type each entry on the console rather than reading them from the files
 - The execution mode can be changed on class CompositionLauncher, when InputController is instantiated
-- First, execute bash script 'run.sh' under sent2vec, wait few minutes (depending on the size of the pre-trained model), and then run the Java project (though, if you run Java first, it will wait until sent2vec has established the connection)
+- First, execute bash script 'sent2vec/run.sh, wait few minutes (depending on the size of the pre-trained model), and then run the Java project (though, if you run Java first, it will wait until sent2vec has established the connection)
 - Once the sent2vec server is running, the pre-trained model is loaded only once, so you can stop and re-start the Java client as many times as you want without having to stop the server (though sometimes the server gets blocked, so you have to stop it)
 
 ## Playing with it
