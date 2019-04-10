@@ -21,6 +21,8 @@ import org.mindswap.owls.service.Service;
 import org.mindswap.query.ValueMap;
 
 /**
+ * Source: https://www.programcreek.com/java-api-examples/index.php?source_dir=pfyuit.semtools-master/SemTools/src/org/yubuaa/discovery/Matchmaker.java
+ *
  * An example that finds service matches for composition. The outputs of services are matched with 
  * the inputs of services using one of EXACT, SUBSUME and RELAXED match criteria. Pellet reasoner is
  * used to find matches but can be replaced with any other reasoner. 
