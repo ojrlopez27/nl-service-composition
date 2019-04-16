@@ -32,7 +32,7 @@ public class ServiceExecutor {
 
     public ServiceExecutor(WorkingMemory wm) {
         this.wm = wm;
-        this.scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
     }
 
     public void setOrchestrator(MKTExperimentOrchestrator orchestrator) {

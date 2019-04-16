@@ -12,9 +12,9 @@ public class SemanticController {
     private static List<List<String>> synonyms = new ArrayList<>();
 
     static{
-        synonyms.add( Arrays.asList(new String[]{"from", "departureDate", "checkin", "when"}) );
-        synonyms.add( Arrays.asList(new String[]{"to", "returnDate", "checkout", "when"}) );
-        synonyms.add( Arrays.asList(new String[]{"place", "destination"}) );
+        synonyms.add( Arrays.asList("from", "departureDate", "checkin", "when") );
+        synonyms.add( Arrays.asList("to", "returnDate", "checkout", "when") );
+        synonyms.add( Arrays.asList("place", "destination") );
     }
 
     public static List<String> getSynonyms(String word){

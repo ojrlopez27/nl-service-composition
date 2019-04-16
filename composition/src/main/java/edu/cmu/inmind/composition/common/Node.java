@@ -7,7 +7,8 @@ import java.util.List;
  * Created by oscarr on 8/8/18.
  */
 public class Node {
-    public enum NodeType{PLAIN, IF};
+    public enum NodeType{PLAIN, IF}
+
     private String name;
     private NodeType type;
     private Node parent;
