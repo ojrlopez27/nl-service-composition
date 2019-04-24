@@ -85,7 +85,27 @@ public class NERController {
         return true;
     }
 
+    private static void print(List<NERPojo> annotations){
+        for(NERPojo annotation : annotations){
+            System.out.println(annotation);
+        }
+    }
+
     public static void main(String args[]){
-        NERController.extractEntities("First, Check ten times (1, 2, 3, four) the availability on calendar from August 3 to August 10 at 10:30am");
+        init();
+        //extractEntities("First, Check ten times (1, 2, 3, four) the availability on calendar from August 3 to August 10 at 10:30am");
+        print(extractEntities("look for flights to Paris August 10 at 10:30am"));
+        System.out.println("===============");
+        print(extractEntities("look  for  flights  to  Paris  for  less than  $700"));
+        System.out.println("===============");
+        print(extractEntities("flying from a specific origin place"));
+        System.out.println("===============");
+        print(extractEntities("flying to a specific destination place"));
+        System.out.println("===============");
+        print(extractEntities("maximum price per flight ticket"));
+        System.out.println("===============");
+        print(extractEntities("cabin class"));
+        System.out.println("===============");
+        print(extractEntities("number of passengers or travelers"));
     }
 }

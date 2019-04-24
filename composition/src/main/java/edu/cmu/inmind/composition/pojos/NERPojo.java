@@ -69,4 +69,9 @@ public class NERPojo {
     public void setPrevious(NERPojo previous) {
         this.previous = previous;
     }
+
+    @Override
+    public String toString(){
+        return String.format("[word: %s, annotation: %s]", word, annotation);
+    }
 }
