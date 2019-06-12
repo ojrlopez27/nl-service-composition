@@ -110,7 +110,7 @@ This project is composed of multiple sub-projects, but for a minimal execution y
 
 ## How to cite our work
 
-Please cite the [SCC 2019 paper](https://arxiv.org/abs/1901.07910) if you use NLSC in your work:
+[SCC 2019 paper](https://arxiv.org/abs/1901.07910):
 
 ```
 @inproceedings{nlsc:2019,
