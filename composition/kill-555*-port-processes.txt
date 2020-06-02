@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# TODO: REPLACE FILE EXTENSION WITH .sh
 sudo lsof -ti tcp:8888
 sudo lsof -ti tcp:5555
 sudo lsof -ti tcp:5556
